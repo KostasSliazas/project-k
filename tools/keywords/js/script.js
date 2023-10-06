@@ -17,8 +17,8 @@
   const meta = document.getElementById("meta");
   const copyText = document.getElementById("copy");
   const statisticsW = document.getElementById("stat-keywords");
-  const statisticsN = document.getElementById("stat-letters");
-  const statisticsL = document.getElementById("stat-breaks");
+  const statisticsL = document.getElementById("stat-letters");
+  const statisticsN = document.getElementById("stat-breaks");
 
   const changed = (e) => {
     if (e.target) toggleBoolean = !toggleBoolean;
