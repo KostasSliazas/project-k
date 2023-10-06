@@ -1,0 +1,228 @@
+body {
+    background: #232525;
+    margin: 0;
+    font: 16px/1.5 Calibri, Candara, Segoe, Segoe UI, Optima, Arial, sans-serif;
+}
+
+@keyframes rote {
+    from {
+        transform: rotate(10deg);
+    }
+
+    to {
+        transform: rotate(-10deg);
+    }
+}
+.drunktext.drunked {
+    transform: translateY(24px);
+    position: relative;
+    display: inline-block;
+    z-index: 1;
+    background: #777;
+    width: 154px;
+}
+.drunktext i {
+    display: inline-block;
+    letter-spacing: 2px;
+    font-synthesis: none;
+    font-style: normal;
+}
+
+.drunktext i:empty {
+    width: .5ch;
+}
+
+.drunked i {
+    animation: 1.0s ease-in-out rote infinite;
+}
+
+.drunked i:nth-child(odd) {
+    animation-direction: alternate-reverse;
+}
+
+.drunked i:nth-child(2n) {
+    animation-direction: alternate;
+}
+
+label {
+    margin: 0 6px;
+    text-align: right;
+}
+
+header {
+    font-size: 2em;
+    text-align: center;
+    color: #6EA9E1;
+}
+
+.code {
+    background: #2f3842;
+    counter-reset: counter;
+    color: #6ea9e1;
+    font-family: Calibri, Candara, Segoe, Segoe UI, Optima, Arial, sans-serif;
+    letter-spacing: 1px;
+    text-align: left;
+}
+
+.code__p {
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.code__p::before {
+    counter-increment: counter;
+    content: counter(counter);
+    display: inline-block;
+    border-right: 1px solid #567;
+    padding: 0 6px 0 0;
+    color: #567;
+    width: 32px;
+    text-align: right;
+    margin: 0 6px 0 0;
+    font-style: normal;
+}
+
+.code__i {
+    margin: 0 2px;
+}
+
+.code__i--el {
+    color: #dbd7c7;
+}
+
+.code__i--sc {
+    color: #63b396;
+}
+
+.code__i--re {
+    color: #b44c18;
+}
+
+.code__i--ta {
+    color: #630707;
+}
+
+.code__i--co {
+    color: #83764a;
+    font-style: italic;
+}
+
+main {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.container {
+    display: flex;
+    overflow: hidden;
+    background: #777;
+    padding: 1.5em;
+    position: relative;
+    box-shadow: 0 0 10px #000;
+}
+
+.container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    border-left: 50px solid #777;
+    border-right: 50px solid #777;
+    border-top: 50px solid #232525;
+    border-bottom: 0px solid transparent;
+    transform: translateX(-50%);
+}
+
+#text-output,
+#text-input {
+    margin: 0;
+    scrollbar-width: thin;
+    position: sticky;
+    top: 0;
+    border: 6px solid #2F3842;
+    width: -webkit-fill-available;
+    width: -moz-available;
+}
+
+.input,
+.output {
+    width: 45%;
+    color: #a4a4a4;
+    margin: 0;
+    padding: 0;
+    background: #2F3842;
+    z-index: 1;
+    max-height: 480px;
+    overflow-y: scroll;
+    position: relative;
+}
+
+footer {
+    height: 100px;
+    text-align: right;
+    margin: 0 auto;
+    max-width: 1000px;
+    color: #777;
+}
+
+.btn {
+    box-shadow: 0px 10px 14px -7px #45515E;
+    background: linear-gradient(to bottom, #485564 5%, #5a6777 100%);
+    background-color: #485564;
+    border: 1px solid #45515E;
+    display: inline-block;
+    cursor: pointer;
+    color: #fff;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #000;
+    min-width: 10%;
+    max-height: 7em;
+    line-height: 4;
+    text-transform: uppercase;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    z-index: 1;
+}
+
+.btn:hover {
+    background: linear-gradient(to bottom, #2F3842 5%, #2F3842 100%);
+    background-color: #2F3842;
+}
+
+.btn:active {
+    position: relative;
+    top: 1px;
+}
+
+.txt-shadow2 {
+    text-shadow: rgb(119, 119, 119) -1px 1px 0px, rgb(119, 119, 119) -2px 2px 0px, rgb(119, 119, 119) -3px 3px 0px, rgb(119, 119, 119) -4px 4px 0px, rgb(119, 119, 119) -5px 5px 0px, rgb(119, 119, 119) -6px 6px 0px, rgb(119, 119, 119) -7px 7px 0px, rgb(119, 119, 119) -8px 8px 0px, rgb(119, 119, 119) -9px 9px 0px, rgb(119, 119, 119) -10px 10px 0px, rgb(119, 119, 119) -11px 11px 0px, rgb(119, 119, 119) -12px 12px 0px, rgb(119, 119, 119) -13px 13px 0px, rgb(119, 119, 119) -14px 14px 0px, rgb(119, 119, 119) -15px 15px 0px, rgb(119, 119, 119) -16px 16px 0px, rgb(119, 119, 119) -17px 17px 0px, rgb(119, 119, 119) -18px 18px 0px, rgb(119, 119, 119) -19px 19px 0px, rgb(119, 119, 119) -20px 20px 0px, rgb(119, 119, 119) -21px 21px 0px, rgb(119, 119, 119) -22px 22px 0px, rgb(119, 119, 119) -23px 23px 0px, rgb(119, 119, 119) -24px 24px 0px, rgb(119, 119, 119) -25px 25px 0px, rgb(119, 119, 119) -26px 26px 0px, rgb(119, 119, 119) -27px 27px 0px, rgb(119, 119, 119) -28px 28px 0px, rgb(119, 119, 119) -29px 29px 0px, rgb(119, 119, 119) -30px 30px 0px, rgb(119, 119, 119) -31px 31px 0px, rgb(119, 119, 119) -32px 32px 0px, rgb(119, 119, 119) -33px 33px 0px, rgb(119, 119, 119) -34px 34px 0px, rgb(119, 119, 119) -35px 35px 0px, rgb(119, 119, 119) -36px 36px 0px;
+    position: absolute;
+    left: 50%;
+    margin-left: -84px;
+    z-index: 11;
+}
+
+.txt-shadow {
+    text-shadow: rgb(119, 119, 119) 1px 1px 0px, rgb(119, 119, 119) 2px 2px 0px, rgb(119, 119, 119) 3px 3px 0px, rgb(119, 119, 119) 4px 4px 0px, rgb(119, 119, 119) 5px 5px 0px, rgb(119, 119, 119) 6px 6px 0px, rgb(119, 119, 119) 7px 7px 0px, rgb(119, 119, 119) 8px 8px 0px, rgb(119, 119, 119) 9px 9px 0px, rgb(119, 119, 119) 10px 10px 0px, rgb(119, 119, 119) 11px 11px 0px, rgb(119, 119, 119) 12px 12px 0px, rgb(119, 119, 119) 13px 13px 0px, rgb(119, 119, 119) 14px 14px 0px, rgb(119, 119, 119) 15px 15px 0px, rgb(119, 119, 119) 16px 16px 0px, rgb(119, 119, 119) 17px 17px 0px, rgb(119, 119, 119) 18px 18px 0px, rgb(119, 119, 119) 19px 19px 0px, rgb(119, 119, 119) 20px 20px 0px, rgb(119, 119, 119) 21px 21px 0px, rgb(119, 119, 119) 22px 22px 0px, rgb(119, 119, 119) 23px 23px 0px, rgb(119, 119, 119) 24px 24px 0px, rgb(119, 119, 119) 25px 25px 0px, rgb(119, 119, 119) 26px 26px 0px, rgb(119, 119, 119) 27px 27px 0px, rgb(119, 119, 119) 28px 28px 0px, rgb(119, 119, 119) 29px 29px 0px, rgb(119, 119, 119) 30px 30px 0px, rgb(119, 119, 119) 31px 31px 0px, rgb(119, 119, 119) 32px 32px 0px, rgb(119, 119, 119) 33px 33px 0px, rgb(119, 119, 119) 34px 34px 0px, rgb(119, 119, 119) 35px 35px 0px, rgb(119, 119, 119) 36px 36px 0px;
+    position: absolute;
+    left: 50%;
+    margin-left: 16px;
+    z-index: 1;
+}
+
+@media only screen and (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .input,
+    .output {
+        width: 100%;
+    }
+
+    .btn {
+        order: -1;
+    }
+}
