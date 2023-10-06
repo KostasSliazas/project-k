@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Regex Extractor</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <style>
+      body {
+        background: #eee;
+        margin: 0;
+        font: 16px/1.5 monospace;
+        color: #334;
+      }
+
+      footer,
+      header {
+        text-align: center;
+      }
+
+      p {
+        line-break: anywhere;
+        overflow-x: hidden;
+        word-wrap: break-word;
+      }
+
+      main {
+        background: #fafafa;
+        padding: 1em;
+        max-width: 700px;
+        display: flex;
+        flex-direction: column;
+        margin: 0 auto;
+      }
+
+      input {
+        position: absolute;
+        left: 0;
+        display: block;
+      }
+
+      textarea {
+        color: #706577;
+      }
+
+      label,
+      input,
+      button {
+        line-height: 2;
+        cursor: pointer;
+        font-size: initial;
+        padding: 0 1.5em;
+      }
+
+      button {
+        min-width: 100px;
+      }
+
+      div {
+        font-size: 0;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        place-content: center;
+      }
+
+      span,
+      p {
+        font-size: initial;
+        margin: 0;
+      }
+      #output {
+      background:#fff;
+      border:1px solid #333;
+      }
+      .b{
+        font-weight: 700;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>Regex Extractor</header>
+    <main>
+      <p>Input:</p>
+      <textarea id="area" rows="10" cols="40">7 77,777 $777,777dolars and €777.777euros plus $.777 and €0</textarea>
+      <div>
+        <input id="onenum" type="radio" name="regex" value="(?<!\S)\d+(?!\S)" />
+        <label for="onenum" title="Search for more info and explanations" >(?&lt;!\S)\d+(?!\S) select numbers(integer)</label>
+      </div>
+      <div>
+        <input id="onenumwithdolar" type="radio" name="regex" value="(?<=\$)[\d.]+" checked/>
+        <label for="onenumwithdolar" title="Search for more info and explanations" >(?&lt;=\$)[\d.]+ select number with $ and .</label>
+      </div>
+      <div>
+        <input id="onenumwitheur" type="radio" name="regex" value="(?<=\€)[\d.]+"/>
+        <label for="onenumwitheur" title="Search for more info and explanations" >(?&lt;=\€)[\d.]+ select number with € and .</label>
+      </div>
+      <button id="extract">Extract</button>
+      <p>
+        <span>length:<span id="length" class="b">0</span></span
+        >&nbsp;<span>sum:<span id="sum" class="b">0</span></span>
+      </p>
+      <p>Extracted output:</p>
+      <p id="output" class="b"></p>
+    </main>
+    <footer>Regex Extractor</footer>
+    <script>
+      const area = document.getElementById("area")
+      const extract = document.getElementById("extract")
+      const output = document.getElementById("output")
+      const checkbox = document.querySelectorAll("input[type=radio]")
+      const len = document.getElementById("length")
+      const sum = document.getElementById("sum")
+
+      extract.addEventListener("click", () => {
+        const elem = Array.from(checkbox).find((e) => e.checked)
+        const reg = new RegExp(`${elem.value}`, "g")
+        let array = area.value.match(reg) || [0]
+        const sumOfArray = array.reduce((partialSum, a) => parseFloat(partialSum) + parseFloat(a),0)
+        output.textContent = array[0] === 0 && array.length === 1 ? (array = "") : array
+        len.textContent = array.length
+        sum.textContent = sumOfArray
+      })
+    </script>
+  </body>
+</html>
