@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="UTF-8">
+    <meta name="description" content="Regex Extractor">
+    <meta name="keywords" content="regex, pattern,matching,text,validation,string,patterns,character,regular,search,data,extraction,syntax,operators,quantifiers,anchors,groups,capture,metacharacters,alternation,lookaround,testing">
+    <meta name="author" content="Kostas Šliažas">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Regex Extractor</title>
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
@@ -11,7 +15,7 @@
     <meta name="theme-color" content="#ffffff">
     <style>
       body {
-        background: #eee;
+        background: #aaa;
         margin: 0;
         font: 16px/1.5 monospace;
         color: #334;
@@ -20,6 +24,14 @@
       footer,
       header {
         text-align: center;
+        height: 48px;
+        display: flex;
+        place-content: center;
+        place-items: center;
+        background: #737272;
+        margin: 0 auto;
+        padding: 1em;
+        color:#fafafa;
       }
 
       p {
@@ -30,13 +42,15 @@
 
       main {
         background: #fafafa;
-        padding: 1em;
-        max-width: 700px;
+        padding: 1em 0;
         display: flex;
         flex-direction: column;
         margin: 0 auto;
       }
-
+      .in{
+      max-width:900px;
+      margin: 0 auto;
+      }
       input {
         position: absolute;
         left: 0;
@@ -54,10 +68,9 @@
         cursor: pointer;
         font-size: initial;
         padding: 0 1.5em;
-      }
-
-      button {
-        min-width: 100px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
       }
 
       div {
@@ -72,13 +85,23 @@
       p {
         font-size: initial;
         margin: 0;
+        min-width: 240px;
       }
       #output {
       background:#fff;
       border:1px solid #333;
+      min-height:1.5em;
       }
       .b{
         font-weight: 700;
+      }
+      .row{
+      flex-direction: row;
+      place-items: stretch;
+      place-content: stretch;
+      place-self: end;
+      min-width: 240px;
+      text-align:right;
       }
     </style>
   </head>
@@ -86,8 +109,8 @@
   <body>
     <header>Regex Extractor</header>
     <main>
-      <p>Input:</p>
-      <textarea id="area" rows="10" cols="40">7 77,777 $777,777dolars and €777.777euros plus $.777 and €0</textarea>
+    <div class="in">
+      <textarea id="area" rows="10" cols="40">7 77,777 $777.10 0dolars and €777.1euros plus and €0.2 $0.20 $0.4770 €0.477</textarea>
       <div>
         <input id="onenum" type="radio" name="regex" value="(?<!\S)\d+(?!\S)" />
         <label for="onenum" title="Search for more info and explanations" >(?&lt;!\S)\d+(?!\S) select numbers(integer)</label>
@@ -101,12 +124,14 @@
         <label for="onenumwitheur" title="Search for more info and explanations" >(?&lt;=\€)[\d.]+ select number with € and .</label>
       </div>
       <button id="extract">Extract</button>
-      <p>
-        <span>length:<span id="length" class="b">0</span></span
-        >&nbsp;<span>sum:<span id="sum" class="b">0</span></span>
+      <p class='row'>
+        <span>length:<span id="length" class="b">0</span></span>&nbsp;<span>sum:<span id="sum" class="b">0</span></span>
       </p>
+      <div class='row'>
       <p>Extracted output:</p>
       <p id="output" class="b"></p>
+      </div>
+      </div>
     </main>
     <footer>Regex Extractor</footer>
     <script>
@@ -121,7 +146,13 @@
         const elem = Array.from(checkbox).find((e) => e.checked)
         const reg = new RegExp(`${elem.value}`, "g")
         let array = area.value.match(reg) || [0]
-        const sumOfArray = array.reduce((partialSum, a) => parseFloat(partialSum) + parseFloat(a),0)
+        const sumOfArray = array.reduce( (a,b) => {
+        const n1 = a.toString().split('.')[1]
+        const n2 = b.toString().split('.')[1]
+        const len1 = (n1 && n1.length) || 0
+        const len2 = (n2 && n2.length) || 0
+        return parseFloat((parseFloat(a) + parseFloat(b)).toFixed(len1 + len2))
+      }, 0)
         output.textContent = array[0] === 0 && array.length === 1 ? (array = "") : array
         len.textContent = array.length
         sum.textContent = sumOfArray
