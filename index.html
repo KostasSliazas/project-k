@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>MOVABLE</title>
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="manifest" href="site.webmanifest">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+
+
+<style>
+
+
+:root {
+--color0: #ecfeff;
+--color1: #a5f3fc;
+--color2: #22d3ee;
+--color3: #0891b2;
+--color4: #155e75;
+}
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+    font: 16px/1.25 Arial, sans-serif;
+    color: #555;
+      background:
+      linear-gradient(90deg, #333 0px, #333 1px, transparent 1px) calc(50vw - 1px)/cover scroll, linear-gradient(0deg, #333 0px, #333 1px, transparent 1px) 0 calc(50vh - 1px)/cover scroll no-repeat, repeating-linear-gradient(transparent 0px, transparent 9px, var(--color3) 9px, var(--color3) 10px) 0 0 fixed, repeating-linear-gradient(90deg, transparent 0px, transparent 9px, var(--color3) 9px, var(--color3) 10px) 0 1px fixed, repeating-linear-gradient(var(--color4) 0px, var(--color4) 7px, transparent 7px, transparent 10px) 0 1px fixed, repeating-linear-gradient(90deg, var(--color4) 0px, var(--color4) 7px, var(--color3) 7px, var(--color3) 10px) 1px 0 fixed
+    }
+h1, h2, h3, a, p{ margin-top:0; font-size:1em; margin-bottom:0; padding:1.25em 0; line-height:1.25;}
+.pe{
+padding: 0 4px;
+}
+    a {
+      color: #555;
+      text-decoration: none;
+      cursor: pointer;
+      text-transform: uppercase;
+      padding: 0 4px;
+      display: block;
+      width: 100%;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+      color: var(--color3);
+    }
+
+    .movable {
+      background: var(--color1);
+      box-shadow: 0 0 0 1px var(--color4) inset;
+      user-select: none;
+      display: flex;
+      flex-direction: column;
+      place-items: center;
+      overflow: hidden;
+      min-width: 70px;
+      border-radius: 3px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      position: relative;
+    }
+
+    .movable div a {
+      display: block
+    }
+
+    .movable::before {
+      content: '✥';
+      cursor: pointer;
+      width: 20px;
+      height: 20px;
+      pointer-events: all;
+      z-index: 2;
+      position: absolute;
+      top: -1px;
+      left: 0;
+      color: var(--color1);
+      text-align: center;
+      line-height: 20px;
+    }
+.movable-p{
+padding:0 4px;
+}
+    .minimized {
+      height: 20px !important;
+      padding: 0;
+      min-height: 0;
+      pointer-events: all;
+    }
+
+    .minimized::before {
+      content: '□';
+    }
+
+    .main {
+      display: flex;
+      place-items: baseline;
+      flex-wrap: wrap;
+    }
+
+    .movable h1 {
+      font-size: 16px;
+      line-height: 20px;
+      color: var(--color1);
+      background: var(--color2);
+      height: 20px;
+      width: 100%;
+      padding:0 20px;
+      z-index: 1;
+      position:relative;
+      word-wrap: anywhere;
+      white-space: nowrap;
+      text-transform: uppercase;
+      text-align: center;
+      border: 1px solid var(--color4);
+    }
+
+    .mousedown {
+      z-index: 2;
+      outline: 1px dotted #fff;
+    }
+#today,#clock div{
+      font-family: "Numbers", sans-serif;
+            letter-spacing:2px;
+            font-size:2em;
+}
+    #clock div {
+      display: inline-block;
+      text-align: center;
+    }
+
+    .svg-holder {
+      position: relative;
+      cursor: pointer;
+      font-size: 0;
+    }
+
+    .svg-holder path {
+      stroke: currentColor;
+    }
+    .svg-holder path:hover {
+      stroke: #3ff;
+    }
+
+    svg {
+      height: 100%;
+      width: 100%;
+      max-height: 50px;
+    }
+
+    .movable.minimized div {
+      display: none;
+      position: relative;
+    }
+
+    #clock {
+      white-space: nowrap;
+    }
+
+    .colz {
+      animation: seconds 1s alternate infinite
+    }
+
+    @keyframes seconds {
+      20% {
+        color: transparent
+      }
+
+      50% {
+        color: inherit;
+      }
+    }
+    textarea,input[type=text]{background:var(--color0);width:300px;color:var(--color4)}
+    textarea{
+    height: 100%;
+    width: 100%;
+    align-self: flex-start;
+    }
+  </style>
+  <link rel="stylesheet" href="./css/style.min.css">
+</head>
+
+<body style="display:none">
+  <div class="main">
+
+    <div class="movable">
+      <h1>clock</h1>
+      <div class="pe" id="clock"></div>
+    </div>
+
+    <div class="movable">
+      <h1>Date</h1>
+      <p class="pe" id="today"></p>
+    </div>
+
+    <div class="movable">
+      <h1 id="stats">TEMPERATUTE</h1>
+      <div class="svg-holder"></div>
+    </div>
+
+    <div class="movable">
+      <h1>mail</h1>
+      <a href="https://pastas.balticum.lt/" target="_blank" rel="noopener noreferrer">baltic</a>
+      <a href="https://mail.google.com/mail/u/0/#inbox" target="_blank" rel="noopener noreferrer">GMAIL0</a>
+      <a href="https://mail.google.com/mail/u/1/#inbox" target="_blank" rel="noopener noreferrer">GMAIL1</a>
+    </div>
+
+    <div class="movable">
+      <h1>todo</h1>
+      <a href="tools/todo-app/index.html" target="_blank" rel="noopener noreferrer">TODO</a>
+    </div>
+
+    <div class="movable">
+      <h1>ADOBE</h1>
+      <a href="https://contributor.stock.adobe.com/lt/portfolio" target="_blank" rel="noopener noreferrer">ADOBE</a>
+    </div>
+
+    <div class="movable">
+      <h1>Links</h1>
+      <a href="tools/links-webpage/index.html" target="_blank" rel="noopener noreferrer">Links</a>
+    </div>
+
+    <div class="movable">
+      <h1>External Links</h1>
+      <a href="https://kostassliazas.github.io/" target="_blank" rel="noopener noreferrer">daug.eu</a>
+    </div>
+
+    <div class="movable">
+      <h1>translate</h1>
+     <a href="https://translate.google.com/?sl=auto&amp;tl=lt&amp;op=translate" target="_blank" rel="noopener noreferrer">translate.google.com</a>
+    </div>
+
+    <div class="movable">
+      <h1>Notes</h1>
+      <textarea placeholder="Empty"></textarea>
+    </div>
+
+    <div class="movable">
+      <h1>Keywords</h1>
+    <a href="https://kostassliazas.github.io/keywords.io/" target="_blank" rel="noopener noreferrer">keywords.io</a>
+    </div>
+
+    <div class="movable">
+      <h1>Learning</h1>
+    <a href="https://www.udemy.com/home/my-courses/learning/" target="_blank" rel="noopener noreferrer">udemy</a>
+    </div>
+
+    <div class="movable">
+      <h1>Css tools</h1>
+    <a href="tools/border-radius/index.html" target="_blank" rel="noopener noreferrer">border-radius</a>
+    <a href="tools/borders-gen/index.html" target="_blank" rel="noopener noreferrer">borders css</a>
+    <a href="tools/code-to-html/index.html" target="_blank" rel="noopener noreferrer">code-to-html</a>
+    <a href="tools/gradient-generator/index.html" target="_blank" rel="noopener noreferrer">gradient-generator</a>
+    <a href="tools/gradients-two-colors/index.html" target="_blank" rel="noopener noreferrer">gradients-two-colors</a>
+    <a href="tools/text-shadow/index.html" target="_blank" rel="noopener noreferrer">text-shadow</a>
+    <a href="tools/code-to-html/index.html" target="_blank" rel="noopener noreferrer">code-to-html</a>
+    </div>
+
+    <div class="movable">
+      <h1>Counting tools</h1>
+    <a href="tools/calculator/index.html" target="_blank" rel="noopener noreferrer">calculator</a>
+    <a href="tools/regex-extractor/index.html" target="_blank" rel="noopener noreferrer">regex-extractor</a>
+    </div>
+
+    <div class="movable">
+      <h1>google</h1>
+    <div class="movable-p">
+      <form action="https://www.google.com/search?q=" target="_blank">
+        <input type="text" value="" name="q" onclick="this.value = ''" placeholder="search with google.com">
+        <input type="submit" value="submit form" style="display:none">
+      </form>
+    </div>
+    </div>
+
+    <div class="movable">
+      <h1>ecosia</h1>
+    <div class="movable-p">
+      <form action="https://www.ecosia.org/search?method=index&amp;q=" target="_blank">
+        <input type="text" value="" name="q" onclick="this.value = ''" placeholder="search with ecosia.org">
+        <input type="submit" value="submit form" style="display:none">
+      </form>
+    </div>
+    </div>
+
+    <div class="movable">
+      <h1>calculator</h1>
+      <div class="movable-p">
+      <div id="calcwrap">
+        <div class="in">
+          <div id="calculator">
+            <input type="text" id="src" data-ekr="ekr" value="" disabled="" title="screen">
+            <input data-fun="clr" type="button" value="C">
+            <input data-fun="b" type="button" value="⌫">
+            <label class="switch"><input id="esound" type="checkbox"><span class="slider round">e</span>sound</label>
+            <input data-fun="d" type="button" value="/">
+            <input data-num="7" type="button" value="7">
+            <input data-num="8" type="button" value="8">
+            <input data-num="9" type="button" value="9">
+            <input data-fun="m" type="button" value="×">
+            <input data-num="4" type="button" value="4">
+            <input data-num="5" type="button" value="5">
+            <input data-num="6" type="button" value="6">
+            <input data-fun="a" type="button" value="-">
+            <input data-num="1" type="button" value="1">
+            <input data-num="2" type="button" value="2">
+            <input data-num="3" type="button" value="3">
+            <input data-num="0" type="button" value="0">
+            <input data-fun="c" type="button" value=",">
+            <input data-fun="e" type="button" value="=">
+            <input data-fun="p" type="button" value="+">
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+  <script src="js/script.js"></script>
+
+  <script>
+    (function () {
+      'use strict'
+      var online = navigator.onLine
+      const styles = ['width', 'height', 'left', 'top']
+
+      function getStyles() {
+        let styleValues = ''
+        movable.forEach(e => {
+          styles.forEach(value => styleValues += (`${value}:${e.style[value]};`))
+          styleValues += ','
+        })
+        return styleValues
+      }
+      //get all movable elements with class name move
+      const movable = Array.from(document.getElementsByClassName('movable'))
+      const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
+      const roundToTenWidth = (num) => Math.ceil(num / 10) * 10
+
+      const mouseMoves = async (z, e) => {
+        delay(500)
+        e.style.left = roundToTenWidth(z.clientX) - 10 + "px";
+        e.style.top = roundToTenWidth(z.clientY) - 10 + "px";
+      }
+
+      function getOffset(el) {
+        const rect = el.getBoundingClientRect();
+        return {
+          left: rect.left + window.scrollX,
+          top: rect.top + window.scrollY
+        };
+      }
+      // boolean value for test is moving or not
+      let moving = false
+      // target global element variable
+      let target = null
+      // add all movable class eventlistener mousedown
+      const loopElem = () => {
+        movable.forEach(async e => {
+
+          await setTimeout(function () {
+            this.style.left = roundToTenWidth(getOffset(this).left) + "px";
+            this.style.top = roundToTenWidth(getOffset(this).top) + "px";
+          }.bind(e), 0)
+          await setTimeout(function () {
+            e.style.position = "fixed"
+          }.bind(e), 0)
+          await setTimeout(function () {
+            this.style.width = roundToTenWidth(this.offsetWidth) + "px"
+          }.bind(e), 0)
+          await setTimeout(function () {
+            this.style.height = roundToTenWidth(this.offsetHeight) + "px"
+          }.bind(e), 0)
+
+          e.addEventListener('dblclick', e => {
+
+            if (e.target.classList.contains('movable')) {
+
+              const index = movable.indexOf(e.target)
+
+              let array = JSON.parse(localStorage.getItem('eeeelemClasssss')) || []
+
+              if (e.target.classList.contains('minimized')) {
+                e.target.classList.remove('minimized')
+                array = array.filter(item => item !== index)
+                setTimeout(()=>{
+                e.target.style.width = 'auto'
+                e.target.style.height = 'auto'
+              },0)
+              setTimeout(()=>{
+                e.target.style.width = roundToTenWidth(e.target.offsetWidth) + "px"
+              },5)
+
+              setTimeout(()=>{
+                e.target.style.height = roundToTenWidth(e.target.offsetHeight) + "px"
+              },7)
+
+              } else if (e.target.classList.contains('movable')) {
+                e.target.classList.add('minimized')
+                array.push(index)
+              }
+              return localStorage.setItem('eeeelemClasssss', JSON.stringify(array))
+            }
+          })
+
+
+          e.addEventListener('mousedown', e => {
+            //set global target element
+            if (e.target.className === 'movable') {
+              if (target !== null) target.style.zIndex = 1
+              target = e.target
+              target.style.zIndex = 2
+              moving = true;
+              e.target.classList.add('mousedown')
+            }
+          })
+        })
+      }
+
+
+      document.addEventListener('mouseup', () => {
+        if (target !== null && target.classList.contains('movable')) {
+          moving = false
+          setStyles()
+          target.classList.remove('mousedown')
+        }
+      })
+      document.addEventListener('mousemove', z => {
+        if (target !== null && target.classList.contains('movable') && moving) mouseMoves(z, target)
+      })
+
+
+
+      const CL = {
+        ":": "colz"
+      }
+
+      function startTime() {
+
+        var today = new Date();
+        var h = today.getHours();
+        var m = today.getMinutes();
+        var s = today.getSeconds();
+        m = checkTime(m);
+        // s = checkTime(s);
+        h = checkTime(h);
+        let string = h + ":" + m // + ":" + s;
+        let dk = [...string].map(e => `<div class="digit ${CL[e]}"> ${e} </div>`).join("");
+        document.getElementById('clock').innerHTML = dk
+        var t = setTimeout(startTime, 1000);
+      }
+
+      function checkTime(i) {
+        if (i < 10) i = "0" + i
+        return i
+      }
+
+      function showDate() {
+        let d = new Date()
+        let formatter = Intl.DateTimeFormat(
+          "lt-LT", // a locale name; "default" chooses automatically
+          {
+            weekday: "short",
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+            hour: "numeric",
+            minute: "numeric"
+          }
+        );
+
+        return formatter.format(d).slice(0, 10)
+      }
+      // api url
+      const api_url =
+        "https://api.open-meteo.com/v1/forecast?latitude=55.7068&longitude=21.1391&hourly=temperature_2m"
+      // Defining async function
+      async function getapi(url) {
+        // Storing response
+        const response = await fetch(url);
+
+        // Storing data in form of JSON
+        var data = await response.json();
+        // no data? return
+        if (!response || !data) return false
+
+        localStorage.setItem('statsData', JSON.stringify(data.hourly.temperature_2m))
+      }
+
+
+      //stats
+      function stats(data) {
+        const stats = document.querySelector('#stats')
+
+        if (!data) return stats.innerText = '???'
+
+        const randomData = data
+        // randomData.reverse()
+        const main = document.querySelector('.svg-holder')
+        //show last 33
+        if (randomData.length > 32)
+          randomData.length = 32
+
+
+        let total = 0;
+        for (let i = 0; i < randomData.length; i++) total += randomData[i]
+        let avg = total / randomData.length;
+
+        const maxValue = Math.max(...randomData)
+        const arrayConverted = []
+        for (let index = 0; index < randomData.length; ++index) arrayConverted.push(((randomData[index] + avg) * 100 /
+          (maxValue + avg)))
+        const svg = document.createElementNS("http://www.w3.org/2000/svg", 'svg')
+        svg.setAttribute("version", "1.1")
+        svg.setAttribute("viewBox", "0 0 100 50")
+        svg.setAttribute("xmlns", "http://www.w3.org/2000/svg")
+        let space = 3
+        for (let i = arrayConverted.length - 1; i >= 0; i--) {
+          const path = document.createElementNS("http://www.w3.org/2000/svg", 'path')
+          path.setAttribute('d', "M" + space + " 100 v-" + Math.round(arrayConverted[i]))
+          // path.setAttribute("fill", "none")
+          path.setAttribute("stroke", "#000000")
+          path.setAttribute("stroke-width", "2")
+          path.setAttribute("data-value", randomData[i])
+          svg.appendChild(path)
+          space += 3
+        }
+
+        main.appendChild(svg)
+
+        const output = randomData[0] + ' C'
+
+        main.addEventListener("mouseover", function (e) {
+          if (e.target.tagName === "path") {
+            stats.style.display = "block"
+            stats.innerText = e.target.getAttribute("data-value") + ' C'
+          }
+          // else
+          //show last elem
+          // stats.style.display = "none"
+        })
+
+        main.addEventListener("mouseout", () => stats.innerText = output)
+        stats.innerText = output
+      }
+
+      function appltStyles() {
+
+        // for classes
+        let classes = []
+        if (localStorage.getItem('eeeelemClasssss') !== null) {
+          classes = JSON.parse(localStorage.getItem('eeeelemClasssss'))
+        }
+
+        if (localStorage.getItem('eeeelemStylesss') === null) return
+        const getStyle = localStorage.getItem('eeeelemStylesss').split(',')
+        for (let i = 0; i < movable.length; i++) {
+          movable[i].style = getStyle[i]
+          // movable[i].style.height = 'auto'
+          movable[i].style.position = "fixed"
+
+          if (classes.includes(movable.indexOf(movable[i]))) {
+            movable[i].className = 'movable minimized'
+          }
+        }
+      }
+
+
+      function setStyles() {
+        localStorage.setItem('eeeelemStylesss', getStyles())
+      }
+
+      function setTimeStamp(interval) {
+        //get cureent date
+        const currentDate = Math.abs((new Date().getTime() / 1000).toFixed(0))
+        // if does not exist create
+        if (localStorage.getItem('tttimeStammmp') !== null) {
+          const futureDate = localStorage.getItem('tttimeStammmp')
+          const difference = currentDate - futureDate
+          const minutes = Math.floor(difference / 60) % 60
+          if (minutes <= interval) return false
+        }
+        localStorage.setItem('tttimeStammmp', currentDate)
+        return true
+      }
+
+const root = document.documentElement
+const random = (min, max) => Math.floor(Math.random() * (max - min)) + min
+const setVariables = vars => Object.entries(vars).forEach(v => {
+if(typeof v[1] === 'function') return v[1]()
+root.style.setProperty(v[0], v[1])
+})
+
+const myVariables = [
+{'e': ()=>root.removeAttribute('style')},
+{'--color0': '#fff','--color1': '#aaa','--color2': '#bbb','--color3': '#777','--color4': '#888'},
+{'--color0': '#bdddfe','--color1': '#81a1c2','--color2': '#456586','--color3': '#09294a','--color4': '#111'},
+{'--color0': '#aaa','--color1': '#bbb','--color2': '#777','--color3': '#222','--color4': '#000'}
+]
+
+var arrayHelper = function () {
+    var ob = {}
+    ob.full = ob.value = this.length
+    ob.increment = function () {
+        this.value = this.value?--this.value:this.full-1
+    }
+    ob.decrement = function () {
+        this.value = this.value<this.full-1?++this.value:0
+    }
+    return ob
+}
+const ok = arrayHelper.call(myVariables)
+// Object.seal(ok)
+
+// random theme on load
+if(random(0,4) !== 3)setVariables(myVariables[random(0,3)])
+
+root.addEventListener('click', e =>{
+if(e.target.tagName === "HTML")ok.decrement()
+setVariables(myVariables[ok.value])
+localStorage.setItem('kktheme', ok.value)
+})
+
+      async function init(){
+        // defaults by injecting to storage then loading string can be changed from localStorage (HTML should be not touched)
+        if (!localStorage.getItem('eeeelemStylesss')) localStorage.setItem('eeeelemStylesss', 'width:100px;height:60px;left:890px;top:0px;,width:180px;height:60px;left:610px;top:0px;,width:100px;height:70px;left:790px;top:0px;,width:90px;height:80px;left:1060px;top:480px;,width:90px;height:40px;left:1060px;top:560px;,width:90px;height:40px;left:1060px;top:440px;,width:90px;height:40px;left:1060px;top:600px;,width:190px;height:40px;left:970px;top:680px;,width:220px;height:40px;left:840px;top:440px;,width:170px;height:40px;left:980px;top:640px;,width:140px;height:40px;left:840px;top:640px;,width:130px;height:40px;left:840px;top:680px;,width:220px;height:160px;left:840px;top:480px;,width:190px;height:60px;left:530px;top:380px;,width:310px;height:50px;left:840px;top:390px;,width:310px;height:50px;left:840px;top:340px;,width:310px;height:280px;left:530px;top:440px;')
+        // check if there is no data in local storage or check if there time passed 43minutes and load api
+        if (setTimeStamp(43) && online) await getapi(api_url)
+        await stats(JSON.parse(localStorage.getItem('statsData')))
+        await startTime()
+        await appltStyles()
+        await loopElem()
+        document.getElementById('today').innerHTML = showDate()
+        document.body.style.display = 'block'
+        const NUM = parseInt(localStorage.getItem('kktheme')) || 0
+        ok.value = NUM
+        setVariables(myVariables[ok.value])
+      }
+      // add event listener to document
+      document.addEventListener('DOMContentLoaded',  init,{once:true})
+
+      document.addEventListener('dblclick', e=>{if(e.target.tagName === 'TEXTAREA')e.target.value = ''})
+
+          let mousedown = false
+          let scalingTarget = null
+          document.addEventListener('mousedown', async e =>{
+            scalingTarget = e.target
+            if(scalingTarget.tagName === 'TEXTAREA'){
+            mousedown = true
+            await delay(700)
+            if(mousedown) {
+                  scalingTarget.style.width = scalingTarget.parentElement.style.width = "auto"
+                  scalingTarget.style.height = scalingTarget.parentElement.style.height = "auto"
+                }
+            }
+          })
+
+          document.addEventListener('mouseup', e =>{
+          // to make opacity .3 like link is visited while not refreshed page
+          const {target} = e
+            if(target.parentElement?.className === 'movable' && target.tagName === 'A') target.style.opacity = '.3'
+
+          try{
+          if(scalingTarget.tagName === 'TEXTAREA' && scalingTarget != null){
+          scalingTarget.parentElement.style.height = roundToTenWidth(scalingTarget.parentElement?.offsetHeight) + "px"
+          scalingTarget.parentElement.style.width = roundToTenWidth(scalingTarget.parentElement?.offsetWidth) + "px"
+              setStyles()
+              mousedown = false
+            }
+          }catch(e){
+          console.log({e})
+          }
+        })
+
+
+
+
+    }())
+  </script>
+</body>
+
+</html>
