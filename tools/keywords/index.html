@@ -1,202 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
-    <link rel="manifest" href="site.webmanifest" />
-    <link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5" />
-    <meta name="msapplication-TileColor" content="#da532c" />
-    <meta name="theme-color" content="#ffffff" />
+    <meta charset="utf-8">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="keywords" content="keyword generator javascript tool,javascript-based keyword research tool,seo keyword suggestion tool,javascript keyword planner,keyword analysis tool in javascript,javascript seo software,online keyword tool with javascript,javascript keyword finder,keyword research script,javascript seo keyword generator,keyword research tool for websites,javascript seo toolset,keyword discovery tool with javascript,javascript seo keyword analysis,keyword explorer script,javascript seo keyword optimization,web page keyword tool in javascript,javascript keyword extraction,keyword research and analysis in javascript,keyword tool">
     <title>Keywords sorting tool</title>
-    <style>
-      body {
-        font: 16px/1.5 monospace;
-        max-width: 900px;
-        margin: 3em auto;
-        background: #eee;
-      }
-
-      button:nth-child(odd),
-      div:nth-child(odd) {
-        margin: 0.3em 0;
-      }
-
-      .ms {
-        box-sizing: border-box;
-        padding: 1em;
-        background: #fafafa;
-        border: 1px solid #aaa;
-        overflow: hidden;
-      }
-
-      .colbg,
-      #copy {
-        background: #cde;
-      }
-
-      .fl {
-        display: flex;
-      }
-
-      .wi {
-        width: 100%;
-      }
-
-      #outputs {
-        word-wrap: anywhere;
-        overflow: hidden;
-        line-break: anywhere;
-        min-height: 7em;
-        background: #fff;
-        border: 1px solid #aaa;
-        max-height: 16em;
-        overflow: hidden;
-        overflow-y: scroll;
-      }
-
-      #seper {
-        width: 3ch;
-      }
-
-      button,
-      input[type="checkbox"] {
-        cursor: pointer;
-      }
-
-      button {
-        padding: 0.25em 1em;
-      }
-
-      #holder {
-        position: relative;
-      }
-
-      #copy {
-        position: absolute;
-        right: 0;
-        top: 0;
-        margin: 0;
-        cursor: pointer;
-        border: 1px solid #aaa;
-      }
-
-      .txt-shadow {
-        text-shadow: rgb(222, 221, 218) -1px -1px 0px,
-          rgb(222, 221, 218) -2px -2px 0px, rgb(222, 221, 218) -3px -3px 0px,
-          rgb(222, 221, 218) -4px -4px 0px, rgb(222, 221, 218) -5px -5px 0px,
-          rgb(222, 221, 218) -6px -6px 0px, rgb(222, 221, 218) -7px -7px 0px,
-          rgb(222, 221, 218) -8px -8px 0px, rgb(222, 221, 218) -9px -9px 0px,
-          rgb(222, 221, 218) -10px -10px 0px, rgb(222, 221, 218) -11px -11px 0px,
-          rgb(222, 221, 218) -12px -12px 0px, rgb(222, 221, 218) -13px -13px 0px,
-          rgb(222, 221, 218) -14px -14px 0px, rgb(222, 221, 218) -15px -15px 0px,
-          rgb(222, 221, 218) -16px -16px 0px, rgb(222, 221, 218) -17px -17px 0px,
-          rgb(222, 221, 218) -18px -18px 0px, rgb(222, 221, 218) -19px -19px 0px,
-          rgb(222, 221, 218) -20px -20px 0px, rgb(222, 221, 218) -21px -21px 0px,
-          rgb(222, 221, 218) -22px -22px 0px, rgb(222, 221, 218) -23px -23px 0px,
-          rgb(222, 221, 218) -24px -24px 0px, rgb(222, 221, 218) -25px -25px 0px,
-          rgb(222, 221, 218) -26px -26px 0px, rgb(222, 221, 218) -27px -27px 0px,
-          rgb(222, 221, 218) -28px -28px 0px, rgb(222, 221, 218) -29px -29px 0px,
-          rgb(222, 221, 218) -30px -30px 0px, rgb(222, 221, 218) -31px -31px 0px,
-          rgb(222, 221, 218) -32px -32px 0px, rgb(222, 221, 218) -33px -33px 0px,
-          rgb(222, 221, 218) -34px -34px 0px, rgb(222, 221, 218) -35px -35px 0px,
-          rgb(222, 221, 218) -36px -36px 0px, rgb(222, 221, 218) -37px -37px 0px,
-          rgb(222, 221, 218) -38px -38px 0px, rgb(222, 221, 218) -39px -39px 0px,
-          rgb(222, 221, 218) -40px -40px 0px, rgb(222, 221, 218) -41px -41px 0px,
-          rgb(222, 221, 218) -42px -42px 0px, rgb(222, 221, 218) -43px -43px 0px,
-          rgb(222, 221, 218) -44px -44px 0px, rgb(222, 221, 218) -45px -45px 0px,
-          rgb(222, 221, 218) -46px -46px 0px, rgb(222, 221, 218) -47px -47px 0px,
-          rgb(222, 221, 218) -48px -48px 0px;
-        color: #fafafa;
-      }
-
-      p {
-        margin: 0 0 1.5em;
-      }
-
-      h1,
-      h2,
-      h3,
-      h4,
-      h5,
-      h6 {
-        font-size: 1.5em;
-        line-height: 1em;
-        margin: 0;
-      }
-
-      h2,
-      h3,
-      h4,
-      h5,
-      h6 {
-        font-size: 1.375em;
-        line-height: 1.0909em;
-        margin-top: 1.0909em;
-      }
-
-      h3,
-      h4,
-      h5,
-      h6 {
-        font-size: 1.25em;
-        line-height: 1.2em;
-        margin-top: 1.2em;
-      }
-
-      h4,
-      h5,
-      h6 {
-        font-size: 1.125em;
-        line-height: 1.3333em;
-        margin-top: 1.3333em;
-      }
-
-      h5,
-      h6,
-      p {
-        font-size: 1em;
-        line-height: 1.5em;
-      }
-
-      h5,
-      h6 {
-        margin-top: 1.5em;
-      }
-
-      h6 {
-        font-size: 0.875em;
-        line-height: 1.7143em;
-        margin-top: 1.7143em;
-        text-align: center;
-      }
-    </style>
+    <link rel="stylesheet" href="css/style.min.css">
   </head>
-
   <body>
     <header></header>
     <main>
       <div class="ms">
         <div class="ms colbg">
-          <h1 class="txt-shadow">Keywords sorting tool</h1>
+          <h1 class="txt-shadow">Keywords tool</h1>
         </div>
         <div class="fl">
-          <label for="input">List</label>
-          <input
-            id="input"
-            class="wi"
-            type="text"
-            value="peas,okra,corn,beets,onions,celery,turnips,spinach,peppers,lettuce,carrots,zucchini,tomatoes,radishes,potatoes,eggplant,broccoli,cucumbers,asparagus,cauliflower"
-          />
+          <label for="input">List input:</label>
+          <textarea rows="7" cols="77" id="input">peas,peas,peas,okra,corn,beets,onions,celery,turnips,spinach,peppers,lettuce,carrots,zucchini,tomatoes,radishes,potatoes,eggplant,broccoli,cucumbers,asparagus,cauliflower</textarea>
         </div>
         <div>
-          <label for="seper">Separator</label>
-          <input id="seper" type="text" size="3" value="," />
-          <label for="linebreak">Line break</label>
-          <input id="linebreak" type="checkbox" checked />
-          <label for="doubles">Remove doubles</label>
-          <input id="doubles" type="checkbox" checked />
+          <label for="seper">Separator:</label>
+          <input id="seper" type="text" size="3" value=",">
+          <label for="linebreak">Line break:</label>
+          <input id="linebreak" type="checkbox" checked>
+          <label for="doubles">Remove doubles:</label>
+          <input id="doubles" type="checkbox" checked>
         </div>
         <div>
           <button id="sorts">(a-b) sort</button>
@@ -208,138 +42,18 @@
           <button id="meta">metalize</button>
         </div>
         <div>
-          Keywords:&nbsp;<span id="statsw">0</span
-          >&nbsp;&nbsp;Letters:&nbsp;<span id="statsl">0</span>
+          Keywords:&nbsp;<span id="statsw">0</span>&nbsp;&nbsp;Letters:&nbsp;<span id="statsl">0</span>&nbsp;&nbsp;LineBreaks:&nbsp;<span id="statsn">0</span>
         </div>
         <div id="holder">
+          <span>String output:</span>
           <button title="copy text" id="copy">✂</button>
           <p id="outputs"></p>
         </div>
       </div>
     </main>
     <footer>
-      <h6>Keywords 2023</h6>
+    This tool is for keywords making to lowercase, uppercase, capitalize, shuffle, sort and creating meta tag. Note that today not all search engines use keywords for rankings.
     </footer>
-    <script>
-      "use strict";
-      let arrays = [];
-      let toggleBolean = true; //for sorting toggle value
-      const inputs = document.getElementById("input");
-      const outputs = document.getElementById("outputs");
-      const shuffle = document.getElementById("shuffle");
-      const seper = document.getElementById("seper");
-      const linebreak = document.getElementById("linebreak");
-      const doubles = document.getElementById("doubles");
-      const sorts = document.getElementById("sorts");
-      const tolowercase = document.getElementById("lower-case");
-      const toupercase = document.getElementById("upper-case");
-      const capitalize = document.getElementById("case");
-      const statisticsW = document.getElementById("statsw");
-      const statisticsL = document.getElementById("statsl");
-      const sortsLength = document.getElementById("sorts-length");
-      const meta = document.getElementById("meta");
-      const copyText = document.getElementById("copy");
-
-      const changed = (e) => {
-        if (e.target) toggleBolean = !toggleBolean;
-        e = e.target || e;
-        e.innerHTML =
-          (toggleBolean ? "(a-b)" : "(b-a)") +
-          " " +
-          e.innerHTML.split(" ").pop();
-      };
-      // set array output filter with regex and trim
-      const inputArray = () => {
-        const values = inputs.value
-          .toLowerCase()
-          .split(/[^\n[a-zA-Z0-9]+| ,]+/)
-          .filter(Boolean)
-          .map((item) => item.trim());
-        if (doubles.checked) arrays = [...new Set(values)];
-        else arrays = values;
-      };
-
-      // output statistic array length
-      const showStatsWords = () => (statisticsW.innerHTML = arrays.length);
-      // output statistic array letter length
-      const showStatsLetters = () =>
-        (statisticsL.innerHTML = arrays.join("").length);
-      // clear inputs on dblclick event
-      const clear = (e) => {
-        e.target.value = "";
-        outputs.innerHTML = "";
-      };
-      //outputs whole string
-      const output = () =>
-        (outputs.innerHTML = arrays.join(spLineBreak(seper)));
-      //add linebreak? AND seperations simbols
-      const spLineBreak = () => seper.value + (linebreak.checked ? "<br>" : "");
-      //sort array randomly (rewrite arrays)
-      const shuffled = () => (arrays = arrays.sort(() => Math.random() - 0.5));
-      //sort array normal (rewrite arrays)
-      const sorted = () =>
-        (arrays = arrays.sort((a, b) =>
-          toggleBolean ? a.localeCompare(b) : b.localeCompare(a)
-        ));
-      //sort array by length (rewrite arrays)
-      const sortLenght = () =>
-        (arrays = arrays.sort((a, b) =>
-          toggleBolean ? a.length - b.length : b.length - a.length
-        ));
-      //(array)words to lower case (rewrite arrays)
-      const lowerCase = () => (arrays = arrays.map((e) => e.toLowerCase()));
-      //(array)words to upper case (rewrite arrays)
-      const uperCase = () => (arrays = arrays.map((e) => e.toUpperCase()));
-      //(array)words capitalize (rewrite arrays)
-      const capitalizeCases = () =>
-        (arrays = arrays.map((e) => {
-          let z = e.toLowerCase();
-          z = z[0].charAt(0).toUpperCase() + z.slice(1);
-          return z;
-        }));
-      seper.addEventListener("input", () => output());
-      inputs.addEventListener("input", () =>
-        output(inputArray(), showStatsWords(), showStatsLetters())
-      );
-      shuffle.addEventListener("click", () => output(shuffled()));
-      sorts.addEventListener("click", (e) => output(sorted(changed(e))));
-      sortsLength.addEventListener("click", (e) =>
-        output(sortLenght(changed(e)))
-      );
-      tolowercase.addEventListener("click", () => output(lowerCase()));
-      toupercase.addEventListener("click", () => output(uperCase()));
-      capitalize.addEventListener("click", () => output(capitalizeCases()));
-      meta.addEventListener("click", () => {
-        seper.value = ",";
-        doubles.checked = "checked";
-        linebreak.checked = false;
-        output(lowerCase());
-        outputs.textContent =
-          '<meta name="keywords" content="' + outputs.innerHTML + '">';
-      });
-      copyText.addEventListener("mouseup", () =>
-        copyTextToClipboard(outputs.innerText)
-      );
-      output(lowerCase(inputArray()), showStatsWords(), showStatsLetters());
-      // multiple dblclick event bind to input elements for clearing them
-      Array.from([seper, inputs]).forEach((elem) =>
-        elem.addEventListener("dblclick", clear)
-      );
-      Array.from([doubles, linebreak]).forEach((elem) =>
-        elem.addEventListener("click", () =>
-          output(inputArray(), showStatsWords(), showStatsLetters())
-        )
-      );
-
-      //https://stackoverflow.com/questions/400212/how-do-i-copy-to-the-clipboard-in-javascript
-      async function copyTextToClipboard(textToCopy) {
-        try {
-          await navigator.clipboard.writeText(textToCopy);
-          console.log("copied to clipboard");
-        } catch (error) {
-          console.log("failed to copy to clipboard. error=" + error);
-        }
-      }
-    </script>
+    <script src="js/script.js"></script>
   </body>
 </html>
