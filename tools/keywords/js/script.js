@@ -20,46 +20,12 @@
   const statisticsL = document.getElementById("stat-letters");
   const statisticsN = document.getElementById("stat-breaks");
   const header = document.getElementById("header");
+  const theme = document.getElementById("theme");
 
+  const random = (min, max) => Math.floor(Math.random() * (max - min)) + min;
+  // for theme changing
   const root = document.documentElement;
-  const setVariables = (vars) =>
-    Object.entries(vars).forEach((v) => {
-      if (typeof v[1] === "function") return v[1]();
-      root.style.setProperty(v[0], v[1]);
-    });
-  const myVariables = [
-    {
-      e: () => root.removeAttribute("style"),
-    },
-    {
-      "--color1": "#ACACAC",
-      "--color2": "#FEFEFE",
-      "--color3": "#F4F4F4",
-      "--color4": "#686867",
-      "--color5": "#2E2E2C",
-    },
-    {
-      "--color1": "#C8E0DE",
-      "--color2": "#9FB7B5",
-      "--color3": "#78908E",
-      "--color4": "#28403E",
-      "--color5": "#222",
-    },
-    {
-      "--color1": "#6E8090",
-      "--color2": "#FFFFFF",
-      "--color3": "#D7DADD",
-      "--color4": "#284964",
-      "--color5": "#010B15",
-    },
-    {
-      "--color1": "#D2B0C1",
-      "--color2": "#FFFFFF",
-      "--color3": "#EFE6EB",
-      "--color4": "#A56987",
-      "--color5": "#772C52",
-    },
-  ];
+  const classNameVariables = [0, "grey", "green", "blue", "pink"];
 
   var arrayHelper = function () {
     var ob = {};
@@ -72,39 +38,47 @@
     };
     return ob;
   };
-  const INCREASE_OBJ = arrayHelper.call(myVariables);
-  header.addEventListener("click", () => {
-    INCREASE_OBJ.increment(); // eslint-disable-line
-    setVariables(myVariables[INCREASE_OBJ.value || 0]);
-    localStorage.setItem("kathie", INCREASE_OBJ.value || 0);
-  });
-  header.addEventListener("contextmenu", (e) => {
-    INCREASE_OBJ.decrement(); // eslint-disable-line
-    setVariables(myVariables[INCREASE_OBJ.value || 0]);
-    localStorage.setItem("kathie", INCREASE_OBJ.value || 0);
+  const THEME_CHANGE = arrayHelper.call(classNameVariables);
+
+  const changerClass = (e) => {
+    if (e) root.className = classNameVariables[e];
+    else root.removeAttribute("class");
+    theme.textContent = "Theme:" + (classNameVariables[e] || "default");
+  };
+
+  // click events for context menu and simple click
+  header.addEventListener("click", (e) => {
+    THEME_CHANGE.increment(); // eslint-disable-line
+    changerClass(THEME_CHANGE.value);
+    //set local storage only when user click
+    localStorage.setItem("numberOutcome", THEME_CHANGE.value);
     e.preventDefault();
   });
-  const random = (min, max) => Math.floor(Math.random() * (max - min)) + min;
+  header.addEventListener("contextmenu", (e) => {
+    THEME_CHANGE.decrement(); // eslint-disable-line
+    changerClass(THEME_CHANGE.value);
+    //set local storage only when user click
+    localStorage.setItem("numberOutcome", THEME_CHANGE.value);
+    e.preventDefault();
+  });
 
-  function addStylesSheet() {
-    var element = document.createElement("link");
-    element.setAttribute("rel", "stylesheet");
-    // element.setAttribute("type", "text/css");
-    element.setAttribute("href", "css/style-min.css");
-    document.getElementsByTagName("head")[0].appendChild(element);
-  }
-  function removeAtribute() {
-    document.body.removeAttribute("style");
-  }
+  // inject stylesheets
+  var element = document.createElement("link");
+  element.setAttribute("rel", "stylesheet");
+  // element.setAttribute("type", "text/css");
+  element.setAttribute("href", "css/style.css");
+  document.getElementsByTagName("head")[0].appendChild(element);
+
   function setStyles() {
-    const NUM = parseInt(localStorage.getItem("kathie")) || random(0, INCREASE_OBJ.full);
-    INCREASE_OBJ.value = NUM;
-    setVariables(myVariables[INCREASE_OBJ.value]);
+    THEME_CHANGE.value = parseInt(localStorage.getItem("numberOutcome"));
+    // can be number only we get on load number
+    if (isNaN(THEME_CHANGE.value)) changerClass(random(0, THEME_CHANGE.full));
+    else changerClass(THEME_CHANGE.value);
   }
-  addStylesSheet();
-  window.onload = async function () {
-    await setStyles();
-    await removeAtribute();
+
+  window.onload = function () {
+    setStyles();
+    root.removeAttribute("style");
   };
 
   const changed = (e) => {

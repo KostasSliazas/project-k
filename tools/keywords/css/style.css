@@ -5,7 +5,34 @@
   --color4: #757838;
   --color5: #505310;
 }
-
+.grey:root {
+  --color1: #acacac;
+  --color2: #fefefe;
+  --color3: #f4f4f4;
+  --color4: #686867;
+  --color5: #2e2e2c;
+}
+.green:root {
+  --color1: #c8e0de;
+  --color2: #9fb7b5;
+  --color3: #78908e;
+  --color4: #28403e;
+  --color5: #222222;
+}
+.blue:root {
+  --color1: #6e8090;
+  --color2: #ffffff;
+  --color3: #d7dadd;
+  --color4: #284964;
+  --color5: #010b15;
+}
+.pink:root {
+  --color1: #d2b0c1;
+  --color2: #ffffff;
+  --color3: #efe6eb;
+  --color4: #a56987;
+  --color5: #772c52;
+}
 body {
   font: 16px/1.5 monospace;
   background: var(--color1);
@@ -19,6 +46,7 @@ footer,
   margin: 0 auto;
 }
 #header {
+  padding-top: 0;
   user-select: none;
 }
 button:nth-child(odd),
@@ -28,6 +56,7 @@ div:nth-child(odd) {
 .hs {
   font-size: 0.75em;
   margin: 0;
+  text-shadow: none;
 }
 .ri {
   text-align: right;
