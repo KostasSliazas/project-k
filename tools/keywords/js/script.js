@@ -19,6 +19,93 @@
   const statisticsW = document.getElementById("stat-keywords");
   const statisticsL = document.getElementById("stat-letters");
   const statisticsN = document.getElementById("stat-breaks");
+  const header = document.getElementById("header");
+
+  const root = document.documentElement;
+  const setVariables = (vars) =>
+    Object.entries(vars).forEach((v) => {
+      if (typeof v[1] === "function") return v[1]();
+      root.style.setProperty(v[0], v[1]);
+    });
+  const myVariables = [
+    {
+      e: () => root.removeAttribute("style"),
+    },
+    {
+      "--color1": "#ACACAC",
+      "--color2": "#FEFEFE",
+      "--color3": "#F4F4F4",
+      "--color4": "#686867",
+      "--color5": "#2E2E2C",
+    },
+    {
+      "--color1": "#C8E0DE",
+      "--color2": "#9FB7B5",
+      "--color3": "#78908E",
+      "--color4": "#28403E",
+      "--color5": "#222",
+    },
+    {
+      "--color1": "#6E8090",
+      "--color2": "#FFFFFF",
+      "--color3": "#D7DADD",
+      "--color4": "#284964",
+      "--color5": "#010B15",
+    },
+    {
+      "--color1": "#D2B0C1",
+      "--color2": "#FFFFFF",
+      "--color3": "#EFE6EB",
+      "--color4": "#A56987",
+      "--color5": "#772C52",
+    },
+  ];
+
+  var arrayHelper = function () {
+    var ob = {};
+    ob.value = ob.full = this.length;
+    ob.increment = function () {
+      this.value = this.value ? --this.value : this.full - 1;
+    };
+    ob.decrement = function () {
+      this.value = this.value < this.full - 1 ? ++this.value : 0;
+    };
+    return ob;
+  };
+  const INCREASE_OBJ = arrayHelper.call(myVariables);
+  header.addEventListener("click", () => {
+    INCREASE_OBJ.increment(); // eslint-disable-line
+    setVariables(myVariables[INCREASE_OBJ.value || 0]);
+    localStorage.setItem("kathie", INCREASE_OBJ.value || 0);
+  });
+  header.addEventListener("contextmenu", (e) => {
+    INCREASE_OBJ.decrement(); // eslint-disable-line
+    setVariables(myVariables[INCREASE_OBJ.value || 0]);
+    localStorage.setItem("kathie", INCREASE_OBJ.value || 0);
+    e.preventDefault();
+  });
+  const random = (min, max) => Math.floor(Math.random() * (max - min)) + min;
+
+  function addStylesSheet() {
+    var element = document.createElement("link");
+    element.setAttribute("rel", "stylesheet");
+    // element.setAttribute("type", "text/css");
+    element.setAttribute("href", "css/style-min.css");
+    document.getElementsByTagName("head")[0].appendChild(element);
+  }
+  function removeAtribute() {
+    document.body.removeAttribute("style");
+  }
+  function setStyles() {
+    const NUM = parseInt(localStorage.getItem("kathie")) || random(0, INCREASE_OBJ.full);
+    INCREASE_OBJ.value = NUM;
+    setVariables(myVariables[INCREASE_OBJ.value]);
+  }
+  addStylesSheet();
+  window.onload = async function () {
+    await setStyles();
+    await removeAtribute();
+  };
 
   const changed = (e) => {
     if (e.target) toggleBoolean = !toggleBoolean;
