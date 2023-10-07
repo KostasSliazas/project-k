@@ -67,7 +67,7 @@
         if (e.target.classList.contains("movable")) {
           const index = movable.indexOf(e.target);
 
-          let array = JSON.parse(localStorage.getItem("eeeelemClasssss")) || [];
+          let array = JSON.parse(localStorage.getItem("elementClass")) || [];
 
           if (e.target.classList.contains("minimized")) {
             e.target.classList.remove("minimized");
@@ -77,19 +77,17 @@
               e.target.style.height = "auto";
             }, 0);
             setTimeout(() => {
-              e.target.style.width =
-                roundToTenWidth(e.target.offsetWidth) + "px";
+              e.target.style.width = roundToTenWidth(e.target.offsetWidth) + "px";
             }, 5);
 
             setTimeout(() => {
-              e.target.style.height =
-                roundToTenWidth(e.target.offsetHeight) + "px";
+              e.target.style.height = roundToTenWidth(e.target.offsetHeight) + "px";
             }, 7);
           } else if (e.target.classList.contains("movable")) {
             e.target.classList.add("minimized");
             array.push(index);
           }
-          return localStorage.setItem("eeeelemClasssss", JSON.stringify(array));
+          return localStorage.setItem("elementClass", JSON.stringify(array));
         }
       });
 
@@ -114,12 +112,11 @@
     }
   });
   document.addEventListener("mousemove", (z) => {
-    if (target !== null && target.classList.contains("movable") && moving)
-      mouseMoves(z, target);
+    if (target !== null && target.classList.contains("movable") && moving) mouseMoves(z, target);
   });
 
   const CL = {
-    ":": "colz",
+    ":": "cols",
   };
 
   function startTime() {
@@ -131,9 +128,7 @@
     // s = checkTime(s);
     h = checkTime(h);
     let string = h + ":" + m; // + ":" + s;
-    let dk = [...string]
-      .map((e) => `<div class="digit ${CL[e]}"> ${e} </div>`)
-      .join("");
+    let dk = [...string].map((e) => `<div class="digit ${CL[e]}"> ${e} </div>`).join("");
     document.getElementById("clock").innerHTML = dk;
     var t = setTimeout(startTime, 1000);
   }
@@ -160,10 +155,9 @@
     return formatter.format(d).slice(0, 10);
   }
   // api url
-  const api_url =
-    "https://api.open-meteo.com/v1/forecast?latitude=55.7068&longitude=21.1391&hourly=temperature_2m";
+  const api_url = "https://api.open-meteo.com/v1/forecast?latitude=55.7068&longitude=21.1391&hourly=temperature_2m";
   // Defining async function
-  async function getapi(url) {
+  async function getAll(url) {
     // Storing response
     const response = await fetch(url);
 
@@ -172,10 +166,7 @@
     // no data? return
     if (!response || !data) return false;
 
-    localStorage.setItem(
-      "statsData",
-      JSON.stringify(data.hourly.temperature_2m)
-    );
+    localStorage.setItem("statsData", JSON.stringify(data.hourly.temperature_2m));
   }
 
   //stats
@@ -196,22 +187,15 @@
 
     const maxValue = Math.max(...randomData);
     const arrayConverted = [];
-    for (let index = 0; index < randomData.length; ++index)
-      arrayConverted.push(((randomData[index] + avg) * 100) / (maxValue + avg));
+    for (let index = 0; index < randomData.length; ++index) arrayConverted.push(((randomData[index] + avg) * 100) / (maxValue + avg));
     const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     svg.setAttribute("version", "1.1");
     svg.setAttribute("viewBox", "0 0 100 40");
     svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
     let space = 3;
     for (let i = arrayConverted.length - 1; i >= 0; i--) {
-      const path = document.createElementNS(
-        "http://www.w3.org/2000/svg",
-        "path"
-      );
-      path.setAttribute(
-        "d",
-        "M" + space + " 100 v-" + Math.round(arrayConverted[i])
-      );
+      const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      path.setAttribute("d", "M" + space + " 100 v-" + Math.round(arrayConverted[i]));
       // path.setAttribute("fill", "none")
       path.setAttribute("stroke", "#000000");
       path.setAttribute("stroke-width", "2");
@@ -238,15 +222,15 @@
     stats.innerText = output;
   }
 
-  function appltStyles() {
+  function applyStyles() {
     // for classes
     let classes = [];
-    if (localStorage.getItem("eeeelemClasssss") !== null) {
-      classes = JSON.parse(localStorage.getItem("eeeelemClasssss"));
+    if (localStorage.getItem("elementClass") !== null) {
+      classes = JSON.parse(localStorage.getItem("elementClass"));
     }
 
-    if (localStorage.getItem("eeeelemStylesss") === null) return;
-    const getStyle = localStorage.getItem("eeeelemStylesss").split(",");
+    if (localStorage.getItem("elementStyles") === null) return;
+    const getStyle = localStorage.getItem("elementStyles").split(",");
     for (let i = 0; i < movable.length; i++) {
       movable[i].style = getStyle[i];
       // movable[i].style.height = 'auto'
@@ -259,20 +243,20 @@
   }
 
   function setStyles() {
-    localStorage.setItem("eeeelemStylesss", getStyles());
+    localStorage.setItem("elementStyles", getStyles());
   }
 
   function setTimeStamp(interval) {
-    //get cureent date
+    //get current date
     const currentDate = Math.abs((new Date().getTime() / 1000).toFixed(0));
     // if does not exist create
-    if (localStorage.getItem("tttimeStammmp") !== null) {
-      const futureDate = localStorage.getItem("tttimeStammmp");
+    if (localStorage.getItem("timeStamp") !== null) {
+      const futureDate = localStorage.getItem("timeStamp");
       const difference = currentDate - futureDate;
       const minutes = Math.floor(difference / 60) % 60;
       if (minutes <= interval) return false;
     }
-    localStorage.setItem("tttimeStammmp", currentDate);
+    localStorage.setItem("timeStamp", currentDate);
     return true;
   }
 
@@ -329,25 +313,21 @@
   root.addEventListener("click", (e) => {
     if (e.target.tagName === "HTML") ok.decrement();
     setVariables(myVariables[ok.value]);
-    localStorage.setItem("kktheme", ok.value);
+    localStorage.setItem("theme", ok.value);
   });
 
   async function init() {
     // defaults by injecting to storage then loading string can be changed from localStorage (HTML should be not touched)
-    if (!localStorage.getItem("eeeelemStylesss"))
-      localStorage.setItem(
-        "eeeelemStylesss",
-        "width:100px;height:60px;left:890px;top:0px;,width:180px;height:60px;left:610px;top:0px;,width:100px;height:70px;left:790px;top:0px;,width:90px;height:80px;left:1060px;top:480px;,width:90px;height:40px;left:1060px;top:560px;,width:90px;height:40px;left:1060px;top:440px;,width:90px;height:40px;left:1060px;top:600px;,width:190px;height:40px;left:970px;top:680px;,width:220px;height:40px;left:840px;top:440px;,width:170px;height:40px;left:980px;top:640px;,width:140px;height:40px;left:840px;top:640px;,width:130px;height:40px;left:840px;top:680px;,width:220px;height:160px;left:840px;top:480px;,width:190px;height:60px;left:530px;top:380px;,width:310px;height:50px;left:840px;top:390px;,width:310px;height:50px;left:840px;top:340px;,width:310px;height:280px;left:530px;top:440px;"
-      );
+    if (!localStorage.getItem("elementStyles")) localStorage.setItem("elementStyles", "width:100px;height:60px;left:890px;top:0px;,width:180px;height:60px;left:610px;top:0px;,width:100px;height:70px;left:790px;top:0px;,width:90px;height:80px;left:1060px;top:480px;,width:90px;height:40px;left:1060px;top:560px;,width:90px;height:40px;left:1060px;top:440px;,width:90px;height:40px;left:1060px;top:600px;,width:190px;height:40px;left:970px;top:680px;,width:220px;height:40px;left:840px;top:440px;,width:170px;height:40px;left:980px;top:640px;,width:140px;height:40px;left:840px;top:640px;,width:130px;height:40px;left:840px;top:680px;,width:220px;height:160px;left:840px;top:480px;,width:190px;height:60px;left:530px;top:380px;,width:310px;height:50px;left:840px;top:390px;,width:310px;height:50px;left:840px;top:340px;,width:310px;height:280px;left:530px;top:440px;");
     // check if there is no data in local storage or check if there time passed 43minutes and load api
-    if (setTimeStamp(43) && online) await getapi(api_url);
+    if (setTimeStamp(43) && online) await getAll(api_url);
     await stats(JSON.parse(localStorage.getItem("statsData")));
     await startTime();
-    await appltStyles();
+    await applyStyles();
     await loopElem();
     document.getElementById("today").innerHTML = showDate();
     document.body.style.display = "block";
-    const NUM = parseInt(localStorage.getItem("kktheme")) || 0;
+    const NUM = parseInt(localStorage.getItem("theme")) || 0;
     ok.value = NUM;
     setVariables(myVariables[ok.value]);
   }
@@ -366,10 +346,8 @@
       mousedown = true;
       await delay(700);
       if (mousedown) {
-        scalingTarget.style.width = scalingTarget.parentElement.style.width =
-          "auto";
-        scalingTarget.style.height = scalingTarget.parentElement.style.height =
-          "auto";
+        scalingTarget.style.width = scalingTarget.parentElement.style.width = "auto";
+        scalingTarget.style.height = scalingTarget.parentElement.style.height = "auto";
       }
     }
   });
@@ -377,15 +355,12 @@
   document.addEventListener("mouseup", (e) => {
     // to make opacity .3 like link is visited while not refreshed page
     const { target } = e;
-    if (target.parentElement?.className === "movable" && target.tagName === "A")
-      target.style.opacity = ".3";
+    if (target.parentElement?.className === "movable" && target.tagName === "A") target.style.opacity = ".3";
 
     try {
       if (scalingTarget.tagName === "TEXTAREA" && scalingTarget != null) {
-        scalingTarget.parentElement.style.height =
-          roundToTenWidth(scalingTarget.parentElement?.offsetHeight) + "px";
-        scalingTarget.parentElement.style.width =
-          roundToTenWidth(scalingTarget.parentElement?.offsetWidth) + "px";
+        scalingTarget.parentElement.style.height = roundToTenWidth(scalingTarget.parentElement?.offsetHeight) + "px";
+        scalingTarget.parentElement.style.width = roundToTenWidth(scalingTarget.parentElement?.offsetWidth) + "px";
         setStyles();
         mousedown = false;
       }
