@@ -1,29 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="utf-8">
-  <title>KCalculator</title>
-  <meta name="description" content="Calculator 1.0">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes">
-  <meta name="author" content="Kostas Šliažas">
-  <link rel="stylesheet" href="css/style.min.css">
-  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-  <link rel="manifest" href="site.webmanifest">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-<body style="display:none">
-  <h1>Calculator</h1>
+  <head>
+    <meta charset="utf-8">
+    <title>Calculator 2.0</title>
+    <meta name="description" content="Calculator 2.0">
+    <meta name="keywords" content="javascript,calculator,web development,arithmetic operations,user interface,input fields,output display,functions,event listeners,decimal point,responsive design">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes">
+    <meta name="author" content="Kostas Šliažas">
+    <link rel="stylesheet" href="css/style.min.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+  <body>
+    <h1>Calculator</h1>
     <main id="calcwrap">
       <div class="in">
         <div id="calculator">
-          <input type="text" id="src" data-ekr="ekr" value="">
+          <input data-ekr="ekr" type="text" id="src" value="0" title="screen">
           <input data-fun="x" type="button" value="C">
           <input data-fun="b" type="button" value="⌫">
-          <input data-fun="s" type="checkbox" id="esound">
+          <input data-fun="s" type="checkbox" value="sound" id="esound" title="sound">
           <input data-fun="d" type="button" value="/">
           <input data-num="7" type="button" value="7">
           <input data-num="8" type="button" value="8">
@@ -43,7 +43,6 @@
         </div>
       </div>
     </main>
-  <script src="js/script.min.js"></script>
-</body>
-
+    <script src="js/script.min.js"></script>
+  </body>
 </html>
