@@ -53,6 +53,9 @@ button:nth-child(odd),
 div:nth-child(odd) {
   margin: 0.4375em 0;
 }
+.b {
+  font-weight: 700;
+}
 .hs {
   font-size: 0.75em;
   margin: 0;

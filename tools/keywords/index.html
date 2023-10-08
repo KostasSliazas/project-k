@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" style="display:none">
+<html lang="en">
 
 <head>
   <meta charset="utf-8">
@@ -14,7 +14,7 @@
   <title>Keywords tool</title>
 </head>
 
-<body>
+<body style="display:none">
   <header id="header" class="ms" title="Click right/left mouse buttons to change theme-color">
     <div>
       <div class="ri" id="theme"></div>
@@ -59,9 +59,23 @@
   </main>
   <footer>
     <p class="hs">
-      This tool is designed for various keyword manipulations, including converting them to lowercase, uppercase, capitalizing, shuffling, sorting, and generating meta tags. It separates words based on new lines, empty spaces, or commas. Please note that not all search engines utilize keywords for SEO purposes. It is advisable to seek information on improving SEO in such cases. By clicking on the header (using the right or left mouse buttons), you can change the theme, and your settings will be saved in localStorage.
+      This tool is designed for various keyword manipulations, including converting them to lowercase, uppercase,
+      capitalizing, shuffling, sorting, and generating meta tags. It separates words based on new lines, empty spaces,
+      or commas. Please note that not all search engines utilize keywords for SEO purposes. It is advisable to seek
+      information on improving SEO in such cases. By clicking on the header (using the right or left mouse buttons), you
+      can change the theme, and your settings will be saved in localStorage.
+      In most cases, you will need these meta tags:</p>
+    <p class="code__p hs b"><i class="code__i--re">&lt;</i>meta charset<i class="code__i--re">=</i>"UTF-8"<i
+        class="code__i--re">&gt;</i></p>
+    <p class="code__p hs b"> <i class="code__i--re">&lt;</i>meta name<i class="code__i--re">=</i>"description" content<i
+        class="code__i--re">=</i>"Free Web tutorials"<i class="code__i--re">&gt;</i></p>
+    <p class="code__p hs b"> <i class="code__i--re">&lt;</i>meta name<i class="code__i--re">=</i>"viewport" content<i
+        class="code__i--re">=</i>"width<i class="code__i--re">=</i>device-width, initial-scale<i
+        class="code__i--re">=</i>1.0"<i class="code__i--re">&gt;</i></p>
+    <p class="hs">
+      You can find more information here: <a href="https://gist.github.com/lancejpollard/1978404" target="_blank"
+        rel="noopener noreferrer">https://gist.github.com/lancejpollard/1978404</a>
     </p>
-    <p class="ri hs">2023</p>
   </footer>
   <script src="js/script-min.js"></script>
 </body>

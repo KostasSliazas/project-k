@@ -2,9 +2,10 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="description" content="Gradient generator">
   <title>Gradient generator</title>
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
@@ -22,47 +23,47 @@
     <fieldset>
       <legend>Gradient control</legend>
       <span>
-        <input type="number" name="rgb-interv" id="rgbinterv" value="34" min="1" max="40" />
+        <input type="number" name="rgb-interv" id="rgbinterv" value="34" min="1" max="40">
         <label for="rgbinterv">RGB interval</label>
       </span>
 
       <span>
-        <input type="number" name="gra-interv" id="grainterv" value="24" min="1" max="1000" />
+        <input type="number" name="gra-interv" id="grainterv" value="24" min="1" max="1000">
         <label for="grainterv">Gradient interval</label>
       </span>
 
       <span>
-        <input type="number" name="degree" id="degree" value="180" min="0" max="360" />
+        <input type="number" name="degree" id="degree" value="180" min="0" max="360">
         <label for="degree">Degrees</label>
       </span>
 
       <span>
-        <input class="checkbox" type="checkbox" name="random" id="random" value="random" checked="" /><label
+        <input class="checkbox" type="checkbox" name="random" id="random" value="random" checked=""><label
           for="random">random</label>
       </span>
 
       <span>
-        <input class="checkbox" type="checkbox" name="fixed" id="fixed" value="fixed" checked="" /><label
+        <input class="checkbox" type="checkbox" name="fixed" id="fixed" value="fixed" checked=""><label
           for="fixed">fixed</label>
       </span>
 
       <span>
-        <input class="checkbox" type="checkbox" name="revers" id="revers" value="revers" checked="" /><label
+        <input class="checkbox" type="checkbox" name="revers" id="revers" value="revers" checked=""><label
           for="revers">reversed</label>
       </span>
 
       <span class="rgbs">
-        <input type="number" name="r" id="r" value="13" min="0" max="255" />
+        <input type="number" name="r" id="r" value="13" min="0" max="255">
         <label for="r">R</label>
       </span>
 
       <span class="rgbs">
-        <input type="number" name="g" id="g" value="13" min="0" max="255" />
+        <input type="number" name="g" id="g" value="13" min="0" max="255">
         <label for="g">G</label>
       </span>
 
       <span class="rgbs">
-        <input type="number" name="b" id="b" value="13" min="0" max="255" />
+        <input type="number" name="b" id="b" value="13" min="0" max="255">
         <label for="b">B</label>
       </span>
     </fieldset>
@@ -70,36 +71,35 @@
       <legend>Push the button</legend>
 
       <span>
-        <input class="checkbox" name="radio" id="radial" type="radio" /><label for="radial">radial</label>
+        <input class="checkbox" name="radio" id="radial" type="radio"><label for="radial">radial</label>
       </span>
 
       <span>
-        <input class="checkbox" name="radio" id="linear" type="radio" checked="checked" /><label
+        <input class="checkbox" name="radio" id="linear" type="radio" checked="checked"><label
           for="linear">linear</label>
       </span>
 
       <span>
-        <input class="checkbox" title="repeating or linear" name="repea" id="repea" type="checkbox" checked /><label
+        <input class="checkbox" title="repeating or linear" name="repea" id="repea" type="checkbox" checked><label
           for="repea">repeating</label>
       </span>
       <span>
-        <input type="number" title="Gradient Opacity" name="b" id="opaci" value="0" min="0" max="9" />
+        <input type="number" title="Gradient Opacity" name="b" id="opaci" value="0" min="0" max="9">
         <label for="opaci">opacity 0=no</label>
       </span>
 
       <span>
-        <input type="number" title="Maximum lines if reversed x2" name="safe" id="safe" value="20" min="2" max="100" />
+        <input type="number" title="Maximum lines if reversed x2" name="safe" id="safe" value="20" min="2" max="100">
         <label for="safe">threshold</label>
       </span>
 
       <span>
-        <input type="number" name="softness" id="softness" value="1" min="0" max="5" />
+        <input type="number" name="softness" id="softness" value="1" min="0" max="5">
         <label for="softness">softness</label>
       </span>
 
       <span>
-        <input type="number" title="like even rows is thicker" name="baseline" id="baseline" value="0" min="0"
-          max="45" />
+        <input type="number" title="like even rows is thicker" name="baseline" id="baseline" value="0" min="0" max="45">
         <label for="baseline">baseline 0=no</label>
       </span>
 

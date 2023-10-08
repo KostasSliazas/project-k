@@ -78,7 +78,7 @@
 
   window.onload = function () {
     setStyles();
-    root.removeAttribute("style");
+    document.body.removeAttribute("style");
   };
 
   const changed = (e) => {
