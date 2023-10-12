@@ -48,7 +48,7 @@
         margin: 0 auto;
       }
       .in{
-      max-width:900px;
+      min-width: 700px;
       margin: 0 auto;
       }
       input {
@@ -64,7 +64,6 @@
       label,
       input,
       button {
-        line-height: 2;
         cursor: pointer;
         font-size: initial;
         padding: 0 1.5em;
@@ -72,7 +71,13 @@
         text-overflow: ellipsis;
         overflow: hidden;
       }
-
+      ul {
+      padding:0;
+      display: flex;
+      }
+      li{
+        position:relative;
+      }
       div {
         font-size: 0;
         position: relative;
@@ -103,6 +108,10 @@
       min-width: 240px;
       text-align:right;
       }
+      .onenum {
+        border-top: 10px solid transparent;
+      }
+
     </style>
   </head>
 
@@ -110,19 +119,32 @@
     <header>Regex Extractor</header>
     <main>
     <div class="in">
-      <textarea id="area" rows="10" cols="40">7 77,777 $777.10 0dolars and €777.1euros plus and €0.2 $0.20 $0.4770 €0.477</textarea>
+      <textarea id="area" rows="10" cols="40"></textarea>
+
+      <div class="wer">
       <div>
-        <input id="onenum" type="radio" name="regex" value="(?<!\S)\d+(?!\S)" />
-        <label for="onenum" title="Search for more info and explanations" >(?&lt;!\S)\d+(?!\S) select numbers(integer)</label>
-      </div>
-      <div>
-        <input id="onenumwithdolar" type="radio" name="regex" value="(?<=\$)[\d.]+" checked/>
+        <input id="onenumwithdolar" type="radio" name="regex" value="(?<=\$)[\d.]+" checked>
         <label for="onenumwithdolar" title="Search for more info and explanations" >(?&lt;=\$)[\d.]+ select number with $ and .</label>
       </div>
       <div>
-        <input id="onenumwitheur" type="radio" name="regex" value="(?<=\€)[\d.]+"/>
+        <input id="onenumwitheur" type="radio" name="regex" value="(?<=\€)[\d.]+">
         <label for="onenumwitheur" title="Search for more info and explanations" >(?&lt;=\€)[\d.]+ select number with € and .</label>
       </div>
+      <div class="onenum">
+        <input id="onenum" type="radio" name="regex" value="(?<!\S)\d(?!\S)">
+        <label for="onenum" title="Search for more info and explanations" >(?&lt;!\S)\d+(?!\S) select numbers(INT)</label>
+      </div>
+      </div>
+      <div id="radios">
+        <ul>
+          <li><input id="num1" type="radio" name="num" value="1"><label for="num1">1</label></li>
+          <li><input id="num2" type="radio" name="num" value="2"><label for="num2">2</label></li>
+          <li><input id="num3" type="radio" name="num" value="3"><label for="num3">3</label></li>
+          <li><input id="num4" type="radio" name="num" value="4"><label for="num4">4</label></li>
+          <li><input id="num5" type="radio" name="num" value="0"><label for="num5">+</label></li>
+        </ul>
+      </div>
+
       <button id="extract">Extract</button>
       <p class='row'>
         <span>length:<span id="length" class="b">0</span></span>&nbsp;<span>sum:<span id="sum" class="b">0</span></span>
@@ -130,6 +152,7 @@
       <div class='row'>
       <p>Extracted output:</p>
       <p id="output" class="b"></p>
+      <button title="copy text" id="copy">✂</button>
       </div>
       </div>
     </main>
@@ -138,12 +161,18 @@
       const area = document.getElementById("area")
       const extract = document.getElementById("extract")
       const output = document.getElementById("output")
-      const checkbox = document.querySelectorAll("input[type=radio]")
+      const checkbox = document.querySelectorAll(".wer input[type=radio]")
       const len = document.getElementById("length")
       const sum = document.getElementById("sum")
+      const onenum = document.getElementById('onenum')
+      const radios = document.getElementById('radios')
+      const copyText = document.getElementById('copy')
+      const getChecked = elem=>Array.from(elem).find((e) => e.checked)
 
-      extract.addEventListener("click", () => {
-        const elem = Array.from(checkbox).find((e) => e.checked)
+      const caliculations = () => {
+        const elem = getChecked(checkbox)
+        if(elem.id === 'onenum') getChecked(radios.getElementsByTagName("INPUT")) || (radios.getElementsByTagName("INPUT")[0].checked = true)
+        else Array.from(radios.getElementsByTagName("INPUT")).forEach(e=>e.checked = false)
         const reg = new RegExp(`${elem.value}`, "g")
         let array = area.value.match(reg) || [0]
         const sumOfArray = array.reduce( (a,b) => {
@@ -156,7 +185,29 @@
         output.textContent = array[0] === 0 && array.length === 1 ? (array = "") : array
         len.textContent = array.length
         sum.textContent = sumOfArray
+      }
+      const copyTextToClipboard = async c => {
+        try {
+          await navigator.clipboard.writeText(c);
+          console.log("copied to clipboard");
+        } catch (error) {
+          console.log("failed to copy to clipboard. error=" + error);
+        }
+      }
+
+      radios.addEventListener('click', e=>{
+        const {target} = e
+        if(target.tagName === "INPUT"){
+          onenum.checked = true
+          onenum.value =`(?<!\\S)${+target.value?'\\d'.repeat(target.value):'\\d+'}(?!\\S)`
+          onenum.nextElementSibling.textContent = `(?<!\\S)${+target.value?'\\d'.repeat(target.value):'\\d+'}(?!\\S) select ${parseInt(target.value)||""} number${target.value=='1'?'':'s'}(INT)`
+        }
+          // e.stopPropagation()
       })
+
+      copyText.addEventListener("mouseup", () => copyTextToClipboard(output.innerText));
+      extract.addEventListener("click", caliculations)
+      document.body.addEventListener('click', e=> {if(e.target.id.match('num')) caliculations()})
     </script>
   </body>
 </html>
