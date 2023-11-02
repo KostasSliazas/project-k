@@ -93,7 +93,7 @@
 
       e.addEventListener("mousedown", (e) => {
         //set global target element
-        if (e.target.className === "movable") {
+        if (e.target.classList.contains("movable")) {
           if (target !== null) target.style.zIndex = 1;
           target = e.target;
           target.style.zIndex = 2;
@@ -261,41 +261,13 @@
   }
 
   const root = document.documentElement;
-  const random = (min, max) => Math.floor(Math.random() * (max - min)) + min;
-  const setVariables = (vars) =>
-    Object.entries(vars).forEach((v) => {
-      if (typeof v[1] === "function") return v[1]();
-      root.style.setProperty(v[0], v[1]);
-    });
 
-  const myVariables = [
-    { e: () => root.removeAttribute("style") },
-    {
-      "--color0": "#fff",
-      "--color1": "#aaa",
-      "--color2": "#bbb",
-      "--color3": "#777",
-      "--color4": "#888",
-    },
-    {
-      "--color0": "#bdddfe",
-      "--color1": "#81a1c2",
-      "--color2": "#456586",
-      "--color3": "#09294a",
-      "--color4": "#111",
-    },
-    {
-      "--color0": "#aaa",
-      "--color1": "#bbb",
-      "--color2": "#777",
-      "--color3": "#222",
-      "--color4": "#000",
-    },
-  ];
+  const random = (min, max) => Math.floor(Math.random() * (max - min)) + min;
+  // for theme changing
 
   var arrayHelper = function () {
     var ob = {};
-    ob.full = ob.value = this.length;
+    ob.value = ob.full = this.length;
     ob.increment = function () {
       this.value = this.value ? --this.value : this.full - 1;
     };
@@ -304,32 +276,52 @@
     };
     return ob;
   };
-  const ok = arrayHelper.call(myVariables);
-  // Object.seal(ok)
+  const classNameVariables = [0, "a", "b", "c", "d", "e", "f"];
+  const THEME_CHANGE = arrayHelper.call(classNameVariables);
 
-  // random theme on load
-  if (random(0, 4) !== 3) setVariables(myVariables[random(0, 3)]);
-
+  const changerClass = (e) => {
+    if (e) root.className = classNameVariables[e];
+    else root.removeAttribute("class");
+  };
+  // click events for context menu and simple click only for theme changing
   root.addEventListener("click", (e) => {
-    if (e.target.tagName === "HTML") ok.decrement();
-    setVariables(myVariables[ok.value]);
-    localStorage.setItem("theme", ok.value);
+    if (e.target.tagName === "HTML") {
+      e.preventDefault();
+      THEME_CHANGE.increment(); // eslint-disable-line
+      changerClass(THEME_CHANGE.value);
+      //set local storage only when user click
+      localStorage.setItem("theme", THEME_CHANGE.value);
+    }
+  });
+  root.addEventListener("contextmenu", (e) => {
+    if (e.target.tagName === "HTML") {
+      e.preventDefault();
+      THEME_CHANGE.decrement(); // eslint-disable-line
+      changerClass(THEME_CHANGE.value);
+      //set local storage only when user click
+      localStorage.setItem("theme", THEME_CHANGE.value);
+    }
   });
 
+  // random theme on load
+  // if (random(0, 4) !== 3) changerClass(classNameVariables[random(0, classNameVariables.length)]);
+  function getValueOfStorage() {
+    return JSON.parse(localStorage.getItem(this));
+  }
   async function init() {
     // defaults by injecting to storage then loading string can be changed from localStorage (HTML should be not touched)
     if (!localStorage.getItem("elementStyles")) localStorage.setItem("elementStyles", "width:100px;height:60px;left:900px;top:0px;,width:180px;height:60px;left:620px;top:0px;,width:100px;height:60px;left:800px;top:0px;,width:90px;height:60px;left:910px;top:200px;,width:90px;height:40px;left:910px;top:260px;,width:90px;height:40px;left:910px;top:160px;,width:90px;height:40px;left:910px;top:300px;,width:190px;height:40px;left:810px;top:360px;,width:220px;height:40px;left:690px;top:160px;,width:170px;height:40px;left:690px;top:740px;,width:140px;height:40px;left:690px;top:360px;,width:130px;height:40px;left:870px;top:680px;,width:220px;height:140px;left:690px;top:200px;,width:190px;height:60px;left:690px;top:680px;,width:310px;height:50px;left:690px;top:110px;,width:310px;height:50px;left:690px;top:60px;,width:310px;height:280px;left:690px;top:400px;");
     // check if there is no data in local storage or check if there time passed 43minutes and load api
     if (setTimeStamp(43) && online) await getAll(api_url);
-    await stats(JSON.parse(localStorage.getItem("statsData")));
+    await stats(getValueOfStorage.call("statsData"));
     await startTime();
     await applyStyles();
     await loopElem();
     document.getElementById("today").innerHTML = showDate();
     document.body.style.display = "block";
-    const NUM = parseInt(localStorage.getItem("theme")) || 0;
-    ok.value = NUM;
-    setVariables(myVariables[ok.value]);
+    const NUM = parseInt(getValueOfStorage.call("theme")) || 0;
+    THEME_CHANGE.value = NUM;
+    changerClass(NUM);
   }
   // add event listener to document
   document.addEventListener("DOMContentLoaded", init, { once: true });

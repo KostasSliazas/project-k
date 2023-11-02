@@ -9,7 +9,7 @@
     <link rel="manifest" href="site.webmanifest" />
     <meta name="msapplication-TileColor" content="#da532c" />
     <meta name="theme-color" content="#ffffff" />
-    <link rel="stylesheet" href="./css/style-min.css" />
+    <link rel="stylesheet" href="./css/main.min.css" />
     <link rel="stylesheet" href="./css/style.min.css" />
   </head>
 
@@ -48,12 +48,13 @@
 
       <div class="movable">
         <h1>Links</h1>
-        <a href="tools/links-webpage/index.html" target="_blank" rel="noopener noreferrer">Links</a>
+        <a href="tools/links-webpage/index.html" target="_blank" rel="noopener noreferrer">Links for preparation</a>
       </div>
 
       <div class="movable">
         <h1>External Links</h1>
         <a href="https://kostassliazas.github.io/" target="_blank" rel="noopener noreferrer">daug.eu</a>
+        <a href="https://chat.openai.com/" target="_blank" rel="noopener noreferrer">chat.openai.com</a>
       </div>
 
       <div class="movable">
@@ -68,7 +69,7 @@
 
       <div class="movable">
         <h1>Keywords</h1>
-        <a href="tools/keywords/index.html" target="_blank" rel="noopener noreferrer">keywords.io</a>
+        <a href="tools/keywords/index.html" target="_blank" rel="noopener noreferrer">keywords</a>
       </div>
 
       <div class="movable">
@@ -113,15 +114,23 @@
       </div>
 
       <div class="movable">
+        <h1>Donate</h1>
+        <div class="movable-p">
+          <a href="https://www.paypal.com/donate/?hosted_button_id=FCPW77XUNSHZJ" target="_blank" rel="noopener noreferrer">Donate</a>
+          <img src="./img/QR Code.png" alt="Donate" />
+        </div>
+      </div>
+
+      <div class="movable dark">
         <h1>calculator</h1>
         <div class="movable-p">
           <div id="calcwrap">
             <div class="in">
               <div id="calculator">
-                <input type="text" id="src" data-ekr="ekr" value="" disabled="" title="screen" />
-                <input data-fun="clr" type="button" value="C" />
+                <input data-ekr="ekr" type="text" id="src" value="0" title="screen" />
+                <input data-fun="x" type="button" value="C" />
                 <input data-fun="b" type="button" value="⌫" />
-                <label class="switch"><input id="esound" type="checkbox" /><span class="slider round">e</span>sound</label>
+                <input data-fun="s" type="checkbox" value="sound" id="esound" title="sound" />
                 <input data-fun="d" type="button" value="/" />
                 <input data-num="7" type="button" value="7" />
                 <input data-num="8" type="button" value="8" />
@@ -143,8 +152,17 @@
           </div>
         </div>
       </div>
+
+      <div class="movable" id="controls">
+        <h1>Games</h1>
+        <div class="movable-p">
+          <a href="https://kostassliazas.github.io/questions/" target="_blank" rel="noopener noreferrer">questions</a>
+          <a href="https://kostassliazas.github.io/memory-game2.github.io/" target="_blank" rel="noopener noreferrer">memory game2</a>
+          <a href="https://kostassliazas.github.io/random-winner-name/" target="_blank" rel="noopener noreferrer">Random name</a>
+        </div>
+      </div>
     </div>
     <script src="js/script.min.js"></script>
-    <script src="js/main-min.js"></script>
+    <script src="js/main.js"></script>
   </body>
 </html>
