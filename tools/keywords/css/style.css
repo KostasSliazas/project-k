@@ -104,7 +104,9 @@ textarea {
 textarea {
   width: 100%;
 }
-
+.hide {
+  visibility: hidden;
+}
 #outputs {
   word-wrap: anywhere;
   line-break: anywhere;
@@ -112,8 +114,19 @@ textarea {
   max-height: 16em;
   overflow: hidden;
   overflow-y: scroll;
+  white-space: pre;
 }
-
+footer {
+  cursor: pointer;
+  padding: 1em;
+  color: var(--color1);
+  background: var(--color5);
+  border: 1px solid var(--color1);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 #separator {
   width: 3ch;
   line-height: 1;

@@ -23,6 +23,7 @@
     </div>
   </header>
   <main>
+
     <div class="ms">
       <div class="fl">
         <label for="input">List input:</label>
@@ -38,6 +39,7 @@
         <input id="doubles" type="checkbox" checked>
       </div>
       <div>
+        <button id="info">info</button>
         <button id="shuffle">shuffle</button>
         <button id="sorts">(a-b) sort</button>
         <button id="sorts-length">(a-b) length-sort</button>
@@ -45,6 +47,7 @@
         <button id="upper-case">uppercase</button>
         <button id="case">capitalize</button>
         <button id="meta">metalize</button>
+        <button id="html">HTML list</button>
       </div>
       <div id="holder">
         <div>
@@ -57,7 +60,7 @@
       </div>
     </div>
   </main>
-  <footer>
+  <footer id="footer" class="hide">
     <p class="hs">
       This tool is designed for various keyword manipulations, including converting them to lowercase, uppercase,
       capitalizing, shuffling, sorting, and generating meta tags. It separates words based on new lines, empty spaces,
@@ -76,8 +79,9 @@
       You can find more information here: <a href="https://gist.github.com/lancejpollard/1978404" target="_blank"
         rel="noopener noreferrer">https://gist.github.com/lancejpollard/1978404</a>
     </p>
+
   </footer>
-  <script src="js/script-min.js"></script>
+  <script src="js/script.min.js"></script>
 </body>
 
 </html>

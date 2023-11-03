@@ -15,17 +15,27 @@
   const capitalize = document.getElementById("case");
   const sortsLength = document.getElementById("sorts-length");
   const meta = document.getElementById("meta");
+  const htmlList = document.getElementById("html");
   const copyText = document.getElementById("copy");
   const statisticsW = document.getElementById("stat-keywords");
   const statisticsL = document.getElementById("stat-letters");
   const statisticsN = document.getElementById("stat-breaks");
   const header = document.getElementById("header");
   const theme = document.getElementById("theme");
+  const info = document.getElementById("info");
+  const footer = document.getElementById("footer");
 
   const random = (min, max) => Math.floor(Math.random() * (max - min)) + min;
   // for theme changing
   const root = document.documentElement;
   const classNameVariables = [0, "grey", "green", "blue", "pink"];
+  const toggleHide = function (e) {
+    if (e.target.tagName === "A") return;
+    this.classList.toggle("hide");
+    e.preventDefault();
+    e.stopPropagation();
+  };
+  [info, footer].forEach((e) => e.addEventListener("click", toggleHide.bind(footer)));
 
   var arrayHelper = function () {
     var ob = {};
@@ -66,7 +76,7 @@
   var element = document.createElement("link");
   element.setAttribute("rel", "stylesheet");
   // element.setAttribute("type", "text/css");
-  element.setAttribute("href", "css/style.css");
+  element.setAttribute("href", "css/style.min.css");
   document.getElementsByTagName("head")[0].appendChild(element);
 
   function setStyles() {
@@ -93,7 +103,7 @@
       regex = new RegExp(/\n/g || []);
     }
     const values = inputs.value
-      .toLowerCase()
+      //.toLowerCase()
       .split(regex)
       .filter(Boolean)
       .map((item) => item.trim());
@@ -149,8 +159,16 @@
     output(lowerCase());
     outputs.textContent = '<meta name="keywords" content="' + outputs.innerHTML + '">';
   });
+  htmlList.addEventListener("click", () => {
+    separator.value = "";
+    lineBreak.checked = false;
+    arrays = arrays.map((e) => `  <li>${e}</li>\n`);
+    output();
+    inputArray();
+    outputs.innerText = "<ul>\n" + outputs.innerHTML + "</ul>";
+  });
   copyText.addEventListener("mouseup", () => copyTextToClipboard(outputs.innerText));
-  output(lowerCase(inputArray()), showStatsLetters());
+  output(inputArray(), showStatsLetters());
   // multiple dblclick event bind to input elements for clearing them
   Array.from([separator, inputs]).forEach((elem) => elem.addEventListener("dblclick", clear));
   Array.from([doubles, lineBreak]).forEach((elem) => elem.addEventListener("click", () => output(inputArray(), showStatsLetters())));
