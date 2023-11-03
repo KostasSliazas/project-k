@@ -1,11 +1,13 @@
 /* jshint esversion: 8 */
 (function () {
-  ("use strict");
+  "use strict";
   const random = (min, max) => Math.floor(Math.random() * (max - min)) + min;
   // for theme changing
   const root = document.documentElement;
-  // these will add class name to html tag or remove if 0
-  const classNameVariables = [0, "a", "b", "c", "d", "e", "f", "g", "h", "c h", "c h j", "c h k", "c h l"];
+  // these will add class name to html tag or remove if 0 and set default
+  // a,b,c,d,e,f,g,h,i,j,k --- colors classes
+  // l, m, n, o, p, q --- styles for diferent border fontžsize etc.
+  const classNameVariables = [0, "a", "b", "c", "d", "e l", "f", "g", "h l", "i n", "j n p", "k o p", "e l q"];
 
   var arrayHelper = function () {
     var ob = {};
