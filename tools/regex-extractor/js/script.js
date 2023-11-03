@@ -7,6 +7,7 @@
   const checkbox = document.querySelectorAll("input[name=regex]");
   const len = document.getElementById("length");
   const sum = document.getElementById("sum");
+  const average = document.getElementById("average");
   const lenum = document.getElementById("lenum");
   const radios = document.getElementById("radios");
   const copyText = document.getElementById("copy");
@@ -43,6 +44,7 @@
     output.textContent = array[0] === 0 && array.length === 1 ? (array = "") : array;
     len.textContent = array.length;
     sum.textContent = sumOfArray;
+    average.textContent = sumOfArray / array.length;
     e.stopPropagation();
   };
 
