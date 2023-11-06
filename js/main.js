@@ -309,6 +309,9 @@
     return JSON.parse(localStorage.getItem(this));
   }
   async function init() {
+    const areaText = document.getElementsByTagName("TEXTAREA")[0];
+
+    areaText.value = localStorage.getItem("textArea") || "";
     // defaults by injecting to storage then loading string can be changed from localStorage (HTML should be not touched)
     if (!localStorage.getItem("elementStyles")) localStorage.setItem("elementStyles", "width:100px;height:60px;left:840px;top:10px;,width:180px;height:60px;left:560px;top:10px;,width:100px;height:60px;left:740px;top:10px;,width:90px;height:60px;left:710px;top:240px;,width:90px;height:40px;left:800px;top:200px;,width:100px;height:40px;left:890px;top:200px;,width:210px;height:40px;left:10px;top:10px;,width:190px;height:60px;left:800px;top:240px;,width:220px;height:40px;left:720px;top:100px;,width:310px;height:130px;left:680px;top:400px;,width:140px;height:40px;left:220px;top:10px;,width:130px;height:40px;left:590px;top:100px;,width:220px;height:140px;left:10px;top:50px;,width:190px;height:60px;left:990px;top:180px;,width:310px;height:50px;left:680px;top:350px;,width:310px;height:50px;left:680px;top:300px;,width:140px;height:180px;left:10px;top:270px;,width:190px;height:290px;left:990px;top:240px;,width:150px;height:80px;left:10px;top:190px;");
     // check if there is no data in local storage or check if there time passed 43minutes and load api
@@ -319,7 +322,7 @@
     await loopElem();
     document.getElementById("today").innerHTML = showDate();
     document.body.style.display = "block";
-    const NUM = parseInt(getValueOfStorage.call("theme")) || 0;
+    const NUM = parseInt(getValueOfStorage.call("theme")) || random(0, classNameVariables.length);
     THEME_CHANGE.value = NUM;
     changerClass(NUM);
   }
@@ -336,14 +339,17 @@
     scalingTarget = e.target;
     if (scalingTarget.tagName === "TEXTAREA") {
       mousedown = true;
-      await delay(700);
+      await delay(300);
       if (mousedown) {
         scalingTarget.style.width = scalingTarget.parentElement.style.width = "auto";
         scalingTarget.style.height = scalingTarget.parentElement.style.height = "auto";
       }
     }
   });
-
+  document.getElementsByTagName("TEXTAREA")[0].addEventListener("input", async (e) => {
+    await delay(3000);
+    localStorage.setItem("textArea", e.target.value.trim());
+  });
   document.addEventListener("mouseup", (e) => {
     // to make opacity .3 like link is visited while not refreshed page
     const { target } = e;
