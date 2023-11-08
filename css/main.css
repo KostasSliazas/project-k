@@ -110,7 +110,7 @@ a:hover {
     flex-direction: column;
     place-items: center;
     overflow: hidden;
-    min-width: 70px;
+    min-width: 52px;
     white-space: nowrap;
     text-overflow: ellipsis;
     position: relative
@@ -253,4 +253,60 @@ textarea {
 
 .dark {
     background: var(--color1);
+}
+
+button,
+input[type="file"]::file-selector-button,
+input[type="color"] {
+    min-width: 46px;
+  height: 2em;
+  max-width: 100px;
+  overflow: hidden;
+  cursor: pointer;
+  color: var(--color0);
+  background: var(--color4);
+  border: 1px solid var(--color2);
+  margin: .25em;
+  inline-size: min-content;
+}
+input[type="file"]::file-selector-button{
+display: flex;
+flex-direction: column;
+width: min-content;
+}
+
+.forms label {
+    margin: 0 .25em;
+    padding: 0;
+    line-height: 1;
+    text-align: center;
+}
+
+input[type="file"]::file-selector-button:hover {
+    background: var(--color3)
+}
+
+.flex {
+    display: flex
+}
+
+.forms {
+    border: 1px solid var(--color3);
+    display: flex;
+    flex-direction: column;
+    margin: .25em;
+    padding: .25em;
+    place-items: flex-start;
+}
+
+.forms div {
+    display: flex;
+}
+
+.forms>div>div {
+    flex-direction: column;
+}
+
+.forms legend {
+    margin: 0 1em;
 }

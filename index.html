@@ -27,34 +27,31 @@
 
       <div class="movable">
         <h1 id="stats">TEMPERATURE</h1>
-        <div class="svg-holder"></div>
+        <div class="svg-holder" title="TEMPERATURE in Lithuania"></div>
       </div>
 
       <div class="movable">
         <h1>mail</h1>
-        <a href="https://mail.google.com/mail/u/0/#inbox" target="_blank" rel="noopener noreferrer">GMAIL0</a>
-        <a href="https://mail.google.com/mail/u/1/#inbox" target="_blank" rel="noopener noreferrer">GMAIL1</a>
+        <a href="https://mail.google.com/mail/u/0/#inbox" target="_blank" rel="noopener noreferrer">GMAIL-0</a>
+        <a href="https://mail.google.com/mail/u/1/#inbox" target="_blank" rel="noopener noreferrer">GMAIL-1</a>
       </div>
 
       <div class="movable">
         <h1>todo</h1>
-        <a href="tools/todo-app/index.html" target="_blank" rel="noopener noreferrer">TODO</a>
-      </div>
-
-      <div class="movable">
-        <h1>ADOBE</h1>
-        <a href="https://contributor.stock.adobe.com/lt/portfolio" target="_blank" rel="noopener noreferrer">ADOBE</a>
+        <a href="tools/todo-app/index.html" target="_blank" rel="noopener noreferrer">TODO-2</a>
+        <a href="tools/todo-app-1/index.html" target="_blank" rel="noopener noreferrer">TODO-1</a>
       </div>
 
       <div class="movable">
         <h1>Links</h1>
-        <a href="tools/links-webpage/index.html" target="_blank" rel="noopener noreferrer">Links for preparation</a>
+        <a href="tools/links-webpage/index.html" target="_blank" rel="noopener noreferrer">Links</a>
       </div>
 
       <div class="movable">
         <h1>External Links</h1>
-        <a href="https://kostassliazas.github.io/" target="_blank" rel="noopener noreferrer">daug.eu</a>
         <a href="https://chat.openai.com/" target="_blank" rel="noopener noreferrer">chat.openai.com</a>
+        <a href="https://kostassliazas.github.io/" target="_blank" rel="noopener noreferrer">daug.eu</a>
+        <a href="https://contributor.stock.adobe.com/lt/portfolio" target="_blank" rel="noopener noreferrer">ADOBE</a>
       </div>
 
       <div class="movable">
@@ -68,22 +65,18 @@
       </div>
 
       <div class="movable">
-        <h1>Keywords</h1>
-        <a href="tools/keywords/index.html" target="_blank" rel="noopener noreferrer">keywords</a>
-      </div>
-
-      <div class="movable">
         <h1>Learning</h1>
         <a href="https://www.udemy.com/home/my-courses/learning/" target="_blank" rel="noopener noreferrer">udemy</a>
       </div>
 
       <div class="movable">
-        <h1>Css tools</h1>
+        <h1>web tools</h1>
+        <a href="tools/keywords/index.html" target="_blank" rel="noopener noreferrer">keywords</a>
         <a href="tools/border-radius/index.html" target="_blank" rel="noopener noreferrer">border-radius</a>
         <a href="tools/borders-gen/index.html" target="_blank" rel="noopener noreferrer">borders css</a>
         <a href="tools/code-to-html/index.html" target="_blank" rel="noopener noreferrer">code-to-html</a>
-        <a href="tools/gradient-generator/index.html" target="_blank" rel="noopener noreferrer">gradient-generator</a>
-        <a href="tools/gradients-two-colors/index.html" target="_blank" rel="noopener noreferrer">gradients-two-colors</a>
+        <a href="tools/gradient-generator/index.html" target="_blank" rel="noopener noreferrer">gradient-generate</a>
+        <a href="tools/gradients-two-colors/index.html" target="_blank" rel="noopener noreferrer">gradient-2-colors</a>
         <a href="tools/text-shadow/index.html" target="_blank" rel="noopener noreferrer">text-shadow</a>
       </div>
 
@@ -153,12 +146,69 @@
         </div>
       </div>
 
-      <div class="movable" id="controls">
+      <div class="movable">
         <h1>Games</h1>
         <div class="movable-p">
           <a href="https://kostassliazas.github.io/questions/" target="_blank" rel="noopener noreferrer">questions</a>
-          <a href="https://kostassliazas.github.io/memory-game2.github.io/" target="_blank" rel="noopener noreferrer">memory game2</a>
+          <a href="https://kostassliazas.github.io/memory-game2.github.io/" target="_blank" rel="noopener noreferrer">memory game</a>
           <a href="https://kostassliazas.github.io/random-winner-name/" target="_blank" rel="noopener noreferrer">Random name</a>
+        </div>
+      </div>
+
+      <div class="movable" id="controls">
+        <h1>Appearance</h1>
+        <div class="movable-p">
+
+          <fieldset class="forms">
+          <legend>Theme select</legend>
+          <div class="flex">
+            <button id="lt">&lt;</button>
+            <button id="gt">&gt;</button>
+            <button type="reset" id="reset-all">Reset</button>
+          </div>
+          </fieldset>
+
+          <fieldset id="colors" class="forms">
+            <legend>Custom colors</legend>
+            <div>
+              <div>
+                <input type="color" id="color1" name="color1" value="#ffffff" />
+                <label for="color1">color1</label>
+              </div>
+
+              <div>
+                <input type="color" id="color2" name="color2" value="#ffffff" />
+                <label for="color2">color2</label>
+              </div>
+
+              <div>
+                <input type="color" id="color3" name="color3" value="#ffffff" />
+                <label for="color3">color3</label>
+              </div>
+            </div>
+            <div>
+              <div>
+                <input type="color" id="color4" name="color4" value="#ffffff" />
+                <label for="color4">color4</label>
+              </div>
+
+              <div>
+                <input type="color" id="color5" name="color5" value="#ffffff" />
+                <label for="color5">color5</label>
+              </div>
+              <div>
+                <button type="reset" id="custom-theme">Reset</button>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset id="background" class="forms">
+            <legend>Background</legend>
+            <label for="bg">Upload image</label>
+            <input type="file" id="bg-file" />
+            <button type="reset" id="bg-theme">Reset</button>
+          </fieldset>
+
         </div>
       </div>
     </div>

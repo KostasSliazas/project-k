@@ -1,9 +1,42 @@
+/**
+ * Main off "moving blocks" script created by K.S.
+ * @date 11/7/2023 - 12:57:36 AM
+ */
 /*jshint esversion: 11 */
 (function () {
-  "use strict";
+  ("use strict");
+
+  /**
+   * Local storage get item
+   *
+   * @returns {*}
+   */
+  const getValueOfStorage = function () {
+    return JSON.parse(localStorage.getItem(this));
+  };
+
+  /**
+   * is online
+   * @date 11/7/2023 - 1:15:34 AM
+   *
+   * @type {*}
+   */
   var online = navigator.onLine;
+
+  /**
+   * styles array
+   * @date 11/7/2023 - 1:16:10 AM
+   *
+   * @type {{}}
+   */
   const styles = ["width", "height", "left", "top"];
 
+  /**
+   * Get style
+   * @date 11/7/2023 - 1:17:22 AM
+   *
+   * @returns {string}
+   */
   function getStyles() {
     let styleValues = "";
     movable.forEach((e) => {
@@ -12,8 +45,18 @@
     });
     return styleValues;
   }
-  //get all movable elements with class name move
+
+  /**
+   * Movable elements
+   * @date 11/7/2023 - 1:17:58 AM
+   *
+   * @type {array}
+   */
   const movable = Array.from(document.getElementsByClassName("movable"));
+  /**
+   * Delay
+   * @date 11/7/2023 - 1:18:34 AM
+   */
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   const roundToTenWidth = (num) => Math.ceil(num / 10) * 10;
 
@@ -285,12 +328,15 @@
   };
   // click events for context menu and simple click only for theme changing
   root.addEventListener("click", (e) => {
-    if (e.target.tagName === "HTML") {
+    if(e.target.id === "gt") THEME_CHANGE.decrement(); // eslint-disable-line
+    if (e.target.tagName === "HTML" || e.target.id === "lt") THEME_CHANGE.increment(); // eslint-disable-line
+
+    if (e.target.tagName === "HTML" || e.target.id === "lt" || e.target.id === "gt") {
       e.preventDefault();
-      THEME_CHANGE.increment(); // eslint-disable-line
       changerClass(THEME_CHANGE.value);
       //set local storage only when user click
       localStorage.setItem("theme", THEME_CHANGE.value);
+      setColors()
     }
   });
   root.addEventListener("contextmenu", (e) => {
@@ -300,20 +346,42 @@
       changerClass(THEME_CHANGE.value);
       //set local storage only when user click
       localStorage.setItem("theme", THEME_CHANGE.value);
+      setColors()
     }
   });
 
-  // random theme on load
-  // if (random(0, 4) !== 3) changerClass(classNameVariables[random(0, classNameVariables.length)]);
-  function getValueOfStorage() {
-    return JSON.parse(localStorage.getItem(this));
+  function setColors(){
+    const compStyles = window.getComputedStyle(root);
+    const colors = document.querySelectorAll("#colors input");
+    const arrayColors = [];
+    colors.forEach((e,i) => {
+      const compValue = compStyles.getPropertyValue("--color" + i);
+      e.value = e.title = compValue;
+
+      e.addEventListener("input", async (e) => {
+        arrayColors[Array.from(colors).indexOf(e.target)] = e.target.value;
+        const styleArray = arrayColors
+          .map((e, index) => {
+            if (e.length) return "--color" + index + ":" + e;
+          })
+          .filter(Boolean);
+        const styles = styleArray.join(";");
+        localStorage.setItem("custom-theme", styles);
+        styleRoot();
+      });
+    });
   }
+
+  function styleRoot() {
+    document.documentElement.style = localStorage.getItem("custom-theme") + ";" + localStorage.getItem("bg-theme");
+  }
+
   async function init() {
     const areaText = document.getElementsByTagName("TEXTAREA")[0];
-
+    styleRoot();
     areaText.value = localStorage.getItem("textArea") || "";
     // defaults by injecting to storage then loading string can be changed from localStorage (HTML should be not touched)
-    if (!localStorage.getItem("elementStyles")) localStorage.setItem("elementStyles", "width:100px;height:60px;left:840px;top:10px;,width:180px;height:60px;left:560px;top:10px;,width:100px;height:60px;left:740px;top:10px;,width:90px;height:60px;left:710px;top:240px;,width:90px;height:40px;left:800px;top:200px;,width:100px;height:40px;left:890px;top:200px;,width:210px;height:40px;left:10px;top:10px;,width:190px;height:60px;left:800px;top:240px;,width:220px;height:40px;left:720px;top:100px;,width:310px;height:130px;left:680px;top:400px;,width:140px;height:40px;left:220px;top:10px;,width:130px;height:40px;left:590px;top:100px;,width:220px;height:140px;left:10px;top:50px;,width:190px;height:60px;left:990px;top:180px;,width:310px;height:50px;left:680px;top:350px;,width:310px;height:50px;left:680px;top:300px;,width:140px;height:180px;left:10px;top:270px;,width:190px;height:290px;left:990px;top:240px;,width:150px;height:80px;left:10px;top:190px;");
+    if (!localStorage.getItem("elementStyles")) localStorage.setItem("elementStyles", "width:100px;height:60px;left:480px;top:10px;,width:180px;height:60px;left:200px;top:10px;,width:100px;height:60px;left:380px;top:10px;,width:80px;height:60px;left:580px;top:10px;,width:90px;height:60px;left:660px;top:10px;,width:90px;height:40px;left:420px;top:170px;,width:180px;height:80px;left:200px;top:210px;,width:220px;height:40px;left:200px;top:170px;,width:240px;height:100px;left:510px;top:70px;,width:130px;height:40px;left:510px;top:170px;,width:190px;height:160px;left:10px;top:10px;,width:190px;height:60px;left:10px;top:170px;,width:310px;height:50px;left:200px;top:120px;,width:310px;height:50px;left:200px;top:70px;,width:140px;height:180px;left:1380px;top:540px;,width:190px;height:280px;left:200px;top:290px;,width:140px;height:80px;left:380px;top:210px;,width:190px;height:360px;left:10px;top:230px;");
     // check if there is no data in local storage or check if there time passed 43minutes and load api
     if (setTimeStamp(43) && online) await getAll(api_url);
     await stats(getValueOfStorage.call("statsData"));
@@ -325,6 +393,52 @@
     const NUM = parseInt(getValueOfStorage.call("theme")) || random(0, classNameVariables.length);
     THEME_CHANGE.value = NUM;
     changerClass(NUM);
+
+    const themeReset = document.querySelector("#custom-theme");
+    const bgReset = document.querySelector("#bg-theme");
+    const resetAll = document.querySelector("#reset-all");
+    const bg = document.querySelector("#bg-file");
+
+
+    bg.addEventListener("change", (e) => {
+      const inputValue = e.target.files[0];
+      const reader = new FileReader();
+
+      reader.addEventListener(
+        "load",
+        async () => {
+          const fileSting = `--bg:url(${reader.result})`;
+          root.style = root.style ? `${root.styler} + ;${fileSting}` : fileSting;
+          await delay(2000);
+          localStorage.setItem("bg-theme", fileSting);
+        },
+        false
+      );
+
+      if (inputValue) reader.readAsDataURL(inputValue);
+    });
+
+
+
+    [resetAll,bgReset, themeReset].forEach((e) =>
+      e.addEventListener("click", (e) => {
+        root.removeAttribute("style");
+        localStorage.removeItem(e.target.id);
+        styleRoot();
+        if (e.target === resetAll) {
+          root.removeAttribute('class')
+          localStorage.clear();
+          setColors()
+        }
+        if (e.target === themeReset) {
+          setColors()
+        } else bg.value = "";
+      })
+    );
+
+
+
+    setColors()
   }
   // add event listener to document
   document.addEventListener("DOMContentLoaded", init, { once: true });
@@ -346,13 +460,16 @@
       }
     }
   });
-  document.getElementsByTagName("TEXTAREA")[0].addEventListener("input", async (e) => {
+
+  const textArea = document.getElementsByTagName("TEXTAREA")[0];
+  textArea.addEventListener("input", async (e) => {
     await delay(3000);
     localStorage.setItem("textArea", e.target.value.trim());
   });
-  document.addEventListener("mouseup", (e) => {
-    // to make opacity .3 like link is visited while not refreshed page
+
+  function mouseEvents(e) {
     const { target } = e;
+    // to make opacity .3 like link is visited while not refreshed page
     if (target.parentElement?.className === "movable" && target.tagName === "A") target.style.opacity = ".3";
 
     try {
@@ -365,5 +482,7 @@
     } catch (error) {
       console.log({ error });
     }
-  });
+  }
+
+  document.addEventListener("mouseup", mouseEvents);
 })();

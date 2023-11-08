@@ -103,10 +103,10 @@ input::-moz-selection {
   display:flex;
   white-space:break-spaces
 }
-input:checked::after {
+#calculator input:checked::after {
   content:"sound\aon!"
 }
-input::after {
+#calculator input::after {
   content:"sound\aoff";
   line-height:1;
   margin:0 10px
