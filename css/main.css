@@ -29,7 +29,7 @@
     --color2: #2A2000;
     --color3: #6A5100;
     --color4: #AA8F39;
-    --bg: url(../img/nuclear.png);
+    --bg: url(../img/c.webp);
 }
 
 .d {
@@ -46,6 +46,7 @@
     --color2: #2E030C;
     --color3: #4C222B;
     --color4: #674D52;
+    --bg: url(../img/a.webp);
 }
 
 .f {
@@ -54,6 +55,7 @@
     --color2: #322803;
     --color3: #524824;
     --color4: #706953;
+    --bg: url(../img/b.webp);
 }
 
 * {
@@ -116,7 +118,7 @@ a:hover {
     position: relative
 }
 
-.movable div a {
+.movable a {
     display: block
 }
 

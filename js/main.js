@@ -4,7 +4,7 @@
  */
 /*jshint esversion: 11 */
 (function () {
-  ("use strict");
+  "use strict";
 
   /**
    * Local storage get item
@@ -328,7 +328,7 @@
   };
   // click events for context menu and simple click only for theme changing
   root.addEventListener("click", (e) => {
-    if(e.target.id === "gt") THEME_CHANGE.decrement(); // eslint-disable-line
+    if (e.target.id === "gt") THEME_CHANGE.decrement(); // eslint-disable-line
     if (e.target.tagName === "HTML" || e.target.id === "lt") THEME_CHANGE.increment(); // eslint-disable-line
 
     if (e.target.tagName === "HTML" || e.target.id === "lt" || e.target.id === "gt") {
@@ -336,7 +336,7 @@
       changerClass(THEME_CHANGE.value);
       //set local storage only when user click
       localStorage.setItem("theme", THEME_CHANGE.value);
-      setColors()
+      setColors();
     }
   });
   root.addEventListener("contextmenu", (e) => {
@@ -346,15 +346,15 @@
       changerClass(THEME_CHANGE.value);
       //set local storage only when user click
       localStorage.setItem("theme", THEME_CHANGE.value);
-      setColors()
+      setColors();
     }
   });
 
-  function setColors(){
+  function setColors() {
     const compStyles = window.getComputedStyle(root);
     const colors = document.querySelectorAll("#colors input");
     const arrayColors = [];
-    colors.forEach((e,i) => {
+    colors.forEach((e, i) => {
       const compValue = compStyles.getPropertyValue("--color" + i);
       e.value = e.title = compValue;
 
@@ -379,9 +379,9 @@
   async function init() {
     const areaText = document.getElementsByTagName("TEXTAREA")[0];
     styleRoot();
-    areaText.value = localStorage.getItem("textArea") || "";
+    areaText.value = localStorage.getItem("textArea") || "Hello, How are you? I'm here to help you. You can move these blocks by clicking and holding the left corner where you want them, or double-click to minimize. You can also change the theme, colors, and background image if you like. I'm not a designer, but you have the freedom to make it your own. Alternatively, you can close this window and enjoy life. It's your choice! Have a great time, day, and life.";
     // defaults by injecting to storage then loading string can be changed from localStorage (HTML should be not touched)
-    if (!localStorage.getItem("elementStyles")) localStorage.setItem("elementStyles", "width:100px;height:60px;left:480px;top:10px;,width:180px;height:60px;left:200px;top:10px;,width:100px;height:60px;left:380px;top:10px;,width:80px;height:60px;left:580px;top:10px;,width:90px;height:60px;left:660px;top:10px;,width:90px;height:40px;left:420px;top:170px;,width:180px;height:80px;left:200px;top:210px;,width:220px;height:40px;left:200px;top:170px;,width:240px;height:100px;left:510px;top:70px;,width:130px;height:40px;left:510px;top:170px;,width:190px;height:160px;left:10px;top:10px;,width:190px;height:60px;left:10px;top:170px;,width:310px;height:50px;left:200px;top:120px;,width:310px;height:50px;left:200px;top:70px;,width:140px;height:180px;left:1380px;top:540px;,width:190px;height:280px;left:200px;top:290px;,width:140px;height:80px;left:380px;top:210px;,width:190px;height:360px;left:10px;top:230px;");
+    if (!localStorage.getItem("elementStyles")) localStorage.setItem("elementStyles", "width:100px;height:60px;left:480px;top:10px;,width:180px;height:60px;left:200px;top:10px;,width:100px;height:60px;left:380px;top:10px;,width:80px;height:60px;left:580px;top:10px;,width:90px;height:60px;left:660px;top:10px;,width:90px;height:40px;left:200px;top:170px;,width:190px;height:120px;left:10px;top:230px;,width:220px;height:40px;left:510px;top:70px;,width:190px;height:120px;left:200px;top:490px;,width:130px;height:40px;left:290px;top:170px;,width:190px;height:160px;left:10px;top:10px;,width:190px;height:60px;left:10px;top:170px;,width:310px;height:50px;left:200px;top:120px;,width:310px;height:50px;left:200px;top:70px;,width:140px;height:180px;left:200px;top:610px;,width:190px;height:280px;left:200px;top:210px;,width:190px;height:80px;left:10px;top:350px;,width:190px;height:360px;left:10px;top:430px;");
     // check if there is no data in local storage or check if there time passed 43minutes and load api
     if (setTimeStamp(43) && online) await getAll(api_url);
     await stats(getValueOfStorage.call("statsData"));
@@ -398,7 +398,6 @@
     const bgReset = document.querySelector("#bg-theme");
     const resetAll = document.querySelector("#reset-all");
     const bg = document.querySelector("#bg-file");
-
 
     bg.addEventListener("change", (e) => {
       const inputValue = e.target.files[0];
@@ -418,27 +417,23 @@
       if (inputValue) reader.readAsDataURL(inputValue);
     });
 
-
-
-    [resetAll,bgReset, themeReset].forEach((e) =>
+    [resetAll, bgReset, themeReset].forEach((e) =>
       e.addEventListener("click", (e) => {
         root.removeAttribute("style");
         localStorage.removeItem(e.target.id);
         styleRoot();
         if (e.target === resetAll) {
-          root.removeAttribute('class')
+          root.removeAttribute("class");
           localStorage.clear();
-          setColors()
+          setColors();
         }
         if (e.target === themeReset) {
-          setColors()
+          setColors();
         } else bg.value = "";
       })
     );
 
-
-
-    setColors()
+    setColors();
   }
   // add event listener to document
   document.addEventListener("DOMContentLoaded", init, { once: true });
