@@ -327,16 +327,42 @@ input[type="file"]::file-selector-button:active {
     margin: 0 1em;
     padding: 0 .25em;
 }
-
+#vr h1{
+  height: auto;
+  padding: 20px 0 9px;
+  width: 20px;
+}
+#vr p {
+  font-size: 10px;
+  line-height: 1;
+  font-variant: all-small-caps;
+  padding: 0;
+}
+#vr {
+  display: flex;
+  flex-direction: row;
+  place-content: space-between;
+  place-items: stretch;
+}
+#vr.minimized {
+  width: 20px !important;
+  min-width: 0;
+  height: auto !important;
+}
 @media screen and (max-width: 600px) {
+    #vr.minimized,
     .movable {
         position: relative !important;
         top: 0 !important;
         left: 0 !important;
         width: 100% !important;
+        height: auto !important;
     }
 
     .movable::before {
         display: none;
+    }
+    .movable.minimized div{
+        display: block !important;
     }
 }
