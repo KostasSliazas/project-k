@@ -239,7 +239,7 @@ svg {
 input[type=text],
 textarea {
     background: var(--color0);
-    width: 300px;
+    width: 304px;
     color: inherit;
     border: 0;
     padding: 0 4px;
@@ -311,4 +311,14 @@ input[type="file"]::file-selector-button:hover {
 
 .forms legend {
     margin: 0 1em;
+}
+
+@media screen and (max-width: 600px) {
+  .movable {
+    position: relative !important;
+    top:0 !important;
+    left:0 !important;
+    width: 100% !important;
+  }
+  .movable::before {display: none;}
 }
