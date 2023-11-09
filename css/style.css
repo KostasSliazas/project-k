@@ -68,7 +68,7 @@
   line-height:inherit;
   position:relative;
   cursor:pointer;
-  border:0;
+  border:1px solid var(--color4);
   margin:0;
   outline:0;
   color: var(--color2);
@@ -77,11 +77,13 @@
   -moz-appearance:none;
   appearance:none;
   transition:.1s;
-  border-radius:2px;
   font-family:inherit
 }
 input {
   -webkit-tap-highlight-color:#000
+}
+#calculator input[type=button]:focus{
+    border:1px solid var(--color4);
 }
 #calculator input[type=button]:active {
   background:var(--color4)
