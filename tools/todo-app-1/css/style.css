@@ -1,0 +1,557 @@
+body {
+    font: 16px/1.5 Calibri, Candara, Segoe, Segoe UI, Optima, Arial, sans-serif;
+    color: #656577;
+    background: #eee;
+    scroll-behavior: smooth;
+    overflow-x: hidden
+}
+
+#wrap {
+    padding: 1em;
+    margin: 0 auto;
+    max-width: 700px;
+}
+
+#app {
+    display: flex;
+    flex-direction: column
+}
+
+#safemode {
+    position: absolute;
+    left: 3.5em;
+    top: 0
+}
+
+header {
+    color: #fff;
+    background: #999;
+    position: relative
+}
+
+.btns input,
+input[switch] {
+    display: none
+}
+
+input[switch]+label {
+    font-size: 1em;
+    line-height: 1;
+    width: 3em;
+    height: 1.5em;
+    background: #ddd;
+    border-radius: 1em;
+    padding: 0;
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+    transition: all .1s ease-in-out;
+    position: absolute;
+    top: .75em;
+    left: .75em;
+    font-family: Arial, Helvetica, sans-serif
+}
+
+input[switch]:checked+label::before {
+    color: #fff;
+    content: attr(data-on-label);
+    right: auto;
+    left: 0
+}
+
+input[switch]+label::before {
+    text-transform: uppercase;
+    color: #aaa;
+    content: attr(data-off-label);
+    display: block;
+    line-height: 2;
+    position: absolute;
+    top: 0;
+    text-align: center;
+    overflow: hidden;
+    transition: all .1s ease-in-out;
+    right: 0;
+    font-size: .75em;
+    margin: 0 .25em
+}
+
+input[switch]:checked+label::after {
+    left: 1.75em;
+    background: #f7f7f7
+}
+
+input[switch]+label::after {
+    content: "";
+    position: absolute;
+    left: .25em;
+    background: #aaa;
+    box-shadow: none;
+    border-radius: 1em;
+    height: 1em;
+    width: 1em;
+    transition: all .1s ease-in-out;
+    top: .25em
+}
+
+input[switch]:checked+label {
+    background: #59d113
+}
+
+body,
+h1,
+ul {
+    margin: 0
+}
+
+h1 {
+    text-align: center;
+    font-size: 1em;
+    text-transform: uppercase
+}
+
+footer {
+    padding: 1em;
+    font-size: .75em;
+    text-align: right
+}
+
+main {
+    background: #f9f9f9;
+    padding: .5em;
+    box-shadow: 0 0 2px #aaa;
+    user-select: none;
+    line-height: 2;
+    position: relative
+}
+
+main form {
+    min-width: 0;
+    white-space: nowrap;
+    display: flex;
+    box-sizing: border-box;
+    place-items: center;
+    position: sticky;
+    top: 2rem;
+    z-index: 1;
+    background: #f9f9f9;
+    padding: .25em 1em 1em;
+    box-shadow: 0 1px 1px #00000040;
+    margin: 0 -0.5em;
+    border-bottom-left-radius: 1em;
+    border-bottom-right-radius: 1em;
+}
+
+.toggle-state:checked~form {
+    top: 0;
+    padding: 1em;
+}
+
+ul {
+    list-style: none;
+    padding: 1em 0;
+    display: flex;
+    flex-flow: column-reverse;
+    counter-reset: cou
+}
+
+ul li {
+    display: flex;
+    background: #fefefe;
+    border-top: 1px solid #eee;
+    align-items: center
+}
+
+div>span i,
+ul li:hover {
+    background: #f4f4f4;
+}
+
+ul li::before {
+    counter-increment: cou;
+    content: counter(cou)".";
+    display: block;
+    box-sizing: border-box;
+    text-align: right;
+    padding: 0 .25em;
+    min-width: 2em;
+    max-width: 2em
+}
+
+.danger,
+ul li button {
+    background: #842
+}
+
+#todo+button {
+    margin: 0 4px;
+}
+
+i {
+    min-width: 24px;
+    height: 24px;
+    text-align: center;
+    margin: 4px;
+    border: 1px solid #777;
+    background: #fff;
+    box-sizing: border-box;
+    font-size: 12px;
+    cursor: pointer;
+    border-radius: 50%;
+    font-style: normal;
+    display: inline-block;
+    font-variant: initial
+}
+
+.done {
+    text-decoration: line-through
+}
+
+.btns,
+i {
+    line-height: 2
+}
+
+.btns {
+    position: relative;
+    flex: 1 1 auto;
+    min-width: 0;
+    margin: 0 auto;
+    width: 100%
+}
+
+.btns label {
+    overflow: hidden;
+    cursor: pointer;
+    padding: 0 1em 0 2.5em;
+    min-width: 0;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    line-height: inherit
+}
+
+.btns label::after,
+.btns label::before {
+    content: "";
+    display: block;
+    position: absolute;
+    box-sizing: border-box;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%)
+}
+
+.btns label::before {
+    border: 1px solid #777;
+    padding: 13px;
+    background: #fff
+}
+
+.btns label::after {
+    border-right: 2px solid transparent;
+    border-bottom: 2px solid transparent;
+    transform: rotate(55deg) skewX(25deg);
+    transform-origin: 21px 16px
+}
+
+.btns input:checked~label::before {
+    background: #557
+}
+
+.btns input:checked~label::after {
+    border-color: #fff;
+    padding: 8px 4px;
+    transition: padding-right .1s, border-right-color 0s .1s linear
+}
+
+.btn input:checked~label::after {
+    background: #777;
+    padding: 4px;
+    border-radius: 14px
+}
+
+button {
+    cursor: pointer;
+    border: 0;
+    background: #557;
+    min-width: 68px;
+    box-sizing: border-box;
+    color: #fff;
+    opacity: .9;
+    max-height: initial;
+    border-radius: 2px;
+    margin: 0 4px;
+    text-transform: capitalize;
+    letter-spacing: 1px
+}
+
+.safety button {
+    margin: 4px
+}
+
+#dialog,
+#editor {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    place-content: center;
+    place-items: center;
+    text-align: center;
+    z-index: 5;
+    background: rgba(0, 0, 0, .2)
+}
+
+button:hover {
+    opacity: 1
+}
+
+#wrap .hidden,
+label[for=todo] {
+    display: none
+}
+
+#todo,
+.time>span {
+    border: 1px solid #777;
+    box-sizing: border-box
+}
+
+#todo,
+button {
+    line-height: inherit;
+    padding: 0 4px
+}
+
+#todo {
+    font-size: 13px;
+    min-width: 0;
+    flex: 1 1 auto;
+}
+
+.footer {
+    justify-content: space-between
+}
+
+.footer,
+.time,
+.time>span,
+svg {
+    display: flex
+}
+
+svg {
+    max-width: 50%;
+    text-align: center;
+    margin: 0 auto;
+    position: relative;
+    place-items: center
+}
+
+.time {
+    position: fixed;
+    opacity: 0;
+    top: 0;
+    right: 0;
+    z-index: -1;
+    background: #fff;
+    box-shadow: 0 0 2px #777;
+    padding: 1em;
+    flex-direction: column;
+    white-space: nowrap;
+    overflow: hidden;
+    place-items: center;
+    width: 100%;
+    text-overflow: ellipsis
+}
+
+ul li i:hover~.time {
+    opacity: 1;
+    transition: .1s .2s opacity;
+    z-index: 3
+}
+
+.time>span {
+    padding: 0 .25em
+}
+
+.time span:nth-child(1)::before {
+    content: "added:"
+}
+
+.time span:nth-child(1)::before,
+.time span:nth-child(2)::before {
+    font-weight: 700;
+    width: 72px;
+    overflow: hidden;
+    text-align: right;
+    padding: 0 .25em
+}
+
+.time span:last-child:not(last-child) {
+    border-top: 0
+}
+
+.time span:nth-child(2)::before {
+    content: "finished:"
+}
+
+ul li .time span:empty {
+    display: none
+}
+
+#app>h1 {
+    min-height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
+
+div>span {
+    display: flex;
+    flex: 1 1 0;
+    min-width: 0
+}
+
+div>span:last-child {
+    justify-content: end;
+    text-align: right
+}
+
+div>span:nth-child(2) {
+    justify-content: center
+}
+
+.toggle label {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    cursor: pointer;
+    height: 100%;
+    width: 100%;
+    color: #394a56
+}
+
+.white {
+    padding: 3em;
+    background: #fff
+}
+
+.safety {
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: #f9f9f9;
+    box-shadow: 0 1px 1px #00000040;
+    margin: 0 -.5em;
+    display: flex;
+    place-content: center;
+}
+
+header+label,
+header~input[type=checkbox] {
+    place-self: center
+}
+
+.toggle-state:checked~.safety,
+.toggle-state:checked~ul li button {
+    display: none
+}
+
+@media (max-width:576px) {
+    .safety button:first-child {
+        display: none;
+    }
+
+    .safety button {
+        line-height: 2;
+    }
+
+    .btns,
+    ul li {
+        max-height: none
+    }
+
+    #todo,
+    button,
+    ul li {
+        line-height: 3;
+        box-sizing: border-box
+    }
+
+    #wrap {
+        padding: 0;
+        max-width: initial
+    }
+}
+
+#installContainer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 1
+}
+
+#installContainer button {
+    border: 1px solid #fff;
+    color: #fff;
+    font-size: 1em
+}
+
+@media all and (display-mode:standalone) {
+    body {
+        background-color: #777
+    }
+}
+
+@media print {
+    page {
+        margin: 2cm
+    }
+
+    .btns,
+    body,
+    main {
+        font-size: 10pt;
+        box-shadow: none;
+        background: 0 0;
+        line-height: 1.5
+    }
+
+    i,
+    ul li::before {
+        order: -1
+    }
+
+    i {
+        font-size: 0
+    }
+
+    .btns label {
+        padding: 0 6pt
+    }
+
+    .done {
+        text-decoration: none
+    }
+
+    #safemode,
+    #todo,
+    .btns label::after,
+    .btns label::before,
+    .footer,
+    button,
+    footer,
+    h1,
+    header+label,
+    header~input,
+    input[switch]+label {
+        display: none
+    }
+}
