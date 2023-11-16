@@ -104,6 +104,15 @@ a:hover {
     color: var(--color3)
 }
 
+#moves {
+
+    z-index: 2 !important;
+}
+
+.movable.hide {
+    visibility: hidden
+}
+
 .movable {
     background: var(--color0);
     box-shadow: -1px -1px 0 var(--color2) inset;
@@ -142,6 +151,7 @@ a:hover {
 }
 
 .minimized {
+    overflow:hidden;
     height: 20px !important;
     padding: 0;
     min-height: 0;
@@ -236,10 +246,10 @@ svg {
     }
 }
 
+.w3{width: 313px}
 input[type=text],
 textarea {
     background: var(--color0);
-    width: 304px;
     color: inherit;
     border: 0;
     padding: 0 4px;
@@ -258,6 +268,7 @@ textarea {
 }
 
 button,
+input[type="radio"],
 input[type="file"]::file-selector-button,
 input[type="color"] {
     min-width: 46px;
@@ -271,8 +282,14 @@ input[type="color"] {
     margin: .25em;
     inline-size: min-content;
     width: -moz-available;
+    accent-color: var(--color3);
 }
-
+#moves button {
+  margin: 1.5em 0;
+  height: 3em;
+}
+button#top {margin-top:0}
+button#bottom {margin-bottom:0}
 input[type="file"]::file-selector-button {
     display: flex;
     flex-direction: column;
@@ -301,8 +318,8 @@ input[type="file"]::file-selector-button:active {
     color: var(--color2);
 }
 
-.flex {
-    display: flex
+.flex div {
+    place-content: center;
 }
 
 .forms {
@@ -311,8 +328,8 @@ input[type="file"]::file-selector-button:active {
     flex-direction: column;
     margin: .25em;
     padding: .25em;
-    place-items: flex-start;
-    width: auto;
+    place-items: center;
+    place-content: center;
 }
 
 .forms div {
@@ -324,32 +341,37 @@ input[type="file"]::file-selector-button:active {
 }
 
 .forms legend {
-    margin: 0 1em;
+    margin: 0 auto;
     padding: 0 .25em;
+    line-height: 1;
 }
-#vr h1{
-  height: auto;
-  padding: 20px 0 9px;
-  width: 20px;
+
+#vr h1 {
+    height: auto;
+    padding: 19px 0 0;
+    width: 20px;
 }
+
 #vr p {
-  font-size: 10px;
-  line-height: 1;
-  font-variant: all-small-caps;
-  padding: 0;
+    padding: 0;
 }
+
 #vr {
-  display: flex;
-  flex-direction: row;
-  place-content: space-between;
-  place-items: stretch;
+    display: flex;
+    flex-direction: row;
+    place-content: space-between;
+    place-items: stretch;
 }
+
 #vr.minimized {
-  width: 20px !important;
-  min-width: 0;
-  height: auto !important;
+    width: 20px !important;
+    min-width: 0;
+    height: auto !important;
 }
+
+
 @media screen and (max-width: 600px) {
+
     #vr.minimized,
     .movable {
         position: relative !important;
@@ -362,7 +384,8 @@ input[type="file"]::file-selector-button:active {
     .movable::before {
         display: none;
     }
-    .movable.minimized div{
+
+    .movable.minimized div {
         display: block !important;
     }
 }

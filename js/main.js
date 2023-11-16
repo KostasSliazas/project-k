@@ -6,6 +6,31 @@
 (function () {
   "use strict";
 
+  // prevent from fast accidental clicks
+  const getElms = [...document.getElementsByTagName("button"), ...document.getElementsByTagName("a")];
+
+  // function loader(){
+  // console.log(this)
+  // }
+
+  let clicked = false;
+
+  async function buttonClicker(e) {
+    if (clicked === true) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      return;
+    }
+
+    clicked = true;
+    // await loader.call(e)
+    await delay(500);
+    clicked = false;
+  }
+
+  getElms.forEach((e) => e.addEventListener("click", (e) => buttonClicker.call(null, e)));
+  // prevent from fast accidental clicks ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
   /**
    * Local storage get item
    *
@@ -280,7 +305,7 @@
       movable[i].style.position = "fixed";
 
       if (classes.includes(movable.indexOf(movable[i]))) {
-        movable[i].className = "movable minimized";
+        movable[i].classList.add("movable", "minimized");
       }
     }
   }
@@ -326,19 +351,51 @@
     if (e) root.className = classNameVariables[e];
     else root.removeAttribute("class");
   };
-  // click events for context menu and simple click only for theme changing
+
+  const loops = async (pos, val) => {
+    const selected = Array.from(document.getElementsByName("move")).filter((e) => e.checked)[0].value;
+    movable.forEach((e) => {
+      if (e.id !== "moves") e.style[pos] = parseInt(e.style[pos]) + val * selected + "px";
+    });
+    await delay(1000);
+    await setStyles();
+  };
+
+  // document click events
   root.addEventListener("click", (e) => {
     if (e.target.id === "gt") THEME_CHANGE.decrement(); // eslint-disable-line
-    if (e.target.tagName === "HTML" || e.target.id === "lt") THEME_CHANGE.increment(); // eslint-disable-line
-
-    if (e.target.tagName === "HTML" || e.target.id === "lt" || e.target.id === "gt") {
+    if (e.target.id === "lt") THEME_CHANGE.increment(); // eslint-disable-line
+    if (e.target.id === "lt" || e.target.id === "gt") {
       e.preventDefault();
       changerClass(THEME_CHANGE.value);
       //set local storage only when user click
       localStorage.setItem("theme", THEME_CHANGE.value);
       setColors();
     }
+
+    if (e.target.id === "left") loops("left", -1);
+    if (e.target.id === "right") loops("left", 1);
+    if (e.target.id === "top") loops("top", -1);
+    if (e.target.id === "bottom") loops("top", 1);
   });
+
+  const moves = document.getElementById("moves");
+  // toggle classList hide
+  function classToggle(e) {
+    if (e.isComposing || e.key === 229) return;
+
+    // event key or target id
+    var keyCode = e.which;
+    // check if it's [`] symbol and inputs not focused then toggle class
+    if (keyCode == 192 && !document.querySelector("input:focus")) {
+      moves.classList.toggle("hide");
+      e.preventDefault();
+      e.stopImmediatePropagation();
+    }
+  }
+
+  window.addEventListener("keyup", classToggle);
+
   root.addEventListener("contextmenu", (e) => {
     if (e.target.tagName === "HTML") {
       e.preventDefault();
@@ -382,7 +439,7 @@
     if (!localStorage.getItem("elementClass")) localStorage.setItem("elementClass", JSON.stringify([14]));
     areaText.value = localStorage.getItem("textArea") || "Good day. How may I assist you? You have the ability to reposition these blocks by selecting and holding the left corner at your desired location, or double-click to minimize them. Additionally, you can customize the theme, colors, and background image to your liking. You are free to tailor this interface to your preferences. Alternatively, you may opt to close this window and continue with your activities. The decision is entirely yours. Wishing you a splendid day, and a fulfilling life.";
     // defaults by injecting to storage then loading string can be changed from localStorage (HTML should be not touched)
-    if (!localStorage.getItem("elementStyles")) localStorage.setItem("elementStyles", "width:100px;height:60px;left:290px;top:10px;,width:180px;height:60px;left:10px;top:10px;,width:100px;height:60px;left:190px;top:10px;,width:80px;height:60px;left:390px;top:10px;,width:80px;height:60px;left:470px;top:10px;,width:90px;height:40px;left:460px;top:170px;,width:190px;height:140px;left:360px;top:430px;,width:230px;height:40px;left:230px;top:170px;,width:220px;height:140px;left:10px;top:70px;,width:160px;height:40px;left:200px;top:450px;,width:190px;height:160px;left:360px;top:270px;,width:190px;height:60px;left:360px;top:210px;,width:320px;height:50px;left:230px;top:120px;,width:320px;height:50px;left:230px;top:70px;,width:160px;height:160px;left:340px;top:490px;,width:160px;height:240px;left:200px;top:210px;,width:140px;height:80px;left:200px;top:490px;,width:190px;height:360px;left:10px;top:210px;");
+    if (!localStorage.getItem("elementStyles")) localStorage.setItem("elementStyles", "width:100px;height:60px;left:290px;top:10px;,width:180px;height:60px;left:10px;top:10px;,width:100px;height:60px;left:190px;top:10px;,width:80px;height:60px;left:390px;top:10px;,width:80px;height:60px;left:470px;top:10px;,width:140px;height:40px;left:220px;top:450px;,width:190px;height:140px;left:360px;top:430px;,width:220px;height:40px;left:200px;top:170px;,width:220px;height:100px;left:10px;top:70px;,width:130px;height:40px;left:420px;top:170px;,width:190px;height:160px;left:360px;top:270px;,width:190px;height:60px;left:360px;top:210px;,width:320px;height:50px;left:230px;top:120px;,width:320px;height:50px;left:230px;top:70px;,width:20px;height:120px;left:200px;top:450px;,width:160px;height:240px;left:200px;top:210px;,width:140px;height:80px;left:220px;top:490px;,width:190px;height:350px;left:10px;top:220px;,width:160px;height:260px;left:1100px;top:140px;,width:190px;height:50px;left:10px;top:170px;");
     // check if there is no data in local storage or check if there time passed 43minutes and load api
     if (setTimeStamp(43) && online) await getAll(api_url);
     await stats(getValueOfStorage.call("statsData"));
@@ -466,7 +523,7 @@
   function mouseEvents(e) {
     const { target } = e;
     // to make opacity .3 like link is visited while not refreshed page
-    if (target.parentElement?.className === "movable" && target.tagName === "A") target.style.opacity = ".3";
+    if (target.parentElement?.className === "movable" && target.tagName === "A") target.style.opacity = ".5";
 
     try {
       if (scalingTarget.tagName === "TEXTAREA" && scalingTarget != null) {

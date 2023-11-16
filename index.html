@@ -43,10 +43,8 @@
       </div>
 
       <div class="movable">
-        <h1>Links</h1>
-        <div class="movable-p">
-          <a href="tools/links-webpage/index.html" target="_blank" rel="noopener noreferrer">Links</a>
-        </div>
+        <h1>Web Links</h1>
+        <a href="tools/links-webpage/index.html" target="_blank" rel="noopener noreferrer">Links</a>
       </div>
 
       <div class="movable">
@@ -61,9 +59,7 @@
 
       <div class="movable">
         <h1>translate</h1>
-        <div class="movable-p">
-          <a href="https://translate.google.com/?sl=auto&amp;tl=lt&amp;op=translate" target="_blank" rel="noopener noreferrer">translate.google.com</a>
-        </div>
+        <a href="https://translate.google.com/?sl=auto&amp;tl=lt&amp;op=translate" target="_blank" rel="noopener noreferrer">translate.google.com</a>
       </div>
 
       <div class="movable">
@@ -73,7 +69,7 @@
 
       <div class="movable">
         <h1>Learning</h1>
-        <a href="https://www.udemy.com/home/my-courses/learning/" target="_blank" rel="noopener noreferrer">www.udemy.com</a>
+        <a href="https://www.udemy.com/home/my-courses/learning/" target="_blank" rel="noopener noreferrer">udemy.com</a>
       </div>
 
       <div class="movable">
@@ -95,7 +91,7 @@
 
       <div class="movable">
         <h1>google</h1>
-        <div class="movable-p">
+        <div class="movable-p w3">
           <form action="https://www.google.com/search?q=" target="_blank">
             <input type="text" value="" name="q" onclick="this.value = ''" placeholder="search with google.com" />
             <input type="submit" value="submit form" style="display: none" />
@@ -105,7 +101,7 @@
 
       <div class="movable">
         <h1>ecosia</h1>
-        <div class="movable-p">
+        <div class="movable-p w3">
           <form action="https://www.ecosia.org/search?method=index&amp;q=" target="_blank">
             <input type="text" value="" name="q" onclick="this.value = ''" placeholder="search with ecosia.org" />
             <input type="submit" value="submit form" style="display: none" />
@@ -114,7 +110,13 @@
       </div>
 
       <div class="movable" id="vr" title="Just a brick holding all the stuff in place">
-        <h1><p>b</p><p>r</p><p>i</p><p>c</p><p>k</p></h1>
+        <h1>
+          <p>b</p>
+          <p>r</p>
+          <p>i</p>
+          <p>c</p>
+          <p>k</p>
+        </h1>
         <div class="movable-p">
           <a href="https://www.paypal.com/donate/?hosted_button_id=FCPW77XUNSHZJ" target="_blank" rel="noopener noreferrer">Donate</a>
           <img src="./img/QR%20Code.png" alt="Donate" />
@@ -164,7 +166,7 @@
         <h1>Appearance</h1>
         <div class="movable-p">
           <fieldset class="forms">
-            <legend>Theme select</legend>
+            <legend>Theme control</legend>
             <div class="flex">
               <button id="lt">&lt;</button>
               <button id="gt">&gt;</button>
@@ -212,6 +214,47 @@
             <input type="file" id="bg-file" />
             <button type="reset" id="bg-theme">Reset</button>
           </fieldset>
+        </div>
+      </div>
+      <div class="movable hide" id="moves">
+        <h1>Controls</h1>
+        <fieldset class="forms flex">
+          <legend>Move blocks</legend>
+          <div>
+            <div>
+              <button id="left">&larr;</button>
+            </div>
+            <div>
+              <button id="top">&uarr;</button>
+              <button id="bottom">&darr;</button>
+            </div>
+            <div>
+              <button id="right">&rarr;</button>
+            </div>
+          </div>
+        </fieldset>
+        <fieldset class="forms flex">
+          <legend>Move blocks by</legend>
+          <div>
+            <div>
+              <label for="hun">100px</label>
+              <input type="radio" value="100" name="move" id="hun" checked />
+            </div>
+            <div>
+              <label for="ten">10px</label>
+              <input type="radio" value="10" name="move" id="ten" />
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="movable">
+        <h1>Translate</h1>
+        <div class="movable-p" style="max-width: 190px; min-width: -moz-available">
+          <form action="https://translate.google.com/?sl=auto&amp;tl=lt&amp;text=" target="_blank">
+            <input type="text" value="" name="text" onclick="this.value = ''" placeholder="quick translate" />
+            <input type="submit" value="submit form" style="display: none" />
+          </form>
         </div>
       </div>
     </div>
