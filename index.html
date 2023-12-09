@@ -13,11 +13,11 @@
     <link rel="stylesheet" href="./css/style.min.css" />
   </head>
 
-  <body style="display: none">
+  <body class="bglines" style="display: none">
     <div class="main">
       <div class="movable">
         <h1>clock</h1>
-        <div class="pe" id="clock"></div>
+        <div class="pe digit" id="clock"></div>
       </div>
 
       <div class="movable">
@@ -64,7 +64,7 @@
 
       <div class="movable">
         <h1>Notes</h1>
-        <textarea placeholder="Empty"></textarea>
+        <textarea name="notes" placeholder="Empty"></textarea>
       </div>
 
       <div class="movable">
@@ -212,7 +212,10 @@
             <legend>Background</legend>
             <label for="bg-file">Upload image</label>
             <input type="file" id="bg-file" />
+            <div>
+            <button id="bg-toggle">Toggle lines</button>
             <button type="reset" id="bg-theme">Reset</button>
+            </div>
           </fieldset>
         </div>
       </div>
@@ -257,7 +260,17 @@
           </form>
         </div>
       </div>
+
+      <div class="movable tetris">
+         <h1>Hello</h1>
+        <div class="movable-p">
+          Good day bro :)
+          <a href="#">:D</a>
+        </div>
+      </div>
+
     </div>
+    <p style="position:absolute; bottom:0;right:24px;">Caution: use at your own risk</p>
     <script src="js/script.min.js"></script>
     <script src="js/main.min.js"></script>
   </body>
