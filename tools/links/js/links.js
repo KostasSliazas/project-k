@@ -101,6 +101,7 @@
     search.value = ''
     outpus.innerHTML = ''
     let count = 0
+    try{
     for (let i = 0; i < w.localStorage.length; i++) {
       const {
         url,
@@ -113,6 +114,10 @@
         createElem(url, type, text, full)
       }
     }
+    } catch (error) {
+      console.error("Error parsing JSON:", error);
+      // Handle the error as needed, such as displaying a user-friendly message.
+    }
     if (count === 0) outpus.innerHTML = 'No links added...'
     outpus.appendChild(docfrag)
     const total = w.localStorage.length
@@ -122,6 +127,7 @@
   function loopLocalStorageSearch () {
     outpus.innerHTML = ''
     let count = 0
+    try {
     for (let i = 0, len = w.localStorage.length; i < len; i++) {
       const {
         full,
@@ -129,6 +135,8 @@
         type,
         url
       } = JSON.parse(/** @type {!null} */ w.localStorage.getItem(/** @type {!null} */ w.localStorage.key(i)))
+
+
       if (typeof full !== 'undefined' && full.indexOf('http') > -1) {
         const values = type.concat(text.split(), url.split(), full.split())
         const isInarray = values.map(e => {
@@ -139,6 +147,10 @@
           createElem(url, type, text, full)
         }
       }
+    }
+    } catch (error) {
+      console.error("Error parsing JSON:", error);
+      // Handle the error as needed, such as displaying a user-friendly message.
     }
     outpus.appendChild(docfrag)
     const total = w.localStorage.length
@@ -234,9 +246,14 @@
 
   function loopStorageItems () {
     const data = []
+    try{
     for (let i = 0; i < w.localStorage.length; i++) {
       data.push(JSON.parse(/** @type {!null} */ w.localStorage.getItem(/** @type {!null} */w.localStorage.key(i))))
       data.join('\r\n')
+    }
+    } catch (error) {
+      console.error("Error parsing JSON:", error);
+      // Handle the error as needed, such as displaying a user-friendly message.
     }
     return data
   }
