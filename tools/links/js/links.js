@@ -283,14 +283,20 @@
     reader.readAsText(file)
   }
 
-  function displayContents (data) {
-    const json = JSON.parse(data)
-    for (let i = 0; i < json.length; i++) {
-      w.localStorage.setItem(json[i].full, JSON.stringify(json[i]))
+    function displayContents(data) {
+    try {
+      const json = JSON.parse(data);
+      for (let i = 0; i < json.length; i++) {
+        window.localStorage.setItem(json[i].full, JSON.stringify(json[i]));
+      }
+      hide(showExport);
+      loopLocalStorage();
+    } catch (error) {
+      console.error("Error parsing JSON:", error);
+      // Handle the error as needed, such as displaying a user-friendly message.
     }
-    hide(showExport)
-    loopLocalStorage()
   }
+
 
   document.getElementById('file-input')
     .addEventListener('change', readSingleFile, false)
