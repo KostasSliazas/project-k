@@ -17,20 +17,19 @@
 
 .b {
     --color0: #EEE5D2;
-    --color1: #AB9F85;
-    --color2: #181101;
-    --color3: #281F0D;
+    --color1: #fdfaf2;
+    --color2: #ffecd6;
+    --color3: #e2d0ac;
     --color4: #383329;
-        --bg: url(../img/b.webp);
+        --bg: url(../img/d.webp);
 }
 
 .c {
-    --color0: #c1c4f5;
-    --color1: #9c9fd0;
-    --color2: #777aab;
-    --color3: #525586;
-    --color4: #111;
-    --bg: url(../img/a.webp);
+    --color0: #FFFDFB;
+    --color1: #F6F7F9;
+    --color2: #C1CEDD;
+    --color3: #7991B0;
+    --color4: #1A3B66;
 }
 
 .d {
@@ -170,7 +169,7 @@ a:hover {
     flex-wrap: wrap
 }
 .tetris{
-    clip-path: polygon(100% 0, 100% 40px, 40px 40px, 40px 100%, 0 100%, 0 0);
+    clip-path: polygon(100% 0, 100% 39px, 39px 39px, 39px 100%, 0 100%, 0 0);
 }
 .movable h1 {
     font-size: 16px;

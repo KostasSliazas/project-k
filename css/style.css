@@ -6,6 +6,7 @@
 }
 .in {
   margin:0 auto;
+  background: var(--color1);
   height:auto
 }
 #calculator {
@@ -28,13 +29,7 @@
 #calculator input:nth-child(3) {
   font-family: monospace;
 }
-#calculator input::-moz-focus-inner,
-#calculator input:focus,
-#calculator:focus {
-  outline:0;
-  -moz-outline:0;
-  border:1px solid var(--color1);
-}
+
 #calculator>[data-fun="p"] {
   -ms-grid-row:5;
   grid-row-start:5;
@@ -68,10 +63,10 @@
   line-height:inherit;
   position:relative;
   cursor:pointer;
-  border:1px solid var(--color1);
+  border:1px solid var(--color3);
   margin:0;
   outline:0;
-  color: var(--color2);
+  color: var(--color4);
   background: var(--color0);
   -webkit-appearance:none;
   -moz-appearance:none;
@@ -83,8 +78,15 @@ input {
   -webkit-tap-highlight-color:#000
 }
 
-#calculator input[type=button]:active {
-  background:var(--color4)
+#calculator input[type=button]:active{
+  background:var(--color3);
+  border:1px solid var(--color4);
+}
+#calculator input::-moz-focus-inner,
+#calculator input:focus,
+#calculator:focus {
+  outline:0;
+  -moz-outline:0;
 }
 input::selection {
   background:0 0
