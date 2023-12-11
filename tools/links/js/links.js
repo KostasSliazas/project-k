@@ -112,16 +112,18 @@
       const key = w.localStorage.key(i);
       const item = getItemFromLocalStorage(key);
 
-      if(item !== null && typeof item !== undefined && typeof item['full'] !== undefined){
+      if(item !== null && typeof item !== undefined){
 
 
       // hack for googleclosure compil becouse full -->> undefined
       const { 'full':full, 'text':text, 'type':type, 'url':url } = item;
 
+      if(typeof item['full'] !== undefined){
         count++;
         createElem(url, type, text, full);
-
       }
+    }
+
     }
 
     if (count === 0) outpus.innerHTML = 'No links added...';
@@ -137,7 +139,7 @@
     for (let i = 0; i < w.localStorage.length; i++) {
       const key = w.localStorage.key(i);
       const item = getItemFromLocalStorage(key);
-      if(item !== null && typeof item !== undefined && typeof item['full'] !== undefined){
+      if(item !== null && typeof item !== undefined){
 
       const { 'full':full, 'text':text, 'type':type, 'url':url } = item;
 
