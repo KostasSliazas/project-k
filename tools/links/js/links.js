@@ -117,7 +117,7 @@
 
       // hack for googleclosure compil becouse full -->> undefined
       const { 'full':full, 'text':text, 'type':type, 'url':url } = item;
-
+      console.log(url, type, text, full)
       if(typeof full !== undefined){
         count++;
         createElem(url, type, text, full);
