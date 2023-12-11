@@ -61,10 +61,10 @@
     if (url.length > 0) {
       const fav = extractHostname(url);
       const createLinkObject = {
-        'text': adition.value,
-        'url': fav,
-        'full': url,
-        'type': loopOverInputs()
+        ['text']: adition.value,
+        ['url']: fav,
+        ['full']: url,
+        ['type']: loopOverInputs()
       };
       return createLinkObject;
     } else {
@@ -77,7 +77,7 @@
     try {
     if ('localStorage' in w) {
       if (setLinks()) {
-        const key = JSON.stringify(setLinks().full).slice(1, -1);
+        const key = JSON.stringify(setLinks()['full']).slice(1, -1);
         const data = JSON.stringify(setLinks());
         w.localStorage.setItem(key, data);
       }
