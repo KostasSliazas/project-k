@@ -112,7 +112,7 @@
       const key = w.localStorage.key(i);
       const item = getItemFromLocalStorage(key);
 
-      if(item == null && typeof item === undefined && typeof item['full'] === undefined) return
+      if(item !== null && typeof item !== undefined && typeof item['full'] !== undefined){
 
 
       // hack for googleclosure compil becouse full -->> undefined
@@ -120,6 +120,7 @@
       if (key) {
         count++;
         createElem(url, type, text, full);
+      }
       }
     }
 
@@ -136,7 +137,7 @@
     for (let i = 0; i < w.localStorage.length; i++) {
       const key = w.localStorage.key(i);
       const item = getItemFromLocalStorage(key);
-      if(item == null && typeof item === undefined && typeof item['full'] === undefined) return
+      if(item !== null && typeof item !== undefined && typeof item['full'] !== undefined){
 
       const { 'full':full, 'text':text, 'type':type, 'url':url } = item;
 
@@ -149,6 +150,7 @@
           count++;
           createElem(url, type, text, full);
         }
+      }
       }
     }
     outpus.appendChild(docfrag);
