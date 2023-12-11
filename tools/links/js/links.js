@@ -111,7 +111,7 @@
     for (let i = 0; i < w.localStorage.length; i++) {
       const key = w.localStorage.key(i);
       const item = getItemFromLocalStorage(key);
-      if(typeof !item['full'] === 'undefined')return
+      if(item && typeof !item['full'] === 'undefined')return
       // hack for googleclosure compil becouse full -->> undefined
       const { 'full':full, 'text':text, 'type':type, 'url':url } = item;
       if (key) {
@@ -133,7 +133,7 @@
     for (let i = 0; i < w.localStorage.length; i++) {
       const key = w.localStorage.key(i);
       const item = getItemFromLocalStorage(key);
-      if(typeof !item['full'] === 'undefined')return
+      if(item && typeof !item['full'] === 'undefined')return
 
       const { 'full':full, 'text':text, 'type':type, 'url':url } = item;
 
