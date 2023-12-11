@@ -61,10 +61,10 @@
     if (url.length > 0) {
       const fav = extractHostname(url);
       const createLinkObject = {
-        text: adition.value,
-        url: fav,
-        full: url,
-        type: loopOverInputs()
+        'text': adition.value,
+        'url': fav,
+        'full': url,
+        'type': loopOverInputs()
       };
       return createLinkObject;
     } else {
