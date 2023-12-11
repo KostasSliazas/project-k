@@ -117,10 +117,10 @@
 
       // hack for googleclosure compil becouse full -->> undefined
       const { 'full':full, 'text':text, 'type':type, 'url':url } = item;
-      if (key) {
+
         count++;
         createElem(url, type, text, full);
-      }
+
       }
     }
 
