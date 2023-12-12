@@ -169,7 +169,7 @@ a:hover {
     flex-wrap: wrap
 }
 .tetris{
-    clip-path: polygon(100% 0, 100% 39px, 39px 39px, 39px 100%, 0 100%, 0 0);
+    clip-path: polygon(107% -7%, 107% 39px, 39px 39px, 39px 107%, -7% 107%, -7% -7%)
 }
 .movable h1 {
     font-size: 16px;
