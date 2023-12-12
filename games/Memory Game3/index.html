@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Memory Game</title>
+  <meta name="description" content="Memory Game">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/style.min.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="manifest" crossorigin="use-credentials" href="site.webmanifest">
+  <link rel="mask-icon" href="safari-pinned-tab.svg" color="#333333">
+  <meta name="msapplication-TileColor" content="#00aba9">
+  <meta name="theme-color" content="#ffffff">
+</head>
+
+<body>
+  <!--[if lt IE 9]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="https://vivaldi.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+  <div class="hidden">
+    <script>
+      var images = new Array();
+
+      function preload() {
+        for (var i = 0; i < preload.arguments.length; i++) {
+          images[i] = new Image();
+          images[i].src = preload.arguments[i];
+        }
+      }
+      preload("img/01.png", "img/02.png", "img/03.png", "img/04.png", "img/05.png", "img/06.png", "img/07.png", "img/08.png", "img/09.png", "img/10.png");
+    </script>
+  </div>
+  <div class="wrp">
+    <h1>Memory Game</h1>
+    <div id="statistics" class="hidden">
+      <div>Time: <span id="timers"><span id="minutes"></span>:<span id="seconds"></span></span></div>
+      <div>Moves: <span id="clicks"></span></div>
+    </div>
+    <div id="grid-container" class="samebg"></div>
+    <div id="message">
+      <button class="hidden" id="install-button" type="button">Install</button>
+      <h2>Memory Game</h2>
+      <p>:::::::Kittens:::::::</p>
+      <p id="notice" class="hidden">This game uses <a href="https://en.wikipedia.org/wiki/Web_storage#Local_and_session_storage"
+          target="_blank" rel="noopener noreferrer">localStorage</a>. By playing, you accept writing scores to your
+        localStorage (for self purposes only).</p>
+    </div>
+  </div>
+  <script src="js/appinstall.min.js"></script>
+  <script src="js/main.min.js"></script>
+</body>
+
+</html>

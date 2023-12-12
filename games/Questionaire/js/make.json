@@ -1,0 +1,6 @@
+{
+    "name": "js",
+    "entry": "./main.js",
+    "output": "./main.min.js",
+    "closure": {}
+}
