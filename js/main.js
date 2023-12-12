@@ -6,9 +6,9 @@
 (function () {
     "use strict";
   // movable blocks default string
-  const blockDefaults = "width:140px;height:60px;left:290px;top:10px;,width:180px;height:60px;left:10px;top:10px;,width:100px;height:60px;left:190px;top:10px;,width:80px;height:60px;left:470px;top:50px;,width:80px;height:60px;left:470px;top:110px;,width:140px;height:40px;left:220px;top:450px;,width:190px;height:140px;left:360px;top:430px;,width:220px;height:40px;left:200px;top:170px;,width:210px;height:100px;left:10px;top:70px;,width:130px;height:40px;left:420px;top:170px;,width:190px;height:160px;left:360px;top:270px;,width:190px;height:60px;left:360px;top:210px;,width:250px;height:50px;left:220px;top:70px;,width:250px;height:50px;left:220px;top:120px;,width:20px;height:120px;left:200px;top:450px;,width:160px;height:240px;left:200px;top:210px;,width:140px;height:80px;left:220px;top:490px;,width:190px;height:350px;left:10px;top:220px;,width:160px;height:260px;left:590px;top:70px;,width:190px;height:50px;left:10px;top:170px;,width:120px;height:60px;left:430px;top:10px;"
+  const blockDefaults = "width:140px;height:60px;left:290px;top:10px;,width:180px;height:60px;left:10px;top:10px;,width:100px;height:60px;left:190px;top:10px;,width:80px;height:60px;left:470px;top:50px;,width:80px;height:60px;left:470px;top:110px;,width:140px;height:40px;left:220px;top:450px;,width:190px;height:140px;left:360px;top:430px;,width:220px;height:40px;left:200px;top:170px;,width:210px;height:100px;left:260px;top:70px;,width:130px;height:40px;left:420px;top:170px;,width:190px;height:160px;left:360px;top:270px;,width:190px;height:60px;left:360px;top:210px;,width:250px;height:50px;left:10px;top:70px;,width:250px;height:50px;left:10px;top:120px;,width:160px;height:160px;left:200px;top:450px;,width:160px;height:240px;left:200px;top:210px;,width:140px;height:80px;left:220px;top:490px;,width:190px;height:350px;left:10px;top:220px;,width:160px;height:260px;left:590px;top:70px;,width:190px;height:50px;left:10px;top:170px;,width:120px;height:60px;left:430px;top:10px;";
   // movable blocks defaults string
-  const textAreaDefaults = "Good day. How may I assist you? You have the ability to reposition these blocks by selecting and holding the left corner at your desired location, or double-click to minimize them. Additionally, you can customize the theme, colors, and background image to your liking. You are free to tailor this interface to your preferences. Alternatively, you may opt to close this window and continue with your activities. The decision is entirely yours. Wishing you a splendid day, and a fulfilling life."
+  const textAreaDefaults = "Good day. How may I assist you? You have the ability to reposition these blocks by selecting and holding the left corner at your desired location or by pressing ` on keyboard, or double-click to minimize them. Additionally, you can customize the theme, colors, and background image to your liking. You are free to tailor this interface to your preferences.";
 // https://stackoverflow.com/questions/45071353/copy-text-string-on-click/53977796#53977796
 const copyToClipboard = str => {
   const el = document.createElement('textarea');  // Create a <textarea> element
@@ -18,9 +18,9 @@ const copyToClipboard = str => {
   el.style.left = '-9999px';                      // Move outside the screen to make it invisible
   document.body.appendChild(el);                  // Append the <textarea> element to the HTML document
   const selected =
-    document.getSelection().rangeCount > 0        // Check if there is any content selected previously
-      ? document.getSelection().getRangeAt(0)     // Store selection if found
-      : false;                                    // Mark as false to know no selection existed before
+    document.getSelection().rangeCount > 0 ? document.getSelection().getRangeAt(0) : false;        // Check if there is any content selected previously
+          // Store selection if found
+                                         // Mark as false to know no selection existed before
   el.select();                                    // Select the <textarea> content
   document.execCommand('copy');                   // Copy - only works as a result of a user action (e.g. click events)
   document.body.removeChild(el);                  // Remove the <textarea> element
@@ -50,7 +50,7 @@ const copyToClipboard = str => {
   // prevent from fast accidental clicks ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-// for stoping acidental clicks
+// for stop accident clicks
   class ClickHandler {
   constructor() {
     this.clicked = false;
@@ -233,7 +233,7 @@ getElms.forEach(element => element.addEventListener("click", e => clickHandler.b
           target = this;
           target.style.zIndex = 1;
 
-          await delay(200)
+          await delay(200);
           if(moving)
           this.classList.add("mousedown");
       });
@@ -350,8 +350,8 @@ function reduceValuesDynamically(arr, max) {
     svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
     let space = 0;
     for (let i = 0; i < arrayConverted.length; i++) {
-      const result = arrayConverted[i]>0?20 - arrayConverted[i]:20 - arrayConverted[i]
-      const fixed = result.toFixed(2)
+      const result = arrayConverted[i]>0?20 - arrayConverted[i]:20 - arrayConverted[i];
+      const fixed = result.toFixed(2);
       const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
       path.setAttribute("d", "M" + space + ',' + fixed +" V 20");
       // path.setAttribute("fill", "none")
@@ -454,7 +454,7 @@ function reduceValuesDynamically(arr, max) {
 
   // document click events
   root.addEventListener("click", (e) => {
-    const target = e.target.id
+    const target = e.target.id;
     if (target === "gt") THEME_CHANGE.decrement(); // eslint-disable-line
     if (target === "lt") THEME_CHANGE.increment(); // eslint-disable-line
     if (target === "lt" || target === "gt") {
@@ -509,9 +509,9 @@ function reduceValuesDynamically(arr, max) {
         if(e.target.tagName === 'LABEL'){
         // e.target.textContent = this.value
         copyToClipboard(this.title);
-        e.preventDefault()
+        e.preventDefault();
         }
-      }.bind(e)
+      }.bind(e);
 
       const compValue = await compStyles.getPropertyValue("--color" + i);
       e.value = e.title = compValue;
@@ -551,7 +551,7 @@ function reduceValuesDynamically(arr, max) {
     THEME_CHANGE.value = NUM;
     changerClass(NUM);
     styleRoot();
-    if (JSON.parse(localStorage.getItem("theme-lines")) === false) document.body.classList.remove('bglines')
+    if (JSON.parse(localStorage.getItem("theme-lines")) === false) document.body.classList.remove('bglines');
     const clock = new Clock("clock");
     clock.startTime();
     const bgToggle = document.querySelector("#bg-toggle");
@@ -589,7 +589,7 @@ function reduceValuesDynamically(arr, max) {
           setColors();
         }
         if (e.target === bgToggle) {
-          localStorage.setItem('theme-lines',document.body.classList.toggle('bglines'))
+          localStorage.setItem('theme-lines',document.body.classList.toggle('bglines'));
         }
         if (e.target === themeReset) {
           setColors();
@@ -630,14 +630,14 @@ function reduceValuesDynamically(arr, max) {
   function mouseEvents(e) {
     const { target } = e;
     // to make opacity .3 like link is visited while not refreshed page
-    if (target.parentElement?.className === "movable" && target.tagName === "A") {
+    if (target && target.parentElement && target.parentElement.className === "movable" && target.tagName === "A") {
       target.style.opacity = ".5";
     }
 
     try {
-      if (scalingTarget.tagName === "TEXTAREA" && scalingTarget != null) {
-        scalingTarget.parentElement.style.height = roundToTenWidth(scalingTarget.parentElement?.offsetHeight) + "px";
-        scalingTarget.parentElement.style.width = roundToTenWidth(scalingTarget.parentElement?.offsetWidth) + "px";
+      if (scalingTarget && scalingTarget.parentElement && scalingTarget.tagName === "TEXTAREA" && scalingTarget != null) {
+        scalingTarget.parentElement.style.height = roundToTenWidth(scalingTarget.parentElement.offsetHeight) + "px";
+        scalingTarget.parentElement.style.width = roundToTenWidth(scalingTarget.parentElement.offsetWidth) + "px";
         setStyles();
         mousedown = false;
       }
