@@ -19,6 +19,7 @@ class MemoryGame {
     this.clicks = document.getElementById('clicks');
     this.minutes = document.getElementById('minutes');
     this.seconds = document.getElementById('seconds');
+    this.spiner = document.getElementById('spn');
     this.gameId = 'peaceonearth';
     this.card = {
       timer: 0,
@@ -225,6 +226,7 @@ document.addEventListener('DOMContentLoaded', () => {
       image.onload = function () {
         loadedCount++;
         if (loadedCount === urls.length) {
+          memoryGame.spiner.className = 'hidden'
           // All images are loaded, now you can initialize the MemoryGame
           memoryGame.init();
         }
