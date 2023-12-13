@@ -1,215 +1,216 @@
-;
-(function (w, d) {
-  'use strict'
-  // make array of letters for image classNames (backgrounds)
-  const arr = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'j', 'k', 'l']
-  // shuffle letters array
-  let shuffleCards = getShuffledArr(arr.concat(arr))
-  // create document structure (fragment)
-  const documentFragment = d.createDocumentFragment()
-  // get game cards main container
-  const gridContainer = d.getElementById('grid-container')
-  // get container for messages showing
-  const message = d.getElementById('message')
-  // get notice element for messages showing (This game is using localStorage), later hide it
-  const notice = d.getElementById('notice')
-  // get game time element
-  const statistics = d.getElementById('statistics')
-  //get element of game time
-  const timers = d.getElementById('timers')
-  // get clicks element
-  const clicks = d.getElementById('clicks')
-  //get timer elements
-  const minutes = d.getElementById('minutes')
-  const seconds = d.getElementById('seconds')
-  // set random string for game saving values for local storage
-  const gameId = 'z7z'
-  // card object
-  const card = {
-    timer: 0,
-    data: null,
-    card: null,
-    clicks: 0,
-    cards: 0
+/**
+ * MemoryGame class to encapsulate the game logic.
+ */
+class MemoryGame {
+  /**
+   * MemoryGame constructor initializes game properties and elements.
+   */
+  constructor() {
+    // Use window.localStorage directly
+    this.local = window.localStorage;
+    this.arr = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'j', 'k', 'l'];
+    this.shuffleCards = this.getShuffledArr(this.arr.concat(this.arr));
+    this.documentFragment = document.createDocumentFragment();
+    this.gridContainer = document.getElementById('grid-container');
+    this.message = document.getElementById('message');
+    this.notice = document.getElementById('notice');
+    this.statistics = document.getElementById('statistics');
+    this.timers = document.getElementById('timers');
+    this.clicks = document.getElementById('clicks');
+    this.minutes = document.getElementById('minutes');
+    this.seconds = document.getElementById('seconds');
+    this.gameId = 'peaceonearth';
+    this.card = {
+      timer: 0,
+      data: null,
+      clickedCard: null,
+      clicks: 0,
+      cards: 0,
+    };
   }
 
-  function getShuffledArr(arr) {
-    const newArr = arr.slice()
+  /**
+   * Shuffles an array using the Fisher-Yates algorithm.
+   * @param {Array} arr - The array to be shuffled.
+   * @return {Array} - The shuffled array.
+   */
+  getShuffledArr(arr) {
+    const newArr = arr.slice();
     for (let i = newArr.length - 1; i > 0; i--) {
       const rand = Math.floor(Math.random() * (i + 1));
-      [newArr[i], newArr[rand]] = [newArr[rand], newArr[i]]
+      [newArr[i], newArr[rand]] = [newArr[rand], newArr[i]];
     }
-    return newArr
+    return newArr;
   }
 
   /**
-   * @constructor Elements to create a new elements
-   */
-  function Elements(tagName, className, text) {
-    let that = this
-    that = d.createElement(tagName)
-    that.className = className
-    that.innerHTML = text
-    return that
+  * Creates a new HTML element with specified properties.
+  * @param {string} tagName - The tag name of the element.
+  * @param {string} className - The class name of the element.
+  * @param {string} text - The inner HTML text of the element.
+  * @return {HTMLElement|null} - The created HTML element, or null.
+  */
+  createElements(tagName, className, text) {
+    const element = document.createElement(tagName);
+    element.className = className;
+    element.innerHTML = text;
+    return /** @type {HTMLElement} */ (element);
   }
 
-  function timer() {
-    let sec = 0
+  /**
+   * Initializes the game timer.
+   */
+  timer() {
+    let sec = 0;
 
+    /**
+     * Pads a value with leading zeros if necessary.
+     * @param {number} val - The value to pad.
+     * @return {string} - The padded value as a string.
+     */
     function pad(val) {
-      return val > 9 ? val : '0' + val
+      return val > 9 ? String(val) : '0' + val;
     }
-    card.timer = setInterval(function () {
-      seconds.innerHTML = pad(++sec % 60)
-      minutes.innerHTML = pad(parseInt(sec / 60, 10))
-    }, 1000)
-  }
 
+    this.card.timer = setInterval(() => {
+      this.seconds.innerHTML = pad(++sec % 60);
+      this.minutes.innerHTML = pad(parseInt(sec / 60, 10));
+    }, 1000);
+  }
 
   /**
-   * @suppress {missingProperties|checkTypes}
+   * Retrieves data from local storage.
+   * @return {Array} - An array of retrieved data.
    */
-  function getData() {
-    const data = []
-    for (let i = 0; i < w.localStorage.length; i++) {
-      const key = w.localStorage.key(i)
-      if (key.includes('time-'+ gameId)) data.push(w.localStorage.getItem(key))
+  getData() {
+    const data = [];
+    for (let i = 0; i < this.local.length; i++) {
+      const key = this.local.key(i);
+      if (key.includes('time-' + this.gameId)) data.push(this.local.getItem(key));
     }
-    data.sort((a, b) => a.localeCompare(b))
-    return data
+    data.sort((a, b) => a.localeCompare(b));
+    return data;
   }
 
-
-  d.addEventListener('click', e => {
-    // set event target
-    const target = e.target
+  /**
+   * Handles click events on game cards.
+   * @param {Event} e - The click event.
+   */
+  handleClick(e) {
+    const target = e.target;
 
     if (target.classList.contains('korta')) {
+      if (!this.card.cards) this.card.clickedCard = e.target;
+      if (this.card.cards === 2) return false;
+      ++this.card.cards;
 
-      if (!card.cards) card.card = e.target
-      if (card.cards === 2) return false
-        ++card.cards
-      // add random class name to rotate direction
-      const randomClass = Math.round(Math.random()) >= 0.5 ? 'pasukti' : 'pasukti1'
-      target.className += ' ' + randomClass
+      const randomClass = Math.round(Math.random()) >= 0.5 ? 'pasukti' : 'pasukti1';
+      target.className += ' ' + randomClass;
 
-      // check if the 2 cards clicked
-      if (card.cards === 2) {
-        // count click events not every, but when 2cards are clicked (opened)
-        card.clicks += 1
-        // set the clicks element text
-        clicks.innerHTML = card.clicks
-        // disable click events with css styling and default cursor will be displayed
-        gridContainer.style.pointerEvents = 'none'
+      if (this.card.cards === 2) {
+        this.card.clicks += 1;
+        this.clicks.innerHTML = this.card.clicks;
+        this.gridContainer.style.pointerEvents = 'none';
 
-        if (card.card.firstChild.className === target.firstChild.className) {
+        if (this.card.clickedCard.firstChild.className === target.firstChild.className) {
           setTimeout(() => {
-
-            target.classList.add('blur')
-            card.card.classList.add('blur')
-            card.cards = 0
-            gridContainer.style.pointerEvents = 'auto'
-            if (gridContainer.getElementsByClassName('blur').length === shuffleCards.length) {
-              clearInterval(card.timer)
-              message.innerHTML = `<h2>Your time: ${timers.textContent}</h2>`
-
-              // first set data only then get to show it
-              w.localStorage.setItem(`time-${gameId}${w.localStorage.length}`, timers.textContent)
-
-              // set data array on constant variable, for later use
-              card.data = getData()
-              // show data if data length is more than 0
-              showData()
-
-              gridContainer.innerHTML = ''
-              button('Play again')
-              message.style.display = 'block'
-              // reset moves (clicks)
-              card.clicks = 0
+            target.classList.add('blur');
+            this.card.clickedCard.classList.add('blur');
+            this.card.cards = 0;
+            this.gridContainer.style.pointerEvents = 'auto';
+            if (this.gridContainer.getElementsByClassName('blur').length === this.shuffleCards.length) {
+              clearInterval(this.card.timer);
+              this.message.innerHTML = `<h2>Your time: ${this.timers.textContent}</h2>`;
+              this.local.setItem(`time-${this.gameId}${this.local.length}`, this.timers.textContent);
+              this.card.data = this.getData();
+              this.showData();
+              this.gridContainer.innerHTML = '';
+              this.button('Play again');
+              this.message.style.display = 'block';
+              this.card.clicks = 0;
             }
-          }, 300)
+          }, 300);
         } else {
           let inter = setTimeout(() => {
-            clearTimeout(inter)
-            inter = 0
-            target.classList.remove(randomClass)
-            card.card.className = 'korta'
-            card.cards = 0
-            gridContainer.style.pointerEvents = 'auto'
-          }, 900)
+            clearTimeout(inter);
+            inter = 0;
+            target.classList.remove(randomClass);
+            this.card.clickedCard.className = 'korta';
+            this.card.cards = 0;
+            this.gridContainer.style.pointerEvents = 'auto';
+          }, 900);
         }
       }
     }
-  })
+  }
 
   /**
-   * ...
-   * Good; suppresses within the entire function.
-   * Also, this suppresses multiple warnings.
-   * @suppress {missingProperties|checkTypes}
+   * Creates a button element with a click event.
+   * @param {string} text - The text content of the button.
    */
-  function button(text) {
-    statistics.classList.add('hidden')
-    const btn = new Elements('button', 'btn', text)
+  button(text) {
+    this.statistics.classList.add('hidden');
+    const btn = this.createElements('button', 'btn', text);
     btn.onclick = () => {
-      start()
-      message.style.display = 'none'
-      statistics.classList.remove('hidden')
-    }
-    message.appendChild(btn)
-  }
-
-  function showData() {
-    // these lines should never be swapped,
-    // because shift changes length and first element should be shown first
-    if (card.data.length)
-      message.innerHTML += '<h3>Best score: ' + card.data.shift() + '</h3>'
-      // length is changed need to check is greater than zero or in other words not 0
-    if (card.data.length>0)
-      message.innerHTML += '<h3>Other scores: ' + card.data.join(', ') + '</h3>'
-
+      this.start();
+      this.message.style.display = 'none';
+      this.statistics.classList.remove('hidden');
+    };
+    this.message.appendChild(btn);
   }
 
   /**
-   * @suppress {missingProperties|checkTypes}
+   * Displays best and other scores in the message.
    */
-  function start() {
-    // set localStorage item for visitor if not already game finished,
-    // because we can check time value length, but in case game unfinished we set visitor
-    w.localStorage.setItem('visitor-'+gameId, 1)
+  showData() {
+    if (this.card.data.length)
+      this.message.innerHTML += '<h3>Best score: ' + this.card.data.shift() + '</h3>';
 
-    shuffleCards = getShuffledArr(arr.concat(arr))
-    shuffleCards.forEach(e => {
-      const ele = new Elements('DIV', 'wrpko', '')
-      const kor = new Elements('DIV', 'korta', '')
-      const gal = new Elements('DIV', 'galas ' + e, '')
-      const pri = new Elements('DIV', 'priekis', '')
-      ele.appendChild(kor).appendChild(gal)
-      kor.appendChild(pri)
-      documentFragment.appendChild(ele)
-    })
-    gridContainer.appendChild(documentFragment)
-    // show the timer
-    timer()
-    //just to show zero seconds and minutes
-    minutes.innerHTML = seconds.innerHTML = '00'
-    // show clicks (moves)
-    clicks.innerHTML = card.clicks
+    if (this.card.data.length > 0)
+      this.message.innerHTML += '<h3>Other scores: ' + this.card.data.join(', ') + '</h3>';
   }
 
-  function init() {
-    // set data for later use
-    card.data = getData()
-    // show data if data length is more than 1
-    showData()
-    // create the start button with text 'Start'
-    button('Start')
+  /**
+   * Starts the game by initializing elements and timer.
+   */
+  start() {
+    this.local.setItem('visitor-' + this.gameId, '1'); // Convert to string explicitly
+    this.shuffleCards = this.getShuffledArr(this.arr.concat(this.arr));
+
+    this.shuffleCards.forEach(e => {
+      const ele = this.createElements('DIV', 'wrpko', '');
+      const kor = this.createElements('DIV', 'korta', '');
+      const gal = this.createElements('DIV', 'galas ' + e, '');
+      const pri = this.createElements('DIV', 'priekis', '');
+      ele.appendChild(kor).appendChild(gal);
+      kor.appendChild(pri);
+      this.documentFragment.appendChild(ele);
+    });
+
+    this.gridContainer.appendChild(this.documentFragment);
+    this.timer();
+    this.minutes.innerHTML = this.seconds.innerHTML = '00';
+    this.clicks.innerHTML = this.card.clicks;
   }
 
-  // initialize game on event DOM creation
-  d.addEventListener('DOMContentLoaded', init)
+  /**
+   * Initializes the game by setting data and creating the start button.
+   */
+  init() {
+    this.card.data = this.getData();
+    this.showData();
+    this.button('Start');
+  }
+}
 
-  // hide notice message (By playing you accepting to write scores to your localStorage)
-  // first set the hidden on HTML to not show (then show and hide again and never show again if visitor is set)
-  notice.className = w.localStorage.getItem('visitor-'+gameId) === null ? '' : 'hidden'
-})(window, document)
+/**
+ * Adds an event listener to initialize the game when the DOM is loaded.
+ */
+document.addEventListener('DOMContentLoaded', () => {
+  const memoryGame = new MemoryGame();
+  memoryGame.init();
+
+  document.addEventListener('click', (e) => {
+    memoryGame.handleClick(e);
+  });
+});
