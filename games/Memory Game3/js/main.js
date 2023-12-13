@@ -44,12 +44,12 @@ class MemoryGame {
   }
 
   /**
-  * Creates a new HTML element with specified properties.
-  * @param {string} tagName - The tag name of the element.
-  * @param {string} className - The class name of the element.
-  * @param {string} text - The inner HTML text of the element.
-  * @return {HTMLElement|null} - The created HTML element, or null.
-  */
+   * Creates a new HTML element with specified properties.
+   * @param {string} tagName - The tag name of the element.
+   * @param {string} className - The class name of the element.
+   * @param {string} text - The inner HTML text of the element.
+   * @return {HTMLElement|null} - The created HTML element, or null.
+   */
   createElements(tagName, className, text) {
     const element = document.createElement(tagName);
     element.className = className;
@@ -207,8 +207,49 @@ class MemoryGame {
  * Adds an event listener to initialize the game when the DOM is loaded.
  */
 document.addEventListener('DOMContentLoaded', () => {
+
   const memoryGame = new MemoryGame();
-  memoryGame.init();
+
+  var images = [];
+
+  /**
+   * Preloads images by creating new Image objects and setting their src attributes.
+   * @param {...string} urls - Image URLs to be preloaded.
+   */
+  function preload(...urls) {
+    var images = [];
+    var loadedCount = 0;
+
+    function loadImage(url) {
+      var image = new Image();
+      image.onload = function () {
+        loadedCount++;
+        if (loadedCount === urls.length) {
+          // All images are loaded, now you can initialize the MemoryGame
+          memoryGame.init();
+        }
+      };
+      image.src = url;
+      images.push(image);
+    }
+
+    for (var i = 0; i < urls.length; i++) {
+      loadImage(urls[i]);
+    }
+  }
+
+  preload(
+    "img/01.png",
+    "img/02.png",
+    "img/03.png",
+    "img/04.png",
+    "img/05.png",
+    "img/06.png",
+    "img/07.png",
+    "img/08.png",
+    "img/09.png",
+    "img/10.png"
+  );
 
   document.addEventListener('click', (e) => {
     memoryGame.handleClick(e);
