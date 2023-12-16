@@ -179,7 +179,13 @@ body {
     grid-template-columns: repeat(auto-fit,minmax(10em,1fr));
     border-radius: 4px
 }
-
+#outpus a img {
+  height: 1em;
+  width: 1em;
+  position: absolute;
+  top: .25em;
+  left: .25em;
+}
 #outpus a {
     overflow: hidden;
     text-align: center;
@@ -196,7 +202,7 @@ body {
     position: relative;
     border: 1px solid var(--color-3)
 }
-
+#outpus a:hover{ border: 1px solid var(--color-4) }
 #outpus span:not(:last-of-type) {
     font-size: 12px;
     color: var(--color-4);
@@ -209,16 +215,16 @@ body {
 }
 
 #outpus span.urls {
-    font-size: 14px;
-    color: var(--color-4);
-    padding: 5px 12px;
-    background: var(--color-1);
-    width: 100%;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    font-weight: 700;
-    border-bottom: 1px solid var(--color-3);
-    overflow: hidden
+  font-size: 1em;
+  color: var(--color-4);
+  padding: 0 1.5em;
+  background: var(--color-1);
+  width: 100%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-weight: 700;
+  border-bottom: 1px solid var(--color-3);
+  overflow: hidden;
 }
 
 #export {

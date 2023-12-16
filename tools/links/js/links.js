@@ -181,7 +181,24 @@
   }
 
   function createElem(url, type, text, full) {
+
     const elems = d.createElement('a');
+    const fragment = document.createDocumentFragment()
+
+    const favicon = d.createElement('img');
+    favicon.src = "https://"+url+"/favicon.ico"
+
+    favicon.onload = function(e){
+      urls.appendChild(e.target);
+      console.log('favi', favicon)
+      console.log(e.target)
+    }
+    favicon.onerror = function(){
+      favicon.onerror = null;
+      favicon.src = "./favicon.ico";
+      urls.appendChild(favicon);
+    }
+
     const types = d.createElement('span');
     const texts = d.createElement('span');
     const urls = d.createElement('span');
