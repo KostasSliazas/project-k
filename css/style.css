@@ -9,6 +9,7 @@
   background: var(--color1);
   height:auto
 }
+#calculator label{display: none}
 #calculator {
   display:-ms-grid;
   -ms-grid-columns:1fr 2px 1fr 2px 1fr 2px 1fr;
@@ -20,7 +21,7 @@
   grid-template-rows:min-content;
   justify-items:center;
   align-items:stretch;
-  gap: 4px;
+  gap: 2px;
   padding: 2px;
   height:100%;
   width: min-content;
@@ -44,7 +45,7 @@
   background:var(--color4)
 }
 #calculator input+input {
-  width: 32px;
+  width: 34px;
   aspect-ratio: 1;
   font-size: 1.5em;
   line-height: 1;
@@ -67,7 +68,7 @@
   margin:0;
   outline:0;
   color: var(--color4);
-  background: var(--color0);
+  background: var(--color1);
   -webkit-appearance:none;
   -moz-appearance:none;
   appearance:none;
@@ -85,8 +86,8 @@ input {
 #calculator input::-moz-focus-inner,
 #calculator input:focus,
 #calculator:focus {
+  color: var(--color4);
   outline:0;
-  -moz-outline:0;
 }
 input::selection {
   background:0 0
@@ -121,7 +122,8 @@ input::-moz-selection {
   text-align:right;
   padding:0 5px;
   font-family:Numbers;
-  line-height:1
+  line-height:1;
+  background: var(--color0);
 }
 #calculator #src.blink {
   color:var(--color1)
