@@ -9,11 +9,11 @@
     <link rel="manifest" href="site.webmanifest" />
     <meta name="msapplication-TileColor" content="#da532c" />
     <meta name="theme-color" content="#ffffff" />
-    <link rel="stylesheet" href="./css/main.min.css" />
+    <link rel="stylesheet" href="./css/main.css" />
   </head>
 
-  <body class="bglines" style="display: none">
-    <main class="main" id="main">
+  <body style="display: none">
+    <main class="main bglines" id="main">
       <div class="movable">
         <h1>clock</h1>
         <h2 class="pe digit" id="clock"></h2>
@@ -246,7 +246,7 @@
        <div class="movable">
          <h1>Networks</h1>
         <div class="movable-p">
-         <span id="is-online"></span>
+         <psan id="is-online"></span>
         </div>
         </div>
 
@@ -256,6 +256,14 @@
          <div id="clipboard">empty</div>
         </div>
         </div>
+
+        <div class="movable" title="Triple click and pin AB.">
+         <h1>Child lock</h1>
+        <div class="movable-p">
+              <button class="em4" id="lock">LOCK</button>
+        </div>
+        </div>
+        <p style="position:absolute; bottom:0;right:24px;">&copy;aution: use at your own risk</p>
     </main>
 
         <div class="hide center" id="moves">
@@ -290,16 +298,28 @@
            <legend>I'm lazy</legend>
            <div>
               <input type="button" value="Toggle Rotate" name="move" id="rotate90"/>
-              <label for="rotate90" class="dspn">PRO laziness</label>
+              <label for="rotate90" class="dspn">PRO lazynes</label>
             </div>
          </fieldset>
          <div class="forms flex">
-         <button id="controls-hide">Hide this window</button>
+         <button id="controls-hide">Hidde this window</button>
          </div>
       </div>
     </div>
-    <p style="position:absolute; bottom:0;right:24px;">&copy;aution: use at your own risk</p>
-    <script src="js/main.min.js"></script>
+    <div class="wrp-container">
+      <div class="container">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>a</div>
+        <div>b</div>
+        <div>c</div>
+        <div>7</div>
+        <div>8</div>
+        <div>9</div>
+      </div>
+    </div>
+    <script src="js/main.js"></script>
     <script src="js/script.min.js"></script>
   </body>
 </html>

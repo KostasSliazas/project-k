@@ -5,22 +5,34 @@
 /*jshint esversion: 11 */
 (function (w, d) {
   "use strict";
-  const root = d.documentElement;
   const random = (min, max) => Math.floor(Math.random() * (max - min)) + min;
-  /**
-   * styles array
-   * @date 11/7/2023 - 1:16:10 AM
-   *
-   * @type {{}}
-   */
+  const movable = Array.from(d.getElementsByClassName("movable"));
+  const roundToTen = num => Math.ceil(num / 10) * 10;
+  const getElms = [...d.getElementsByTagName("input"), ...d.getElementsByTagName("a")];
+  const setLocalStorageItems = (item, value) => localStorage.setItem(item, JSON.stringify(value))
+  const getLocalStorageItems = item => JSON.parse(localStorage.getItem(item))
+  const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+  const hide = elem => elem.classList.add('hide')
+  const show = (elem, type) => elem.classList.remove('hide')
+  const root = d.documentElement;
+  const typed = []
+  const cideDiv = d.querySelector(".wrp-container");
+  const cideDivElems = Array.from(cideDiv.children[0].children);
+  const bg = d.querySelector("#bg-file");
   const styles = ["width", "height", "left", "top"];
-  // movable blocks default string
-  const blockDefaults = "width:140px;height:60px;left:290px;top:10px;,width:180px;height:60px;left:10px;top:10px;,width:100px;height:60px;left:190px;top:10px;,width:80px;height:60px;left:470px;top:50px;,width:80px;height:60px;left:470px;top:110px;,width:140px;height:40px;left:220px;top:450px;,width:190px;height:140px;left:360px;top:430px;,width:220px;height:40px;left:200px;top:170px;,width:210px;height:100px;left:260px;top:70px;,width:130px;height:40px;left:420px;top:170px;,width:190px;height:160px;left:360px;top:270px;,width:190px;height:60px;left:360px;top:210px;,width:250px;height:50px;left:10px;top:70px;,width:250px;height:50px;left:10px;top:120px;,width:20px;height:120px;left:200px;top:450px;,width:160px;height:240px;left:200px;top:210px;,width:140px;height:80px;left:220px;top:490px;,width:190px;height:350px;left:10px;top:220px;,width:190px;height:50px;left:10px;top:170px;,width:120px;height:60px;left:430px;top:10px;,width:140px;height:40px;left:550px;top:10px;,width:140px;height:40px;left:550px;top:50px;";
-  // movable blocks defaults string
-  const textAreaDefaults = "Good day. How may I assist you? You have the ability to reposition these blocks by selecting and holding the left corner at your desired location or by pressing ` on keyboard, or double-click to minimize them. Additionally, you can customize the theme, colors, and background image to your liking. You are free to tailor this interface to your preferences.";
+  const blockDefaults = "width:140px;height:60px;left:290px;top:10px;,width:180px;height:60px;left:10px;top:10px;,width:100px;height:60px;left:190px;top:10px;,width:80px;height:60px;left:470px;top:50px;,width:80px;height:60px;left:470px;top:110px;,width:140px;height:40px;left:220px;top:450px;,width:190px;height:140px;left:360px;top:430px;,width:220px;height:40px;left:200px;top:170px;,width:210px;height:100px;left:260px;top:70px;,width:130px;height:40px;left:420px;top:170px;,width:190px;height:160px;left:360px;top:270px;,width:190px;height:60px;left:360px;top:210px;,width:250px;height:50px;left:10px;top:70px;,width:250px;height:50px;left:10px;top:120px;,width:20px;height:120px;left:200px;top:450px;,width:160px;height:240px;left:200px;top:210px;,width:140px;height:80px;left:220px;top:490px;,width:190px;height:350px;left:10px;top:220px;,width:190px;height:50px;left:10px;top:170px;,width:120px;height:60px;left:430px;top:10px;,width:140px;height:40px;left:550px;top:10px;,width:140px;height:40px;left:550px;top:50px;,width:140px;height:50px;left:550px;top:520px;";
+  const textAreaDefaults = "Good day. How may I assist you? You have the ability to reposition these blocks by selecting and holding the left corner at your desired location or by pressing ` on keyboard, or double-click to minimize them. Additionally, you can customize the theme, colors, and background image to your liking. You are free to tailor this interface to your preferences.If locked, to unlock, triple click and pin AB.";
+
+  const textArea = d.getElementsByTagName("TEXTAREA")[0];
+  textArea.addEventListener("input", async (e) => {
+    await delay(3000);
+    setLocalStorageItems("textArea", e.target.value.trim());
+  });
+
   // https://stackoverflow.com/questions/45071353/copy-text-string-on-click/53977796#53977796
-  const copy = d.getElementById('clipboard');
+  const copy = d.getElementById('clipboard')
   const copyToClipboard = str => {
+    if (str === '0') return copy.textContent = ''
     const el = d.createElement('textarea'); // Create a <textarea> element
     el.value = str; // Set its value to the string that you want copied
     el.setAttribute('readonly', ''); // Make it readonly to be tamper-proof
@@ -33,30 +45,38 @@
     // Mark as false to know no selection existed before
     el.select(); // Select the <textarea> content
     d.execCommand('copy'); // Copy - only works as a result of a user action (e.g. click events)
-    copy.textContent = str == 0 ? '' : str;
+    copy.textContent = str
     d.body.removeChild(el); // Remove the <textarea> element
     if (selected) { // If a selection existed before copying
       d.getSelection().removeAllRanges(); // Unselect everything on the HTML document
       d.getSelection().addRange(selected); // Restore the original selection
     }
   };
+  const main = d.getElementById('main')
+  const online = navigator.onLine;
+  d.getElementById('is-online').textContent = online ? 'connected' : 'disconnected'
+  const getPE = elem => elem.parentElement
+  const saved = getLocalStorageItems('pase') || setLocalStorageItems('pase', [3, 4])
+  const isLocked = getLocalStorageItems('isLocked')
+  let count = 0
+  let mousedown = false;
+  let scalingTarget = null;
+  // function findParent(element, className) {
+  //   let currentElement = element;
 
-  /**
-   * is online
-   * @date 11/7/2023 - 1:15:34 AM
-   *
-   * @type {*}
-   */
-  var online = navigator.onLine;
-  d.getElementById('is-online').textContent = online ? 'connected' : 'disconnected';
-  // get parentElement
-  const getPE = elem => elem.parentElement;
+  //   // Continue traversing up the DOM hierarchy until the body element
+  //   while (currentElement && !currentElement.classList.contains(className)) {
+  //     currentElement = currentElement.parentNode;
 
-  //rotate main div
-  const main = d.getElementById('main');
-  const rotate = d.getElementById('rotate90');
-  rotate.addEventListener('click', () => main.classList.toggle('lazy'));
+  //     // Break the loop if the body element is reached (or no parent is found)
+  //     if (currentElement.tagName.toLowerCase() === 'body') {
+  //       return null;
+  //     }
+  //   }
 
+  //   // Return the found parent element (or null if not found)
+  //   return currentElement;
+  // }
   // prevent from fast accidental clicks 100ms
   class ClickHandler {
     constructor() {
@@ -78,42 +98,14 @@
       return new Promise(resolve => setTimeout(resolve, ms));
     }
   }
-
   const clickHandler = new ClickHandler();
-  // spread elms to array
-  const getElms = [...d.getElementsByTagName("input"), ...d.getElementsByTagName("a")];
-  // loops elements and add clickHandler
   getElms.forEach(element => element.addEventListener("click", e => clickHandler.buttonClicker(e)));
-  /**
-   * Movable elements
-   * @date 11/7/2023 - 1:17:58 AM
-   *
-   * @type {array}
-   */
-  const movable = Array.from(d.getElementsByClassName("movable"));
-  /**
-   * Delay
-   * @date 11/7/2023 - 1:18:34 AM
-   */
-  const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
-  /**
-   * round To TenWidth
-   * @date 11/7/2023 - 1:18:34 AM
-   */
-  const roundToTen = num => Math.ceil(num / 10) * 10;
-
-  /**
-   * Get style
-   * @date 11/7/2023 - 1:17:22 AM
-   *
-   * @returns {string}
-   */
   function getStyles() {
     let styleValues = [];
     movable.forEach((e) => {
-      styles.forEach((value) => styleValues.push(`${value}:${e.style[value]};`));
-      styleValues.push(',');
+      styles.forEach((value) => styleValues.push(`${value}:${e.style[value]};`))
+      styleValues.push(',')
     });
     return styleValues.join('');
   }
@@ -193,23 +185,6 @@
         }
       });
 
-      function findParent(element, className) {
-        let currentElement = element;
-
-        // Continue traversing up the DOM hierarchy until the body element
-        while (currentElement && !currentElement.classList.contains(className)) {
-          currentElement = currentElement.parentNode;
-
-          // Break the loop if the body element is reached (or no parent is found)
-          if (currentElement.tagName.toLowerCase() === 'body') {
-            return null;
-          }
-        }
-
-        // Return the found parent element (or null if not found)
-        return currentElement;
-      }
-
       e.addEventListener("mousedown", async function (e) {
         if (e.target === this) {
           moving = true;
@@ -226,26 +201,13 @@
     });
   };
 
-  d.addEventListener("mouseup", () => {
-    moving = false;
-    if (target) {
-      setLocalStorageItems('elementStyles', getStyles());
-      target.classList.remove("mousedown");
-    }
-  });
-  d.addEventListener("mousemove", (z) => {
-    if (target !== null && target.classList.contains("movable") && moving) mouseMoves(z, target);
-  });
-
   class Clock {
     constructor(clockElementId) {
       this.clockElement = d.getElementById(clockElementId);
     }
-
     formatTimeUnit(unit) {
       return unit < 10 ? `0${unit}` : unit;
     }
-
     getCurrentTime() {
       const day = new Date();
       return {
@@ -254,7 +216,6 @@
         h: this.formatTimeUnit(day.getHours()),
       };
     }
-
     updateClock() {
       const {
         h,
@@ -263,7 +224,6 @@
       } = this.getCurrentTime();
       this.clockElement.textContent = [h, m, s].join(':');
     }
-
     startTime() {
       this.updateClock();
       setInterval(() => this.updateClock(), 1000);
@@ -317,7 +277,7 @@
     // no data? return with text '???'
     if (!data) return (stats.innerText = "???");
     const main = d.querySelector(".svg-holder");
-    // make length shorter
+    // make lenth shorter
     data.length = 25;
     const arrayConverted = reduceValuesDynamically(data.map(e => e.toFixed(2) * 10), 20);
     const svg = d.createElementNS("http://www.w3.org/2000/svg", "svg");
@@ -355,7 +315,9 @@
     if (getLocalStorageItems("elementClass") !== null) {
       classes = getLocalStorageItems("elementClass");
     }
+
     if (getLocalStorageItems("elementStyles") === null) return;
+
     const getStyle = getLocalStorageItems("elementStyles").split(",");
     for (let i = 0; i < movable.length; i++) {
       movable[i].style = getStyle[i];
@@ -393,14 +355,14 @@
     return ob;
   };
 
-  const themeName = d.getElementById('theme-name');
-  const longNames = ['inner peace', 'peace on earth', 'cool dudes', 'sunshine', 'someday', 'everything fine', 'night?'];
+  const themeName = d.getElementById('theme-name')
+  const longNames = ['inner peace', 'peace on earth', 'cool dudes', 'sunshine', 'someday', 'everything fine', 'night?']
   const classNameVariables = [0, "a", "b", "c", "d", "e", "f"];
   const THEME_CHANGE = arrayHelper.call(classNameVariables);
 
-  const changerClass = e => {
-    themeName.textContent = longNames[e];
-    if (e) root.className = classNameVariables[e];
+  const changerClass = index => {
+    themeName.textContent = longNames[index]
+    if (index) root.className = classNameVariables[index];
     else root.removeAttribute("class");
   };
 
@@ -411,66 +373,88 @@
     await setLocalStorageItems('elementStyles', getStyles());
   };
 
-  // document click events
-  root.addEventListener("click", e => {
-    const target = e.target.id;
-    if (target === "gt") THEME_CHANGE.decrement(); // eslint-disable-line
-    if (target === "lt") THEME_CHANGE.increment(); // eslint-disable-line
-    if (target === "lt" || target === "gt") {
-      e.preventDefault();
-      changerClass(THEME_CHANGE.value);
-      //set local storage only when user click
-      setLocalStorageItems("theme", THEME_CHANGE.value);
-      setColors();
-    }
-
-    if (target === "left") loops("left", -1);
-    if (target === "right") loops("left", 1);
-    if (target === "top") loops("top", -1);
-    if (target === "bottom") loops("top", 1);
-  });
-
   const moves = d.getElementById("moves");
-  const controlsHide = d.getElementById('controls-hide');
-  controlsHide.addEventListener('click', () => moves.classList.add('hide'));
+
+
   // toggle classList hide
   function classToggle(e) {
-    if (e.isComposing || e.key === 229) return;
+    if (e.isComposing || e.key === 'Unidentified') return;
 
     // event key or target id
-    var keyCode = e.which;
+    const keyCode = e.key || String.fromCharCode(e.keyCode);
+
     // check if it's [`] symbol and inputs not focused then toggle class
-    if (keyCode == 192 && !d.querySelector("input:focus")) {
+    if (keyCode === '`' && !d.querySelector("input:focus")) {
       moves.classList.toggle("hide");
       e.preventDefault();
       e.stopImmediatePropagation();
     }
   }
 
-  w.addEventListener("keyup", classToggle);
 
+  async function init() {
+    const documentTitle = d.title;
+    const areaText = d.querySelector("TEXTAREA");
+    areaText.value = getLocalStorageItems("textArea") || textAreaDefaults;
 
-
-  root.addEventListener("contextmenu", (e) => {
-    if (e.target.tagName === "HTML") {
-      e.preventDefault();
-      THEME_CHANGE.decrement(); // eslint-disable-line
-      changerClass(THEME_CHANGE.value);
-      //set local storage only when user click
-      setLocalStorageItems("theme", THEME_CHANGE.value);
-      setColors();
+    if (!getLocalStorageItems("elementClass")) {
+      setLocalStorageItems("elementClass", [14]);
     }
-    if (e.target.textContent || e.target.value) {
-      e.preventDefault();
-      if (e.target.getAttribute('type') == null || e.target.getAttribute('type').toUpperCase() === 'BUTTON' || e.target.getAttribute('type').toUpperCase() === 'RESET') return;
-      copyToClipboard(e.target.textContent || e.target.value);
+
+    if (!getLocalStorageItems("elementStyles")) {
+      setLocalStorageItems("elementStyles", blockDefaults);
     }
-  });
+
+    if (setTimeStamp(43) && online) {
+      await getAll(api_url);
+    }
+
+    if (getLocalStorageItems("theme-lines") === false) {
+      main.classList.remove('bglines');
+    }
+
+    if (isLocked) {
+      d.title = 'New Tab';
+      hide(main);
+    } else {
+      show(main);
+    }
+
+    await hide(cideDiv);
+    await stats(getLocalStorageItems("statsData"));
+    await applyStyles();
+    await loopElem();
+
+    cideDivElems.forEach(e => {
+      e.onclick = function (e) {
+        typed.push(cideDivElems.indexOf(e.target));
+        if (typed.length === saved.length && typed.every((v, i) => v === saved[i])) {
+          setLocalStorageItems('isLocked', false);
+          d.title = documentTitle;
+          hide(cideDiv);
+          show(main);
+        }
+      }
+    });
+
+    const NUM = parseInt(getLocalStorageItems("theme")) || 0;
+    THEME_CHANGE.value = NUM;
+    changerClass(NUM);
+    styleRoot();
+    setColors();
+
+    d.getElementById("today").innerHTML = showDate();
+    const clock = new Clock("clock");
+    clock.startTime();
+    d.body.style.display = 'block';
+  }
+
 
   async function setColors() {
     const compStyles = w.getComputedStyle(root);
     const colors = d.querySelectorAll("#colors input[type=color]");
     const arrayColors = [];
+
     colors.forEach(async (e, i) => {
       const compValue = await compStyles.getPropertyValue("--color" + i);
       e.value = e.title = compValue;
@@ -478,145 +462,79 @@
       label.innerText = compValue.toUpperCase();
       label.onclick = (e) => {
         e.preventDefault();
-        copyToClipboard(compValue.toUpperCase());
+        copyToClipboard(compValue.toUpperCase())
       };
 
       e.addEventListener("input", async (e) => {
         const label = getPE(e.target).getElementsByTagName('label')[0];
         label.innerText = e.target.value.toUpperCase();
-        const index = Array.from(colors).indexOf(e.target);
-        arrayColors[index] = `--color${index}:${e.target.value}`;
+        const index = Array.from(colors).indexOf(e.target)
+        arrayColors[index] = `--color${index}:${e.target.value}`
         setLocalStorageItems("custom-theme", arrayColors.filter(Boolean));
         styleRoot();
       });
     });
   }
-  const setLocalStorageItems = (item, value) => localStorage.setItem(item, JSON.stringify(value));
-  const getLocalStorageItems = item => JSON.parse(localStorage.getItem(item));
+
 
   function styleRoot() {
-    const items = ["bg-theme", "custom-theme"];
-    const arrayOfItems = [...items.map(e => getLocalStorageItems(e)).filter(Boolean)].flat();
-    d.documentElement.style = arrayOfItems.join(';');
+    const styleItems = ["bg-theme", "custom-theme"];
+    const arrayOfItems = styleItems
+      .map((item) => getLocalStorageItems(item))
+      .filter(Boolean)
+      .flat();
+
+    d.documentElement.style.cssText = arrayOfItems.join(';');
   }
 
-  async function init() {
-    const areaText = d.getElementsByTagName("TEXTAREA")[0];
-    if (!getLocalStorageItems("elementClass")) setLocalStorageItems("elementClass", [14]);
-    areaText.value = getLocalStorageItems("textArea") || textAreaDefaults;
-    // defaults by injecting to storage then loading string can be changed from localStorage (HTML should be not touched)
-    if (!getLocalStorageItems("elementStyles")) setLocalStorageItems("elementStyles", blockDefaults);
-    // check if there is no data in local storage or check if there time passed 43minutes and load api
-    if (setTimeStamp(43) && online) await getAll(api_url);
-    await stats(getLocalStorageItems("statsData"));
-    await applyStyles();
-    await loopElem();
-    d.getElementById("today").innerHTML = showDate();
-    d.body.style.display = "block";
-    const NUM = parseInt(getLocalStorageItems("theme")) || 0; //random(0, classNameVariables.length);
-    THEME_CHANGE.value = NUM;
-    changerClass(NUM);
-    styleRoot();
-    if (getLocalStorageItems("theme-lines") === false) d.body.classList.remove('bglines');
-    const clock = new Clock("clock");
-    clock.startTime();
-    const bgToggle = d.querySelector("#bg-toggle");
-    const themeReset = d.querySelector("#custom-theme");
-    const bgReset = d.querySelector("#bg-theme");
-    const resetAll = d.querySelector("#reset-all");
-    const bg = d.querySelector("#bg-file");
-
-    bg.addEventListener("change", (e) => {
-      const inputValue = e.target.files[0];
-      const reader = new FileReader();
-
-      reader.addEventListener(
-        "load",
-        async () => {
-            const fileSting = `--bg:url(${reader.result})`;
-            await delay(2000);
-            setLocalStorageItems("bg-theme", fileSting);
-            styleRoot();
-          },
-          false
-      );
-
-      if (inputValue) reader.readAsDataURL(inputValue);
-    });
-
-    [resetAll, bgReset, themeReset, bgToggle].forEach((e) =>
-      e.addEventListener("click", (e) => {
-        const target = e.target;
-        root.removeAttribute("style");
-        localStorage.removeItem(target.id);
-        styleRoot();
-
-        if (target === resetAll) {
-          localStorage.clear();
-          root.removeAttribute("class");
-          root.removeAttribute("style");
-          setLocalStorageItems("elementStyles", blockDefaults);
-          applyStyles();
-          setColors();
-          changerClass(0);
-        }
-
-        if (target === bgToggle) {
-          setLocalStorageItems('theme-lines', d.body.classList.toggle('bglines'));
-        }
-
-        if (target === themeReset) {
-          setColors();
-        } else bg.value = "";
-
-      })
-    );
-
-    setColors();
-  }
-
-  d.addEventListener("dblclick", (e) => {
-    if (e.target === copy) {
-      e.target.textContent = "";
-    }
-    if (e.target.tagName === "TEXTAREA") e.target.value = "";
-  });
-
-  let mousedown = false;
-  let scalingTarget = null;
-  d.addEventListener("mousedown", async (e) => {
+  async function mouseDownFun(e) {
     scalingTarget = e.target;
-    if (scalingTarget.tagName === "TEXTAREA") {
-      // value assign ! not comparing
-        mousedown = true;
-        const computedStyles = w.getComputedStyle(scalingTarget);
-        const height = await computedStyles.getPropertyValue('height');
-        const width = await computedStyles.getPropertyValue('width');
 
-        scalingTarget.style.width = width;
-        scalingTarget.style.height = height;
-        getPE(scalingTarget).style.width = "auto";
-        getPE(scalingTarget).style.height = "auto";
+    if (scalingTarget.tagName === "TEXTAREA" && (mousedown = true)) {
+      const computedStyles = w.getComputedStyle(scalingTarget);
+      const height = await computedStyles.getPropertyValue('height');
+      const width = await computedStyles.getPropertyValue('width');
+
+      scalingTarget.style.width = width;
+      scalingTarget.style.height = height;
+
+      const parentElement = getPE(scalingTarget);
+      parentElement.style.width = "auto";
+      parentElement.style.height = "auto";
     }
-  });
-
-  const textArea = d.getElementsByTagName("TEXTAREA")[0];
-  textArea.addEventListener("input", async (e) => {
-    await delay(3000);
-    setLocalStorageItems("textArea", e.target.value.trim());
-  });
+  }
 
   function mouseEvents(e) {
     const {
       target
     } = e;
-    // to make opacity .3 like link is visited while not refreshed page
-    if (target && getPE(target) && getPE(target).className === "movable" && target.tagName === "A") target.style.opacity = ".5";
+
+    if (!target) {
+      return;
+    }
+
+    const peTarget = getPE(target);
+    const targetClass = peTarget ? peTarget.className : null;
+
+    // Make opacity .5 for links with class "movable"
+    if (targetClass === "movable" && target.tagName === "A") {
+      target.style.opacity = ".5";
+    }
+
+    moving = false;
+
+    if (targetClass) {
+      setLocalStorageItems('elementStyles', getStyles());
+      target.classList.remove("mousedown");
+    }
 
     try {
-      if (scalingTarget && getPE(scalingTarget) && scalingTarget.tagName === "TEXTAREA" && scalingTarget != null) {
-        scalingTarget.style.height = getPE(scalingTarget).style.height = roundToTen(getPE(scalingTarget).offsetHeight) + "px";
-        getPE(scalingTarget).style.width = roundToTen(getPE(scalingTarget).offsetWidth) + "px";
+      if (scalingTarget && peTarget && scalingTarget.tagName === "TEXTAREA" && scalingTarget !== null) {
+        const peScalingTarget = getPE(scalingTarget);
+
+        scalingTarget.style.height = peScalingTarget.style.height = roundToTen(peScalingTarget.offsetHeight) + "px";
+        peScalingTarget.style.width = roundToTen(peScalingTarget.offsetWidth) + "px";
+
         setLocalStorageItems('elementStyles', getStyles());
         mousedown = false;
       }
@@ -627,10 +545,146 @@
     }
   }
 
-  // add eventlistener mouseup
-  d.addEventListener("mouseup", mouseEvents);
-  // add event listener to document (the starting point) INIT
-  d.addEventListener("DOMContentLoaded", init, {
-    once: true
+  function dblclickFun(e) {
+    if (e.target === copy) {
+      e.target.textContent = "";
+    }
+
+    if (e.target.tagName === "TEXTAREA") {
+      e.target.value = "";
+    }
+  }
+
+  function contextMenuFun(e) {
+    if (e.target.tagName === "MAIN") {
+      e.preventDefault();
+      THEME_CHANGE.decrement(); // eslint-disable-line
+      changerClass(THEME_CHANGE.value);
+      //set local storage only when user click
+      setLocalStorageItems("theme", THEME_CHANGE.value);
+      setColors();
+    }
+    if (e.target.textContent || e.target.value) {
+      e.preventDefault();
+      if (e.target.getAttribute('type') == null || e.target.getAttribute('type').toUpperCase() === 'BUTTON' || e.target.getAttribute('type').toUpperCase() === 'RESET') return
+      copyToClipboard(e.target.textContent || e.target.value)
+    }
+  }
+
+  function rootClick(e) {
+    const target = e.target.id;
+
+    if (target === "gt") {
+      THEME_CHANGE.decrement();
+    }
+
+    if (target === "lt") {
+      THEME_CHANGE.increment();
+    }
+
+    if (target === "lt" || target === "gt") {
+      e.preventDefault();
+      changerClass(THEME_CHANGE.value);
+      // Set local storage only when the user clicks
+      setLocalStorageItems("theme", THEME_CHANGE.value);
+      setColors();
+    }
+
+    if (target === "left") {
+      loops("left", -1);
+    }
+
+    if (target === "right") {
+      loops("left", 1);
+    }
+
+    if (target === "top") {
+      loops("top", -1);
+    }
+
+    if (target === "bottom") {
+      loops("top", 1);
+    }
+
+    if (target === "lock") {
+      count = 0;
+      setLocalStorageItems('isLocked', true);
+      hide(main);
+      d.title = 'New Tab';
+    }
+    if (target === 'rotate90') {
+      main.classList.toggle('lazy')
+    }
+    
+    if (target === 'controls-hide') {
+      moves.classList.add('hide')
+    }
+
+    if (target === "custom-theme" || target === "bg-toggle" || target === "reset-all" || target === "bg-theme") {
+      this.removeAttribute("style");
+      localStorage.removeItem(target);
+      styleRoot();
+    }
+
+    if (target === "reset-all") {
+      localStorage.clear();
+      this.removeAttribute("class");
+      setLocalStorageItems("elementStyles", blockDefaults);
+      applyStyles();
+      setColors();
+      changerClass(0);
+    }
+
+    if (target === "bg-toggle") {
+      setLocalStorageItems('theme-lines', main.classList.toggle('bglines'));
+    }
+
+    if (target === "custom-theme") {
+      setColors();
+    }
+
+    if (target === "bg-theme") {
+      bg.value = "";
+    }
+    count++;
+    if (e.target.tagName === "BODY" && count === 3 && getLocalStorageItems('isLocked')) {
+      show(cideDiv);
+      typed.length = 0;
+    }
+  }
+
+  function mouseMoveFun(z) {
+    if (!moving || target === null || !target.classList.contains("movable")) {
+      return;
+    }
+    mouseMoves(z, target);
+  }
+
+  bg.addEventListener("change", (e) => {
+    const inputValue = e.target.files[0];
+    const reader = new FileReader();
+
+    reader.addEventListener("load",
+      async () => {
+          const fileString = `--bg:url(${reader.result})`;
+          await delay(2000);
+          setLocalStorageItems("bg-theme", fileString);
+          styleRoot();
+        },
+        false
+    );
+
+    if (inputValue) {
+      reader.readAsDataURL(inputValue);
+    }
   });
+
+  d.addEventListener("mousemove", mouseMoveFun);
+  w.addEventListener("keyup", classToggle);
+  root.addEventListener("click", rootClick)
+  root.addEventListener("contextmenu", contextMenuFun);
+  d.addEventListener("dblclick", dblclickFun);
+  d.addEventListener("mousedown", mouseDownFun);
+  d.addEventListener("mouseup", mouseEvents);
+  d.addEventListener("DOMContentLoaded", init /*, { once: true }*/ );
 })(window, document);
