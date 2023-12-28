@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
   <head>
     <meta charset="UTF-8" />
     <title>Project-K</title>
@@ -9,7 +10,7 @@
     <link rel="manifest" href="site.webmanifest" />
     <meta name="msapplication-TileColor" content="#da532c" />
     <meta name="theme-color" content="#ffffff" />
-    <link rel="stylesheet" href="./css/main.css" />
+    <link rel="stylesheet" href="./css/main.min.css" />
   </head>
 
   <body style="display: none">
@@ -219,8 +220,8 @@
             <label for="bg-file" class="dspn">Upload image</label>
             <input type="file" id="bg-file" />
             <div class="spaceb">
-            <input type="button" id="bg-toggle" value="Toggle lines">
-            <input type="reset" id="bg-theme" value="Reset" class="em4">
+              <input type="button" id="bg-toggle" value="Toggle lines">
+              <input type="reset" id="bg-theme" value="Reset" class="em4">
             </div>
           </fieldset>
         </div>
@@ -237,38 +238,38 @@
       </div>
 
       <div class="movable tetris">
-         <h1>Dynamic</h1>
+        <h1>Dynamic</h1>
         <div class="movable-p">
           <a href="tools/links/index.html" target="_blank" rel="noopener noreferrer">local links <br> ls</a>
         </div>
       </div>
 
-       <div class="movable">
-         <h1>Networks</h1>
+      <div class="movable">
+        <h1>Networks</h1>
         <div class="movable-p">
-         <psan id="is-online"></span>
+          <span id="is-online"></span>
         </div>
-        </div>
+      </div>
 
-        <div class="movable" title="copy text or value temporary saving with contextmenu (right mouse button)">
-         <h1>Clipboard</h1>
+      <div class="movable" title="copy text or value temporary saving with contextmenu (right mouse button)">
+        <h1>Clipboard</h1>
         <div class="movable-p">
-         <div id="clipboard">empty</div>
+          <div id="clipboard">empty</div>
         </div>
-        </div>
+      </div>
 
-        <div class="movable" title="Triple click and pin AB.">
-         <h1>Child lock</h1>
+      <div class="movable" title="Triple click and pin AB.">
+        <h1>Child lock</h1>
         <div class="movable-p">
-              <button class="em4" id="lock">LOCK</button>
+          <button class="em4" id="lock">LOCK</button>
         </div>
-        </div>
-        <p style="position:absolute; bottom:0;right:24px;">&copy;aution: use at your own risk</p>
+      </div>
+      <p style="position:absolute; bottom:0;right:24px;">&copy;aution: use at your own risk</p>
     </main>
 
-        <div class="hide center" id="moves">
-        <h1>Controls</h1>
-        <div class="movable-p">
+    <div class="hide center" id="moves">
+      <h1>Controls</h1>
+      <div class="movable-p">
         <fieldset class="forms flex">
           <legend>Move blocks</legend>
           <div>
@@ -294,16 +295,16 @@
             </div>
           </div>
         </fieldset>
-       <fieldset class="forms flex">
-           <legend>I'm lazy</legend>
-           <div>
-              <input type="button" value="Toggle Rotate" name="move" id="rotate90"/>
-              <label for="rotate90" class="dspn">PRO lazynes</label>
-            </div>
-         </fieldset>
-         <div class="forms flex">
-         <button id="controls-hide">Hidde this window</button>
-         </div>
+        <fieldset class="forms flex">
+          <legend>I'm lazy</legend>
+          <div>
+            <input type="button" value="Toggle Rotate" name="move" id="rotate90" />
+            <label for="rotate90" class="dspn">PRO laziness</label>
+          </div>
+        </fieldset>
+        <div class="forms flex">
+          <button id="controls-hide">Hide this window</button>
+        </div>
       </div>
     </div>
     <div class="wrp-container">
@@ -319,7 +320,8 @@
         <div>9</div>
       </div>
     </div>
-    <script src="js/main.js"></script>
+    <script src="js/main.min.js"></script>
     <script src="js/script.min.js"></script>
   </body>
+
 </html>

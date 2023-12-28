@@ -9,15 +9,22 @@
   const movable = Array.from(d.getElementsByClassName("movable"));
   const roundToTen = num => Math.ceil(num / 10) * 10;
   const getElms = [...d.getElementsByTagName("input"), ...d.getElementsByTagName("a")];
-  const setLocalStorageItems = (item, value) => localStorage.setItem(item, JSON.stringify(value))
-  const getLocalStorageItems = item => JSON.parse(localStorage.getItem(item))
+  const setLocalStorageItems = (item, value) => localStorage.setItem(item, JSON.stringify(value));
+  const getLocalStorageItems = (item) => {
+      try {
+        return JSON.parse(localStorage.getItem(item));
+      } catch (error) {
+        console.error("Error parsing JSON:", error.message);
+        return null; // or any other default value
+      }
+    };
   const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
-  const hide = elem => elem.classList.add('hide')
-  const show = (elem, type) => elem.classList.remove('hide')
+  const hide = elem => elem.classList.add('hide');
+  const show = (elem, type) => elem.classList.remove('hide');
   const root = d.documentElement;
-  const typed = []
-  const cideDiv = d.querySelector(".wrp-container");
-  const cideDivElems = Array.from(cideDiv.children[0].children);
+  const typed = [];
+  const codeDiv = d.querySelector(".wrp-container");
+  const codeDivElems = Array.from(codeDiv.children[0].children);
   const bg = d.querySelector("#bg-file");
   const styles = ["width", "height", "left", "top"];
   const blockDefaults = "width:140px;height:60px;left:290px;top:10px;,width:180px;height:60px;left:10px;top:10px;,width:100px;height:60px;left:190px;top:10px;,width:80px;height:60px;left:470px;top:50px;,width:80px;height:60px;left:470px;top:110px;,width:140px;height:40px;left:220px;top:450px;,width:190px;height:140px;left:360px;top:430px;,width:220px;height:40px;left:200px;top:170px;,width:210px;height:100px;left:260px;top:70px;,width:130px;height:40px;left:420px;top:170px;,width:190px;height:160px;left:360px;top:270px;,width:190px;height:60px;left:360px;top:210px;,width:250px;height:50px;left:10px;top:70px;,width:250px;height:50px;left:10px;top:120px;,width:20px;height:120px;left:200px;top:450px;,width:160px;height:240px;left:200px;top:210px;,width:140px;height:80px;left:220px;top:490px;,width:190px;height:350px;left:10px;top:220px;,width:190px;height:50px;left:10px;top:170px;,width:120px;height:60px;left:430px;top:10px;,width:140px;height:40px;left:550px;top:10px;,width:140px;height:40px;left:550px;top:50px;,width:140px;height:50px;left:550px;top:520px;";
@@ -30,9 +37,9 @@
   });
 
   // https://stackoverflow.com/questions/45071353/copy-text-string-on-click/53977796#53977796
-  const copy = d.getElementById('clipboard')
+  const copy = d.getElementById('clipboard');
   const copyToClipboard = str => {
-    if (str === '0') return copy.textContent = ''
+    if (str === '0') return (copy.textContent = '');
     const el = d.createElement('textarea'); // Create a <textarea> element
     el.value = str; // Set its value to the string that you want copied
     el.setAttribute('readonly', ''); // Make it readonly to be tamper-proof
@@ -45,39 +52,23 @@
     // Mark as false to know no selection existed before
     el.select(); // Select the <textarea> content
     d.execCommand('copy'); // Copy - only works as a result of a user action (e.g. click events)
-    copy.textContent = str
+    copy.textContent = str;
     d.body.removeChild(el); // Remove the <textarea> element
     if (selected) { // If a selection existed before copying
       d.getSelection().removeAllRanges(); // Unselect everything on the HTML document
       d.getSelection().addRange(selected); // Restore the original selection
     }
   };
-  const main = d.getElementById('main')
+  const main = d.getElementById('main');
   const online = navigator.onLine;
-  d.getElementById('is-online').textContent = online ? 'connected' : 'disconnected'
-  const getPE = elem => elem.parentElement
-  const saved = getLocalStorageItems('pase') || setLocalStorageItems('pase', [3, 4])
-  const isLocked = getLocalStorageItems('isLocked')
-  let count = 0
+  d.getElementById('is-online').textContent = online ? 'connected' : 'disconnected';
+  const getPE = elem => elem.parentElement;
+  const saved = getLocalStorageItems('pase') || setLocalStorageItems('pase', [3, 4]);
+  const isLocked = getLocalStorageItems('isLocked');
+  let count = 0;
   let mousedown = false;
   let scalingTarget = null;
-  // function findParent(element, className) {
-  //   let currentElement = element;
 
-  //   // Continue traversing up the DOM hierarchy until the body element
-  //   while (currentElement && !currentElement.classList.contains(className)) {
-  //     currentElement = currentElement.parentNode;
-
-  //     // Break the loop if the body element is reached (or no parent is found)
-  //     if (currentElement.tagName.toLowerCase() === 'body') {
-  //       return null;
-  //     }
-  //   }
-
-  //   // Return the found parent element (or null if not found)
-  //   return currentElement;
-  // }
-  // prevent from fast accidental clicks 100ms
   class ClickHandler {
     constructor() {
       this.clicked = false;
@@ -104,8 +95,8 @@
   function getStyles() {
     let styleValues = [];
     movable.forEach((e) => {
-      styles.forEach((value) => styleValues.push(`${value}:${e.style[value]};`))
-      styleValues.push(',')
+      styles.forEach((value) => styleValues.push(`${value}:${e.style[value]};`));
+      styleValues.push(',');
     });
     return styleValues.join('');
   }
@@ -355,13 +346,13 @@
     return ob;
   };
 
-  const themeName = d.getElementById('theme-name')
-  const longNames = ['inner peace', 'peace on earth', 'cool dudes', 'sunshine', 'someday', 'everything fine', 'night?']
+  const themeName = d.getElementById('theme-name');
+  const longNames = ['inner peace', 'peace on earth', 'cool dudes', 'sunshine', 'someday', 'everything fine', 'night?'];
   const classNameVariables = [0, "a", "b", "c", "d", "e", "f"];
   const THEME_CHANGE = arrayHelper.call(classNameVariables);
 
   const changerClass = index => {
-    themeName.textContent = longNames[index]
+    themeName.textContent = longNames[index];
     if (index) root.className = classNameVariables[index];
     else root.removeAttribute("class");
   };
@@ -420,21 +411,21 @@
       show(main);
     }
 
-    await hide(cideDiv);
+    await hide(codeDiv);
     await stats(getLocalStorageItems("statsData"));
     await applyStyles();
     await loopElem();
 
-    cideDivElems.forEach(e => {
+    codeDivElems.forEach(e => {
       e.onclick = function (e) {
-        typed.push(cideDivElems.indexOf(e.target));
+        typed.push(codeDivElems.indexOf(e.target));
         if (typed.length === saved.length && typed.every((v, i) => v === saved[i])) {
           setLocalStorageItems('isLocked', false);
           d.title = documentTitle;
-          hide(cideDiv);
+          hide(codeDiv);
           show(main);
         }
-      }
+      };
     });
 
     const NUM = parseInt(getLocalStorageItems("theme")) || 0;
@@ -462,14 +453,14 @@
       label.innerText = compValue.toUpperCase();
       label.onclick = (e) => {
         e.preventDefault();
-        copyToClipboard(compValue.toUpperCase())
+        copyToClipboard(compValue.toUpperCase());
       };
 
       e.addEventListener("input", async (e) => {
         const label = getPE(e.target).getElementsByTagName('label')[0];
         label.innerText = e.target.value.toUpperCase();
-        const index = Array.from(colors).indexOf(e.target)
-        arrayColors[index] = `--color${index}:${e.target.value}`
+        const index = Array.from(colors).indexOf(e.target);
+        arrayColors[index] = `--color${index}:${e.target.value}`;
         setLocalStorageItems("custom-theme", arrayColors.filter(Boolean));
         styleRoot();
       });
@@ -566,8 +557,8 @@
     }
     if (e.target.textContent || e.target.value) {
       e.preventDefault();
-      if (e.target.getAttribute('type') == null || e.target.getAttribute('type').toUpperCase() === 'BUTTON' || e.target.getAttribute('type').toUpperCase() === 'RESET') return
-      copyToClipboard(e.target.textContent || e.target.value)
+      if (e.target.getAttribute('type') == null || e.target.getAttribute('type').toUpperCase() === 'BUTTON' || e.target.getAttribute('type').toUpperCase() === 'RESET') return;
+      copyToClipboard(e.target.textContent || e.target.value);
     }
   }
 
@@ -613,22 +604,22 @@
       d.title = 'New Tab';
     }
     if (target === 'rotate90') {
-      main.classList.toggle('lazy')
+      main.classList.toggle('lazy');
     }
     
     if (target === 'controls-hide') {
-      moves.classList.add('hide')
+      moves.classList.add('hide');
     }
 
     if (target === "custom-theme" || target === "bg-toggle" || target === "reset-all" || target === "bg-theme") {
-      this.removeAttribute("style");
+      e.removeAttribute("style");
       localStorage.removeItem(target);
       styleRoot();
     }
 
     if (target === "reset-all") {
       localStorage.clear();
-      this.removeAttribute("class");
+      e.removeAttribute("class");
       setLocalStorageItems("elementStyles", blockDefaults);
       applyStyles();
       setColors();
@@ -648,7 +639,7 @@
     }
     count++;
     if (e.target.tagName === "BODY" && count === 3 && getLocalStorageItems('isLocked')) {
-      show(cideDiv);
+      show(codeDiv);
       typed.length = 0;
     }
   }
@@ -681,7 +672,7 @@
 
   d.addEventListener("mousemove", mouseMoveFun);
   w.addEventListener("keyup", classToggle);
-  root.addEventListener("click", rootClick)
+  root.addEventListener("click", rootClick);
   root.addEventListener("contextmenu", contextMenuFun);
   d.addEventListener("dblclick", dblclickFun);
   d.addEventListener("mousedown", mouseDownFun);
