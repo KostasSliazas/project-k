@@ -27,8 +27,8 @@
   const codeDivElems = Array.from(codeDiv.children[0].children);
   const bg = d.querySelector("#bg-file");
   const styles = ["width", "height", "left", "top"];
-  let saved = [3,4];
-  const minimized = [14,22];
+  let saved = getLocalStorageItems('pase') || [3,4];
+  let minimized = [14,22];
   const blockDefaults = "width:140px;height:60px;left:290px;top:50px;,width:180px;height:60px;left:10px;top:50px;,width:100px;height:60px;left:190px;top:50px;,width:80px;height:60px;left:470px;top:90px;,width:80px;height:60px;left:470px;top:150px;,width:140px;height:40px;left:220px;top:490px;,width:190px;height:140px;left:360px;top:470px;,width:220px;height:40px;left:200px;top:210px;,width:210px;height:100px;left:260px;top:110px;,width:130px;height:40px;left:420px;top:210px;,width:190px;height:160px;left:360px;top:310px;,width:190px;height:60px;left:360px;top:250px;,width:250px;height:50px;left:10px;top:110px;,width:250px;height:50px;left:10px;top:160px;,width:20px;height:120px;left:200px;top:490px;,width:160px;height:240px;left:200px;top:250px;,width:140px;height:80px;left:220px;top:530px;,width:190px;height:350px;left:10px;top:260px;,width:190px;height:50px;left:10px;top:210px;,width:120px;height:60px;left:430px;top:50px;,width:140px;height:40px;left:270px;top:10px;,width:140px;height:40px;left:410px;top:10px;,width:140px;height:20px;left:130px;top:30px;";
   const textAreaDefaults = "Good day. How may I assist you? You have the ability to reposition these blocks by selecting and holding the left corner at your desired location or by pressing ` on keyboard, or double-click to minimize them. Additionally, you can customize the theme, colors, and background image to your liking. You are free to tailor this interface to your preferences.If locked, to unlock, triple click and pin AB.";
 
@@ -122,7 +122,6 @@
   let target = null;
   // add all movable class eventlistener mousedown
   const loopElem = async() => {
-    let array = await getLocalStorageItems("elementClass") || [];
 
     movable.forEach(async (e) => {
           await delay(30);
@@ -135,8 +134,9 @@
       e.addEventListener("dblclick", async e => {
         if (e.target.classList.contains("movable")) {
           const index = movable.indexOf(e.target);
-
+          let arrayOfMinimized = [];
           if (e.target.classList.contains("minimized")) {
+              arrayOfMinimized = minimized.filter(c => c !== index);
               await e.target.classList.remove("minimized");
               await delay(30);
               e.target.style.width = "auto";
@@ -147,10 +147,10 @@
               e.target.style.width = roundToTen(e.target.offsetWidth) + "px";
           } else if (e.target.classList.contains("movable")) {
             e.target.classList.add("minimized");
-            array.push(index);
+            arrayOfMinimized.push(index);
           }
           setLocalStorageItems('elementStyles', getStyles());
-          setLocalStorageItems("elementClass", array);
+          setLocalStorageItems("elementClass", arrayOfMinimized);
         }
       });
 
@@ -279,20 +279,16 @@
     stats.innerText = output;
   }
 
-  async function applyStyles() {
-    let classes = [];
-    if (getLocalStorageItems("elementClass") !== null) {
-      classes = await getLocalStorageItems("elementClass");
-    }
-
-    if (getLocalStorageItems("elementStyles") === null) return;
-
-    const getStyle = getLocalStorageItems("elementStyles").split(",");
+  function applyStyles() {
+    const styles = getLocalStorageItems("elementStyles") || blockDefaults;
+    const getStyle = styles.split(",");
     for (let i = 0; i < movable.length; i++) {
       movable[i].style = getStyle[i];
       movable[i].style.position = "fixed";
-      if (classes.includes(movable.indexOf(movable[i]))) {
-        movable[i].classList.add("movable", "minimized");
+      if (minimized.includes(movable.indexOf(movable[i]))) {
+        movable[i].classList.add("minimized");
+      } else {
+        movable[i].classList.remove("minimized");
       }
     }
   }
@@ -365,28 +361,11 @@
     const documentTitle = d.title;
     const areaText = d.querySelector("TEXTAREA");
     areaText.value = getLocalStorageItems("textArea") || textAreaDefaults;
-    if(!getLocalStorageItems('pase')){
-      setLocalStorageItems('pase', saved);
-    }else {
-      saved = getLocalStorageItems('pase');
-    }
 
-    if (!getLocalStorageItems("elementClass")) {
-      setLocalStorageItems("elementClass", minimized);
-    }
+    if (setTimeStamp(43) && online) await getAll(api_url);
 
-    if (!getLocalStorageItems("elementStyles")) {
-      setLocalStorageItems("elementStyles", blockDefaults);
-    }
-
-    if (setTimeStamp(43) && online) {
-      await getAll(api_url);
-    }
-
-    if (getLocalStorageItems("theme-lines") === false) {
-      main.classList.remove('bglines');
-    }
-
+    if (getLocalStorageItems("theme-lines") === false) main.classList.remove('bglines');
+    if (getLocalStorageItems("elementClass")) minimized = getLocalStorageItems("elementClass");
     if (isLocked) {
       d.title = 'New Tab';
       hide(main);
@@ -603,8 +582,6 @@
       root.removeAttribute("class");
       setColors();
       changerClass(0);
-      setLocalStorageItems("elementClass", minimized);
-      setLocalStorageItems("elementStyles", blockDefaults);
       applyStyles();
     }
 
