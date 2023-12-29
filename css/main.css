@@ -144,6 +144,7 @@ a:hover {
     text-overflow: ellipsis;
     position: relative;
     border-radius: 2px;
+    transition: 0.2s;
 }
 
 .movable a {
@@ -224,6 +225,7 @@ a:hover {
 }
 
 .mousedown {
+    transition: none;
     z-index: 2;
     outline: 1px dotted #fff
 }
