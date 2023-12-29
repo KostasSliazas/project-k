@@ -27,7 +27,8 @@
   const codeDivElems = Array.from(codeDiv.children[0].children);
   const bg = d.querySelector("#bg-file");
   const styles = ["width", "height", "left", "top"];
-  const minimized = [14,22]
+  let saved = [3,4];
+  const minimized = [14,22];
   const blockDefaults = "width:140px;height:60px;left:290px;top:50px;,width:180px;height:60px;left:10px;top:50px;,width:100px;height:60px;left:190px;top:50px;,width:80px;height:60px;left:470px;top:90px;,width:80px;height:60px;left:470px;top:150px;,width:140px;height:40px;left:220px;top:490px;,width:190px;height:140px;left:360px;top:470px;,width:220px;height:40px;left:200px;top:210px;,width:210px;height:100px;left:260px;top:110px;,width:130px;height:40px;left:420px;top:210px;,width:190px;height:160px;left:360px;top:310px;,width:190px;height:60px;left:360px;top:250px;,width:250px;height:50px;left:10px;top:110px;,width:250px;height:50px;left:10px;top:160px;,width:20px;height:120px;left:200px;top:490px;,width:160px;height:240px;left:200px;top:250px;,width:140px;height:80px;left:220px;top:530px;,width:190px;height:350px;left:10px;top:260px;,width:190px;height:50px;left:10px;top:210px;,width:120px;height:60px;left:430px;top:50px;,width:140px;height:40px;left:270px;top:10px;,width:140px;height:40px;left:410px;top:10px;,width:140px;height:20px;left:130px;top:30px;";
   const textAreaDefaults = "Good day. How may I assist you? You have the ability to reposition these blocks by selecting and holding the left corner at your desired location or by pressing ` on keyboard, or double-click to minimize them. Additionally, you can customize the theme, colors, and background image to your liking. You are free to tailor this interface to your preferences.If locked, to unlock, triple click and pin AB.";
 
@@ -64,7 +65,6 @@
   const online = navigator.onLine;
   d.getElementById('is-online').textContent = online ? 'connected' : 'disconnected';
   const getPE = elem => elem.parentElement;
-  const saved = getLocalStorageItems('pase') || setLocalStorageItems('pase', [3, 4]);
   const isLocked = getLocalStorageItems('isLocked');
   let count = 0;
   let mousedown = false;
@@ -246,7 +246,7 @@
     // no data? return with text '???'
     if (!data) return (stats.innerText = "???");
     const main = d.querySelector(".svg-holder");
-    // make lenth shorter
+    // make length shorter
     data.length = 25;
     const arrayConverted = reduceValuesDynamically(data.map(e => e.toFixed(2) * 10), 20);
     const svg = d.createElementNS("http://www.w3.org/2000/svg", "svg");
@@ -365,6 +365,11 @@
     const documentTitle = d.title;
     const areaText = d.querySelector("TEXTAREA");
     areaText.value = getLocalStorageItems("textArea") || textAreaDefaults;
+    if(!getLocalStorageItems('pase')){
+      setLocalStorageItems('pase', saved);
+    }else {
+      saved = getLocalStorageItems('pase');
+    }
 
     if (!getLocalStorageItems("elementClass")) {
       setLocalStorageItems("elementClass", minimized);
