@@ -122,33 +122,14 @@
   // add all movable class eventlistener mousedown
   const loopElem = () => {
     movable.forEach(async (e) => {
-      await setTimeout(
-        function () {
-          this.style.left = roundToTen(getOffset(this).left) + "px";
-          this.style.top = roundToTen(getOffset(this).top) + "px";
-        }.bind(e),
-        0
-      );
-      await setTimeout(
-        function () {
+          await delay(30);
+          e.style.left = roundToTen(getOffset(e).left) + "px";
+          e.style.top = roundToTen(getOffset(e).top) + "px";
           e.style.position = "fixed";
-        }.bind(e),
-        0
-      );
-      await setTimeout(
-        function () {
-          this.style.width = roundToTen(this.offsetWidth) + "px";
-        }.bind(e),
-        0
-      );
-      await setTimeout(
-        function () {
-          this.style.height = roundToTen(this.offsetHeight) + "px";
-        }.bind(e),
-        0
-      );
-
-      e.addEventListener("dblclick", (e) => {
+          await delay(30);
+          e.style.width = roundToTen(e.offsetWidth) + "px";
+          e.style.height = roundToTen(e.offsetHeight) + "px";
+      e.addEventListener("dblclick", async e => {
         if (e.target.classList.contains("movable")) {
           const index = movable.indexOf(e.target);
 
@@ -156,18 +137,12 @@
 
           if (e.target.classList.contains("minimized")) {
             e.target.classList.remove("minimized");
-            array = array.filter((item) => item !== index);
-            setTimeout(() => {
+            array = array.filter(item => item !== index);
               e.target.style.width = "auto";
               e.target.style.height = "auto";
-            }, 10);
-            setTimeout(() => {
+              await delay(200);
               e.target.style.width = roundToTen(e.target.offsetWidth) + "px";
-            }, 50);
-
-            setTimeout(() => {
               e.target.style.height = roundToTen(e.target.offsetHeight) + "px";
-            }, 70);
           } else if (e.target.classList.contains("movable")) {
             e.target.classList.add("minimized");
             array.push(index);
