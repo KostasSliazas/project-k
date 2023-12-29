@@ -160,19 +160,20 @@
             setTimeout(() => {
               e.target.style.width = "auto";
               e.target.style.height = "auto";
-            }, 0);
+            }, 10);
             setTimeout(() => {
               e.target.style.width = roundToTen(e.target.offsetWidth) + "px";
-            }, 5);
+            }, 50);
 
             setTimeout(() => {
               e.target.style.height = roundToTen(e.target.offsetHeight) + "px";
-            }, 7);
+            }, 70);
           } else if (e.target.classList.contains("movable")) {
             e.target.classList.add("minimized");
             array.push(index);
           }
-          return setLocalStorageItems("elementClass", array);
+          setLocalStorageItems('elementStyles', getStyles());
+          setLocalStorageItems("elementClass", array);
         }
       });
 
@@ -389,7 +390,7 @@
     areaText.value = getLocalStorageItems("textArea") || textAreaDefaults;
 
     if (!getLocalStorageItems("elementClass")) {
-      setLocalStorageItems("elementClass", [14]);
+      setLocalStorageItems("elementClass", [14,22]);
     }
 
     if (!getLocalStorageItems("elementStyles")) {
@@ -619,7 +620,7 @@
 
     if (target === "reset-all") {
       localStorage.clear();
-      e.target.removeAttribute("class");
+      root.removeAttribute("class");
       setLocalStorageItems("elementStyles", blockDefaults);
       applyStyles();
       setColors();
