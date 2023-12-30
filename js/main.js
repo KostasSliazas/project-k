@@ -8,7 +8,6 @@
   const random = (min, max) => Math.floor(Math.random() * (max - min)) + min;
   const movable = Array.from(d.getElementsByClassName("movable"));
   const roundToTen = num => Math.ceil(num / 10) * 10;
-  const getElms = [...d.getElementsByTagName("input"), ...d.getElementsByTagName("a")];
   const setLocalStorageItems = (item, value) => localStorage.setItem(item, JSON.stringify(value));
   const getLocalStorageItems = (item) => {
       try {
@@ -21,18 +20,29 @@
   const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
   const hide = elem => elem.classList.add('hide');
   const show = (elem, type) => elem.classList.remove('hide');
+  const main = d.getElementById('main');
+  const online = navigator.onLine;
+  const getPE = elem => elem.parentElement;
   const root = d.documentElement;
   const typed = [];
   const codeDiv = d.querySelector(".wrp-container");
-  const codeDivElems = Array.from(codeDiv.children[0].children);
+  const codeDivElms = Array.from(codeDiv.children[0].children);
+  const textArea = d.getElementsByTagName("TEXTAREA")[0];
   const bg = d.querySelector("#bg-file");
   const styles = ["width", "height", "left", "top"];
-  let saved = getLocalStorageItems('pase') || [3,4];
-  let minimized = [14,22];
   const blockDefaults = "width:140px;height:60px;left:290px;top:50px;,width:180px;height:60px;left:10px;top:50px;,width:100px;height:60px;left:190px;top:50px;,width:80px;height:60px;left:470px;top:90px;,width:80px;height:60px;left:470px;top:150px;,width:140px;height:40px;left:220px;top:490px;,width:190px;height:140px;left:360px;top:470px;,width:220px;height:40px;left:200px;top:210px;,width:210px;height:100px;left:260px;top:110px;,width:130px;height:40px;left:420px;top:210px;,width:190px;height:160px;left:360px;top:310px;,width:190px;height:60px;left:360px;top:250px;,width:250px;height:50px;left:10px;top:110px;,width:250px;height:50px;left:10px;top:160px;,width:20px;height:120px;left:200px;top:490px;,width:160px;height:240px;left:200px;top:250px;,width:140px;height:80px;left:220px;top:530px;,width:190px;height:350px;left:10px;top:260px;,width:190px;height:50px;left:10px;top:210px;,width:120px;height:60px;left:430px;top:50px;,width:140px;height:40px;left:270px;top:10px;,width:140px;height:40px;left:410px;top:10px;,width:140px;height:20px;left:130px;top:30px;";
   const textAreaDefaults = "Good day. How may I assist you? You have the ability to reposition these blocks by selecting and holding the left corner at your desired location or by pressing ` on keyboard, or double-click to minimize them. Additionally, you can customize the theme, colors, and background image to your liking. You are free to tailor this interface to your preferences.If locked, to unlock, triple click and pin AB.";
-
-  const textArea = d.getElementsByTagName("TEXTAREA")[0];
+  const isLocked = getLocalStorageItems('isLocked');
+  let saved = getLocalStorageItems('pase') || [3,4];
+  let minimized = [14,22];
+  let count = 0;
+  let mousedown = false;
+  let scalingTarget = null;
+  // boolean value for test is moving or not
+  let moving = false;
+  // target global element variable
+  let target = null;
+  // add all movable class eventlistener mousedown
   textArea.addEventListener("input", async (e) => {
     await delay(3000);
     setLocalStorageItems("textArea", e.target.value.trim());
@@ -61,14 +71,7 @@
       d.getSelection().addRange(selected); // Restore the original selection
     }
   };
-  const main = d.getElementById('main');
-  const online = navigator.onLine;
-  d.getElementById('is-online').textContent = online ? 'connected' : 'disconnected';
-  const getPE = elem => elem.parentElement;
-  const isLocked = getLocalStorageItems('isLocked');
-  let count = 0;
-  let mousedown = false;
-  let scalingTarget = null;
+
 
   class ClickHandler {
     constructor() {
@@ -86,12 +89,12 @@
       await this.delay(100);
       this.clicked = false;
     }
-    delay(ms) {
-      return new Promise(resolve => setTimeout(resolve, ms));
-    }
+    delay(ms) {return new Promise(resolve => setTimeout(resolve, ms));}
   }
   const clickHandler = new ClickHandler();
+  const getElms = Array.from(d.getElementsByTagName("input")).concat(Array.from(d.getElementsByTagName("a")));
   getElms.forEach(element => element.addEventListener("click", e => clickHandler.buttonClicker(e)));
+
 
   function getStyles() {
     let styleValues = [];
@@ -102,25 +105,13 @@
     return styleValues.join('');
   }
 
-  const mouseMoves = async (z, e) => {
-    delay(500);
-    e.style.left = roundToTen(z.clientX) - 10 + "px";
-    e.style.top = roundToTen(z.clientY) - 10 + "px";
-  };
 
   function getOffset(el) {
     const rect = el.getBoundingClientRect();
-    return {
-      left: rect.left + w.scrollX,
-      top: rect.top + w.scrollY,
-    };
+    return { left: rect.left + w.scrollX, top: rect.top + w.scrollY, };
   }
 
-  // boolean value for test is moving or not
-  let moving = false;
-  // target global element variable
-  let target = null;
-  // add all movable class eventlistener mousedown
+
   const loopElem = async() => {
 
     movable.forEach(async (e) => {
@@ -170,6 +161,7 @@
     });
   };
 
+
   class Clock {
     constructor(clockElementId) {
       this.clockElement = d.getElementById(clockElementId);
@@ -186,11 +178,7 @@
       };
     }
     updateClock() {
-      const {
-        h,
-        m,
-        s
-      } = this.getCurrentTime();
+      const {h,m,s} = this.getCurrentTime();
       this.clockElement.textContent = [h, m, s].join(':');
     }
     startTime() {
@@ -199,10 +187,11 @@
     }
   }
 
+
+
   function showDate() {
     let d = new Date();
-    let formatter = Intl.DateTimeFormat(
-      "lt-LT", // a locale name; "default" chooses automatically
+    let formatter = Intl.DateTimeFormat("lt-LT", // a locale name; "default" chooses automatically
       {
         weekday: "short",
         year: "numeric",
@@ -215,22 +204,24 @@
 
     return formatter.format(d).slice(0, 10);
   }
+
+
   // api url
   const api_url = "https://api.open-meteo.com/v1/forecast?latitude=55.7068&longitude=21.1391&hourly=temperature_2m";
-
   // Defining async function
   async function getAll(url) {
     // Storing response
     const response = await fetch(url);
-
     // Storing data in form of JSON
     var data = await response.json();
     // no data? return
     if (!response || !data) return false;
+    // set data to storage
     setLocalStorageItems("statsData", data.hourly.temperature_2m);
   }
 
 
+  // round values replace for better showing stats
   function reduceValuesDynamically(arr, max) {
     if (arr.length === 0) return arr; // Return an empty array if input array is empty
     const maxInArray = Math.max(...arr.map(value => Math.abs(value)));
@@ -240,7 +231,8 @@
     return resultArray;
   }
 
-  //stats
+
+  //stats for TEMPERATURE api
   function stats(data) {
     const stats = d.querySelector("#stats");
     // no data? return with text '???'
@@ -279,19 +271,22 @@
     stats.innerText = output;
   }
 
+
   function applyStyles() {
     const styles = getLocalStorageItems("elementStyles") || blockDefaults;
+    const mini = getLocalStorageItems("elementClass") || minimized;
     const getStyle = styles.split(",");
     for (let i = 0; i < movable.length; i++) {
       movable[i].style = getStyle[i];
       movable[i].style.position = "fixed";
-      if (minimized.includes(movable.indexOf(movable[i]))) {
+      if (mini.includes(movable.indexOf(movable[i]))) {
         movable[i].classList.add("minimized");
       } else {
         movable[i].classList.remove("minimized");
       }
     }
   }
+
 
   function setTimeStamp(interval) {
     //get current date
@@ -306,6 +301,7 @@
     setLocalStorageItems("timeStamp", currentDate);
     return true;
   }
+
 
   // for theme changing
   var arrayHelper = function () {
@@ -325,12 +321,14 @@
   const classNameVariables = [0, "a", "b", "c", "d", "e", "f"];
   const THEME_CHANGE = arrayHelper.call(classNameVariables);
 
+  // change main theme
   const changerClass = index => {
     themeName.textContent = longNames[index];
     if (index) root.className = classNameVariables[index];
     else root.removeAttribute("class");
   };
 
+  // move all blocks at once
   const loops = async (pos, val) => {
     const selected = Array.from(d.getElementsByName("move")).filter(e => e.checked)[0].value;
     movable.forEach(e => e.id !== "moves" && (e.style[pos] = parseInt(e.style[pos]) + val * selected + "px"));
@@ -338,9 +336,8 @@
     await setLocalStorageItems('elementStyles', getStyles());
   };
 
+
   const moves = d.getElementById("moves");
-
-
   // toggle classList hide
   function classToggle(e) {
     if (e.isComposing || e.key === 'Unidentified') return;
@@ -358,14 +355,12 @@
 
 
   async function init() {
+    d.getElementById('is-online').textContent = online ? 'connected' : 'disconnected';
     const documentTitle = d.title;
-    const areaText = d.querySelector("TEXTAREA");
-    areaText.value = getLocalStorageItems("textArea") || textAreaDefaults;
-
+    textArea.value = getLocalStorageItems("textArea") || textAreaDefaults;
     if (setTimeStamp(43) && online) await getAll(api_url);
-
-    if (getLocalStorageItems("theme-lines") === false) main.classList.remove('bglines');
-    if (getLocalStorageItems("elementClass")) minimized = getLocalStorageItems("elementClass");
+    if (getLocalStorageItems("theme-lines") === false) main.classList.remove('lines');
+    
     if (isLocked) {
       d.title = 'New Tab';
       hide(main);
@@ -378,9 +373,9 @@
     await applyStyles();
     await loopElem();
 
-    codeDivElems.forEach(e => {
+    codeDivElms.forEach(e => {
       e.onclick = function (e) {
-        typed.push(codeDivElems.indexOf(e.target));
+        typed.push(codeDivElms.indexOf(e.target));
         if (typed.length === saved.length && typed.every((v, i) => v === saved[i])) {
           setLocalStorageItems('isLocked', false);
           d.title = documentTitle;
@@ -432,81 +427,10 @@
 
   function styleRoot() {
     const styleItems = ["bg-theme", "custom-theme"];
-    const arrayOfItems = styleItems
-      .map((item) => getLocalStorageItems(item))
-      .filter(Boolean)
-      .flat();
-
+    const arrayOfItems = styleItems.map((item) => getLocalStorageItems(item)).filter(Boolean).flat();
     d.documentElement.style.cssText = arrayOfItems.join(';');
   }
 
-  async function mouseDownFun(e) {
-    scalingTarget = e.target;
-
-    if (scalingTarget.tagName === "TEXTAREA" && (mousedown = true)) {
-      const computedStyles = w.getComputedStyle(scalingTarget);
-      const height = await computedStyles.getPropertyValue('height');
-      const width = await computedStyles.getPropertyValue('width');
-
-      scalingTarget.style.width = width;
-      scalingTarget.style.height = height;
-
-      const parentElement = getPE(scalingTarget);
-      parentElement.style.width = "auto";
-      parentElement.style.height = "auto";
-    }
-  }
-
-  function mouseEvents(e) {
-    const {
-      target
-    } = e;
-
-    if (!target) {
-      return;
-    }
-
-    const peTarget = getPE(target);
-    const targetClass = peTarget ? peTarget.className : null;
-
-    // Make opacity .5 for links with class "movable"
-    if (targetClass === "movable" && target.tagName === "A") {
-      target.style.opacity = ".5";
-    }
-
-    moving = false;
-
-    if (targetClass) {
-      setLocalStorageItems('elementStyles', getStyles());
-      target.classList.remove("mousedown");
-    }
-
-    try {
-      if (scalingTarget && peTarget && scalingTarget.tagName === "TEXTAREA" && scalingTarget !== null) {
-        const peScalingTarget = getPE(scalingTarget);
-
-        scalingTarget.style.height = peScalingTarget.style.height = roundToTen(peScalingTarget.offsetHeight) + "px";
-        peScalingTarget.style.width = roundToTen(peScalingTarget.offsetWidth) + "px";
-
-        setLocalStorageItems('elementStyles', getStyles());
-        mousedown = false;
-      }
-    } catch (error) {
-      console.log({
-        error
-      });
-    }
-  }
-
-  function dblclickFun(e) {
-    if (e.target === copy) {
-      e.target.textContent = "";
-    }
-
-    if (e.target.tagName === "TEXTAREA") {
-      e.target.value = "";
-    }
-  }
 
   function contextMenuFun(e) {
     if (e.target.tagName === "MAIN") {
@@ -517,59 +441,34 @@
       setLocalStorageItems("theme", THEME_CHANGE.value);
       setColors();
     }
+
     if (e.target.textContent || e.target.value) {
       e.preventDefault();
       if (e.target.getAttribute('type') == null || e.target.getAttribute('type').toUpperCase() === 'BUTTON' || e.target.getAttribute('type').toUpperCase() === 'RESET') return;
       copyToClipboard(e.target.textContent || e.target.value);
     }
+ 
   }
+
 
   function rootClick(e) {
     const target = e.target.id;
+    if (target === "gt") THEME_CHANGE.decrement();
+    if (target === "lt") THEME_CHANGE.increment();
 
-    if (target === "gt") {
-      THEME_CHANGE.decrement();
-    }
-
-    if (target === "lt") {
-      THEME_CHANGE.increment();
-    }
-
+    if (target === "left") loops("left", -1);
+    if (target === "right") loops("left", 1);
+    if (target === "top") loops("top", -1);
+    if (target === "bottom") loops("top", 1);
+    
     if (target === "lt" || target === "gt") {
       changerClass(THEME_CHANGE.value);
       setLocalStorageItems("theme", THEME_CHANGE.value);
       setColors();
     }
 
-    if (target === "left") {
-      loops("left", -1);
-    }
-
-    if (target === "right") {
-      loops("left", 1);
-    }
-
-    if (target === "top") {
-      loops("top", -1);
-    }
-
-    if (target === "bottom") {
-      loops("top", 1);
-    }
-
-    if (target === "lock") {
-      count = 0;
-      setLocalStorageItems('isLocked', true);
-      hide(main);
-      d.title = 'New Tab';
-    }
-    if (target === 'rotate90') {
-      main.classList.toggle('lazy');
-    }
-    
-    if (target === 'controls-hide') {
-      moves.classList.add('hide');
-    }
+    if (target === 'rotate90') main.classList.toggle('lazy');
+    if (target === 'controls-hide') moves.classList.add('hide');
 
     if (target === "custom-theme" || target === "bg-toggle" || target === "reset-all" || target === "bg-theme") {
       e.target.removeAttribute("style");
@@ -584,18 +483,19 @@
       changerClass(0);
       applyStyles();
     }
-
-    if (target === "bg-toggle") {
-      setLocalStorageItems('theme-lines', main.classList.toggle('bglines'));
+    // set att once theme lines class and item of localStorage
+    if (target === "bg-toggle") setLocalStorageItems('theme-lines', main.classList.toggle('lines'));
+    if (target === "custom-theme") setColors();
+    if (target === "bg-theme") bg.value = "";
+    
+    // only for locking system
+    if (target === "lock") {
+      count = 0;
+      setLocalStorageItems('isLocked', true);
+      hide(main);
+      d.title = 'New Tab';
     }
 
-    if (target === "custom-theme") {
-      setColors();
-    }
-
-    if (target === "bg-theme") {
-      bg.value = "";
-    }
     count++;
     if (e.target.tagName === "BODY" && count === 3 && getLocalStorageItems('isLocked')) {
       show(codeDiv);
@@ -603,38 +503,94 @@
     }
   }
 
-  function mouseMoveFun(z) {
-    if (!moving || target === null || !target.classList.contains("movable")) {
-      return;
-    }
-    mouseMoves(z, target);
+
+  function dblclickFun(e) {
+    if (e.target === copy) e.target.textContent = "";
+    if (e.target.tagName === "TEXTAREA") e.target.value = "";
   }
 
-  bg.addEventListener("change", (e) => {
+
+  function bgChange(e){
     const inputValue = e.target.files[0];
     const reader = new FileReader();
 
-    reader.addEventListener("load",
-      async () => {
+    reader.addEventListener("load", async () => {
           const fileString = `--bg:url(${reader.result})`;
-          await delay(2000);
+          await delay(200);
           setLocalStorageItems("bg-theme", fileString);
           styleRoot();
-        },
-        false
-    );
+        }, false);
 
-    if (inputValue) {
-      reader.readAsDataURL(inputValue);
+    if (inputValue) reader.readAsDataURL(inputValue);
+  }
+
+  
+  const mouseMoves = (z, e) => {
+    e.style.left = roundToTen(z.clientX) - 10 + "px";
+    e.style.top = roundToTen(z.clientY) - 10 + "px";
+  };
+  
+
+  function mouseMoveEvents(z) {
+    if (!moving || target === null || !target.classList.contains("movable")) return;
+    mouseMoves(z, target);
+  }
+
+
+  function mouseUpEvents(e) {
+    moving = false;
+
+    const {target} = e;
+    if (!target) return;
+
+    const peTarget = getPE(target);
+    const targetClass = peTarget ? peTarget.className : null;
+
+    // Make opacity (highlight).5 for links with class "movable" till next refresh(like visited)
+    if (targetClass === "movable" && target.tagName === "A") target.style.opacity = ".5";
+
+
+    if (targetClass) {
+      setLocalStorageItems('elementStyles', getStyles());
+      target.classList.remove("mousedown");
     }
-  });
 
-  d.addEventListener("mousemove", mouseMoveFun);
+    try {
+      if (scalingTarget && peTarget && scalingTarget.tagName === "TEXTAREA" && scalingTarget !== null) {
+        const peScalingTarget = getPE(scalingTarget);
+        scalingTarget.style.height = peScalingTarget.style.height = roundToTen(peScalingTarget.offsetHeight) + "px";
+        peScalingTarget.style.width = roundToTen(peScalingTarget.offsetWidth) + "px";
+        setLocalStorageItems('elementStyles', getStyles());
+      }
+    } catch (error) {console.log({error});}
+  }
+
+  async function mouseDownEvents(e) {
+    scalingTarget = e.target;
+
+    if (scalingTarget.tagName === "TEXTAREA") {
+      mousedown = true;
+      const computedStyles = w.getComputedStyle(scalingTarget);
+      const height = await computedStyles.getPropertyValue('height');
+      const width = await computedStyles.getPropertyValue('width');
+
+      scalingTarget.style.width = width;
+      scalingTarget.style.height = height;
+
+      const parentElement = getPE(scalingTarget);
+      parentElement.style.width = "auto";
+      parentElement.style.height = "auto";
+    }
+  }
+
+  // events listeners
+  bg.addEventListener("change", bgChange);
   w.addEventListener("keyup", classToggle);
+  d.addEventListener("dblclick", dblclickFun);
+  d.addEventListener("mousemove", mouseMoveEvents);
+  d.addEventListener("mousedown", mouseDownEvents);
+  d.addEventListener("mouseup", mouseUpEvents);
+  d.addEventListener("DOMContentLoaded", init /*, { once: true }*/ );
   root.addEventListener("click", rootClick);
   root.addEventListener("contextmenu", contextMenuFun);
-  d.addEventListener("dblclick", dblclickFun);
-  d.addEventListener("mousedown", mouseDownFun);
-  d.addEventListener("mouseup", mouseEvents);
-  d.addEventListener("DOMContentLoaded", init /*, { once: true }*/ );
 })(window, document);
