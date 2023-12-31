@@ -125,9 +125,9 @@
       e.addEventListener("dblclick", async e => {
         if (e.target.classList.contains("movable")) {
           const index = movable.indexOf(e.target);
-          let arrayOfMinimized = [];
+          let arrayOfMinimized = getLocalStorageItems("elementClass") || minimized;
           if (e.target.classList.contains("minimized")) {
-              arrayOfMinimized = minimized.filter(c => c !== index);
+              arrayOfMinimized = arrayOfMinimized.filter(c => c !== index);
               await e.target.classList.remove("minimized");
               await delay(30);
               e.target.style.width = "auto";
@@ -139,7 +139,8 @@
           } else if (e.target.classList.contains("movable")) {
             e.target.classList.add("minimized");
             arrayOfMinimized.push(index);
-          }
+          }          
+
           setLocalStorageItems('elementStyles', getStyles());
           setLocalStorageItems("elementClass", arrayOfMinimized);
         }
@@ -333,7 +334,7 @@
     const selected = Array.from(d.getElementsByName("move")).filter(e => e.checked)[0].value;
     movable.forEach(e => e.id !== "moves" && (e.style[pos] = parseInt(e.style[pos]) + val * selected + "px"));
     await delay(300);
-    await setLocalStorageItems('elementStyles', getStyles());
+    setLocalStorageItems('elementStyles', getStyles());
   };
 
 
@@ -359,15 +360,10 @@
     const documentTitle = d.title;
     textArea.value = getLocalStorageItems("textArea") || textAreaDefaults;
     if (setTimeStamp(43) && online) await getAll(api_url);
+    console.log(getLocalStorageItems("theme-lines"))
     if (getLocalStorageItems("theme-lines") === false) main.classList.remove('lines');
     
-    if (isLocked) {
-      d.title = 'New Tab';
-      hide(main);
-    } else {
-      show(main);
-    }
-
+    
     await hide(codeDiv);
     await stats(getLocalStorageItems("statsData"));
     await applyStyles();
@@ -384,20 +380,26 @@
         }
       };
     });
-
+    
     const NUM = parseInt(getLocalStorageItems("theme")) || 0;
     THEME_CHANGE.value = NUM;
     changerClass(NUM);
     styleRoot();
     setColors();
-
+    
     d.getElementById("today").innerHTML = showDate();
     const clock = new Clock("clock");
     clock.startTime();
     d.body.style.display = 'block';
+
+  if (isLocked) {
+    d.title = 'New Tab';
+    hide(main);
+  } else {
+    show(main);
   }
-
-
+}
+  
   async function setColors() {
     const compStyles = w.getComputedStyle(root);
     const colors = d.querySelectorAll("#colors input[type=color]");

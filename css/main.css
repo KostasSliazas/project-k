@@ -450,7 +450,11 @@ input[type="file"]::file-selector-button:active {
     bottom: 0;
     left: 0;
 }
-
+.bottom{
+    position:absolute;
+     bottom:0;
+     right:24px;
+}
 
 @font-face {
     font-family: Numbers;
@@ -602,28 +606,32 @@ input::-moz-selection {
 }
 
 .wrp-container {
-    max-width: 200px;
-    max-height: 200px;
-    margin: 0 auto;
-    top: 50%;
-    position: absolute;
-    transform: translate(-50%, -50%);
-    left: 50%;
-    width: 100%;
-    height: 100%;
-    user-select: none;
+width: 100%;
+  height: 100%;
+  user-select: none;
+  background: var(--color3);
+  position: fixed;
+  top: 0;
+  left: 0;
+  user-select: none;
 }
 
 .container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-    margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3,minmax(48px, 1fr));
+  gap: 8px;
+  max-width: 200px;
+  max-height: 200px;
+  margin: 0 auto;
+  top: 50%;
+  position: absolute;
+  transform: translate(-50%,-50%);
+  left: 50%;
 }
 
 .container div {
     background: var(--color2);
-    border: 1px solid var(--color3);
+    border: 1px solid var(--color1);
     color: var(--color4);
     aspect-ratio: 1;
     cursor: pointer;
@@ -637,7 +645,7 @@ input::-moz-selection {
 
 @media screen and (max-width: 600px) {
 
-    #vr.minimized,
+    .bottom,#vr.minimized,
     .movable {
         position: relative !important;
         top: 0 !important;
