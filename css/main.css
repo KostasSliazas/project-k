@@ -21,13 +21,20 @@
     --color4: #0E3625;
 }
 
+.a.bg-image {
+    --bg: url(../img/a.webp);
+}
+
 .b {
     --color0: #EEE5D2;
     --color1: #fdfaf2;
     --color2: #ffecd6;
     --color3: #e2d0ac;
     --color4: #383329;
-    --bg: url(../img/d.webp);
+}
+
+.b.bg-image {
+    --bg: url(../img/b.webp);
 }
 
 .c {
@@ -36,7 +43,10 @@
     --color2: #C1CEDD;
     --color3: #7991B0;
     --color4: #1A3B66;
-    --bg: url(../img/b.webp);
+}
+
+.c.bg-image {
+    --bg: url(../img/c.webp);
 }
 
 .d {
@@ -47,6 +57,10 @@
     --color4: #181101;
 }
 
+.d.bg-image {
+    --bg: url(../img/d.webp);
+}
+
 .e {
     --color0: #FFFFFF;
     --color1: #FEF8FD;
@@ -55,12 +69,20 @@
     --color4: #333333;
 }
 
+.e.bg-image {
+    --bg: url(../img/e.webp);
+}
+
 .f {
     --color0: #E8EEF5;
     --color1: #D6E0EC;
     --color2: #A6B9CF;
     --color3: #758EAD;
     --color4: #0B2646;
+}
+
+.f.bg-image {
+    --bg: url(../img/f.webp);
 }
 
 .lines.main {
@@ -396,6 +418,58 @@ input[type="file"]::file-selector-button:active {
     place-content: center;
 }
 
+.checkbox {
+    position: relative;
+}
+
+.checkbox input {
+    display: none
+}
+
+.checkbox label::before {
+    content: "";
+    display: block;
+    box-sizing: border-box;
+}
+
+.checkbox label {
+    position: relative;
+    cursor: pointer;
+    padding: 0 1em 0 2.5em;
+}
+
+.checkbox label::after,
+.checkbox label::before {
+    content: "";
+    display: block;
+    position: absolute;
+    box-sizing: border-box;
+    left: .15em;
+    top: 0;
+}
+
+.checkbox label::after {
+    border-right: 2px solid transparent;
+    border-right-color: transparent;
+    border-bottom: 2px solid transparent;
+    border-bottom-color: transparent;
+    transform: rotate(55deg) skewX(25deg);
+    transform-origin: .5em 2em;
+}
+
+.checkbox input:checked~label::after {
+    border-color: var(--color4);
+    padding: 8px 4px;
+    transition: padding-right .1s, border-right-color 0s .1s linear
+}
+
+.checkbox label::before {
+    background: var(--color0);
+    border: 1px solid var(--color3);
+    padding: 1em;
+}
+
+
 .forms {
     border: 1px solid var(--color3);
     display: flex;
@@ -450,10 +524,11 @@ input[type="file"]::file-selector-button:active {
     bottom: 0;
     left: 0;
 }
-.bottom{
-    position:absolute;
-     bottom:0;
-     right:24px;
+
+.bottom {
+    position: absolute;
+    bottom: 0;
+    right: 24px;
 }
 
 @font-face {
@@ -606,27 +681,27 @@ input::-moz-selection {
 }
 
 .wrp-container {
-width: 100%;
-  height: 100%;
-  user-select: none;
-  background: var(--color3);
-  position: fixed;
-  top: 0;
-  left: 0;
-  user-select: none;
+    width: 100%;
+    height: 100%;
+    user-select: none;
+    background: var(--color3);
+    position: fixed;
+    top: 0;
+    left: 0;
+    user-select: none;
 }
 
 .container {
-  display: grid;
-  grid-template-columns: repeat(3,minmax(48px, 1fr));
-  gap: 8px;
-  max-width: 200px;
-  max-height: 200px;
-  margin: 0 auto;
-  top: 50%;
-  position: absolute;
-  transform: translate(-50%,-50%);
-  left: 50%;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(48px, 1fr));
+    gap: 8px;
+    max-width: 200px;
+    max-height: 200px;
+    margin: 0 auto;
+    top: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    left: 50%;
 }
 
 .container div {
@@ -645,7 +720,8 @@ width: 100%;
 
 @media screen and (max-width: 600px) {
 
-    .bottom,#vr.minimized,
+    .bottom,
+    #vr.minimized,
     .movable {
         position: relative !important;
         top: 0 !important;

@@ -30,11 +30,11 @@
   const textArea = d.getElementsByTagName("TEXTAREA")[0];
   const bg = d.querySelector("#bg-file");
   const styles = ["width", "height", "left", "top"];
-  const blockDefaults = "width:140px;height:60px;left:290px;top:50px;,width:180px;height:60px;left:10px;top:50px;,width:100px;height:60px;left:190px;top:50px;,width:80px;height:60px;left:470px;top:90px;,width:80px;height:60px;left:470px;top:150px;,width:140px;height:40px;left:220px;top:490px;,width:190px;height:140px;left:360px;top:470px;,width:220px;height:40px;left:200px;top:210px;,width:210px;height:100px;left:260px;top:110px;,width:130px;height:40px;left:420px;top:210px;,width:190px;height:160px;left:360px;top:310px;,width:190px;height:60px;left:360px;top:250px;,width:250px;height:50px;left:10px;top:110px;,width:250px;height:50px;left:10px;top:160px;,width:20px;height:120px;left:200px;top:490px;,width:160px;height:240px;left:200px;top:250px;,width:140px;height:80px;left:220px;top:530px;,width:190px;height:350px;left:10px;top:260px;,width:190px;height:50px;left:10px;top:210px;,width:120px;height:60px;left:430px;top:50px;,width:140px;height:40px;left:270px;top:10px;,width:140px;height:40px;left:410px;top:10px;,width:140px;height:20px;left:130px;top:30px;";
+  const blockDefaults = "width:140px;height:60px;left:290px;top:50px;,width:180px;height:60px;left:10px;top:50px;,width:100px;height:60px;left:190px;top:50px;,width:80px;height:60px;left:470px;top:90px;,width:80px;height:60px;left:470px;top:150px;,width:140px;height:40px;left:220px;top:490px;,width:190px;height:140px;left:360px;top:470px;,width:220px;height:40px;left:200px;top:210px;,width:210px;height:100px;left:260px;top:110px;,width:130px;height:40px;left:420px;top:210px;,width:190px;height:160px;left:360px;top:310px;,width:190px;height:60px;left:360px;top:250px;,width:250px;height:50px;left:10px;top:110px;,width:250px;height:50px;left:10px;top:160px;,width:20px;height:120px;left:200px;top:490px;,width:160px;height:240px;left:200px;top:250px;,width:140px;height:80px;left:220px;top:530px;,width:190px;height:400px;left:10px;top:260px;,width:190px;height:50px;left:10px;top:210px;,width:120px;height:60px;left:430px;top:50px;,width:140px;height:40px;left:10px;top:10px;,width:140px;height:40px;left:150px;top:10px;,width:140px;height:50px;left:200px;top:610px;";
   const textAreaDefaults = "Good day. How may I assist you? You have the ability to reposition these blocks by selecting and holding the left corner at your desired location or by pressing ` on keyboard, or double-click to minimize them. Additionally, you can customize the theme, colors, and background image to your liking. You are free to tailor this interface to your preferences.If locked, to unlock, triple click and pin AB.";
   const isLocked = getLocalStorageItems('isLocked');
   let saved = getLocalStorageItems('pase') || [3,4];
-  let minimized = [14,22];
+  let minimized = [14];
   let count = 0;
   let mousedown = false;
   let scalingTarget = null;
@@ -327,6 +327,7 @@
     themeName.textContent = longNames[index];
     if (index) root.className = classNameVariables[index];
     else root.removeAttribute("class");
+    d.getElementById('enabled-bg').checked === true ? root.classList.add('bg-image') : root.classList.remove('bg-image');
   };
 
   // move all blocks at once
@@ -360,9 +361,7 @@
     const documentTitle = d.title;
     textArea.value = getLocalStorageItems("textArea") || textAreaDefaults;
     if (setTimeStamp(43) && online) await getAll(api_url);
-    console.log(getLocalStorageItems("theme-lines"))
     if (getLocalStorageItems("theme-lines") === false) main.classList.remove('lines');
-    
     
     await hide(codeDiv);
     await stats(getLocalStorageItems("statsData"));
@@ -468,7 +467,7 @@
       setLocalStorageItems("theme", THEME_CHANGE.value);
       setColors();
     }
-
+    if (target === 'enabled-bg') (!root.classList.contains('bg-image') && e.target.checked) ? root.classList.add('bg-image') : root.classList.remove('bg-image')
     if (target === 'rotate90') main.classList.toggle('lazy');
     if (target === 'controls-hide') moves.classList.add('hide');
 

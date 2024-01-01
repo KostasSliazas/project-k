@@ -217,7 +217,11 @@
 
           <fieldset id="background" class="forms">
             <legend>Background</legend>
-            <label for="bg-file" class="dspn">Upload image</label>
+            <div class="checkbox">
+            <input type="checkbox" id="enabled-bg" checked>
+            <label for="enabled-bg">Default background</label>
+            </div>
+            <label for="bg-file">Upload image</label>
             <input type="file" id="bg-file" />
             <div class="spaceb">
               <input type="button" id="bg-toggle" value="Toggle lines">
