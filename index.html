@@ -173,17 +173,20 @@
         <div class="movable-p">
           <fieldset class="forms">
             <legend>Theme control</legend>
-            <div>Theme:&nbsp;<span id="theme-name"></span></div>
             <div class="flex">
+              <input type="reset" id="reset-all" value="Reset" class="em4" title="clear all localStorage">
               <input type="button" id="lt" value="<<<" class="em4">
               <input type="button" id="gt" value=">>>" class="em4">
-              <input type="reset" id="reset-all" value="Reset" class="em4" title="clear all localStorage">
             </div>
+            <div>Theme:&nbsp;<span id="theme-name"></span></div>
           </fieldset>
-
+          
           <fieldset id="colors" class="forms">
             <legend>Custom colors</legend>
             <div>
+              <div>
+                <input type="reset" id="custom-theme" value="Reset" class="em4">
+              </div>
               <div>
                 <input type="color" id="color1" name="color1" value="#ffffff" class="em4">
                 <label for="color1">color1</label>
@@ -194,12 +197,12 @@
                 <label for="color2">color2</label>
               </div>
 
+            </div>
+            <div>
               <div>
                 <input type="color" id="color3" name="color3" value="#ffffff" class="em4">
                 <label for="color3">color3</label>
               </div>
-            </div>
-            <div>
               <div>
                 <input type="color" id="color4" name="color4" value="#ffffff" class="em4">
                 <label for="color4">color4</label>
@@ -208,9 +211,6 @@
               <div>
                 <input type="color" id="color5" name="color5" value="#ffffff" class="em4">
                 <label for="color5">color5</label>
-              </div>
-              <div>
-                <input type="reset" id="custom-theme" value="Reset" class="em4">
               </div>
             </div>
           </fieldset>
@@ -221,12 +221,15 @@
             <input type="checkbox" id="enabled-bg" checked>
             <label for="enabled-bg">Default background</label>
             </div>
-            <label for="bg-file">Upload image</label>
-            <input type="file" id="bg-file" />
-            <div class="spaceb">
-              <input type="button" id="bg-toggle" value="Toggle lines">
-              <input type="reset" id="bg-theme" value="Reset" class="em4">
+            <div class="checkbox">
+              <input type="checkbox" id="bg-toggle" checked>
+              <label for="bg-toggle">Toggle lines</label>
             </div>
+            <div class="spaceb">
+              <label for="bg-file" class="dspn">Upload image</label>
+              <input type="file" id="bg-file" />
+            </div>
+            <div><input type="reset" id="bg-theme" value="Reset" class="em4"></div>
           </fieldset>
         </div>
       </div>

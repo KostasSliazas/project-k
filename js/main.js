@@ -86,7 +86,7 @@
       }
 
       this.clicked = true;
-      await this.delay(100);
+      await this.delay(200);
       this.clicked = false;
     }
     delay(ms) {return new Promise(resolve => setTimeout(resolve, ms));}
@@ -327,7 +327,11 @@
     themeName.textContent = longNames[index];
     if (index) root.className = classNameVariables[index];
     else root.removeAttribute("class");
-    d.getElementById('enabled-bg').checked === true ? root.classList.add('bg-image') : root.classList.remove('bg-image');
+    if(d.getElementById('enabled-bg').checked === true) {
+      root.classList.add('bg-image'); 
+    }else{ 
+      root.classList.remove('bg-image');
+    }
   };
 
   // move all blocks at once
@@ -361,8 +365,7 @@
     const documentTitle = d.title;
     textArea.value = getLocalStorageItems("textArea") || textAreaDefaults;
     if (setTimeStamp(43) && online) await getAll(api_url);
-    if (getLocalStorageItems("theme-lines") === false) main.classList.remove('lines');
-    
+
     await hide(codeDiv);
     await stats(getLocalStorageItems("statsData"));
     await applyStyles();
@@ -390,6 +393,20 @@
     const clock = new Clock("clock");
     clock.startTime();
     d.body.style.display = 'block';
+
+
+    // remove lines if set to false in local storage by default show them
+    const isCheckedLines = getLocalStorageItems("theme-lines");    
+    if (isCheckedLines === false) {
+      d.getElementById('bg-toggle').checked = false;
+      main.classList.remove('lines');
+    }
+    // remove default bg by default true
+    const isCheckedBg = getLocalStorageItems("theme-bg");    
+    if (isCheckedBg === false) {
+      d.getElementById('enabled-bg').checked = false;
+      root.classList.remove('bg-image');
+    }
 
   if (isLocked) {
     d.title = 'New Tab';
@@ -467,7 +484,7 @@
       setLocalStorageItems("theme", THEME_CHANGE.value);
       setColors();
     }
-    if (target === 'enabled-bg') (!root.classList.contains('bg-image') && e.target.checked) ? root.classList.add('bg-image') : root.classList.remove('bg-image')
+
     if (target === 'rotate90') main.classList.toggle('lazy');
     if (target === 'controls-hide') moves.classList.add('hide');
 
@@ -485,7 +502,26 @@
       applyStyles();
     }
     // set att once theme lines class and item of localStorage
-    if (target === "bg-toggle") setLocalStorageItems('theme-lines', main.classList.toggle('lines'));
+    if (target === "bg-toggle") {
+      if (!main.classList.contains('lines') && e.target.checked) {
+          setLocalStorageItems('theme-lines', true);
+          main.classList.add('lines');
+      } else {
+          setLocalStorageItems('theme-lines',false);
+          main.classList.remove('lines');
+      }
+  }
+
+  if (target === 'enabled-bg') {
+    if(!root.classList.contains('bg-image') && e.target.checked) {
+      setLocalStorageItems('theme-bg', true);
+      root.classList.add('bg-image');
+  }else{
+      root.classList.remove('bg-image');
+      setLocalStorageItems('theme-bg', false);
+    }
+  }
+
     if (target === "custom-theme") setColors();
     if (target === "bg-theme") bg.value = "";
     
