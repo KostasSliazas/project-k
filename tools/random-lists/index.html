@@ -2,275 +2,298 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-  <link rel="manifest" href="site.webmanifest">
-  <link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-  <title>Keywords sorting tool</title>
-  <style>
-    body {
-      font: 16px/1.5 monospace;
-      max-width: 900px;
-      margin: 3em auto;
-      background: #eee;
-    }
-
-    button:nth-child(odd),
-    div:nth-child(odd) {
-      margin: .3em 0
-    }
-
-    .ms {
-      box-sizing: border-box;
-      padding: 1em;
-      background: #fafafa;
-      border: 1px solid #aaa;
-      overflow: hidden;
-    }
-
-    .colbg,
-    #copy {
-      background: #cde;
-    }
-
-    .fl {
-      display: flex;
-    }
-
-    .wi {
-      width: 100%
-    }
-
-    #outputs {
-      word-wrap: anywhere;
-      overflow: hidden;
-      line-break: anywhere;
-      min-height: 7em;
-      background: #fff;
-      border: 1px solid #aaa;
-      max-height: 16em;
-      overflow: hidden;
-      overflow-y: scroll;
-    }
-
-    #seper {
-      width: 3ch;
-    }
-
-    button,
-    input[type=checkbox] {
-      cursor: pointer;
-    }
-
-    button {
-      padding: .25em 1em;
-    }
-
-    #holder {
-      position: relative;
-    }
-
-    #copy {
-      position: absolute;
-      right: 0;
-      top: 0;
-      margin: 0;
-      cursor: pointer;
-      border: 1px solid #aaa;
-    }
-
-    .txt-shadow {
-      text-shadow: rgb(222, 221, 218) -1px -1px 0px, rgb(222, 221, 218) -2px -2px 0px, rgb(222, 221, 218) -3px -3px 0px, rgb(222, 221, 218) -4px -4px 0px, rgb(222, 221, 218) -5px -5px 0px, rgb(222, 221, 218) -6px -6px 0px, rgb(222, 221, 218) -7px -7px 0px, rgb(222, 221, 218) -8px -8px 0px, rgb(222, 221, 218) -9px -9px 0px, rgb(222, 221, 218) -10px -10px 0px, rgb(222, 221, 218) -11px -11px 0px, rgb(222, 221, 218) -12px -12px 0px, rgb(222, 221, 218) -13px -13px 0px, rgb(222, 221, 218) -14px -14px 0px, rgb(222, 221, 218) -15px -15px 0px, rgb(222, 221, 218) -16px -16px 0px, rgb(222, 221, 218) -17px -17px 0px, rgb(222, 221, 218) -18px -18px 0px, rgb(222, 221, 218) -19px -19px 0px, rgb(222, 221, 218) -20px -20px 0px, rgb(222, 221, 218) -21px -21px 0px, rgb(222, 221, 218) -22px -22px 0px, rgb(222, 221, 218) -23px -23px 0px, rgb(222, 221, 218) -24px -24px 0px, rgb(222, 221, 218) -25px -25px 0px, rgb(222, 221, 218) -26px -26px 0px, rgb(222, 221, 218) -27px -27px 0px, rgb(222, 221, 218) -28px -28px 0px, rgb(222, 221, 218) -29px -29px 0px, rgb(222, 221, 218) -30px -30px 0px, rgb(222, 221, 218) -31px -31px 0px, rgb(222, 221, 218) -32px -32px 0px, rgb(222, 221, 218) -33px -33px 0px, rgb(222, 221, 218) -34px -34px 0px, rgb(222, 221, 218) -35px -35px 0px, rgb(222, 221, 218) -36px -36px 0px, rgb(222, 221, 218) -37px -37px 0px, rgb(222, 221, 218) -38px -38px 0px, rgb(222, 221, 218) -39px -39px 0px, rgb(222, 221, 218) -40px -40px 0px, rgb(222, 221, 218) -41px -41px 0px, rgb(222, 221, 218) -42px -42px 0px, rgb(222, 221, 218) -43px -43px 0px, rgb(222, 221, 218) -44px -44px 0px, rgb(222, 221, 218) -45px -45px 0px, rgb(222, 221, 218) -46px -46px 0px, rgb(222, 221, 218) -47px -47px 0px, rgb(222, 221, 218) -48px -48px 0px;
-      color: #fafafa;
-    }
-
-    p {
-      margin: 0 0 1.5em
-    }
-
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      font-size: 1.5em;
-      line-height: 1em;
-      margin: 0
-    }
-
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      font-size: 1.375em;
-      line-height: 1.0909em;
-      margin-top: 1.0909em
-    }
-
-    h3,
-    h4,
-    h5,
-    h6 {
-      font-size: 1.25em;
-      line-height: 1.2em;
-      margin-top: 1.2em
-    }
-
-    h4,
-    h5,
-    h6 {
-      font-size: 1.125em;
-      line-height: 1.3333em;
-      margin-top: 1.3333em
-    }
-
-    h5,
-    h6,
-    p {
-      font-size: 1em;
-      line-height: 1.5em
-    }
-
-    h5,
-    h6 {
-      margin-top: 1.5em
-    }
-
-    h6 {
-      font-size: .875em;
-      line-height: 1.7143em;
-      margin-top: 1.7143em;
-      text-align: center;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Web</title>
+  <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="icon" type="image/png" href="favicon.png">
 </head>
 
 <body>
-  <header></header>
-  <main>
-
-    <div class="ms">
-      <div class="ms colbg">
-        <h1 class="txt-shadow">Keywords sorting tool</h1>
-      </div>
-      <div class="fl">
-        <label for="input">List</label>
-        <input id="input" class="wi" type="text" value="peas,okra,corn,beets,onions,celery,turnips,spinach,peppers,lettuce,carrots,zucchini,tomatoes,radishes,potatoes,eggplant,broccoli,cucumbers,asparagus,cauliflower">
-      </div>
-      <div>
-        <label for="seper">Separator</label>
-        <input id="seper" type="text" size="3" value=",">
-        <label for="linebreak">Line break</label>
-        <input id="linebreak" type="checkbox" checked>
-        <label for="doubles">Remove doubles</label>
-        <input id="doubles" type="checkbox" checked>
-      </div>
-      <div>
-        <button id="sorts">(a-b) sort</button>
-        <button id="sorts-length">(a-b) lenght-sort</button>
-        <button id="lower-case">lowercase</button>
-        <button id="upper-case">uppercase</button>
-        <button id="case">capitalize</button>
-        <button id="shuffle">shuffle</button>
-      </div>
-      <div>Keywords:&nbsp;<span id="statsw">0</span>&nbsp;&nbsp;Letters:&nbsp;<span id="statsl">0</span></div>
-      <div id="holder">
-        <button title="copy text" id="copy">✂</button>
-        <p id="outputs"></p>
-      </div>
+  <div class="contents">
+    <div class="topbtn">
+      <div class="toggle-btn" id="menu"></div>
     </div>
-  </main>
-  <footer>
-    <h6>Keywords 2023</h6>
-  </footer>
+
+    <div class="wrapper" id="wrapper">
+      <div class="header">
+        <div id="sidebar">
+          <ul>
+            <li><a href="#vscode">VS Code</a></li>
+            <li><a href="#websli">Web tools</a></li>
+            <li><a href="#mybook">Bookmarks</a></li>
+            <li><a href="#linux">Programs</a></li>
+            <li><a href="#fir">Firefox Extensions</a></li>
+            <li><a
+                href="https://github.com/galoget/free-programming-books/blob/master/free-programming-books.md"
+                target="_blank">Programing Books</a></li>
+          </ul>
+        </div>
+        <h1>
+          welcome
+        </h1>
+      </div>
+      <div class="left">
+        <h1 id="vscode"><a href="https://code.visualstudio.com/download" target="_blank">Visual Studio Code</a></h1>
+        <p><a href="https://marketplace.visualstudio.com/items?itemName=naumovs.color-highlight" target="_blank">Color
+            Highlight</a> — Highlight web colors in your editor</p>
+        <p><a href="https://marketplace.visualstudio.com/items?itemName=Equinusocio.vsc-material-theme"
+            target="_blank">Material theme</a> — The most epic theme now for Visual Studio Code(darker hight contrast)
+        </p>
+        <p><a href="https://marketplace.visualstudio.com/items?itemName=remimarsal.prettier-now"
+            target="_blank">Prettier Now</a> — VS Code plugin for Prettier Miscellaneous / Code Formatter</p>
+        <p><a href="https://marketplace.visualstudio.com/items?itemName=CoenraadS.bracket-pair-colorizer-2"
+            target="_blank">Bracket Pair Colorizer 2</a> — A customizable extension for colorizing matching brackets</p>
+        <p><a href="https://marketplace.visualstudio.com/items?itemName=formulahendry.auto-rename-tag"
+            target="_blank">Auto Rename Tag</a> — Auto rename paired HTML/XML tag</p>
+        <p><a href="https://marketplace.visualstudio.com/items?itemName=ecmel.vscode-html-css" target="_blank">HTML CSS
+            Support</a> — CSS support for HTML documents</p>
+        <p><a href="https://marketplace.visualstudio.com/items?itemName=ritwickdey.live-sass" target="_blank">Live Sass
+            Compiler</a> — Compile Sass or Scss to CSS at realtime with live browser reload.</p>
+        <p><a href="https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer" target="_blank">Live
+            Server</a> — Launch a development local Server with live reload feature for static & dynamic pages</p>
+        <p><a href="https://marketplace.visualstudio.com/items?itemName=pranaygp.vscode-css-peek" target="_blank">CSS
+            Peek</a> — Allow peeking to css ID and class strings as definitions from html files to respective CSS.
+          Allows peek and goto definition.</p>
+        <p><a href="https://devhints.io/emmet" target="_blank">https://devhints.io/emmet</a> — Emmet cheatsheet</p>
+        <p><a href="https://docs.emmet.io/cheat-sheet/" target="_blank">https://docs.emmet.io/cheat-sheet</a> — Emmet
+          cheatsheet</p>
+        <h1 id="websli">Web tools Links</h1>
+        <div class="tabs">
+          <input type="radio" name="bu" class="buttons" id="css" checked>
+          <input type="radio" name="bu" class="buttons" id="typography">
+          <input type="radio" name="bu" class="buttons" id="design">
+          <input type="radio" name="bu" class="buttons" id="uncategorized">
+          <div class="wraplabels">
+            <label for="css" id="lcss">css tools</label>
+            <label for="typography" id="ltypography">typography</label>
+            <label for="design" id="ldesign">design</label>
+            <label for="uncategorized" id="luncategorized">uncategorized</label>
+          </div>
+          <div class="wrap">
+
+            <div class="tabscontents" id="typographycon">
+              <p>
+                <a href="http://lamb.cc/typograph" target="_blank">http://lamb.cc/typograph</a> - CSS Typography
+                generator</p>
+              <p>
+                <a href="http://topfunky.com/baseline-rhythm-calculator"
+                  target="_blank">http://topfunky.com/baseline-rhythm-calculator</a> - Baseline Rhythm Calculator
+              </p>
+              <p><a href="https://drewish.com/tools/vertical-rhythm"
+                  target="_blank">https://drewish.com/tools/vertical-rhythm</a>- CSS with vertical rhythm</p>
+              <p><a href="https://www.gridlover.net/try" target="_blank">https://www.gridlover.net/try</a> -
+                Gridlover-css vertical rhythm</p>
+              <p><a href="https://www.fontsquirrel.com" target="_blank">https://www.fontsquirrel.com</a></p>
+              <p><a href="https://fonts.google.com/" target="_blank">https://fonts.google.com</a></p>
+              <p><a href="http://fontello.com" target="_blank">http://fontello.com</a> - icon fonts generator</p>
+            </div>
+            <div class="tabscontents" id="designcon">
+              <p><a href="https://paletton.com" target="_blank">https://paletton.com</a> - The Color Scheme Designer</p>
+              <p><a href="https://kostassliazas.github.io/colorzebra/" target="_blank" rel="noopener">COLORZEBRA</a> - Colors palettes</p>
+              <p><a href="https://kostassliazas.github.io/gradients/" target="_blank">Gradients</a>- 2 colors gradient</p>
+              <p><a href="https://kostassliazas.github.io/gradient-generator-2/" target="_blank">Gradient-generator</a></p>
+            </div>
+
+            <div class="tabscontents" id="csscon">
+              <p><a href="https://autoprefixer.github.io" target="_blank">https://autoprefixer.github.io</a> -
+                Autoprefixer is a PostCSS plugin which parse your CSS and add vendor
+                prefixes</p>
+              <p><a href="https://css.github.io/csso/csso.html" target="_blank">https://css.github.io/csso/csso.html</a>
+                - CSS optimizer</p>
+              <p><a href="https://www.cleancss.com" target="_blank">https://www.cleancss.com</a> - Clean CSS is now
+                available for more than just CSS. You can now beautify,
+                minify, format</p>
+
+              <p>
+                <a href="http://css3generator.com" target="_blank">http://css3generator.com</a> - CSS3 Generator
+              </p>
+
+              <p>
+                <a href="http://border-radius.com" target="_blank">http://border-radius.com</a> - CSS Border Radius
+                Generator
+              </p>
+              <p>
+                <a href="http://netpresent.net/css-inverter.php"
+                  target="_blank">http://netpresent.net/css-inverter.php</a> - CSS Color Inverter Invert all numbered
+                colors in a CSS stylesheet
+              </p>
+
+              <p>
+                <a href="https://www.cleancss.com/html-beautify"
+                  target="_blank">https://www.cleancss.com/html-beautify</a>
+              </p>
+
+              <p>
+                <a href="http://www.cssmatic.com/box-shadow" target="_blank">http://www.cssmatic.com/box-shadow</a>
+              </p>
+
+              <p>
+                <a href="http://www.cssdrive.com" target="_blank">http://www.cssdrive.com</a> - Menus, tools, examples
+              </p>
+
+              <p>
+                <a href="http://shrthnd.volume7.io" target="_blank">http://shrthnd.volume7.io</a> - CSS Shorthand
+                Generator
+              </p>
+              <p>
+                <a href="https://jsoneditoronline.org/" target="_blank">https://jsoneditoronline.org/</a> - JSON editor
+                online
+              </p>
+            </div>
+
+            <div class="tabscontents" id="uncategorizedcon">
+              <p><a href="http://css.spritegen.com/" target="_blank">http://css.spritegen.com/</a>- Optimize your
+                website using CSS Sprites! Generate CSS Sprites to speed up your website by
+                reducing HTTP requests.</p>
+              <p>
+                <a href="http://regexr.com" target="_blank">http://regexr.com</a> RegExr is an online tool to learn,
+                build, & testRegular Expressions (RegEx / RegExp).
+              </p>
+            </div>
+          </div>
+        </div>
+        <h1 id="mybook">Bookmarks</h1>
+        <p>
+          <a href="https://freefrontend.com/css-arrows/" target="_blank">https://freefrontend.com/css-arrows/</a>- 60
+          CSS Arrows
+        </p>
+        <p>
+          <a href="https://pinetools.com" target="_blank">https://pinetools.com</a> Free online tools
+        </p>
+        <p>
+          <a href="https://www.cleancss.com/" target="_blank">https://www.cleancss.com/</a> From Dan's Tools
+        </p>
+        <p><a href="https://www.blenderguru.com/tutorials/" target="_blank">https://www.blenderguru.com/tutorials</a>
+          Blender tutorials
+        </p>
+        <p><a href="https://webcode.tools/html-generator" target="_blank">https://webcode.tools/html-generator</a> The
+          Ultimate HTML Generator</p>
+        <div id="lin">
+
+          <h1 id="linux"><a href="https://kubuntu.org/getkubuntu/" target="_blank">https://kubuntu.org/getkubuntu/</a>
+          </h1>
+          <h2>browsers</h2>
+
+          <p>
+            <a href="https://www.opera.com/download" target="_blank">https://www.opera.com/download</a>
+          </p>
+          <p>
+            <a href="https://vivaldi.com/download" target="_blank">https://vivaldi.com/download</a>
+          </p>
+          <p>
+            <a href="https://www.mozilla.org/en-US/firefox/new"
+              target="_blank">https://www.mozilla.org/en-US/firefox/new/</a>
+          </p>
+          <p>
+            <a href="https://www.google.com/chrome" target="_blank">https://www.google.com/chrome/</a>
+          </p>
+          <h2>video</h2>
+
+          <p>
+            <a href="https://www.videolan.org/vlc/index.html"
+              target="_blank">https://www.videolan.org/vlc/index.html</a>
+          </p>
+          <h2>Graphics</h2>
+
+          <p>
+            <a href="https://inkscape.org/release/inkscape-0.92.4/"
+              target="_blank">https://inkscape.org/release/inkscape-0.92.4/</a>
+          </p>
+          <p>
+            <a href="https://www.gimp.org/downloads/" target="_blank">https://www.gimp.org/downloads/</a>
+          </p>
+          <p>
+            <a href="https://trimage.org/" target="_blank">https://trimage.org/</a>
+          </p>
+          <p><a href="https://help.ubuntu.com/community/DiscoUpgrades/Kubuntu"
+              target="_blank">https://help.ubuntu.com/community/DiscoUpgrades/Kubuntu</a></p>
+          <button class="butn">Open all</button>
+        </div>
+
+        <div id="fir">
+          <h2 id="exstensions">Extensions</h2>
+          <p><a href="https://addons.mozilla.org/en-US/firefox/addon/wave-accessibility-tool/"
+              target="_blank">https://addons.mozilla.org/en-US/firefox/addon/wave-accessibility-tool/</a></p>
+          <p><a href="https://addons.mozilla.org/en-US/firefox/addon/ublock-origin/"
+              target="_blank">https://addons.mozilla.org/en-US/firefox/addon/ublock-origin/</a></p>
+          <p><a href="https://addons.mozilla.org/en-US/firefox/addon/web-developer/"
+              target="_blank">https://addons.mozilla.org/en-US/firefox/addon/web-developer/</a></p>
+          <p><a href="https://addons.mozilla.org/en-US/firefox/addon/colorzilla/"
+              target="_blank">https://addons.mozilla.org/en-US/firefox/addon/colorzilla/</a></p>
+          <p><a href="https://addons.mozilla.org/en-US/firefox/addon/easyscreenshot/"
+              target="_blank">https://addons.mozilla.org/en-US/firefox/addon/easyscreenshot/</a></p>
+          <p><a href="https://addons.mozilla.org/en-US/firefox/addon/cors-everywhere/"
+              target="_blank">https://addons.mozilla.org/en-US/firefox/addon/cors-everywhere/</a></p>
+          <p><a href="https://addons.mozilla.org/en-US/firefox/addon/empty-cache-button/"
+              target="_blank">https://addons.mozilla.org/en-US/firefox/addon/empty-cache-button/</a></p>
+          <p><a href="https://addons.mozilla.org/en-US/firefox/addon/restclient/"
+              target="_blank">https://addons.mozilla.org/en-US/firefox/addon/restclient/</a></p>
+          <p><a href="https://addons.mozilla.org/en-US/firefox/addon/ghostery/"
+              target="_blank">https://addons.mozilla.org/en-US/firefox/addon/ghostery/</a></p>
+          <button class="butn">Open all</button>
+        </div>
+      </div>
+      <div class="right">
+        <p><a href="https://rekomendacija.iv.lt/bur" target="_blank">Hostingas Serveriai.lt</a></p>
+        <p><a href="http://border-radius.com" target="_blank">www.border-radius.com</a></p>
+        <p><a href="http://jsfiddle.net/wQfMx/3/" target="_blank">www.jsfiddle.net</a></p>
+        <p><a href="http://www.cssdrive.com" target="_blank">www.cssdrive.com</a></p>
+        <p><a href="http://css3generator.com" target="_blank">www.css3generator.com</a></p>
+        <p><a href="http://drewish.com/tools/vertical-rhythm" target="_blank">www.drewish.com/tools/vertical-rhythm</a></p>
+        <p><a href="http://www.ipsum-generator.com" target="_blank">www.ipsum-generator.com</a></p>
+        <p><a href="http://screencasters.heathenx.org/" target="_blank">www.screencasters.heathenx.org</a></p>
+        <p><a href="http://jquery.com/" target="_blank">www.jquery.com</a></p>
+        <p><a href="http://colorschemedesigner.com" target="_blank">www.colorschemedesigner.com</a></p>
+        <p><a href="http://dabuttonfactory.com" target="_blank"> www.dabuttonfactory.com</a></p>
+        <p><a href="http://www.makebutton.com" target="_blank"> www.makebutton.com</a></p>
+        <p><a href="http://www.cleancss.com/" target="_blank"> www.cleancss.com</a></p>
+        <p><a href="http://www.cssportal.com/" target="_blank"> www.cssportal.com</a></p>
+        <p><a href="http://www.techbomb.com/websafe/" target="_blank"> www.techbomb.com/websafe</a></p>
+        <p><a href="https://gist.github.com/lancejpollard/1978404" target="_blank">List of metatags</a></p>
+        <p><a target="_blank" rel="noopener" href="https://vectors-images.myportfolio.com/">vectors and images</a></p>
+      </div>
+      <div class="footer">2020 by Kostas Šliažas</div>
+    </div>
+  </div>
   <script>
-    'use strict'
-    let arrays = []
-    let toggleBolean = true //for sorting toggle value
-    const inputs = document.getElementById('input')
-    const outputs = document.getElementById('outputs')
-    const shuffle = document.getElementById('shuffle')
-    const seper = document.getElementById('seper')
-    const linebreak = document.getElementById('linebreak')
-    const doubles = document.getElementById('doubles')
-    const sorts = document.getElementById('sorts')
-    const tolowercase = document.getElementById('lower-case')
-    const toupercase = document.getElementById('upper-case')
-    const capitalize = document.getElementById('case')
-    const statisticsW = document.getElementById('statsw')
-    const statisticsL = document.getElementById('statsl')
-    const sortsLength = document.getElementById('sorts-length')
-    const copyText = document.getElementById('copy')
-    const changed = e => {
-      if (e.target) toggleBolean = !toggleBolean
-      e = e.target || e
-      e.innerHTML = (toggleBolean ? '(a-b)' : '(b-a)') + ' ' + e.innerHTML.split(" ").pop()
-    }
-    // set array output filter with regex and trim
-    const inputArray = () => {
-    const values = inputs.value.toLowerCase().split(/[^\n[a-zA-Z0-9]+| ,]+/).filter(Boolean).map(item => item.trim())
-    if(doubles.checked) arrays = [...new Set(values)]
-    else arrays = values
-    }
+(function () {
+  "use strict";
+  const WRAP = document.getElementById("wrapper");
+  const SIDE = document.getElementById("sidebar");
+  const MENU = document.getElementById("menu");
 
-    // output statistic array length
-    const showStatsWords = () => statisticsW.innerHTML = arrays.length
-    // output statistic array letter length
-    const showStatsLetters = () => statisticsL.innerHTML = arrays.join('').length
-    // clear inputs on dblclick event
-    const clear = e => {
-      e.target.value = '';
-      outputs.innerHTML = ''
-    }
-    //outputs whole string
-    const output = () => outputs.innerHTML = arrays.join(spLineBreak(seper))
-    //add linebreak? AND seperations simbols
-    const spLineBreak = () => seper.value + (linebreak.checked ? '<br>' : '')
-    //sort array randomly (rewrite arrays)
-    const shuffled = () => arrays = arrays.sort(() => Math.random() - 0.5)
-    //sort array normal (rewrite arrays)
-    const sorted = () => arrays = arrays.sort((a, b) => toggleBolean ? a.localeCompare(b) : b.localeCompare(a))
-    //sort array by length (rewrite arrays)
-    const sortLenght = () => arrays = arrays.sort((a, b) => toggleBolean ? a.length - b.length : b.length - a.length)
-    //(array)words to lower case (rewrite arrays)
-    const lowerCase = () => arrays = arrays.map(e => e.toLowerCase())
-    //(array)words to upper case (rewrite arrays)
-    const uperCase = () => arrays = arrays.map(e => e.toUpperCase())
-    //(array)words capitalize (rewrite arrays)
-    const capitalizeCases = () => arrays = arrays.map(e => {
-      let z = e.toLowerCase();
-      z = z[0].charAt(0).toUpperCase() + z.slice(1);
-      return z
-    })
-    seper.addEventListener('input', ()=> output())
-    inputs.addEventListener('input', () => output(inputArray(), showStatsWords(), showStatsLetters()))
-    shuffle.addEventListener('click', () => output(shuffled()))
-    sorts.addEventListener('click', e => output(sorted(changed(e))))
-    sortsLength.addEventListener('click', e => output(sortLenght(changed(e))))
-    tolowercase.addEventListener('click', () => output(lowerCase()))
-    toupercase.addEventListener('click', () => output(uperCase()))
-    capitalize.addEventListener('click', () => output(capitalizeCases()))
-    copyText.addEventListener('mouseup', () => copyTextToClipboard(outputs.innerText))
-    output(lowerCase(inputArray()), showStatsWords(), showStatsLetters())
-    // multiple dblclick event bind to input elements for clearing them
-    Array.from([seper, inputs]).forEach(elem => elem.addEventListener('dblclick', clear))
-    Array.from([doubles, linebreak]).forEach(elem => elem.addEventListener('click', () => output(inputArray(),showStatsWords(), showStatsLetters())))
+  function handleDocumentClick(e) {
+    toggleSidebar(e);
+    allLinks(e);
+  }
 
-    //https://stackoverflow.com/questions/400212/how-do-i-copy-to-the-clipboard-in-javascript
-    async function copyTextToClipboard(textToCopy) {
-      try {
-        await navigator.clipboard.writeText(textToCopy);
-        console.log('copied to clipboard')
-      } catch (error) {
-        console.log('failed to copy to clipboard. error=' + error);
-      }
+  function toggleSidebar(e) {
+    if (e.target.id === "menu") {
+      WRAP.classList.toggle("acti");
+      MENU.classList.toggle("act");
+      SIDE.classList.toggle('active');
+    } else {
+      SIDE.classList.remove('active');
+      MENU.classList.remove("act");
+      WRAP.classList.remove("acti");
     }
+  }
+
+  function allLinks(e) {
+    if (!e.target.classList.contains("butn")) return;
+    const LINK = e.target.parentElement;
+    const LINKS = LINK.getElementsByTagName("a");
+    Array.from(LINKS).forEach((link) => {
+      setTimeout(() => link.click(), 100);
+    });
+  }
+
+  document.addEventListener("click", handleDocumentClick);
+})();
   </script>
 </body>
 
