@@ -5,18 +5,22 @@
 /*jshint esversion: 11 */
 (function (w, d) {
   "use strict";
+  const pindiscard = d.getElementById('pindiscard');
+  const pinsave = d.getElementById('pinsave');
   const random = (min, max) => Math.floor(Math.random() * (max - min)) + min;
+  const position = d.getElementById('position');
+  const clicked = d.getElementById('clicked');
   const movable = Array.from(d.getElementsByClassName("movable"));
   const roundToTen = num => Math.ceil(num / 10) * 10;
   const setLocalStorageItems = (item, value) => localStorage.setItem(item, JSON.stringify(value));
   const getLocalStorageItems = (item) => {
-      try {
-        return JSON.parse(localStorage.getItem(item));
-      } catch (error) {
-        console.error("Error parsing JSON:", error.message);
-        return null; // or any other default value
-      }
-    };
+    try {
+      return JSON.parse(localStorage.getItem(item));
+    } catch (error) {
+      console.error("Error parsing JSON:", error.message);
+      return null; // or any other default value
+    }
+  };
   const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
   const hide = elem => elem.classList.add('hide');
   const show = (elem, type) => elem.classList.remove('hide');
@@ -26,18 +30,21 @@
   const root = d.documentElement;
   const typed = [];
   const codeDiv = d.querySelector(".wrp-container");
+  const defaultPin = d.querySelector("#code");
   const codeDivElms = Array.from(codeDiv.children[0].children);
   const textArea = d.getElementsByTagName("TEXTAREA")[0];
   const bg = d.querySelector("#bg-file");
   const styles = ["width", "height", "left", "top"];
-  const blockDefaults = "width:140px;height:60px;left:290px;top:50px;,width:180px;height:60px;left:10px;top:50px;,width:100px;height:60px;left:190px;top:50px;,width:80px;height:60px;left:470px;top:90px;,width:80px;height:60px;left:470px;top:150px;,width:140px;height:40px;left:220px;top:490px;,width:190px;height:140px;left:360px;top:470px;,width:220px;height:40px;left:200px;top:210px;,width:210px;height:100px;left:260px;top:110px;,width:130px;height:40px;left:420px;top:210px;,width:190px;height:160px;left:360px;top:310px;,width:190px;height:60px;left:360px;top:250px;,width:250px;height:50px;left:10px;top:110px;,width:250px;height:50px;left:10px;top:160px;,width:20px;height:120px;left:200px;top:490px;,width:160px;height:240px;left:200px;top:250px;,width:140px;height:80px;left:220px;top:530px;,width:190px;height:400px;left:10px;top:260px;,width:190px;height:50px;left:10px;top:210px;,width:120px;height:60px;left:430px;top:50px;,width:140px;height:40px;left:10px;top:10px;,width:140px;height:40px;left:150px;top:10px;,width:140px;height:50px;left:200px;top:610px;";
-  const textAreaDefaults = "Good day. How may I assist you? You have the ability to reposition these blocks by selecting and holding the left corner at your desired location or by pressing ` on keyboard, or double-click to minimize them. Additionally, you can customize the theme, colors, and background image to your liking. You are free to tailor this interface to your preferences.If locked, to unlock, triple click and pin AB.";
-  const isLocked = getLocalStorageItems('isLocked');
-  let saved = getLocalStorageItems('pase') || [3,4];
-  let minimized = [14];
+  const blockDefaults = "width:150px;height:60px;left:10px;top:50px;,width:110px;height:40px;left:160px;top:10px;,width:110px;height:60px;left:160px;top:50px;,width:90px;height:60px;left:270px;top:50px;,width:190px;height:380px;left:550px;top:110px;,width:190px;height:180px;left:360px;top:350px;,width:190px;height:300px;left:360px;top:50px;,width:190px;height:50px;left:550px;top:60px;,width:190px;height:50px;left:550px;top:10px;,width:20px;height:120px;left:340px;top:410px;,width:160px;height:240px;left:200px;top:110px;,width:140px;height:80px;left:200px;top:450px;,width:190px;height:420px;left:10px;top:110px;,width:190px;height:40px;left:550px;top:490px;,width:130px;height:40px;left:270px;top:10px;,width:150px;height:40px;left:10px;top:10px;,width:150px;height:40px;left:400px;top:10px;,width:160px;height:100px;left:200px;top:350px;";
+  const textAreaDefaults = "Good day. You have the ability to reposition these blocks by selecting and holding the left corner at your desired location or by pressing the ` key on your keyboard. Alternatively, double-click to minimize them. Additionally, you can customize the theme, colors, and background image to your liking. Feel free to tailor this interface to your preferences. If locked, to unlock, simply triple-click on the background and then click 7AB (default PIN) or clear localStorage.";
+  let isLocked = getLocalStorageItems('isLocked');
+  let saved = getLocalStorageItems('mustashed') || [6, 3, 4];
+  let minimized = [9];
   let count = 0;
+  let allMouseClicks = 0;
   let mousedown = false;
   let scalingTarget = null;
+  let isEnterPass = false;
   // boolean value for test is moving or not
   let moving = false;
   // target global element variable
@@ -72,7 +79,6 @@
     }
   };
 
-
   class ClickHandler {
     constructor() {
       this.clicked = false;
@@ -89,7 +95,9 @@
       await this.delay(200);
       this.clicked = false;
     }
-    delay(ms) {return new Promise(resolve => setTimeout(resolve, ms));}
+    delay(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
   }
   const clickHandler = new ClickHandler();
   const getElms = Array.from(d.getElementsByTagName("input")).concat(Array.from(d.getElementsByTagName("a")));
@@ -108,38 +116,42 @@
 
   function getOffset(el) {
     const rect = el.getBoundingClientRect();
-    return { left: rect.left + w.scrollX, top: rect.top + w.scrollY, };
+    return {
+      left: rect.left + w.scrollX,
+      top: rect.top + w.scrollY,
+    };
   }
 
 
-  const loopElem = async() => {
+  const loopElem = async () => {
 
     movable.forEach(async (e) => {
-          await delay(30);
-          e.style.left = roundToTen(getOffset(e).left) + "px";
-          e.style.top = roundToTen(getOffset(e).top) + "px";
-          e.style.position = "fixed";
-          await delay(30);
-          e.style.width = roundToTen(e.offsetWidth) + "px";
-          e.style.height = roundToTen(e.offsetHeight) + "px";
+      await delay(30);
+      e.style.left = roundToTen(getOffset(e).left) + "px";
+      e.style.top = roundToTen(getOffset(e).top) + "px";
+      e.style.position = "fixed";
+      await delay(30);
+      e.style.width = roundToTen(e.offsetWidth) + "px";
+      e.style.height = roundToTen(e.offsetHeight) + "px";
+      e.firstElementChild.title += ' (block index' + movable.indexOf(e) + ')';
       e.addEventListener("dblclick", async e => {
         if (e.target.classList.contains("movable")) {
           const index = movable.indexOf(e.target);
           let arrayOfMinimized = getLocalStorageItems("elementClass") || minimized;
           if (e.target.classList.contains("minimized")) {
-              arrayOfMinimized = arrayOfMinimized.filter(c => c !== index);
-              await e.target.classList.remove("minimized");
-              await delay(30);
-              e.target.style.width = "auto";
-              await delay(30);
-              e.target.style.height = "auto";
-              await delay(30);
-              e.target.style.height = roundToTen(e.target.offsetHeight) + "px";
-              e.target.style.width = roundToTen(e.target.offsetWidth) + "px";
+            arrayOfMinimized = arrayOfMinimized.filter(c => c !== index);
+            await e.target.classList.remove("minimized");
+            await delay(30);
+            e.target.style.width = "auto";
+            await delay(30);
+            e.target.style.height = "auto";
+            await delay(30);
+            e.target.style.height = roundToTen(e.target.offsetHeight) + "px";
+            e.target.style.width = roundToTen(e.target.offsetWidth) + "px";
           } else if (e.target.classList.contains("movable")) {
             e.target.classList.add("minimized");
             arrayOfMinimized.push(index);
-          }          
+          }
 
           setLocalStorageItems('elementStyles', getStyles());
           setLocalStorageItems("elementClass", arrayOfMinimized);
@@ -179,7 +191,11 @@
       };
     }
     updateClock() {
-      const {h,m,s} = this.getCurrentTime();
+      const {
+        h,
+        m,
+        s
+      } = this.getCurrentTime();
       this.clockElement.textContent = [h, m, s].join(':');
     }
     startTime() {
@@ -188,7 +204,11 @@
     }
   }
 
-
+  function showWeekDay() {
+    const weekday = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+    const d = new Date();
+    return weekday[d.getDay()];
+  }
 
   function showDate() {
     let d = new Date();
@@ -327,9 +347,9 @@
     themeName.textContent = longNames[index];
     if (index) root.className = classNameVariables[index];
     else root.removeAttribute("class");
-    if(d.getElementById('enabled-bg').checked === true) {
-      root.classList.add('bg-image'); 
-    }else{ 
+    if (d.getElementById('enabled-bg').checked === true) {
+      root.classList.add('bg-image');
+    } else {
       root.classList.remove('bg-image');
     }
   };
@@ -358,10 +378,16 @@
       e.stopImmediatePropagation();
     }
   }
+  let handleMousemove = (event) => {
+    position.textContent = (`${event.x}:${event.y}`);
+  };
+  const lockerMouseMovments = debounce(handleMousemove, 200);
 
 
   async function init() {
+    defaultPin.title = saved;
     d.getElementById('is-online').textContent = online ? 'connected' : 'disconnected';
+    d.getElementById('day-of-week').textContent = showWeekDay();
     const documentTitle = d.title;
     textArea.value = getLocalStorageItems("textArea") || textAreaDefaults;
     if (setTimeStamp(43) && online) await getAll(api_url);
@@ -373,22 +399,25 @@
 
     codeDivElms.forEach(e => {
       e.onclick = function (e) {
+        e.stopPropagation(); //prevent from parent clicks
         typed.push(codeDivElms.indexOf(e.target));
-        if (typed.length === saved.length && typed.every((v, i) => v === saved[i])) {
-          setLocalStorageItems('isLocked', false);
+        if (isEnterPass === false && typed.length === saved.length && typed.every((v, i) => v === saved[i])) {
+          setLocalStorageItems('isLocked', (isLocked = false));
+
           d.title = documentTitle;
           hide(codeDiv);
           show(main);
+          d.removeEventListener('mousemove', lockerMouseMovments);
         }
       };
     });
-    
+
     const NUM = parseInt(getLocalStorageItems("theme")) || 0;
     THEME_CHANGE.value = NUM;
     changerClass(NUM);
     styleRoot();
     setColors();
-    
+
     d.getElementById("today").innerHTML = showDate();
     const clock = new Clock("clock");
     clock.startTime();
@@ -396,26 +425,26 @@
 
 
     // remove lines if set to false in local storage by default show them
-    const isCheckedLines = getLocalStorageItems("theme-lines");    
+    const isCheckedLines = getLocalStorageItems("theme-lines");
     if (isCheckedLines === false) {
       d.getElementById('bg-toggle').checked = false;
       main.classList.remove('lines');
     }
     // remove default bg by default true
-    const isCheckedBg = getLocalStorageItems("theme-bg");    
+    const isCheckedBg = getLocalStorageItems("theme-bg");
     if (isCheckedBg === false) {
       d.getElementById('enabled-bg').checked = false;
       root.classList.remove('bg-image');
     }
 
-  if (isLocked) {
-    d.title = 'New Tab';
-    hide(main);
-  } else {
-    show(main);
+    if (isLocked) {
+      d.title = 'New Tab';
+      hide(main);
+    } else {
+      show(main);
+    }
   }
-}
-  
+
   async function setColors() {
     const compStyles = w.getComputedStyle(root);
     const colors = d.querySelectorAll("#colors input[type=color]");
@@ -465,7 +494,7 @@
       if (e.target.getAttribute('type') == null || e.target.getAttribute('type').toUpperCase() === 'BUTTON' || e.target.getAttribute('type').toUpperCase() === 'RESET') return;
       copyToClipboard(e.target.textContent || e.target.value);
     }
- 
+
   }
 
 
@@ -478,7 +507,7 @@
     if (target === "right") loops("left", 1);
     if (target === "top") loops("top", -1);
     if (target === "bottom") loops("top", 1);
-    
+
     if (target === "lt" || target === "gt") {
       changerClass(THEME_CHANGE.value);
       setLocalStorageItems("theme", THEME_CHANGE.value);
@@ -504,39 +533,70 @@
     // set att once theme lines class and item of localStorage
     if (target === "bg-toggle") {
       if (!main.classList.contains('lines') && e.target.checked) {
-          setLocalStorageItems('theme-lines', true);
-          main.classList.add('lines');
+        setLocalStorageItems('theme-lines', true);
+        main.classList.add('lines');
       } else {
-          setLocalStorageItems('theme-lines',false);
-          main.classList.remove('lines');
+        setLocalStorageItems('theme-lines', false);
+        main.classList.remove('lines');
       }
-  }
-
-  if (target === 'enabled-bg') {
-    if(!root.classList.contains('bg-image') && e.target.checked) {
-      setLocalStorageItems('theme-bg', true);
-      root.classList.add('bg-image');
-  }else{
-      root.classList.remove('bg-image');
-      setLocalStorageItems('theme-bg', false);
     }
-  }
+
+    if (target === 'enabled-bg') {
+      if (!root.classList.contains('bg-image') && e.target.checked) {
+        setLocalStorageItems('theme-bg', true);
+        root.classList.add('bg-image');
+      } else {
+        root.classList.remove('bg-image');
+        setLocalStorageItems('theme-bg', false);
+      }
+    }
 
     if (target === "custom-theme") setColors();
     if (target === "bg-theme") bg.value = "";
-    
+
     // only for locking system
     if (target === "lock") {
       count = 0;
-      setLocalStorageItems('isLocked', true);
+      setLocalStorageItems('isLocked', (isLocked = true));
       hide(main);
       d.title = 'New Tab';
     }
 
-    count++;
-    if (e.target.tagName === "BODY" && count === 3 && getLocalStorageItems('isLocked')) {
-      show(codeDiv);
+    if (target === "code") {
       typed.length = 0;
+      show(codeDiv);
+      isEnterPass = true;
+    }
+
+    if (target === "pinsave" && typed.length) {
+      setLocalStorageItems('mustashed', typed);
+      isEnterPass = false;
+      saved = getLocalStorageItems('mustashed');
+      defaultPin.title = saved;
+      hide(codeDiv);
+    }
+    if (target === "pindiscard") {
+      hide(codeDiv);
+    }
+
+    if (e.target.className !== "container" && count === 2 && getLocalStorageItems('isLocked')) {
+      d.addEventListener('mousemove', lockerMouseMovments);
+      show(codeDiv);
+      count = typed.length = 0; // RESET array length and count when not container clicked
+    }
+    // count only if body is clicked
+    if (e.target.tagName === 'BODY') count++;
+
+    // show statistics about mouse
+    allMouseClicks++;
+    clicked.textContent = allMouseClicks;
+
+    if (isEnterPass) {
+      show(pindiscard);
+      show(pinsave);
+    } else {
+      hide(pinsave);
+      hide(pindiscard);
     }
   }
 
@@ -547,26 +607,26 @@
   }
 
 
-  function bgChange(e){
+  function bgChange(e) {
     const inputValue = e.target.files[0];
     const reader = new FileReader();
 
     reader.addEventListener("load", async () => {
-          const fileString = `--bg:url(${reader.result})`;
-          await delay(200);
-          setLocalStorageItems("bg-theme", fileString);
-          styleRoot();
-        }, false);
+      const fileString = `--bg:url(${reader.result})`;
+      await delay(200);
+      setLocalStorageItems("bg-theme", fileString);
+      styleRoot();
+    }, false);
 
     if (inputValue) reader.readAsDataURL(inputValue);
   }
 
-  
+
   const mouseMoves = (z, e) => {
     e.style.left = roundToTen(z.clientX) - 10 + "px";
     e.style.top = roundToTen(z.clientY) - 10 + "px";
   };
-  
+
 
   function mouseMoveEvents(z) {
     if (!moving || target === null || !target.classList.contains("movable")) return;
@@ -577,7 +637,9 @@
   function mouseUpEvents(e) {
     moving = false;
 
-    const {target} = e;
+    const {
+      target
+    } = e;
     if (!target) return;
 
     const peTarget = getPE(target);
@@ -599,7 +661,11 @@
         peScalingTarget.style.width = roundToTen(peScalingTarget.offsetWidth) + "px";
         setLocalStorageItems('elementStyles', getStyles());
       }
-    } catch (error) {console.log({error});}
+    } catch (error) {
+      console.log({
+        error
+      });
+    }
   }
 
   async function mouseDownEvents(e) {
@@ -620,14 +686,148 @@
     }
   }
 
+  function debounce(func, delay) {
+    let timeoutId;
+
+    return function () {
+      const context = this;
+      const args = arguments;
+
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        func.apply(context, args);
+      }, delay);
+    };
+  }
+
+  function throttle(func, delay) {
+    let lastCallTime = 0;
+
+    return function () {
+      const now = new Date().getTime();
+
+      if (now - lastCallTime >= delay) {
+        func.apply(null, arguments);
+        lastCallTime = now;
+      }
+    };
+  }
+
   // events listeners
   bg.addEventListener("change", bgChange);
   w.addEventListener("keyup", classToggle);
   d.addEventListener("dblclick", dblclickFun);
-  d.addEventListener("mousemove", mouseMoveEvents);
+  d.addEventListener("mousemove", throttle(mouseMoveEvents, 60));
   d.addEventListener("mousedown", mouseDownEvents);
   d.addEventListener("mouseup", mouseUpEvents);
   d.addEventListener("DOMContentLoaded", init /*, { once: true }*/ );
   root.addEventListener("click", rootClick);
   root.addEventListener("contextmenu", contextMenuFun);
 })(window, document);
+
+(function () {
+  "use strict";
+  const BEEP_AUDIO = new window.Audio("data:audio/mp3;base64,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");
+  const CALC = document.getElementById("calculator");
+  const CALC_SCREEN = document.getElementById("src");
+  CALC_SCREEN.value = 0;
+  let n1 = [];
+  let n2 = 0;
+  let op = null;
+  let lastop = null;
+  let result = 0;
+
+  const sound = () => {
+    BEEP_AUDIO.play();
+    window.navigator.vibrate(30);
+  };
+
+  const add = (n, o) => n + o;
+  const sub = (n, o) => n - o;
+  const div = (n, o) => n / o;
+  const mul = (n, o) => n * o;
+  const res = (n) => n;
+
+  const cals = {
+    "/": div,
+    "×": mul,
+    "+": add,
+    "-": sub,
+    "=": res,
+  };
+
+  const cal = (num1, num2, calback) => {
+    if (typeof calback === "function") {
+      const n1 = num1.toString().split(".")[1];
+      const n2 = num2.toString().split(".")[1];
+      const len1 = (n1 && n1.length) || 0;
+      const len2 = (n2 && n2.length) || 0;
+      if (lastop !== "/") {
+        return parseFloat(calback(Number(num1), Number(num2)).toFixed(len1 + len2));
+      }
+      return calback(Number(num1), Number(num2));
+    }
+  };
+
+  const btn = (e) => {
+    // e.preventDefault()
+    // e.stopPropagation()
+    // if don't mach input or screen or esaund return
+    if (!e.target.matches("input") || e.target.id === "esound" || e.target.id === "src") {
+      e.preventDefault();
+      e.stopPropagation();
+      return;
+    }
+    CALC_SCREEN.classList.add("blink");
+
+    // if checked sound play that creapy sound
+    if (document.getElementById("esound").checked) sound();
+
+    // set operator when target is fun
+    if (e.target.dataset.fun) op = e.target.value;
+
+    // when number pressed push to array number
+    if (e.target.dataset.num) {
+      op = null;
+      if (n1[0] === "0" && n1[1] !== ".") n1.length = 0;
+      n1.push(e.target.value);
+    }
+
+    // operator delete last number
+    if (op === "⌫") {
+      n1 = result
+        .toString(10)
+        .substring(0, 15)
+        .replace(/[^0-9]/g, ".")
+        .split("");
+      n1.pop();
+      if (n1.join("").charAt(n1.join("").length - 1) === ".") n1.pop();
+    }
+
+    // if no number set 0
+    if (!n1.length) n1 = ["0"];
+    if (op === "," && !n1.includes(".")) n1.push(".");
+    result = n1.join("");
+
+    // operator is /*+-=
+    if (op === "/" || op === "×" || op === "+" || op === "-" || op === "=") {
+      if (n2 && lastop) {
+        result = cal(Number(n2), Number(result), cals[lastop]);
+      }
+      lastop = res(op);
+      n2 = result;
+      n1.length = 0;
+    }
+
+    // operator clear all
+    if (op === "C") {
+      op = lastop = null;
+      result = n2 = n1.length = 0;
+    }
+    CALC_SCREEN.value = !isFinite(result) ? "ERROR" : result;
+    // e.stopImmediatePropagation()
+  };
+
+  CALC.addEventListener("mousedown", (e) => btn(e));
+  CALC.addEventListener("mouseup", (e) => setTimeout(() => CALC_SCREEN.classList.remove("blink"), 99)); // blink screen number
+})();
