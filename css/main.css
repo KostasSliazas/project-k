@@ -651,7 +651,7 @@ input[type=file]::file-selector-button:active {
   margin: 0;
   outline: 0;
   color: var(--color4);
-  background: var(--color1);
+  background: var(--color2);
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
