@@ -419,8 +419,14 @@
     setColors();
 
     d.getElementById("today").innerHTML = showDate();
+
+    // renew clock if only displayed
+    const style = window.getComputedStyle(d.getElementById("clock").parentElement);
+    if(style.getPropertyValue("display") !== 'none'){
     const clock = new Clock("clock");
     clock.startTime();
+    }
+
     d.body.style.display = 'block';
 
 
@@ -603,7 +609,7 @@
 
   function dblclickFun(e) {
     if (e.target === copy) e.target.textContent = "";
-    if (e.target.tagName === "TEXTAREA") e.target.value = "";
+    //if (e.target.tagName === "TEXTAREA") e.target.value = "";
   }
 
 
@@ -829,5 +835,5 @@
   };
 
   CALC.addEventListener("mousedown", (e) => btn(e));
-  CALC.addEventListener("mouseup", (e) => setTimeout(() => CALC_SCREEN.classList.remove("blink"), 99)); // blink screen number
+  CALC.addEventListener("mouseup", (e) => setTimeout(() => CALC_SCREEN.classList.remove("blink"), 9)); // blink screen number
 })();
