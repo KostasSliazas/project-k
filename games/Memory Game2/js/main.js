@@ -164,11 +164,8 @@ class MemoryGame {
    * Displays best and other scores in the message.
    */
   showData() {
-    if (this.card.data.length)
-      this.message.innerHTML += '<h3>Best score: ' + this.card.data.shift() + '</h3>';
-
-    if (this.card.data.length > 0)
-      this.message.innerHTML += '<h3>Other scores: ' + this.card.data.join(', ') + '</h3>';
+    if (this.card.data.length) this.message.innerHTML += '<h3>Best score: ' + this.card.data.shift() + '</h3>';
+    if (this.card.data.length > 0) this.message.innerHTML += '<h3>Other scores: ' + this.card.data.join(', ') + '</h3>';
   }
 
   /**
@@ -211,18 +208,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const memoryGame = new MemoryGame();
 
-  var images = [];
-
   /**
    * Preloads images by creating new Image objects and setting their src attributes.
    * @param {...string} urls - Image URLs to be preloaded.
    */
   function preload(...urls) {
-    var images = [];
-    var loadedCount = 0;
+    const images = [];
+    let loadedCount = 0;
 
     function loadImage(url) {
-      var image = new Image();
+      let image = new Image();
       image.onload = function () {
         loadedCount++;
         if (loadedCount === urls.length) {
@@ -235,7 +230,7 @@ document.addEventListener('DOMContentLoaded', () => {
       images.push(image);
     }
 
-    for (var i = 0; i < urls.length; i++) {
+    for (let i = 0; i < urls.length; i++) {
       loadImage(urls[i]);
     }
   }
