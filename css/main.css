@@ -253,7 +253,7 @@ a:hover {
 .mousedown {
   transition: none;
   z-index: 2;
-  box-shadow: -1px -1px 0 var(--color3) inset, -1px -1px 0 var(--color3), 0 0 16px var(--color4);
+  box-shadow: -1px -1px 0 var(--color3) inset, -1px -1px 0 var(--color3), 0 0 7px var(--color4);
 }
 
 .lazy {
