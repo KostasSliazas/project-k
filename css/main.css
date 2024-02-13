@@ -763,7 +763,7 @@ input::-moz-selection {
   font-weight: 700
 }
 
-@media screen and (max-width:600px) {
+@media screen and (max-width:700px) {
 
   #vr.minimized,
   .bottom,
