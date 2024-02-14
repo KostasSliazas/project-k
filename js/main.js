@@ -35,7 +35,7 @@
   const textArea = d.getElementsByTagName("TEXTAREA")[0];
   const bg = d.querySelector("#bg-file");
   const styles = ["width", "height", "left", "top"];
-  const blockDefaults = "width:150px;height:60px;left:10px;top:50px;,width:110px;height:40px;left:160px;top:10px;,width:110px;height:60px;left:160px;top:50px;,width:90px;height:60px;left:270px;top:50px;,width:190px;height:380px;left:550px;top:110px;,width:190px;height:180px;left:360px;top:350px;,width:190px;height:300px;left:360px;top:50px;,width:190px;height:50px;left:550px;top:60px;,width:190px;height:50px;left:550px;top:10px;,width:20px;height:120px;left:340px;top:410px;,width:160px;height:240px;left:200px;top:110px;,width:140px;height:80px;left:200px;top:450px;,width:190px;height:420px;left:10px;top:110px;,width:190px;height:40px;left:550px;top:490px;,width:130px;height:40px;left:270px;top:10px;,width:150px;height:40px;left:10px;top:10px;,width:150px;height:40px;left:400px;top:10px;,width:160px;height:100px;left:200px;top:350px;";
+  const blockDefaults = "width:150px;height:60px;left:10px;top:50px;,width:110px;height:40px;left:10px;top:10px;,width:110px;height:60px;left:160px;top:50px;,width:90px;height:60px;left:270px;top:50px;,width:190px;height:420px;left:550px;top:110px;,width:190px;height:180px;left:360px;top:350px;,width:190px;height:300px;left:360px;top:50px;,width:190px;height:50px;left:550px;top:60px;,width:190px;height:50px;left:550px;top:10px;,width:20px;height:120px;left:340px;top:410px;,width:160px;height:240px;left:200px;top:110px;,width:140px;height:80px;left:200px;top:450px;,width:190px;height:420px;left:10px;top:110px;,width:130px;height:40px;left:420px;top:10px;,width:150px;height:40px;left:270px;top:10px;,width:150px;height:40px;left:120px;top:10px;,width:160px;height:100px;left:200px;top:350px";
   const textAreaDefaults = "Good day. You have the ability to reposition these blocks by selecting and holding the left corner at your desired location or by pressing the ` key on your keyboard. Alternatively, double-click to minimize them. Additionally, you can customize the theme, colors, and background image to your liking. Feel free to tailor this interface to your preferences. If locked, to unlock, simply triple-click on the background and then click 7AB (default PIN) or clear localStorage.";
   let isLocked = getLocalStorageItems('isLocked');
   let saved = getLocalStorageItems('mustashed') || [6, 3, 4];
@@ -383,6 +383,11 @@
   };
   const lockerMouseMovments = debounce(handleMousemove, 200);
 
+  const isDisplayed = (elem) => {
+    const style = window.getComputedStyle(elem);
+    const isDisplay = style.getPropertyValue("display") !== 'none'? true : false
+    return isDisplay
+  }
 
   async function init() {
     defaultPin.title = saved;
@@ -421,8 +426,7 @@
     d.getElementById("today").innerHTML = showDate();
 
     // renew clock if only displayed
-    const style = window.getComputedStyle(d.getElementById("clock").parentElement);
-    if(style.getPropertyValue("display") !== 'none'){
+    if(isDisplayed(d.getElementById("clock").parentElement)){
     const clock = new Clock("clock");
     clock.startTime();
     }
