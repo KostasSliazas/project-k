@@ -105,6 +105,7 @@
 
 body {
   font: 16px/1.25 Calibri, Candara, Segoe, Segoe UI, Optima, Arial, sans-serif;
+  font-variant-caps: all-petite-caps;
   color: var(--color4)
 }
 
@@ -119,7 +120,9 @@ p {
   padding: 1.25em 0;
   line-height: 1.25
 }
-
+.small {
+  font-size: .875em;
+}
 .pe {
   padding: 0 4px
 }
@@ -568,7 +571,7 @@ input[type=file]::file-selector-button:active {
 
 .bottom {
   position: absolute;
-  bottom: 0;
+  bottom: 4px;
   right: 24px
 }
 
@@ -774,7 +777,7 @@ input::-moz-selection {
     width: 100% !important;
     height: auto !important
   }
-
+.tetris{clip-path:none}
   .movable::before {
     display: none
   }
