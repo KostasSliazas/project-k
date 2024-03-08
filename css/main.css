@@ -86,7 +86,7 @@
 }
 
 .lines.main {
-  background: repeating-linear-gradient(transparent 0, transparent 9px, var(--color3) 9px, var(--color3) 10px) 0 0 fixed, repeating-linear-gradient(90deg, transparent 0, transparent 9px, var(--color3) 9px, var(--color3) 10px) 0 1px fixed, var(--bg) 0 0/100vw 100vh no-repeat, var(--color2)
+  background: repeating-linear-gradient(transparent 0,transparent 9px,transparent 9px,var(--color3) 10px)0 0 fixed,repeating-linear-gradient(90deg,transparent 0,transparent 9px,transparent 9px,var(--color3) 10px)0 1px fixed,var(--bg)0 0/100vw 100vh no-repeat,var(--color2)
 }
 
 .e .movable:nth-child(1),
