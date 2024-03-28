@@ -126,7 +126,11 @@ p {
 .pe {
   padding: 0 4px
 }
-
+form {
+  padding: 0 1px;
+  width: min-content;
+  min-width: 100%;
+}
 a {
   color: var(--color4);
   text-decoration: none;
@@ -383,7 +387,7 @@ textarea {
 }
 
 input[type=text] {
-  line-height: 2;
+  display: block;
 }
 
 textarea {
