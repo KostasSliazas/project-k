@@ -1,9 +1,3 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box
-}
-
 :root {
   --color0: #FFFFFF;
   --color1: #FEFFFF;
@@ -104,7 +98,11 @@
 .e .movable:nth-child(24) {
   visibility: hidden
 }
-
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box
+}
 body {
   font: 16px/1.25 Calibri, Candara, Segoe, Segoe UI, Optima, Arial, sans-serif;
   font-variant-caps: all-petite-caps;
@@ -326,7 +324,7 @@ svg {
   height: 32px;
   max-width: 140px
 }
-
+.tr{opacity:.5}
 .movable.minimized>div {
   display: none;
   position: relative

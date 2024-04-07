@@ -277,6 +277,7 @@
       path.setAttribute("stroke-width", "2");
       path.setAttribute("width", "2");
       path.setAttribute("data-value", data[i]);
+      if(i>=24) path.setAttribute("class", 'tr');
       svg.appendChild(path);
       space += 3;
     }
@@ -404,7 +405,7 @@
     const style = window.getComputedStyle(elem);
     const isDisplay = style.getPropertyValue("display") !== 'none'? true : false;
     return isDisplay;
-  }
+  };
 
   async function init() {
     defaultPin.title = saved;
