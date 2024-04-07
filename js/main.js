@@ -225,9 +225,9 @@
 
     return formatter.format(d).slice(0, 10);
   }
-
-
-  // api url
+  // api current list temperatures
+  //const api_url_current = "https://api.open-meteo.com/v1/forecast?latitude=55.7068&longitude=21.1391&current=temperature_2m";
+  // api url list temperatures
   const api_url = "https://api.open-meteo.com/v1/forecast?latitude=55.7068&longitude=21.1391&hourly=temperature_2m";
   // Defining async function
   async function getAll(url) {
@@ -260,28 +260,34 @@
     if (!data) return (stats.innerText = "???");
     const main = d.querySelector(".svg-holder");
     // make length shorter
-    data.length = 25;
-    const arrayConverted = reduceValuesDynamically(data.map(e => e.toFixed(2) * 10), 20);
+    data.length = 34;
+    const arrayConverted = reduceValuesDynamically(data.map(e => e.toFixed(2) * 10), 16);
     const svg = d.createElementNS("http://www.w3.org/2000/svg", "svg");
     svg.setAttribute("version", "1.1");
-    svg.setAttribute("viewBox", "0 0 100 40");
+    svg.setAttribute("viewBox", "0 0 100 32");
     svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-    let space = 0;
+    let space = 2;
     for (let i = 0; i < arrayConverted.length; i++) {
-      const result = arrayConverted[i] > 0 ? 20 - arrayConverted[i] : 20 - arrayConverted[i];
+      const result = arrayConverted[i] > 0 ? 16 - arrayConverted[i] : 16 - arrayConverted[i];
       const fixed = result.toFixed(2);
       const path = d.createElementNS("http://www.w3.org/2000/svg", "path");
-      path.setAttribute("d", "M" + space + ',' + fixed + " V 20");
+      path.setAttribute("d", "M" + space + ',' + fixed + " V 16");
       // path.setAttribute("fill", "none")
       // path.setAttribute("stroke", "var(--color4)");
-      path.setAttribute("stroke-width", "3");
-      path.setAttribute("width", "4");
+      path.setAttribute("stroke-width", "2");
+      path.setAttribute("width", "2");
       path.setAttribute("data-value", data[i]);
       svg.appendChild(path);
-      space += 4;
+      space += 3;
     }
     main.appendChild(svg);
-    const output = data[0] + " C";
+
+    // Create a new Date object
+    var now = new Date();
+    // Get the current hour between 0 and 23, representing the hours in a day
+    var currentHour = now.getHours();
+    const output = data[currentHour] + " C";
+
     main.addEventListener("mouseover", function (e) {
       if (e.target.tagName === "path") {
         stats.style.display = "block";
@@ -310,17 +316,28 @@
 
 
   function setTimeStamp(interval) {
-    //get current date
-    const currentDate = Math.abs((new Date().getTime() / 1000).toFixed(0));
-    // if does not exist create
-    if (localStorage.getItem("timeStamp") !== null) {
-      const futureDate = localStorage.getItem("timeStamp");
-      const difference = currentDate - futureDate;
-      const minutes = Math.floor(difference / 60) % 60;
-      if (minutes <= interval) return false;
-    }
-    setLocalStorageItems("timeStamp", currentDate);
-    return true;
+      // Check if localStorage is available
+      if (typeof localStorage === 'undefined') {
+          console.error("localStorage is not available.");
+          return false;
+      }
+
+      // Get current date in seconds
+      const currentDate = Math.floor(new Date().getTime() / 1000);
+
+      // Retrieve previous timestamp from localStorage
+      const previousTimeStamp = parseInt(localStorage.getItem("timeStamp"));
+
+      // If timestamp exists and interval has not passed, return false
+      if (!isNaN(previousTimeStamp) && (currentDate - previousTimeStamp) < interval) {
+          return false;
+      }
+
+      // Set new timestamp in localStorage
+      localStorage.setItem("timeStamp", currentDate.toString());
+
+      // Return true to indicate that interval has passed
+      return true;
   }
 
 
@@ -385,8 +402,8 @@
 
   const isDisplayed = (elem) => {
     const style = window.getComputedStyle(elem);
-    const isDisplay = style.getPropertyValue("display") !== 'none'? true : false
-    return isDisplay
+    const isDisplay = style.getPropertyValue("display") !== 'none'? true : false;
+    return isDisplay;
   }
 
   async function init() {
@@ -395,7 +412,9 @@
     d.getElementById('day-of-week').textContent = showWeekDay();
     const documentTitle = d.title;
     textArea.value = getLocalStorageItems("textArea") || textAreaDefaults;
-    if (setTimeStamp(43) && online) await getAll(api_url);
+    if (setTimeStamp(43) && online) {
+      const ok = await getAll(api_url);
+    }
 
     await hide(codeDiv);
     await stats(getLocalStorageItems("statsData"));
