@@ -272,10 +272,7 @@
       const fixed = result.toFixed(2);
       const path = d.createElementNS("http://www.w3.org/2000/svg", "path");
       path.setAttribute("d", "M" + space + ',' + fixed + " V 16");
-      // path.setAttribute("fill", "none")
-      // path.setAttribute("stroke", "var(--color4)");
       path.setAttribute("stroke-width", "2");
-      path.setAttribute("width", "2");
       path.setAttribute("data-value", data[i]);
       if(i>=24) path.setAttribute("class", 'tr');
       svg.appendChild(path);
@@ -291,7 +288,7 @@
 
     main.addEventListener("mouseover", function (e) {
       if (e.target.tagName === "path") {
-        stats.style.display = "block";
+        // stats.style.display = "block";
         stats.innerText = e.target.getAttribute("data-value") + " C";
       }
     });

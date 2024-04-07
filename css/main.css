@@ -304,7 +304,7 @@ a:hover {
 }
 
 .svg-holder {
-  margin: 4px;
+  margin: 4px 0;
   position: relative;
   cursor: pointer;
   font-size: 0
