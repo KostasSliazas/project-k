@@ -252,12 +252,22 @@
     return resultArray;
   }
 
+  function addLeadingZero(time) {
+    // Check if the length of the time string is less than 2
+    return time.toString().length < 2 ? "0" + time : time;
+  }
 
   //stats for TEMPERATURE api
   function stats(data) {
+    // no data? return
+    if (!data) return;
     const stats = d.querySelector("#stats");
-    // no data? return with text '???'
-    if (!data) return (stats.innerText = "???");
+
+    // Create a new Date object
+    var now = new Date();
+    // Get the current hour between 0 and 23, representing the hours in a day
+    var currentHour = now.getHours();
+
     const main = d.querySelector(".svg-holder");
     // make length shorter
     data.length = 34;
@@ -274,23 +284,42 @@
       path.setAttribute("d", "M" + space + ',' + fixed + " V 16");
       path.setAttribute("stroke-width", "2");
       path.setAttribute("data-value", data[i]);
-      if(i>=24) path.setAttribute("class", 'tr');
+      // add hour numbers
+      if(i<24) path.setAttribute("data-hour", i);
+      // set other color of selected hour
+      if(currentHour === i) path.setAttribute("style", "stroke:var(--color4)");
+      //show 24hrs only solid color other transparent
+      if(i>23) path.setAttribute("class", 'tr');
       svg.appendChild(path);
       space += 3;
     }
     main.appendChild(svg);
 
-    // Create a new Date object
-    var now = new Date();
-    // Get the current hour between 0 and 23, representing the hours in a day
-    var currentHour = now.getHours();
-    const output = data[currentHour] + " C";
+
+    const output = data[currentHour] + "°C";
 
     main.addEventListener("mouseover", function (e) {
-      if (e.target.tagName === "path") {
-        // stats.style.display = "block";
-        stats.innerText = e.target.getAttribute("data-value") + " C";
-      }
+     // Extracting the target element from the event object
+    const targetElement = e.target;
+
+    // Checking if the target element is a 'path'
+    if (targetElement.tagName === "path") {
+        // Retrieving temperature and hour data attributes from the target element
+        const temperature = targetElement.getAttribute("data-value") + "°C";
+        const hour = targetElement.getAttribute("data-hour");
+
+        // Setting the text content of the 'stats' element with temperature
+        let statsText = temperature;
+
+        // If hour data is available, formatting it with leading zero and appending it to statsText
+        if (hour !== null) {
+            const hourText = '|' + addLeadingZero(parseInt(hour)) + 'h';
+            statsText += hourText;
+        }
+
+        // Setting the text content of the 'stats' element
+        stats.innerText = statsText;
+    }
     });
     main.addEventListener("mouseout", () => (stats.innerText = output));
     stats.innerText = output;
