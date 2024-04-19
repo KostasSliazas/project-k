@@ -68,11 +68,11 @@
 }
 
 .f {
-  --color0: #E8EEF5;
-  --color1: #D6E0EC;
-  --color2: #A6B9CF;
-  --color3: #758EAD;
-  --color4: #0B2646
+  --color0: #13293e;
+  --color1: #2B3D4F;
+  --color2: #495D71;
+  --color3: #70808F;
+  --color4: #B2BBC2;
 }
 
 .f.bg-image {
@@ -130,6 +130,7 @@ form {
   padding: 0 1px;
   width: min-content;
   min-width: 100%;
+  margin: 1px 0;
 }
 a {
   color: var(--color4);
@@ -206,7 +207,7 @@ a:hover {
 
 .minimized {
   overflow: hidden;
-  height: 20px !important;
+  height: 19px !important;
   padding: 0;
   min-height: 0;
   pointer-events: all
@@ -253,7 +254,7 @@ a:hover {
   text-transform: uppercase;
   text-align: center;
   border: 1px solid var(--color3);
-  border-width: 0 1px 1px 0;
+  border-width: 0 1px 0 0;
   font-weight: 100
 }
 
@@ -385,11 +386,12 @@ textarea {
   color: inherit;
   border: 0;
   padding: 0 4px;
-  width: 100%
+  width: 100%;
 }
 
 input[type=text] {
   display: block;
+  height: 18px;
 }
 
 textarea {
