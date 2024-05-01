@@ -360,9 +360,25 @@
     const target = e.target;
 
   if (target.classList.contains('rem')) {
+      if(target.parentNode.classList.contains('toka')){
+        const row = target.parentNode.getElementsByClassName('krow')
+        const last = row[row.length - 1]
+        return (row.length > 3) && last.remove()
+      }
+
       target.parentNode.remove();
+
     } else if (target.classList.contains('add')) {
+
+      if(target.parentNode.classList.contains('toka')){
+        const row = target.parentNode.getElementsByClassName('krow')
+        const last = row[row.length - 1]
+        return last.parentNode.appendChild(last.cloneNode(true))
+      }
+
       target.parentNode.before(target.parentNode.cloneNode(true));
+
+
     } else if (target.tagName === 'H3') {
       const input = document.createElement('input');
       if(target.id) input.setAttribute('id', target.id);
@@ -372,6 +388,8 @@
       target.replaceWith(input);
       input.select();
       input.focus();
+    } else if (target.tagName !== 'SELECT'){
+      outf()
     }
   });
 
