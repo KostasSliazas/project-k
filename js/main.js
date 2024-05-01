@@ -607,12 +607,12 @@
     }
 
     if (target === 'enabled-bg') {
-    const repeatBg = document.getElementById('repeat-toggle')
+    const repeatBg = document.getElementById('repeat-toggle');
       if (!root.classList.contains('bg-image') && e.target.checked) {
         setLocalStorageItems('theme-bg', true);
         root.classList.add('bg-image');
       } else {
-        repeatBg.checked = false
+        repeatBg.checked = false;
         main.classList.remove('bg-repeat');
         setLocalStorageItems('bg-repeat', false);
 
@@ -621,9 +621,9 @@
       }
     }
     if (target === 'repeat-toggle') {
-      const bg = document.getElementById('enabled-bg')
+      const bg = document.getElementById('enabled-bg');
       if (!main.classList.contains('bg-repeat') && e.target.checked) {
-        bg.checked = true
+        bg.checked = true;
         setLocalStorageItems('bg-repeat', true);
         main.classList.add('bg-repeat');
         setLocalStorageItems('theme-bg', true);
