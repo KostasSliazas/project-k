@@ -238,7 +238,7 @@
 
   block.forEach((e) => e.before(createHTMLElement('button', text, button)));
 
-  const issaugoti = 'Išsaugoti CV';
+  const issaugoti = 'Save CV...';
   const buttonIsaugoti = {
     class: 'save brdr shd remove',
     href: '#',
@@ -258,12 +258,12 @@
   const infocDiv = createHTMLElement('div', '', {
     id: 'infoc'
   });
-  const spanElement = createHTMLElement('span', 'Uždaryti &#10006;', {
+  const spanElement = createHTMLElement('span', 'CLOSE', {
     class: 'btn brdr shd'
   });
   infocDiv.appendChild(spanElement);
 
-  const infoTextContent = `CV šablonų kūrėjas. Neuždaryti lango kol neišsaugoma, nes jokia informacija nėra išsaugoma duomenų bazėje. Išsaugoti tekstą reikia paspausti 'Enter'. Blokus galima sukeisti, du kartus spragtelėjus pelės klavišu keičiami kalbų lygiai. Galima 'inspektinti' ir keisti betkokį tekstą naršyklėje dažniausia nuspaudus F12. Nuotraukos dydis turėtų būti 120x120 pikselių. Kiek galima sumažinti nuotraukos failo dydį. Jeigu nėra darbo patirties galima ištrinti bloką. Naršyklė Internet Explorer nepalaikoma. Išsaugotą CV galima naršyklėje išsaugoti PDF formatu paspaudus 'print' ir 'print to file'. Visi mygtukai bus ištrinti išsaugant CV.`;
+  const infoTextContent = `CV Template Creator. Do not close the window until saved, as no information is stored in the database. To save text, press 'Enter'. Language levels are changed by clicking twice with the mouse.For a better experience, the photo size should be 120x120 pixels. Reduce the photo file size as much as possible.`;
   const infoTextDiv = createHTMLElement('div', infoTextContent, {
     id: 'info-text'
   });
@@ -397,8 +397,14 @@
   document.body.addEventListener('dblclick', function (e) {
     if (e.target.classList.contains('edit')) {
       e.preventDefault();
-      const selectHtml =
-        '<select><option value="A1 – Lūžis">A1 – Lūžis (Breakthrogh)</option><option value="A2 – Pusiaukelė">A2 – Pusiaukelė (Waystage)</option><option value="B1 – Slenkstis"> B1 – Slenkstis (Threshold)</option><option value="B2 – Aukštuma">B2 – Aukštuma (Vantage)</option><option value="C1 – Pirmenybė">C1 – Pirmenybė (Effective Operational Proficiency)</option><option value="C2 – Puikumas">C2 – Puikumas (Mastery)</option></select>';
+      const selectHtml =`<select>
+        <option value="A1 – Breakthrough">A1 – Breakthrough</option>
+        <option value="A2 – Waystage">A2 – Waystage</option>
+        <option value="B1 – Threshold">B1 – Threshold</option>
+        <option value="B2 – Vantage">B2 – Vantage</option>
+        <option value="C1 – Effective Operational Proficiency">C1 – Effective Operational Proficiency</option>
+        <option value="C2 – Mastery">C2 – Mastery</option>
+    </select>`;
       e.target.insertAdjacentHTML('afterbegin', selectHtml);
     }
   });
