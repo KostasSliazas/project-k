@@ -1,0 +1,98 @@
+body {
+    margin: 0;
+}
+
+canvas {
+    border: 1px solid #000000;
+}
+
+body {
+    font-size: 16px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0
+}
+
+.wrapper {
+    place-items: center;
+    display: flex;
+    padding: 1em;
+}
+
+button {
+    line-height: 2;
+    margin: 0 1em;
+}
+
+.counter {
+    display: flex;
+    place-items: center;
+    place-content: flex-end;
+    text-align: right;
+}
+
+.counter button {
+    cursor: pointer;
+    border: 1px solid currentColor;
+    background: #eee;
+    font-family: monospace;
+    min-width: 2em;
+    line-height: 2;
+    font-size: inherit;
+    color: #777;
+    transition: .1s color;
+    text-transform: full-width;
+}
+
+.counter button:active {
+    color: #000;
+    background: #fff;
+    border-color: currentColor
+}
+
+.counter.saved input {
+    color: #999;
+}
+
+.counter .max~input,
+.counter .max {
+    background: #a00686;
+}
+
+.counter button:first-of-type {
+    border-radius: 3px 0 0 3px;
+    margin: 0 0 0 1em;
+}
+
+.counter button:last-of-type {
+    border-radius: 0 3px 3px 0;
+    margin: 0 1em 0 0;
+    order: 1;
+}
+
+.counter input {
+    appearance: textfield;
+    text-align: center;
+    border-radius: 0;
+    border: 1px solid #aaa;
+    border-left: 0;
+    border-right: 0;
+    width: 4em;
+    width: 5ch;
+    line-height: 2;
+    font-size: inherit;
+    background: #fff;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
