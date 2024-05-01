@@ -2,7 +2,9 @@
  * Main off "moving blocks" script created by K.S.
  * @date 11/7/2023 - 12:57:36 AM
  */
+
 /*jshint esversion: 11 */
+
 (function (w, d) {
   "use strict";
   const pindiscard = d.getElementById('pindiscard');
@@ -35,7 +37,7 @@
   const textArea = d.getElementsByTagName("TEXTAREA")[0];
   const bg = d.querySelector("#bg-file");
   const styles = ["width", "height", "left", "top"];
-  const blockDefaults = "width:90px;height:20px;left:260px;top:0px;,width:110px;height:40px;left:0px;top:0px;,width:110px;height:60px;left:150px;top:40px;,width:90px;height:60px;left:260px;top:40px;,width:160px;height:480px;left:350px;top:80px;,width:190px;height:150px;left:0px;top:100px;,width:160px;height:300px;left:190px;top:340px;,width:20px;height:120px;left:-110px;top:0px;,width:160px;height:240px;left:190px;top:100px;,width:160px;height:80px;left:350px;top:560px;,width:190px;height:390px;left:0px;top:250px;,width:150px;height:40px;left:0px;top:40px;,width:150px;height:40px;left:110px;top:0px;,width:90px;height:20px;left:260px;top:20px;,width:150px;height:20px;left:0px;top:80px;,width:160px;height:80px;left:350px;top:0px;";
+  const blockDefaults = "width:90px;height:20px;left:260px;top:0px;,width:110px;height:40px;left:150px;top:0px;,width:110px;height:60px;left:150px;top:40px;,width:90px;height:60px;left:260px;top:40px;,width:160px;height:540px;left:350px;top:80px;,width:190px;height:190px;left:0px;top:100px;,width:160px;height:360px;left:190px;top:340px;,width:20px;height:120px;left:-20px;top:0px;,width:160px;height:240px;left:190px;top:100px;,width:160px;height:80px;left:350px;top:620px;,width:190px;height:410px;left:0px;top:290px;,width:150px;height:40px;left:0px;top:40px;,width:150px;height:40px;left:0px;top:0px;,width:90px;height:20px;left:260px;top:20px;,width:150px;height:20px;left:0px;top:80px;,width:160px;height:80px;left:350px;top:0px;";
   const textAreaDefaults = "Good day. You have the ability to reposition these blocks by selecting and holding the left corner at your desired location or by pressing the ` key on your keyboard. Alternatively, double-click to minimize them. Additionally, you can customize the theme, colors, and background image to your liking. Feel free to tailor this interface to your preferences. If locked, to unlock, simply triple-click on the background and then click 7AB (default PIN) or clear localStorage.";
   let isLocked = getLocalStorageItems('isLocked');
   let saved = getLocalStorageItems('mustashed') || [6, 3, 4];
@@ -276,6 +278,7 @@
     svg.setAttribute("version", "1.1");
     svg.setAttribute("viewBox", "0 0 100 32");
     svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+    svg.setAttribute("id", "sunshine");
     let space = 2;
     for (let i = 0; i < arrayConverted.length; i++) {
       const result = arrayConverted[i] > 0 ? 16 - arrayConverted[i] : 16 - arrayConverted[i];
@@ -492,6 +495,12 @@
       d.getElementById('enabled-bg').checked = false;
       root.classList.remove('bg-image');
     }
+    // remove default repeating
+    const isRepeatingBg = getLocalStorageItems("bg-repeat");
+    if (isRepeatingBg === true) {
+      d.getElementById('repeat-toggle').checked = true;
+      main.classList.add('bg-repeat');
+    }
 
     if (isLocked) {
       d.title = 'New Tab';
@@ -598,15 +607,35 @@
     }
 
     if (target === 'enabled-bg') {
+    const repeatBg = document.getElementById('repeat-toggle')
       if (!root.classList.contains('bg-image') && e.target.checked) {
         setLocalStorageItems('theme-bg', true);
         root.classList.add('bg-image');
       } else {
+        repeatBg.checked = false
+        main.classList.remove('bg-repeat');
+        setLocalStorageItems('bg-repeat', false);
+
         root.classList.remove('bg-image');
         setLocalStorageItems('theme-bg', false);
       }
     }
-
+    if (target === 'repeat-toggle') {
+      const bg = document.getElementById('enabled-bg')
+      if (!main.classList.contains('bg-repeat') && e.target.checked) {
+        bg.checked = true
+        setLocalStorageItems('bg-repeat', true);
+        main.classList.add('bg-repeat');
+        setLocalStorageItems('theme-bg', true);
+        root.classList.add('bg-image');
+      } else {
+        // bg.checked = false
+        main.classList.remove('bg-repeat');
+        setLocalStorageItems('bg-repeat', false);
+        // root.classList.remove('bg-image');
+        // setLocalStorageItems('theme-bg', false);
+      }
+    }
     if (target === "custom-theme") setColors();
     if (target === "bg-theme") bg.value = "";
 

@@ -4,9 +4,12 @@
   --color2: #E2ECF2;
   --color3: #ABC4D1;
   --color4: #15425C;
-  --bg: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQIW2NgAAIAAAUAAR4f7BQAAAAASUVORK5CYII=)
+  --bg: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQIW2NgAAIAAAUAAR4f7BQAAAAASUVORK5CYII=);
+  --repeat: center/cover no-repeat;
 }
-
+.bg-image{
+    --bg: url(../img/k.svg);
+}
 .a {
   --color0: #F8F9D5;
   --color1: #C2C2AD;
@@ -78,9 +81,11 @@
 .f.bg-image {
   --bg: url(../img/f.webp)
 }
-
+.bg-repeat{
+  --repeat: repeat;
+}
 .lines.main {
-  background: repeating-linear-gradient(transparent 0,transparent 9px,transparent 9px,var(--color3) 10px)0 0 fixed,repeating-linear-gradient(90deg,transparent 0,transparent 9px,transparent 9px,var(--color3) 10px)0 1px fixed,var(--bg)0 0/100vw 100vh no-repeat,var(--color2)
+  background: repeating-linear-gradient(transparent 0,transparent 9px,transparent 9px,var(--color3) 10px)0 0 fixed,repeating-linear-gradient(90deg,transparent 0,transparent 9px,transparent 9px,var(--color3) 10px)0 1px fixed,var(--bg) var(--repeat),var(--color2)
 }
 
 .e .movable:nth-child(1),
@@ -178,7 +183,7 @@ a:hover {
   white-space: nowrap;
   text-overflow: ellipsis;
   position: relative;
-  transition: .2s
+  transition: .2s;
 }
 
 .movable a {
@@ -210,6 +215,7 @@ a:hover {
   height: 19px !important;
   padding: 0;
   min-height: 0;
+  box-shadow: -1px -1px 0 0 var(--color3), -1px 1px 0 0 var(--color3);
   pointer-events: all
 }
 
@@ -228,7 +234,7 @@ a:hover {
 .main {
   height: 100vh;
   width: 100vw;
-  background: var(--bg) 0 0/100vw 100vh no-repeat, var(--color2);
+  background: var(--bg) var(--repeat), var(--color2);
   display: flex;
   place-items: baseline;
   flex-wrap: wrap
@@ -319,11 +325,14 @@ a:hover {
   stroke: var(--color2)
 }
 
-svg {
+#sunshine {
   background: repeating-linear-gradient(90deg, var(--color2) 0px, transparent 2px 3px);
   shape-rendering: optimizespeed;
   height: 32px;
   max-width: 140px
+}
+#battery{
+  height: 77px;
 }
 .tr{opacity:.5}
 .movable.minimized>div {
@@ -415,7 +424,6 @@ input[type=color],
 input[type=file]::file-selector-button,
 input[type=radio],
 input[type=reset] {
-  height: 2.25em;
   overflow: hidden;
   cursor: pointer;
   color: var(--color4);
@@ -424,14 +432,20 @@ input[type=reset] {
   margin: .15em;
   width: auto;
   accent-color: var(--color3);
+  font-size: inherit;
+  line-height: inherit;
 }
-
+input[type="color"] {
+  border: 1px solid var(--color2);
+}
 input[type=button] {
   padding: 0 .25em
 }
 
 .em4 {
-  min-width: 4em
+  min-width: 3em;
+  min-height: 2em;
+  max-block-size: 2.5em;
 }
 
 button#top {
@@ -455,7 +469,8 @@ input[type=file i] {
 .forms label {
   padding: 0;
   text-align: center;
-  font-size: .75em
+  font-size: .75em;
+  line-height: 1;
 }
 
 button:hover,
@@ -530,7 +545,7 @@ input[type=file]::file-selector-button:active {
   place-items: stretch;
   place-content: center;
   padding: .15em;
-  line-height: 2
+  line-height: 2.5;
 }
 
 .forms div {
