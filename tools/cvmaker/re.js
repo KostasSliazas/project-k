@@ -42,7 +42,7 @@
     document.getElementById('error2').style.display = 'none';
     document.getElementById('abort').style.display = 'none';
     document.getElementById('warnsize').style.display = 'none';
-    const oFile = document.getElementById('image_file').files[0];
+    const oFile = document.getElementById('image-file').files[0];
     const rFilter = /^(image\/bmp|image\/gif|image\/jpeg|image\/png|image\/tiff)$/i;
     if (!rFilter.test(oFile.type)) {
       document.getElementById('error').style.display = 'block';
@@ -289,27 +289,6 @@
     }
   });
 
-  // function refresh() {
-  //   const elements = document.querySelectorAll('.kCell, h3, .percent');
-  //   let i = 1;
-  //
-  //   elements.forEach(function (el) {
-  //     let className = el.className;
-  //     let classArray = className.split(' ');
-  //     let lastClass = classArray[classArray.length - 1];
-  //
-  //     if (lastClass.substring(0, 3) !== 'scs') {
-  //       className = className + ' scs' + i++;
-  //     } else {
-  //       className = className.replace(/[0-9]/g, '') + i++;
-  //     }
-  //
-  //     el.className = className;
-  //   });
-  // }
-  //
-  // refresh();
-
   // Create the fakebtn element and its children using the createHTMLElement function
   const fakeButtonHtml = createHTMLElement('div', 'Įkelti failą', {
     id: 'fakebtn',
@@ -317,8 +296,8 @@
   });
 
   const fileInput = createHTMLElement('input', '', {
-    id: 'image_file',
-    name: 'image_file',
+    id: 'image-file',
+    name: 'image-file',
     type: 'file'
   });
   fileInput.onchange = fileSelected; // Assign fileSelected function to the 'change' event of the input element
@@ -338,23 +317,6 @@
       infoDiv.style.display = infoDiv.style.display === 'none' ? '' : 'none';
     });
   });
-
-  // document.body.addEventListener('mousedown', function (e) {
-  //   if (e.target.classList.contains('percent') && e.button === 2) {
-  //     e.preventDefault();
-  //     const className = e.target.className;
-  //     const ef = className.split(/[, ]+/).pop();
-  //     const input = document.createElement('input');
-  //     input.setAttribute('type', 'text');
-  //     input.setAttribute('class', ef);
-  //     input.setAttribute('autofocus', '');
-  //     input.value = e.target.textContent;
-  //     e.target.replaceWith(input);
-  //     input.select();
-  //     input.focus();
-  //     return false;
-  //   }
-  // });
 
   document.body.addEventListener('click', function (e) {
     const target = e.target;
@@ -379,7 +341,7 @@
       target.parentNode.before(target.parentNode.cloneNode(true));
 
 
-    } else if (target.tagName === 'H3') {
+    } else if (target.tagName === 'H3'||target.tagName === 'H2') {
       const input = document.createElement('input');
       if(target.id) input.setAttribute('id', target.id);
       if(target.className) input.setAttribute('class', target.className);
@@ -388,7 +350,7 @@
       target.replaceWith(input);
       input.select();
       input.focus();
-    } else if (target.tagName !== 'SELECT'){
+    } else if (target.tagName !== 'SELECT'&&target.tagName !== 'INPUT'){
       outf()
     }
   });
@@ -397,14 +359,17 @@
   document.body.addEventListener('dblclick', function (e) {
     if (e.target.classList.contains('edit')) {
       e.preventDefault();
-      const selectHtml =`<select>
+
+      const selectHtml =
+      `<select>
         <option value="A1 – Breakthrough">A1 – Breakthrough</option>
         <option value="A2 – Waystage">A2 – Waystage</option>
         <option value="B1 – Threshold">B1 – Threshold</option>
         <option value="B2 – Vantage">B2 – Vantage</option>
         <option value="C1 – Effective Operational Proficiency">C1 – Effective Operational Proficiency</option>
         <option value="C2 – Mastery">C2 – Mastery</option>
-    </select>`;
+      </select>`;
+
       e.target.insertAdjacentHTML('afterbegin', selectHtml);
     }
   });
@@ -431,9 +396,15 @@
       }
 
       if (input.tagName === 'INPUT'){
-        const heading = document.createElement('h3');
-        heading.setAttribute('class', input.className);
-        heading.setAttribute('id', input.id);
+        let heading = null
+        if(input.classList.contains('left')){
+          heading = document.createElement('h2');
+        }else{
+          heading = document.createElement('h3');
+        }
+
+        if(input.className) heading.setAttribute('class', input.className);
+        if(input.id) heading.setAttribute('id', input.id);
         heading.textContent = input.value;
         input.parentNode.replaceChild(heading, input);
       }
@@ -455,8 +426,6 @@
       document.title = document.getElementById('vardas').innerText;
     }
   });
-
-  // btn.onclick = () => window.print();
 
   // helper to creat DOM element
   function createHTMLElement(tag, text, attributes) {
