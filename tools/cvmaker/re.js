@@ -382,7 +382,7 @@
     const cvInputs = document.querySelectorAll('select, input');
 
     cvInputs.forEach((input) => {
-
+  if (input.id !=='image-file'){
       if (input.id === 'email') {
         const emailLink = document.createElement('a');
         emailLink.setAttribute('class', input.className);
@@ -405,10 +405,10 @@
 
         if(input.className) heading.setAttribute('class', input.className);
         if(input.id) heading.setAttribute('id', input.id);
-        heading.textContent = input.value;
-        input.parentNode.replaceChild(heading, input);
+        if(input.value)heading.textContent = input.value;
+        if(input.parentNode)input.parentNode.replaceChild(heading, input);
       }
-
+  }
     });
   }
 
