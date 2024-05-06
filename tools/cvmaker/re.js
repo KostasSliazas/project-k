@@ -1,6 +1,52 @@
 /*jshint esversion: 11 */
 (function () {
   'use strict';
+class DraggableManager {
+    constructor(containerSelector, draggableSelector) {
+        this.container = document.querySelector(containerSelector);
+        this.draggables = Array.from(this.container.querySelectorAll(draggableSelector));
+        this.draggedElement = null;
+
+        this.setupDragListeners();
+    }
+
+    setupDragListeners() {
+        this.draggables.forEach(draggable => {
+            // draggable.setAttribute('draggable', 'true');
+
+            draggable.addEventListener('dragstart', this.handleDragStart.bind(this));
+            draggable.addEventListener('dragover', this.handleDragOver.bind(this));
+            draggable.addEventListener('drop', this.handleDrop.bind(this));
+        });
+    }
+
+    handleDragStart(event) {
+        this.draggedElement = event.target;
+        event.dataTransfer.setData('text/plain', ''); // required for Firefox
+    }
+
+    handleDragOver(event) {
+        event.preventDefault(); // allow drop
+    }
+
+    handleDrop(event) {
+        const targetElement = event.currentTarget;
+        if (this.draggedElement && this.draggedElement !== targetElement) {
+            const targetIndex = this.draggables.indexOf(targetElement);
+            const draggedIndex = this.draggables.indexOf(this.draggedElement);
+
+            // Swap elements in the array
+            [this.draggables[draggedIndex], this.draggables[targetIndex]] = [this.draggables[targetIndex], this.draggables[draggedIndex]];
+
+            // Update the visual order of draggables in the container
+            this.container.innerHTML = ''; // Clear container
+            this.draggables.forEach(draggable => this.container.appendChild(draggable));
+        }
+    }
+}
+
+// Initialize DraggableManager
+const draggableManager = new DraggableManager('#cv', '.blokas');
 
   let iBytesUploaded = 0;
   let iBytesTotal = 0;
@@ -172,6 +218,20 @@
     }
   }
 
+  // helper to creat DOM element
+  function createHTMLElement(tag, text, attributes) {
+    const element = document.createElement(tag);
+    element.textContent = text || '';
+
+    if (attributes) {
+      for (const key in attributes) {
+        if (attributes.hasOwnProperty(key)) {
+          element.setAttribute(key, attributes[key]);
+        }
+      }
+    }
+    return element;
+  }
 
   function htmls() {
     const vardasNode = document.getElementById('vardas').childNodes[0];
@@ -181,7 +241,7 @@
     document.querySelectorAll('.remove').forEach(function (element) {
       element.parentNode.removeChild(element);
     });
-
+    document.querySelectorAll('[draggable="true"]').forEach(e=>e.removeAttribute("draggable"))
     // Remove all script elements
     document.querySelectorAll('script').forEach(function (script) {
       script.parentNode.removeChild(script);
@@ -263,7 +323,7 @@
   });
   infocDiv.appendChild(spanElement);
 
-  const infoTextContent = `CV Template Creator. Do not close the window until saved, as no information is stored in the database. To save text, press 'Enter'. Language levels are changed by clicking twice with the mouse.For a better experience, the photo size should be 120x120 pixels. Reduce the photo file size as much as possible.`;
+  const infoTextContent = `Please do not close this window until your work is saved, as no information is stored in the database. To save your text, simply press 'Enter'. You can change language levels by double-clicking with the mouse. For the best experience, please ensure your photo is sized at 120x120 pixels. To optimize loading times, reduce the file size of your photo as much as possible. You can rearrange blocks by dragging them.`;
   const infoTextDiv = createHTMLElement('div', infoTextContent, {
     id: 'info-text'
   });
@@ -426,20 +486,5 @@
       document.title = document.getElementById('vardas').innerText;
     }
   });
-
-  // helper to creat DOM element
-  function createHTMLElement(tag, text, attributes) {
-    const element = document.createElement(tag);
-    element.textContent = text || '';
-
-    if (attributes) {
-      for (const key in attributes) {
-        if (attributes.hasOwnProperty(key)) {
-          element.setAttribute(key, attributes[key]);
-        }
-      }
-    }
-    return element;
-  }
 
 })();
