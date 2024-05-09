@@ -31,7 +31,7 @@ class DraggableManager {
 
     handleDrop(event) {
         const targetElement = event.currentTarget;
-        if (this.draggedElement && this.draggedElement !== targetElement) {
+        if (this.draggedElement && this.draggedElement !== targetElement&&this.draggedElement.tagName === 'DIV') {
             const targetIndex = this.draggables.indexOf(targetElement);
             const draggedIndex = this.draggables.indexOf(this.draggedElement);
 
@@ -232,10 +232,18 @@ const draggableManager = new DraggableManager('#cv', '.blokas');
     }
     return element;
   }
-
+  function containsOnlyLetters(str) {
+      return /^[a-zA-Z\s]+$/.test(str);
+  }
   function htmls() {
+    // run all to make text not inputs function
+    outf();
+    // set default name of file
+    let ceds = 'cv-europass'
     const vardasNode = document.getElementById('vardas').childNodes[0];
-    const ceds = vardasNode.nodeValue.replace(/\s/g, '_');
+    // if test pass only letters use safely make name of file as person name
+    if(containsOnlyLetters(vardasNode.nodeValue))
+    ceds = vardasNode.nodeValue.replace(/\s/g, '-') + '(CV)'; //(-) can be a good choice for file names words seperations + add (CV)
 
     // Remove elements using pure JavaScript
     document.querySelectorAll('.remove').forEach(function (element) {
@@ -350,7 +358,7 @@ const draggableManager = new DraggableManager('#cv', '.blokas');
   });
 
   // Create the fakebtn element and its children using the createHTMLElement function
-  const fakeButtonHtml = createHTMLElement('div', 'Įkelti failą', {
+  const fakeButtonHtml = createHTMLElement('div', 'upload file', {
     id: 'fakebtn',
     class: 'remove brdr'
   });
