@@ -236,8 +236,7 @@ const draggableManager = new DraggableManager('#cv', '.blokas');
       return /^[a-zA-Z\s]+$/.test(str);
   }
   function htmls() {
-    // run all to make text not inputs function
-    outf();
+
     // set default name of file
     let ceds = 'cv-europass'
     const vardasNode = document.getElementById('vardas').childNodes[0];
@@ -408,8 +407,10 @@ const draggableManager = new DraggableManager('#cv', '.blokas');
 
       target.parentNode.before(target.parentNode.cloneNode(true));
 
+    } else if (target.tagName === 'H3'||target.tagName === 'H2'||target.parentNode.id === "number" || target.parentNode.id === "email") {
 
-    } else if (target.tagName === 'H3'||target.tagName === 'H2') {
+      e.preventDefault()
+
       const input = document.createElement('input');
       if(target.id) input.setAttribute('id', target.id);
       if(target.className) input.setAttribute('class', target.className);
@@ -418,10 +419,12 @@ const draggableManager = new DraggableManager('#cv', '.blokas');
       target.replaceWith(input);
       input.select();
       input.focus();
+
     } else if (target.tagName !== 'SELECT'&&target.tagName !== 'INPUT'){
-      outf()
+       // run all to make text not inputs function
+      outf();
     }
-  });
+  }, true);
 
 
   document.body.addEventListener('dblclick', function (e) {
@@ -446,39 +449,41 @@ const draggableManager = new DraggableManager('#cv', '.blokas');
   const s = document.querySelectorAll('.date, h3, .percent');
   const btn = document.getElementById('karo');
 
-  function outf() {
-    const cvInputs = document.querySelectorAll('select, input');
+  function createLinkElement(className, href, textContent) {
+    const link = document.createElement('a');
+    link.setAttribute('class', className);
+    link.setAttribute('href', href);
+    link.textContent = textContent;
+    return link;
+}
+
+function replaceElementWithHeading(input, tagName) {
+    const heading = document.createElement(tagName);
+    if (input.className) heading.setAttribute('class', input.className);
+    if (input.id) heading.setAttribute('id', input.id);
+    if (input.value) heading.textContent = input.value;
+    input.parentNode.replaceChild(heading, input);
+}
+
+function outf() {
+    const cvInputs = document.querySelectorAll('select, input:not(#image-file)');
 
     cvInputs.forEach((input) => {
-  if (input.id !=='image-file'){
-      if (input.id === 'email') {
-        const emailLink = document.createElement('a');
-        emailLink.setAttribute('class', input.className);
-        emailLink.setAttribute('href', 'mailto:' + input.value + '?subject=Darbas');
-        emailLink.textContent = input.value;
-        input.parentNode.replaceChild(emailLink, input);
-      }
-
-      if(input.tagName === 'SELECT'){
-        input.parentNode.innerHTML = input.options[input.selectedIndex].value;
-      }
-
-      if (input.tagName === 'INPUT'){
-        let heading = null
-        if(input.classList.contains('left')){
-          heading = document.createElement('h2');
-        }else{
-          heading = document.createElement('h3');
+        if (input.parentNode.id === 'email') {
+            const emailLink = createLinkElement(input.className, `mailto:${input.value}?subject=Darbas`, input.value);
+            input.parentNode.replaceChild(emailLink, input);
+        } else if (input.parentNode.id === 'number') {
+            const numberLink = createLinkElement(input.className, `tel:${input.value}`, input.value);
+            input.parentNode.replaceChild(numberLink, input);
+        } else if (input.tagName === 'SELECT') {
+            input.parentNode.innerHTML = input.options[input.selectedIndex].value;
+        } else if (input.tagName === 'INPUT') {
+            const tagName = input.classList.contains('left') ? 'h2' : 'h3';
+            replaceElementWithHeading(input, tagName);
         }
-
-        if(input.className) heading.setAttribute('class', input.className);
-        if(input.id) heading.setAttribute('id', input.id);
-        if(input.value)heading.textContent = input.value;
-        if(input.parentNode)input.parentNode.replaceChild(heading, input);
-      }
-  }
     });
-  }
+}
+
 
   document.addEventListener('mouseup', (e)=>{
     const target = e.target
