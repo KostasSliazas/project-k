@@ -480,7 +480,7 @@
     clock.startTime();
     }
 
-    d.body.style.display = 'block';
+    d.body.style.visibility = 'visible';
 
 
     // remove lines if set to false in local storage by default show them
@@ -545,6 +545,8 @@
 
 
   function contextMenuFun(e) {
+    e.preventDefault();
+
     if (e.target.tagName === "MAIN") {
       e.preventDefault();
       THEME_CHANGE.decrement(); // eslint-disable-line
@@ -554,9 +556,7 @@
       setColors();
     }
 
-    if (e.target.textContent || e.target.value) {
-      e.preventDefault();
-      if (e.target.getAttribute('type') == null || e.target.getAttribute('type').toUpperCase() === 'BUTTON' || e.target.getAttribute('type').toUpperCase() === 'RESET') return;
+    if ((e.target.textContent || e.target.value) && e.target.tagName !== 'BUTTON' && (e.target.getAttribute('type')&&e.target.getAttribute('type').toUpperCase() !== 'BUTTON' && e.target.getAttribute('type').toUpperCase() !== 'SUBMIT')) {
       copyToClipboard(e.target.textContent || e.target.value);
     }
 
