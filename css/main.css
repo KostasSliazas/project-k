@@ -19,7 +19,7 @@
 }
 
 .a.bg-image {
-  --bg: url(../img/a.webp)
+  --bg: url(../img/a.svg)
 }
 
 .b {
@@ -87,7 +87,7 @@
 .lines.main {
   background: repeating-linear-gradient(transparent 0,transparent 9px,transparent 9px,var(--color3) 10px)0 0 fixed,repeating-linear-gradient(90deg,transparent 0,transparent 9px,transparent 9px,var(--color3) 10px)0 1px fixed,var(--bg) var(--repeat),var(--color2)
 }
-[class="bg-image"] #main{background-size:200px;}
+[class="a bg-image"] #main,[class="bg-image"] #main{background-size:200px;}
 .e .movable:nth-child(1),
 .e .movable:nth-child(2),
 .e .movable:nth-child(3),
