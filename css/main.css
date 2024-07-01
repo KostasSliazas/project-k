@@ -77,28 +77,45 @@
   --color3: #70808F;
   --color4: #B2BBC2;
 }
-
+.f body{
+  font-family: monospace;
+}
+.c body,
+.e body{
+  font-family: Arial, sans-serif;
+}
 .f.bg-image {
   --bg: url(../img/f.webp)
 }
 .bg-repeat{
   --repeat: repeat;
 }
-.lines.main {
+.main::before{
+  content:'';
+  top:0;
+  left:0;
+  height: 100%;
+  width: 100%;
+  position:fixed;
+  display:block;
+}
+.lines.main::before {
   background: repeating-linear-gradient(transparent 0,transparent 9px,transparent 9px,var(--color3) 10px)0 0 fixed,repeating-linear-gradient(90deg,transparent 0,transparent 9px,transparent 9px,var(--color3) 10px)0 1px fixed,var(--bg) var(--repeat),var(--color2)
 }
-[class="a bg-image"] #main,[class="bg-image"] #main{background-size:200px;}
+.main::before{background: var(--bg) var(--repeat), var(--color2);}
+
+[class="a bg-image"] #main::before,[class="bg-image"] #main::before{background-size:200px;}
 .e .movable:nth-child(1),
 .e .movable:nth-child(2),
 .e .movable:nth-child(3),
 .e .movable:nth-child(4),
 .e .movable:nth-child(6),
+.e .movable:nth-child(8),
 .e .movable:nth-child(9),
 .e .movable:nth-child(12),
 .e .movable:nth-child(13),
 .e .movable:nth-child(14),
 .e .movable:nth-child(15),
-.e .movable:nth-child(16),
 .e .movable:nth-child(17),
 .e .movable:nth-child(24) {
   visibility: hidden
@@ -109,9 +126,9 @@
   box-sizing: border-box
 }
 body {
-  font: 16px/1.25 Calibri, Candara, Segoe, Segoe UI, Optima, Arial, sans-serif;
+  font: 16px/1.25 'Nimbus Mono PS',Calibri, Candara, Segoe, Segoe UI, Optima, Arial, sans-serif;
   font-variant-caps: all-petite-caps;
-  color: var(--color4)
+  color: var(--color4);
 }
 
 a,
@@ -123,13 +140,24 @@ p {
   font-size: 1em;
   margin-bottom: 0;
   padding: 1.25em 0;
+  font-family: inherit;
   line-height: 1.25
 }
+
 .small {
-  font-size: .875em;
+  font-size: 12px;
+  line-height: 20px;
 }
+.xxl {
+  font-size: 30px;
+  min-block-size: 30px;
+}
+
 .pe {
   padding: 0 4px
+}
+.pa{
+  padding: 4px;
 }
 form {
   padding: 0 1px;
@@ -153,16 +181,17 @@ a:hover {
   color: var(--color3)
 }
 
-#moves button {
+div.moves button {
   height: 3em
 }
 
-#moves {
+div.moves {
   box-shadow: 0 0 77px;
   z-index: 2 !important
 }
 
 .hide {
+  z-index: -7;
   visibility: hidden
 }
 
@@ -175,6 +204,11 @@ a:hover {
   background: var(--color1);
   box-shadow: -1px -1px 0 var(--color3) inset, -1px -1px 0 var(--color3);
   user-select: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   display: flex;
   flex-direction: column;
   place-items: center;
@@ -184,6 +218,8 @@ a:hover {
   text-overflow: ellipsis;
   position: relative;
   transition: .2s;
+  margin:0 auto;
+  z-index:1;
 }
 
 .movable a {
@@ -196,7 +232,6 @@ a:hover {
   width: 20px;
   height: 20px;
   pointer-events: all;
-  z-index: 2;
   position: absolute;
   top: -1px;
   left: 0;
@@ -204,12 +239,15 @@ a:hover {
   text-align: center;
   line-height: 20px
 }
-
-.movable-p {
-  padding: 0 .15em;
-  max-width: 400px
+.movable > div {
+  margin: auto;
+  overflow:hidden;
+  padding-right:1px;
 }
 
+.pad{
+  padding-top:20px;
+}
 .minimized {
   overflow: hidden;
   height: 19px !important;
@@ -230,11 +268,7 @@ a:hover {
 #clipboard {
   white-space: normal
 }
-
 .main {
-  height: 100vh;
-  width: 100vw;
-  background: var(--bg) var(--repeat), var(--color2);
   display: flex;
   place-items: baseline;
   flex-wrap: wrap
@@ -250,30 +284,34 @@ a:hover {
   line-height: 20px;
   color: var(--color4);
   background: var(--color2);
-  height: 20px;
+  min-height: 20px;
   width: 100%;
   padding: 0 20px;
-  z-index: 1;
-  position: relative;
-  word-wrap: anywhere;
   white-space: nowrap;
+  text-overflow: ellipsis;
   text-transform: uppercase;
   text-align: center;
+  font-weight: 100;
+  overflow: hidden;
+}
+.movable h1{
   border: 1px solid var(--color3);
   border-width: 0 1px 0 0;
-  font-weight: 100
 }
-
-.mousedown {
+  .mousedown {
   transition: none;
   z-index: 2;
   box-shadow: -1px -1px 0 var(--color3) inset, -1px -1px 0 var(--color3), 0 0 7px var(--color4);
 }
-
-.lazy {
+.r1,.r2,.r3{height: 100vw;}
+.r1{
+  transform: rotateZ(180deg);
+}
+.r2{
+  transform: rotateZ(90deg);
+}
+.r3{
   transform: rotateZ(-90deg);
-  bottom: 0;
-  position: absolute
 }
 
 .spaceb {
@@ -285,6 +323,8 @@ a:hover {
 }
 
 .center {
+  min-width:150px;
+  min-height: 100px;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -304,10 +344,6 @@ a:hover {
 
 .digit {
   font-family: Numbers, sans-serif;
-}
-
-.xxl {
-  font-size: 2em;
 }
 
 .svg-holder {
@@ -361,23 +397,36 @@ a:hover {
     color: inherit
   }
 }
-
-.w23 {
-  width: 230px
-}
-
-.w15 {
-  width: 150px
+.w7 {
+  max-width: 70px;
 }
 
 .w11 {
   width: 110px
 }
 
-.w19 {
-  width: 190px
+.w12 {
+  width: 120px
 }
 
+.w14 {
+  max-width: 140px
+}
+.w15 {
+  max-width: 150px
+}
+.w16 {
+  width: 160px
+}
+.w17 {
+  width: 170px
+}
+.w18 {
+  width: 180px
+}
+.w23 {
+  width: 230px
+}
 .flex {
   display: flex;
   place-content: center;
@@ -404,50 +453,95 @@ input[type=text] {
 }
 
 textarea {
+/*  scrollbar-width: thin;*/
   min-width: 70px;
   min-height: 1em;
   outline: 0;
-  line-height: 1.5;
-  height: calc(100% - 10px);
-  width: calc(100% - 10px);
-  box-sizing: content-box;
+  height: 100%;
+  width: 100%;
+  font-family:inherit;
   background: 0 0
 }
 
 .dark {
   background: var(--color1)
 }
-
 button,
+input[type=number],
 input[type=button],
 input[type=color],
 input[type=file]::file-selector-button,
 input[type=radio],
 input[type=reset] {
+  margin: 0;
+  padding: 0;
   overflow: hidden;
   cursor: pointer;
   color: var(--color4);
   background: var(--color2);
   border: 1px solid var(--color3);
-  margin: .15em;
   width: auto;
   accent-color: var(--color3);
   font-size: inherit;
   line-height: inherit;
+  box-sizing: border-box;
+  font-family: 'IBM Plex Sans Condensed', Tuffy, Arial, sans-serif;
 }
-input[type="color"] {
-  border: 1px solid var(--color2);
-}
+
+input[type=number]{background: var(--color0)}
+
+button,
+input[type=file],
+input[type=reset],
 input[type=button] {
-  padding: 0 .25em
+  flex: 1 1 auto;
+  margin: 0 4px;
+  padding: 0 4px;
+  min-block-size: 20px;
 }
 
+button:last-child,
+button:first-child,
+input[type=file]:last-child,
+input[type=reset]:last-child,
+input[type=button]:last-child,
+input[type=file]:first-child,
+input[type=reset]:first-child,
+input[type=button]:first-child{
+margin:0;
+}
+button:hover,
+input[type=button]:hover,
+input[type=reset]:hover,
+input[type=file]::file-selector-button:hover {
+  background: var(--color3)
+}
+input[type=color]{
+  border-block: 0 !important;
+  border-inline: 0 !important;
+  max-height: 30px;
+  line-height: 0;
+  min-block-size: 30px;
+  max-block-size: 30px;
+  border: 1px solid var(--color3) !important;
+  background-color: var(--color2) !important;
+}
+.forms input[type=color]:nth-child(1n+2){
+  margin:0 2px;
+}
+button:active,
+input[type=file]::file-selector-button:active {
+  background: var(--color0);
+  color: var(--color2)
+}
 .em4 {
-  min-width: 3em;
-  min-height: 2em;
-  max-block-size: 2.5em;
+  min-height: 30px;
+  max-block-size: 30px;
 }
-
+button {
+    cursor: pointer;
+    min-inline-size: 43px;
+}
 button#top {
   margin-top: 0
 }
@@ -455,99 +549,51 @@ button#top {
 button#bottom {
   margin-bottom: 0
 }
-
+.colors label {
+  max-inline-size: 42px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.colors input {
+  min-inline-size: 42px;
+}
 input[type=file]::file-selector-button {
   display: flex;
   flex-direction: column;
-  width: min-content
+  inline-size: 100%;
+  padding: 0 4px;
 }
-
+input[type=file]{padding:0;}
 input[type=file i] {
-  width: 20ch
+  width: 14ch;
+  padding: 0 0 0 4px;
+  line-height: 20px;
+  font-family: inherit;
+}
+fieldset{
+  border-width:1px 0 0 0;
 }
 
 .forms label {
+  min-block-size: 20px;
   padding: 0;
-  text-align: center;
-  font-size: .75em;
-  line-height: 1;
-}
-
-button:hover,
-input[type=file]::file-selector-button:hover {
-  background: var(--color3)
-}
-
-button:active,
-input[type=file]::file-selector-button:active {
-  background: var(--color0);
-  color: var(--color2)
-}
-
-.checkbox {
-  position: relative;
-  margin: 0 0 .15em .15em;
-}
-
-.checkbox input {
-  display: none
-}
-
-.checkbox label::before {
-  content: "";
-  display: block;
-  box-sizing: border-box
-}
-
-.checkbox label {
-  position: relative;
-  cursor: pointer;
-  padding: 0 1em 0 2.5em;
-  line-height: 2;
-}
-
-.checkbox label::after,
-.checkbox label::before {
-  content: "";
-  display: block;
-  position: absolute;
-  left: 0;
-  top: 0
-}
-
-.checkbox label::after {
-  border-right: 2px solid transparent;
-  border-right-color: transparent;
-  border-bottom: 2px solid transparent;
-  border-bottom-color: transparent;
-  transform: rotate(55deg) skewX(25deg);
-  transform-origin: .5em 2em
-}
-
-.checkbox input:checked~label::after {
-  border-color: var(--color4);
-  padding: 8px 4px;
-  transition: padding-right .1s, border-right-color 0s .1s linear
-}
-
-.checkbox label::before {
-  background: var(--color0);
-  border: 1px solid var(--color3);
-  height: 2em;
-  width: 2em;
+  margin: 0;
+  flex: 1 1 auto;
 }
 
 .forms {
-  border: 1px solid var(--color3);
+  border-top: 1px solid var(--color2);
   display: flex;
   flex-direction: column;
-  margin: .15em;
   place-items: stretch;
   place-content: center;
-  padding: .15em;
-  line-height: 2.5;
+  padding: 4px;
+  margin: 0 auto;
+  min-inline-size: 48px;
 }
-
+div:first-of-type + .checkbox {
+  margin: 4px 0 0 0;
+}
 .forms div {
   display: flex
 }
@@ -555,17 +601,18 @@ input[type=file]::file-selector-button:active {
 .forms>div>div {
   flex-direction: column
 }
-
 .forms legend {
-  margin: 0 .5em;
-  padding: 0 .15em;
-  line-height: 1
+  margin: 0 auto;
+  padding: 0;
+  min-block-size: 20px;
+  line-height: 20px;
 }
 
 #vr h1 {
-  height: auto;
-  padding: 19px 0 0;
-  width: 20px
+  height: 100%;
+  margin: -1px 0;
+  padding: 19px 0 2px;
+  width: 20px;
 }
 
 #vr p {
@@ -593,9 +640,11 @@ input[type=file]::file-selector-button:active {
 }
 
 .bottom {
+  padding:0;
   position: absolute;
-  bottom: 4px;
-  right: 24px
+  bottom: 8px;
+  right: 24px;
+  font-size:12px;
 }
 
 @font-face {
@@ -619,7 +668,6 @@ input[type=file]::file-selector-button:active {
   display: -ms-grid;
   -ms-grid-columns: 1fr 2px 1fr 2px 1fr 2px 1fr;
   -ms-grid-rows: 1fr 2px 1fr 2px 1fr 2px 1fr 2px 1fr 2px 1fr;
-  -webkit-box-align: center;
   -ms-flex-align: center;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -629,12 +677,8 @@ input[type=file]::file-selector-button:active {
   gap: 2px;
   padding: 2px;
   height: 100%;
-  width: min-content;
-  font: 16px/1.5 Arial, sans-serif
-}
-
-#calculator input:nth-child(3) {
-  font-family: monospace
+  width: 100%;
+  font: 16px/1.25 Arial, sans-serif
 }
 
 #calculator>[data-fun="p"] {
@@ -651,17 +695,14 @@ input[type=file]::file-selector-button:active {
 #calculator div:empty {
   background: var(--color4)
 }
-
+#calculator #src{
+    font-size: 1.25em;
+}
 #calculator input+input {
-  width: 34px;
   aspect-ratio: 1;
-  font-size: 1.5em;
   line-height: 1
 }
-
 #calculator input {
-  border-radius: inherit;
-  -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
   -moz-user-select: none;
@@ -669,7 +710,6 @@ input[type=file]::file-selector-button:active {
   user-select: none;
   width: 100%;
   height: 100%;
-  font-size: 1.5em;
   line-height: inherit;
   position: relative;
   cursor: pointer;
@@ -682,11 +722,6 @@ input[type=file]::file-selector-button:active {
   -moz-appearance: none;
   appearance: none;
   transition: .1s;
-  font-family: inherit
-}
-
-input {
-  -webkit-tap-highlight-color: #000
 }
 
 #calculator input[type=button]:active {
@@ -734,29 +769,33 @@ input::-moz-selection {
 #calculator #src {
   grid-column-start: 1;
   grid-column-end: 5;
-  margin: 0 2px;
+  margin: 0;
   box-sizing: border-box;
   text-align: right;
-  padding: 0 5px;
+  padding: 0 2px;
   font-family: Numbers;
   line-height: 1;
   background: var(--color0)
 }
 
 #calculator #src.blink {
-  color: var(--color1)
+  color: var(--color3)
 }
 
 .wrp-container {
   width: 100%;
   height: 100%;
   user-select: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   background: var(--color3);
   position: fixed;
   top: 0;
   left: 0;
   z-index: 2;
-  user-select: none;
   place-content: center;
   place-items: end;
   display: flex;
@@ -789,6 +828,142 @@ input::-moz-selection {
   font-weight: 700
 }
 
+.checkbox input {
+  display: none
+}
+
+.checkbox label::before {
+  content: "";
+  display: block;
+  box-sizing: border-box
+}
+
+.checkbox label {
+  position: relative;
+  cursor: pointer;
+  padding-right: 28px;
+}
+
+.checkbox label::after,
+.checkbox label::before {
+  content: "";
+  display: block;
+  position: absolute;
+  right: 0;
+  top: 0
+}
+
+.checkbox label::after {
+  border-right: 1px solid transparent;
+  border-right-color: transparent;
+  border-top: 1px solid transparent;
+  border-top-color: transparent;
+  transform: rotate(135deg);
+}
+
+.checkbox input:checked~label::after {
+  border-color: var(--color4);
+  width: 10px;
+  height: 10px;
+  transition: border-top-color .2s .2s linear;
+  top: 5px;
+  right: 7px;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+.checkbox label::before {
+  background: var(--color0);
+  border: 1px solid var(--color3);
+  height: 24px;
+  width: 24px;
+}
+
+.counter button {
+    height: 24px;
+    margin: 0;
+    min-inline-size: 24px;
+    max-width: 24px;
+    padding: 0;
+    font-size:0;
+    position: relative;
+}
+
+button:active {
+    color: var(--color4);
+    border-color: currentColor
+}
+
+.counter.saved input {
+    color: var(--color0)
+}
+
+.counter .max,
+.counter .max~input {
+    background: var(--color4)
+}
+
+.counter button:last-of-type {
+    order: 1
+}
+.counter button:last-of-type::after,
+.counter button:first-of-type::after,
+.counter button:last-of-type::before {
+  content: "";
+  display: block;
+  position: absolute;
+  right: 4px;
+  top: 11px;
+  border-top: 1px solid var(--color4);
+  height: 1px;
+  z-index: 1;
+  width: 14px;
+  pointer-events: none;
+}
+.counter button:last-of-type::after{
+  transform: rotate(90deg);
+  transform-origin: center top;
+}
+.counter input {
+    appearance: textfield;
+    text-align: center;
+    border: 1px solid var(--color3);
+    border-left: 0;
+    border-right: 0;
+    width: 3ch;
+    height: 24px;
+    box-sizing: border-box;
+    margin: 0;
+}
+.checkbox, .counter {
+    display: flex;
+    padding: 4px 0;
+    place-items: center;
+    place-content: flex-end;
+    min-width: 0;
+    flex: 1 1 auto;
+    position: relative;
+    line-height: 1.5;
+    font-size: 16px;
+}
+
+.counter label{
+    margin-right: 4px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0;
+    /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
 @media screen and (max-width:700px) {
 
   #vr.minimized,
@@ -812,7 +987,6 @@ input::-moz-selection {
 
 @media screen and (min-width:768px) {
   .in {
-    border-radius: 2px;
     max-width: 300px;
     height: auto;
     font-size: 2em
