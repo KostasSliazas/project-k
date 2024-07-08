@@ -256,7 +256,7 @@
     // Storing response
     const response = await fetch(url);
     // Storing data in form of JSON
-    var data = await response.json();
+    const data = await response.json();
     // no data? return
     if (!response || !data) return false;
     // set data to storage
@@ -281,9 +281,9 @@
     const stats = d.querySelector("#stats");
 
     // Create a new Date object
-    var now = new Date();
+    const now = new Date();
     // Get the current hour between 0 and 23, representing the hours in a day
-    var currentHour = now.getHours();
+    const currentHour = now.getHours();
 
     const main = d.querySelector(".svg-holder");
     // make length shorter
@@ -387,8 +387,8 @@
 
 
   // for theme changing
-  var arrayHelper = function () {
-    var ob = {};
+  const arrayHelper = function () {
+    const ob = {};
     ob.value = ob.full = this.length;
     ob.increment = function () {
       this.value = this.value ? --this.value : this.full - 1;
@@ -1248,4 +1248,33 @@
     }, 7);
   }); // blink screen number
 
+
+  // ////////////////////////////
+
+    // make refresh after midnigth 00:00
+
+          function timeUntilMidnight() {
+            const now = new Date();
+            const nextMidnight = new Date(
+                now.getFullYear(),
+                now.getMonth(),
+                now.getDate() + 1, // next day
+                0, 0, 0, 0 // at 00:00:00
+            );
+            return nextMidnight - now;
+        }
+
+        function scheduleMidnightRefresh() {
+            const msUntilMidnight = timeUntilMidnight();
+            setTimeout(function() {
+                location.reload(); // Refresh the page
+            }, msUntilMidnight);
+
+            // Optional: Adjust the timeout every minute to stay accurate
+            setTimeout(scheduleMidnightRefresh, 60000);
+        }
+
+        window.onload = function() {
+            scheduleMidnightRefresh();
+        };
 })(window, document);
