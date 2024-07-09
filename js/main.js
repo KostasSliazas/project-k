@@ -43,11 +43,10 @@
   const styles = ["width", "height", "left", "top"];
   const blockDefaults = "width:90px;height:40px;left:310px;top:40px;,width:110px;height:40px;left:310px;top:0px;,width:110px;height:60px;left:310px;top:80px;,width:60px;height:60px;left:420px;top:80px;,width:160px;height:540px;left:640px;top:0px;,width:160px;height:360px;left:0px;top:180px;,width:160px;height:420px;left:480px;top:40px;,width:160px;height:160px;left:0px;top:0px;,width:150px;height:240px;left:160px;top:0px;,width:160px;height:80px;left:480px;top:460px;,width:170px;height:400px;left:310px;top:140px;,width:110px;height:40px;left:530px;top:0px;,width:110px;height:40px;left:420px;top:0px;,width:80px;height:40px;left:400px;top:40px;,width:160px;height:20px;left:0px;top:160px;,width:150px;height:300px;left:160px;top:240px;";
   const textAreaDefaults = "Good day. You have the ability to reposition these blocks by selecting and holding the left corner or by pressing the ` key on your keyboard. Alternatively, double-click to minimize them. Additionally, you can customize the theme, colors, and background image. If locked, to unlock, simply triple-click on the background and then click 520 (default PIN) or clear localStorage (because by using this project you will write to it data, like password and other settings)";
+  const counts = {allMouseClicks:0,clicks:0};
   let isLocked = getLocalStorageItems('isLocked');
   let saved = getLocalStorageItems('mustashed') || [5, 2, 0];
   let minimized = [14];
-  let count = 0;
-  let allMouseClicks = 0;
   let mousedown = false;
   let scalingTarget = null;
   let isEnterPass = false;
@@ -957,10 +956,10 @@
 
     // only for locking system
     if (target === "lock") {
-      count = 0;
       setLocalStorageItems('isLocked', (isLocked = true));
       hide(main);
       d.title = 'New Tab';
+      counts.clicks = 0;
     }
 
     if (target === "code") {
@@ -979,18 +978,18 @@
     if (target === "pindiscard") {
       hide(codeDiv);
     }
-
-    if (e.target.className !== "container" && count === 2 && getLocalStorageItems('isLocked')) {
+    const isLockedScreen = getLocalStorageItems('isLocked');
+    // count clicked
+    counts.clicks++;
+    if (e.target.className !== "container" && counts.clicks > 2 && isLockedScreen) {
+      counts.clicks = typed.length = 0; // RESET array length and count when not container clicked
       d.addEventListener('mousemove', lockerMouseMovments);
       show(codeDiv);
-      count = typed.length = 0; // RESET array length and count when not container clicked
-    }
-    // count clicked
-    count++;
+    } 
 
     // show statistics about mouse
-    allMouseClicks++;
-    clicked.textContent = allMouseClicks;
+    counts.allMouseClicks++;
+    clicked.textContent = counts.allMouseClicks;
 
     if (isEnterPass) {
       show(pindiscard);
