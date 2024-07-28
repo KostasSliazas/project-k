@@ -31,8 +31,8 @@ const element = (tagName, ...attributes) => {
   return newElement;
 };
 // regex for clearing 000 from start of string(match only digits)
-const reg = new RegExp('(?!0)[\d]+', "g");
-
+const reg = new RegExp('^0+(?=\d)|\D+', "g");
+//const reg = new RegExp('(?!0)[\d]+', "g");
 
 function createColorBand(obj, index) {
   const select = element('div', 'id', 'id' + index);
@@ -58,7 +58,7 @@ const outputValueSpan = element('span');
 const outputToleranceSpan = element('span');
 const theResistor = []; // resistor values GLOBAL ARRAY
 const switcherChecker = () => switcher.checked === true;
-
+switcher.onchange = () => outputValueSpan.innerHTML = outputToleranceSpan.innerHTML = '';
 outputValue.textContent = '(ohms)value:';
 outputTolerance.textContent = '(%)tolerance:';
 
@@ -116,8 +116,8 @@ function colorDetect(e, i) {
 
         const fourOrFive = fourTrue ? 2 : 3;
 
-        let powerValue = 10**theResistor[fourOrFive];
-        let powerValueRev = 10**resistorReversed[fourOrFive];
+        let powerValue = Math.pow(10, theResistor[fourOrFive]);
+        let powerValueRev = Math.pow(10, resistorReversed[fourOrFive]);
 
         if(theResistor[fourOrFive] === 10) powerValue = 1;
         if(theResistor[fourOrFive] === 11) powerValue = 2;
