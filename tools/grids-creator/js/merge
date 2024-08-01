@@ -1,0 +1,26 @@
+    function merge(){
+        const countColum = parseInt(d.getElementById('columns').value.replace(reg));
+        let countColumIncrease = countColum;
+        // get all children nodes
+        const tableCells = tableOutput.childNodes;
+        const duplicates = {dublicate:'', count: 1};
+
+
+        for(let i = tableCells.length-1; i>=0 ;i--){
+            if(countColumIncrease === 0) {
+              countColumIncrease = countColum;
+            }
+            countColumIncrease--;
+
+            duplicates.dublicate = tableCells[i].textContent;
+
+            // we have content and table cell start counting dublicates
+            if(tableCells[i].textContent && checkForDefined(tableCells[i+1]) && duplicates.dublicate === tableCells[i+1].textContent){
+                  duplicates.count++;
+                  tableCells[i].remove();
+                  tableCells[i].style.gridColumn = countColumIncrease + 1 + '/span ' + duplicates.count;
+           } else {
+              duplicates.count = 1;
+          }
+        }
+    }
