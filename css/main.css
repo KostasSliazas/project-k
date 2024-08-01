@@ -117,6 +117,7 @@
 .e .movable:nth-child(14),
 .e .movable:nth-child(15),
 .e .movable:nth-child(17),
+.e .movable:nth-child(18),
 .e .movable:nth-child(24) {
   visibility: hidden
 }
@@ -130,7 +131,22 @@ body {
   font-variant-caps: all-petite-caps;
   color: var(--color4);
 }
-
+.memo img {
+  max-height: 50px;
+  max-width: 120px;
+  overflow: hidden;
+  transform: scale(.97);
+  cursor: pointer;
+  width: 100%;
+  box-sizing: content-box;
+  transition: .1s;
+}
+.memo img:hover{
+  transform: scale(1);
+}
+.memo img:first-child{
+  margin: 0 4px;
+}
 a,
 h1,
 h2,
@@ -517,14 +533,13 @@ input[type=file]::file-selector-button:hover {
   background: var(--color3)
 }
 input[type=color]{
-  border-block: 0 !important;
-  border-inline: 0 !important;
   max-height: 30px;
   line-height: 0;
   min-block-size: 30px;
   max-block-size: 30px;
-  border: 1px solid var(--color3) !important;
   background-color: var(--color2) !important;
+  border-block: 0 !important;
+  border-inline: 0 !important;
 }
 .forms input[type=color]:nth-child(1n+2){
   margin:0 2px;
