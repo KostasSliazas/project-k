@@ -131,21 +131,28 @@ body {
   font-variant-caps: all-petite-caps;
   color: var(--color4);
 }
+.memo{
+  font-size:0;
+  place-content: center;
+  display: flex;
+}
 .memo img {
-  max-height: 50px;
-  max-width: 120px;
+  max-height: 45px;
+  max-width: 45px;
   overflow: hidden;
-  transform: scale(.97);
   cursor: pointer;
-  width: 100%;
   box-sizing: content-box;
-  transition: .1s;
+  transition: .2s .2s;
+  min-width: 45px;
+  aspect-ratio: 1;
+  margin: 4px;
+  border: 1px solid var(--color3);
 }
 .memo img:hover{
-  transform: scale(1);
+ background: var(--color3);
 }
-.memo img:first-child{
-  margin: 0 4px;
+.memo img:nth-child(even){
+  margin: 4px 0;
 }
 a,
 h1,
@@ -502,6 +509,7 @@ input[type=reset] {
   line-height: inherit;
   box-sizing: border-box;
   font-family: 'IBM Plex Sans Condensed', Tuffy, Arial, sans-serif;
+  transition: .2s .1s;
 }
 
 input[type=number]{background: var(--color0)}
