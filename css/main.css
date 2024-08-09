@@ -11,11 +11,11 @@
     --bg: url(../img/k.svg);
 }
 .a {
-  --color0: #F8F9D5;
-  --color1: #C2C2AD;
-  --color2: #D3D3C6;
-  --color3: #AEAF93;
-  --color4: #292A19
+  --color0: #F8FDFF;
+  --color1: #BCDDEA;
+  --color2: #82ADBE;
+  --color3: #4E7888;
+  --color4: #223E49
 }
 
 .a.bg-image {
@@ -23,11 +23,11 @@
 }
 
 .b {
-  --color0: #cdc8e7;
-  --color1: #a5a0bf;
-  --color2: #bdb8d7;
-  --color3: #8d88a7;
-  --color4: #2d2847
+  --color0: #1C131E;
+  --color1: #383439;
+  --color2: #605D61;
+  --color3: #888589;
+  --color4: #eeeeee
 }
 
 .b.bg-image {
@@ -59,11 +59,11 @@
 }
 
 .e {
-  --color0: #FFFFFF;
-  --color1: #FEF8FD;
-  --color2: #FAE5F7;
-  --color3: #F1CDEC;
-  --color4: #333333
+  --color0: #FFEFEC;
+  --color1: #DCC0BA;
+  --color2: #8A726D;
+  --color3: #312523;
+  --color4: #140907
 }
 
 .e.bg-image {
@@ -82,7 +82,7 @@
 }
 .c body,
 .e body{
-  font-family: Arial, sans-serif;
+  font-family: 'Nimbus Mono PS',Calibri, Candara, Segoe, Segoe UI, Optima, Arial, sans-serif;
 }
 .f.bg-image {
   --bg: url(../img/f.webp)
@@ -127,7 +127,7 @@
   box-sizing: border-box
 }
 body {
-  font: 16px/1.25 'Nimbus Mono PS',Calibri, Candara, Segoe, Segoe UI, Optima, Arial, sans-serif;
+  font: 16px/1.25 Arial, sans-serif;
   font-variant-caps: all-petite-caps;
   color: var(--color4);
 }
