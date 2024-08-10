@@ -1,8 +1,14 @@
 :root {
-    --color-1: #FFFFFF;
-    --color-2: #EEF5FB;
-    --color-3: #BED4E6;
-    --color-4: #566d7e
+    --color-1: #ffffff;
+    --color-2: #eef5fb;
+    --color-3: #bed4e6;
+    --color-4: #566d7e;
+    --radius: 3px
+}
+
+* {
+    margin: 0;
+    box-sizing: border-box
 }
 
 body,html {
@@ -12,25 +18,18 @@ body,html {
 html {
     -webkit-font-smoothing: antialiased;
     -webkit-font-variant-ligatures: none;
-    scrollbar-color: #161616 #4c4557;
-    scrollbar-width: thin;
-    text-rendering: optimizeLegibility;
     font-variant-ligatures: none;
-    text-shadow: rgba(0,0,0,.05)0 0 1px
+    scrollbar-color: #161616 #4c4557;
+    scrollbar-width: thin
 }
 
 body {
-    margin: 0;
     font: 16px/1.5 Arial,Helvetica,sans-serif;
     color: #333
 }
 
 #export-div,#links,.bg {
     background: var(--color-3)
-}
-
-* {
-    box-sizing: border-box
 }
 
 #export-div,#links {
@@ -40,7 +39,7 @@ body {
     top: 4em;
     transform: translateX(-50%);
     border: 1px solid #aaa;
-    border-radius: 4px;
+    border-radius: var(--radius);
     min-height: 300px;
     max-width: 90%;
     min-width: 280px;
@@ -63,28 +62,26 @@ body {
 
 #copy-links,#open,.close {
     position: absolute;
-    right: 4px;
-    top: 4px;
+    right: .75em;
+    top: .75em;
     border: 0;
-    border-radius: 4px;
+    border-radius: var(--radius);
     color: #fff;
     text-align: center;
     background: var(--color-4)
 }
 
 .close {
-    width: 1em;
-    height: 1em;
     top: 0;
     right: 0;
-    line-height: 34px;
+    line-height: 1;
     font-size: 2em;
     color: var(--color-1);
-    font-family: Arial,Helvetica,sans-serif
+    padding: 0
 }
 
 #copy-links {
-    left: 4px
+    left: .75em
 }
 
 #urls {
@@ -146,7 +143,7 @@ body {
     font-size: 0
 }
 
-#choises {
+#choices {
     display: block;
     box-sizing: border-box;
     overflow-x: auto;
@@ -156,75 +153,76 @@ body {
     padding: 0 1em
 }
 
-#choises p,#outpus a {
+#choices p,#output a {
     background: var(--color-1)
 }
 
-#choises p {
+#choices p {
     margin: 0;
     padding: 0 4px
 }
 
 #wrap {
     min-height: calc(100vh - 48px);
-    max-width: 1100px;
+    max-width: 1072px;
     margin: .75em auto;
     background: var(--color-2)
 }
 
-#outpus {
+#output {
     display: grid;
-    gap: 1em;
-    padding: 1em;
-    grid-template-columns: repeat(auto-fit,minmax(10em,1fr));
-    border-radius: 4px
+    gap: .5em;
+    padding: .5em;
+    grid-template-columns: repeat(auto-fit,minmax(144px,1fr))
 }
-#outpus a img {
-  height: 1em;
-  width: 1em;
-  position: absolute;
-  top: .25em;
-  left: .25em;
+
+#output a img {
+    height: 1em;
+    width: 1em;
+    position: absolute;
+    top: .25em;
+    left: .25em;
+    overflow: hidden
 }
-#outpus a {
-    overflow: hidden;
-    text-align: center;
+
+#output .urls,a.link {
+    width: 100%;
+    overflow: hidden
+}
+
+#output,a.link {
+    border-radius: var(--radius)
+}
+
+a.link {
     display: flex;
     align-items: center;
     flex-direction: column;
-    border-radius: 4px;
     text-decoration: none;
     word-break: break-word;
-    width: 100%;
+    max-width: 144px;
     height: 5em;
     margin: auto;
-    max-width: 10em;
     position: relative;
     border: 1px solid var(--color-3)
 }
-#outpus a:hover{ border: 1px solid var(--color-4) }
-#outpus span:not(:last-of-type) {
-    font-size: 12px;
-    color: var(--color-4);
-    padding: 2px 24px;
-    text-transform: lowercase;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    width: 100%
+
+#output a:hover {
+    border: 1px solid var(--color-4)
 }
 
-#outpus span.urls {
-  font-size: 1em;
-  color: var(--color-4);
-  padding: 0 1.5em;
-  background: var(--color-1);
-  width: 100%;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  font-weight: 700;
-  border-bottom: 1px solid var(--color-3);
-  overflow: hidden;
+#output .urls {
+    color: var(--color-4);
+    padding: 0 0 0 2em;
+    background: var(--color-1);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-weight: 700;
+    border-bottom: 1px solid var(--color-3);
+    height: 2em;
+    box-sizing: border-box;
+    line-height: 2;
+    font-size: .75em
 }
 
 #export {
@@ -232,15 +230,18 @@ body {
     box-sizing: border-box
 }
 
-#outpus span:last-of-type {
+#output span:last-of-type {
     display: none
 }
 
-#outpus.checks .close {
-    display: block
+#output.checks .close {
+    display: block;
+    line-height: .75;
+    height: .75em;
+    width: .75em
 }
 
-#aditions,#create-link,#export,#site-search,#urls {
+#additions,#create-link,#export,#site-search,#urls {
     width: 100%
 }
 
@@ -258,11 +259,12 @@ label {
     line-height: 1
 }
 
-button,input[type=file] {
-    border-radius: 4px;
+button,input[type=checkbox],input[type=file] {
+    min-height: 1em;
+    min-width: 1em;
+    width: fit-content;
+    border-radius: var(--radius);
     border: 1px solid var(--color-4);
-    block-size: 32px;
-    height: 32px;
     color: var(--color-2);
     background: var(--color-4);
     font: 16px/2"Gill Sans","Gill Sans MT",Calibri,"Trebuchet MS",sans-serif;
@@ -279,7 +281,12 @@ button:hover {
     flex-direction: column;
     gap: 1em;
     white-space: nowrap;
-    padding: 1em
+    padding: 3em 1em
+}
+
+#search,.export-import>div {
+    overflow: hidden;
+    border-radius: var(--radius)
 }
 
 .export-import label {
@@ -298,83 +305,101 @@ h1 {
 
 #search {
     position: relative;
-    margin: .75em auto 0;
-    border-radius: 4px;
-    overflow: hidden;
+    margin: .75em auto;
     max-width: 90%;
-    width: 300px
+    width: 300px;
+    line-height: 1
+}
+
+#founded,.toggle {
+    overflow: hidden;
+    top: .75em;
+    position: absolute
 }
 
 #founded {
-    position: absolute;
-    right: 0;
-    top: 0;
-    margin: auto;
-    padding: 0 .5em
+    transform: translateX(100%);
+    right: calc(50% - 160px);
+    display: flex;
+    flex-direction: column-reverse;
+    place-content: center;
+    cursor: pointer;
+    height: 24px
+}
+
+#founded,#search input,.toggle label {
+    background: var(--color-2);
+    border: 1px solid var(--color-2);
+    border-radius: var(--radius)
 }
 
 #search input {
-    padding: 2px 4px;
-    border: 0;
-    background: var(--color-2);
-    font-size: 14px
+    padding: 0 4px;
+    font-size: 1em;
+    line-height: 1;
+    margin: 0;
+    appearance: none;
+    inset-block: 1em;
+    block-size: 1.5em
 }
 
 .toggle label {
     display: flex;
     flex-direction: column-reverse;
-    align-items: center;
+    place-content: center;
     cursor: pointer;
-    height: 100%;
-    width: 100%;
-    background: var(--color-2)
+    height: 24px;
+    overflow: hidden
 }
 
 .toggle {
-    position: fixed;
-    bottom: 0;
-    z-index: 1;
     isolation: isolate;
-    height: 30px;
-    width: 60px;
-    border-radius: 15px;
-    overflow: hidden;
-    border: 1px solid var(--color-4);
-    margin: 4px
+    height: 1.5em;
+    left: calc(50% - 160px);
+    transform: translateX(-100%);
+    inline-size: 3em
 }
 
-.toggle-state {
-    display: none
+input.hidden:checked~.indicator {
+    transform: translate3d(100%,0,0);
+    background: var(--color-4)
+}
+
+.hidden {
+    display: none!important
 }
 
 .indicator {
     height: 100%;
     width: 50%;
-    background: var(--color-4);
-    border-radius: 15px;
-    transform: translate3d(-50%,0,0);
-    transition: transform .1s cubic-bezier(.85,.05,.18,1.35);
+    background: var(--color-3);
+    border-radius: var(--radius);
+    transform: translate3d(0,0,0);
+    transition: transform .1s cubic-bezier(0,1.5,1,1.5);
     position: absolute;
-    top: 0
+    top: 0;
+    left: 0;
+    border: 1px solid var(--color-2)
 }
 
-.toggle-state:checked~.indicator {
-    transform: translate3d(50%,0,0)
+.texts,.types,.urls {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    inline-size: 128px;
+    color: var(--color-4)
 }
 
-@media only screen and (max-width:600px) {
+@media only screen and (max-width:750px) {
     #search {
-        margin: 3em auto 0
+        margin: 3.75em auto 0
     }
 
-    #outpus {
+    #output {
         grid-template-columns: repeat(auto-fit,minmax(144px,1fr))
     }
 
-    .toggle {
-        top: 0;
-        left: 50%;
-        position: absolute;
-        transform: translateX(-50%)
+    #founded,.toggle {
+        top: 3.75em
     }
 }
