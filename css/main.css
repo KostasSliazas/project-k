@@ -473,9 +473,6 @@ div.moves {
  background: var(--color3);
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color4);
-}
 .flex {
   display: flex;
   place-content: center;
