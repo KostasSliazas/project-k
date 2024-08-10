@@ -118,12 +118,14 @@
 .e .movable:nth-child(15),
 .e .movable:nth-child(17),
 .e .movable:nth-child(18),
+.e .movable:nth-child(19),
 .e .movable:nth-child(24) {
   visibility: hidden
 }
 * {
   margin: 0;
   padding: 0;
+  scrollbar-width: thin;
   box-sizing: border-box
 }
 body {
@@ -454,8 +456,25 @@ div.moves {
   max-width: 230px
 }
 .oxs{
-  overflow: auto;
   user-select: auto;
+}
+.oxs:hover{
+  overflow: auto;
+}
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+ background: var(--color2);
+}
+
+::-webkit-scrollbar-thumb {
+ background: var(--color3);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color4);
 }
 .flex {
   display: flex;
@@ -475,8 +494,11 @@ textarea {
   border: 0;
   padding: 0 4px;
   width: 100%;
+  overflow: hidden;
 }
-
+textarea:hover{
+  overflow: auto;
+}
 input[type=text] {
   display: block;
   height: 18px;
