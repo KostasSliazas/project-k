@@ -14,7 +14,9 @@
   <link rel="stylesheet" href="./css/main.min.css">
 </head>
 
-<body style="visibility: hidden">
+<body>
+  <div id="loader"></div>
+  <div id="content" style="visibility: hidden">
   <main class="main lines" id="main">
 
     <div class="movable" title="To enable clock please refresh page." aria-label="Clock">
@@ -175,13 +177,11 @@
       </div>
     </div>
 
-    <div class="movable" aria-label="Games">
+    <div class="movable w16" aria-label="Games">
       <h1>Games</h1>
-      <div class="w16">
         <a href="games/Questionaire/index.html" target="_blank" rel="noopener noreferrer">questionnaire</a>
         <a href="games/Memory%20Game2/index.html" target="_blank" rel="noopener noreferrer">Memory Game</a>
         <a href="games/Roulete/index.html" target="_blank" rel="noopener noreferrer">Random name</a>
-      </div>
     </div>
 
     <div class="movable" id="controls" aria-label="Theme and Appearance">
@@ -357,11 +357,13 @@
       <p title="Resample and resize JPG images in batch">mogrify -resample 72x72 -resize 256x256 *.JPG</p>
       <p title="Regular expressions to search in files (find one of two things)">grep "(root|nobody)" /etc/passwd</p>
       <p title="-print/-delete empty folders">find . -type d -empty -print</p>
+      <p title="Archive file list to file">less data.zip > file.txt</p>
       <p title="Write 'okay' to file">echo okay > filename</p>
       <p title="Show directories">find / -type d -ls</p>
       <p title="Remove image metadata">exiv2 rm image.jpg</p>
       <p title="List image metadata information">exiftool image.jpg</p>
       <p title="Remove multiple blank lines">less -s filename</p>
+      <p title="File list to file">ls -1a > file.txt</p>
       <p title="Force and recursively remove all files and subdirectories">rm -rf folder</p>
       <p title="Make a directory">mkdir newdir</p>
       <p title="Show processes">ps auxwww</p>
@@ -510,6 +512,7 @@
       <div>
       </div>
     </div>
+  </div>
   </div>
   <script src="js/main.min.js"></script>
   <script src="js/gall7.min.js"></script>

@@ -7,6 +7,33 @@
   --bg: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQIW2NgAAIAAAUAAR4f7BQAAAAASUVORK5CYII=);
   --repeat: center/cover no-repeat;
 }
+* {
+  margin: 0;
+  padding: 0;
+  scrollbar-width: thin;
+  box-sizing: border-box
+}
+html{background: #eee}
+#loader {
+  border: 7px solid #ccc;
+  border-top: 7px solid #777;
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+      transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+      transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
 .bg-image{
     --bg: url(../img/k.svg);
 }
@@ -121,12 +148,6 @@
 .e .movable:nth-child(19),
 .e .movable:nth-child(24) {
   visibility: hidden
-}
-* {
-  margin: 0;
-  padding: 0;
-  scrollbar-width: thin;
-  box-sizing: border-box
 }
 body {
   font: 16px/1.25 Arial, sans-serif;

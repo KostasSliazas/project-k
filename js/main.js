@@ -746,8 +746,11 @@
       clock.startTime();
     }
 
-    d.body.style.visibility = 'visible';
-
+      // Hide the loader
+      document.getElementById('loader').style.display = 'none';
+  
+      // Show the content
+      document.getElementById('content').style.visibility = 'visible';
 
     // remove lines if set to false in local storage by default show them
     const isCheckedLines = getLocalStorageItems("theme-lines");
