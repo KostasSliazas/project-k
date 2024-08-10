@@ -41,12 +41,12 @@
   const textArea = d.getElementsByTagName("TEXTAREA")[0];
   const bg = d.querySelector("#bg-file");
   const styles = ["width", "height", "left", "top"];
-  const blockDefaults = "width:90px;height:20px;left:490px;top:120px;,width:110px;height:40px;left:490px;top:0px;,width:110px;height:60px;left:490px;top:40px;,width:60px;height:60px;left:600px;top:40px;,width:160px;height:540px;left:820px;top:0px;,width:160px;height:220px;left:0px;top:160px;,width:160px;height:420px;left:660px;top:40px;,width:160px;height:160px;left:0px;top:0px;,width:150px;height:240px;left:340px;top:0px;,width:160px;height:80px;left:660px;top:460px;,width:170px;height:400px;left:490px;top:140px;,width:110px;height:40px;left:710px;top:0px;,width:110px;height:40px;left:600px;top:0px;,width:80px;height:20px;left:580px;top:120px;,width:170px;height:20px;left:490px;top:100px;,width:150px;height:300px;left:340px;top:240px;,width:180px;height:540px;left:160px;top:0px;,width:160px;height:80px;left:0px;top:460px;,width:160px;height:80px;left:0px;top:380px;";
+  const blockDefaults = "width:90px;height:20px;left:310px;top:120px;,width:110px;height:40px;left:310px;top:0px;,width:110px;height:60px;left:310px;top:40px;,width:60px;height:60px;left:420px;top:40px;,width:160px;height:540px;left:640px;top:0px;,width:160px;height:200px;left:0px;top:0px;,width:160px;height:420px;left:480px;top:40px;,width:160px;height:160px;left:0px;top:200px;,width:150px;height:240px;left:160px;top:0px;,width:160px;height:80px;left:480px;top:460px;,width:170px;height:400px;left:310px;top:140px;,width:110px;height:40px;left:530px;top:0px;,width:110px;height:40px;left:420px;top:0px;,width:80px;height:20px;left:400px;top:120px;,width:170px;height:20px;left:310px;top:100px;,width:150px;height:300px;left:160px;top:240px;,width:160px;height:580px;left:0px;top:360px;,width:160px;height:80px;left:0px;top:460px;,width:160px;height:80px;left:0px;top:380px;";
   const textAreaDefaults = "Good day. You have the ability to reposition these blocks by selecting and holding the left corner or by pressing the ` key on your keyboard. Alternatively, double-click to minimize them. Additionally, you can customize the theme, colors, and background image. If locked, to unlock, simply triple-click on the background and then click 520 (default PIN) or clear localStorage (because by using this project you will write to it data, like password and other settings)";
   const counts = {allMouseClicks:0,clicks:0};
   let isLocked = getLocalStorageItems('isLocked');
   let saved = getLocalStorageItems('mustashed') || [5, 2, 0];
-  let minimized = [13,14,0];
+  let minimized = [13,14,16,0];
   let mousedown = false;
   let scalingTarget = null;
   let isEnterPass = false;

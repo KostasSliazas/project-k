@@ -286,7 +286,8 @@
         <div>few clicks and</div>
         <div>enter password</div>
         <div title="If the password is incorrect, please refresh the page. Or click few times on empty space">Default -
-          <span class="small">520</span></div>
+          <span class="small">520</span>
+        </div>
         <div class="flex spaceb">
           <div>
             <button class="em4" id="lock">LOCK</button>
@@ -343,36 +344,36 @@
       <h1>EXTERNAL LINKS2</h1>
       </div>-->
 
-    <div class="movable oxs" aria-label="linux cmd commands" title="Right click to copy">
+    <div class="movable w16 oxs" aria-label="linux cmd commands" title="Right click to copy">
       <h1>cmd commands</h1>
-      <p>ffmpeg -loop 1 -i f.png -i f.mp3 -c:v libx264 -tune stillimage -c:a aac -b:a 192k -pix_fmt yuv420p -shortest out.mp4</p>
-      <p>find . -name "*.png" -exec convert "{}" -fill white "{}" -opaque transparent "{}" -alpha off "{}" \;</p>
-      <p>grep "(root|nobody)" /etc/passwd #regular expressions to search in files (find one of two things)</p>
-      <p>rm -rf folder #force and recursively remove all files and subdirectories</p>
-      <p>wget https://codeload.github.com/KostasSliazas/template-html.io/zip/refs/tags/1.0 #download files from the internet</p>
-      <p>convert -resize 50% -delay 10 -loop 0 image_{0..99}.jpg output.gif</p>
-      <p>cd / #to change into the root directory of Linux file system. use</p>
-      <p>ffmpeg -loop 1 -i picture.png -i audio.ogg -shortest output.mpeg</p>
-      <p>cd #to return to the home directory immediately. use cd ~ OR cd</p>
-      <p>convert -delay 10 `ls -v` -loop 0 {0100..0255}.png output.gif</p>
-      <p>convert -resize 768x576 -delay 20 -loop 0 `ls -v` myimage.gif</p>
-      <p>find . -type d -empty -print #-print/-delete empty folders</p>
-      <p>mogrify -background white -flatten -format jpg *.png</p>
-      <p>exiftool image.jpg #list image metadata information</p>
-      <p>mogrify -resample 72x72 -resize 256x256 *.JPG</p>
-      <p>less -s filename #remove multiple blank lines</p>
-      <p>echo okay > filename #write 'okay' to file</p>
-      <p>exiv2 rm image.jpg #remove image metadata</p>
-      <p>df -h #get the details of file system</p>
-      <p>find / -type d -ls #show directories</p>
-      <p>pwd #show working directory (print)</p>
-      <p>mkdir newdir #make a directory</p>
-      <p>lsblk #list mounted devices</p>
-      <p>ps auxwww #show processes</p>
-      <p>who #show who is logged</p>
-      <p>mv #move or rename file</p>
-      <p>ls #list directory</p>
-      <p>cp #copy file</p>
+      <p title="Create a video from a single image and audio">ffmpeg -loop 1 -i f.png -i f.mp3 -c:v libx264 -tune stillimage -c:a aac -b:a 192k -pix_fmt yuv420p -shortest out.mp4</p>
+      <p title="Convert PNG files to opaque images with white background">find . -name "*.png" -exec convert "{}" -fill white "{}" -opaque transparent "{}" -alpha off "{}" \;</p>
+      <p title="Download files from the internet">wget https://codeload.github.com/KostasSliazas/template-html.io/zip/refs/tags/1.0</p>
+      <p title="Create an animated GIF from resized images">convert -resize 50% -delay 10 -loop 0 image_{0..99}.jpg output.gif</p>
+      <p title="Create a MPEG video from a single image and audio file">ffmpeg -loop 1 -i picture.png -i audio.ogg -shortest output.mpeg</p>
+      <p title="Resize images and create an animated GIF">convert -resize 768x576 -delay 20 -loop 0 `ls -v` myimage.gif</p>
+      <p title="Create an animated GIF from sequential PNG files">convert -delay 10 `ls -v` -loop 0 {0100..0255}.png output.gif</p>
+      <p title="Batch convert PNG to JPG with white background">mogrify -background white -flatten -format jpg *.png</p>
+      <p title="Resample and resize JPG images in batch">mogrify -resample 72x72 -resize 256x256 *.JPG</p>
+      <p title="Regular expressions to search in files (find one of two things)">grep "(root|nobody)" /etc/passwd</p>
+      <p title="-print/-delete empty folders">find . -type d -empty -print</p>
+      <p title="Write 'okay' to file">echo okay > filename</p>
+      <p title="Show directories">find / -type d -ls</p>
+      <p title="Remove image metadata">exiv2 rm image.jpg</p>
+      <p title="List image metadata information">exiftool image.jpg</p>
+      <p title="Remove multiple blank lines">less -s filename</p>
+      <p title="Force and recursively remove all files and subdirectories">rm -rf folder</p>
+      <p title="Make a directory">mkdir newdir</p>
+      <p title="Show processes">ps auxwww</p>
+      <p title="List mounted devices">lsblk</p>
+      <p title="Get the details of the file system">df -h</p>
+      <p title="Change into the root directory of the Linux file system">cd /</p>
+      <p title="Show who is logged in">who</p>
+      <p title="Show working directory (print)">pwd</p>
+      <p title="Move or rename a file">mv</p>
+      <p title="List directory contents">ls</p>
+      <p title="Copy a file">cp</p>
+      <p title="Return to the home directory immediately (use cd ~ or cd)">cd</p>
     </div>
 
     <div class="movable" aria-label="USB">
