@@ -166,7 +166,10 @@ p {
   font-family: inherit;
   line-height: 1.25
 }
-
+p {
+  padding: 0 4px;
+  place-self: start;
+}
 .small {
   font-size: 12px;
   line-height: 20px;
@@ -272,7 +275,7 @@ div.moves {
   padding-top:20px;
 }
 .minimized {
-  overflow: hidden;
+  overflow: hidden !important;
   height: 19px !important;
   padding: 0;
   min-height: 0;
@@ -439,16 +442,20 @@ div.moves {
   max-width: 150px
 }
 .w16 {
-  width: 160px
+  max-width: 160px
 }
 .w17 {
-  width: 170px
+  max-width: 170px
 }
 .w18 {
-  width: 180px
+  max-width: 180px
 }
 .w23 {
-  width: 230px
+  max-width: 230px
+}
+.oxs{
+  overflow: auto;
+  user-select: auto;
 }
 .flex {
   display: flex;
