@@ -1,9 +1,9 @@
 :root {
-  --color0: #FFFFFF;
-  --color1: #FEFFFF;
-  --color2: #E2ECF2;
-  --color3: #ABC4D1;
-  --color4: #15425C;
+  --color0: #bbb;
+  --color1: #AEACAE;
+  --color2: #9D9B9D;
+  --color3: #706F70;
+  --color4: #124;
   --bg: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQIW2NgAAIAAAUAAR4f7BQAAAAASUVORK5CYII=);
   --repeat: center/cover no-repeat;
 }
@@ -62,11 +62,11 @@ html{background: #eee}
 }
 
 .c {
-  --color0: #FFFDFB;
-  --color1: #F6F7F9;
-  --color2: #C1CEDD;
-  --color3: #7991B0;
-  --color4: #1A3B66
+  --color0: #FFFFFF;
+  --color1: #FEFFFF;
+  --color2: #E2ECF2;
+  --color3: #ABC4D1;
+  --color4: #15425C;
 }
 
 .c.bg-image {
@@ -1040,7 +1040,7 @@ input[type=number] {
 }
 
 @media screen and (max-width:700px) {
-
+  .w16, .w15 {max-width: 100%;}
   #vr.minimized,
   .bottom,
   .movable {
@@ -1050,9 +1050,12 @@ input[type=number] {
     width: 100% !important;
     height: auto !important
   }
-.tetris{clip-path:none}
+
+  .tetris{clip-path:none}
+  
+  #vr h1,
   .movable::before {
-    display: none
+    display: none !important
   }
 
   .movable.minimized div {
