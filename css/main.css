@@ -1,8 +1,8 @@
 :root {
-  --color0: #bbb;
-  --color1: #AEACAE;
-  --color2: #9D9B9D;
-  --color3: #706F70;
+  --color0: #F7F7F7;
+  --color1: #ECECEC;
+  --color2: #CFCFCF;
+  --color3: #B7B7B7;
   --color4: #124;
   --bg: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQIW2NgAAIAAAUAAR4f7BQAAAAASUVORK5CYII=);
   --repeat: center/cover no-repeat;
@@ -62,11 +62,11 @@ html{background: #eee}
 }
 
 .c {
-  --color0: #FFFFFF;
-  --color1: #FEFFFF;
-  --color2: #E2ECF2;
-  --color3: #ABC4D1;
-  --color4: #15425C;
+  --color0: #F0F5F9;
+  --color1: #CEDDE7;
+  --color2: #A0BACB;
+  --color3: #6B8EA4;
+  --color4: #032337;
 }
 
 .c.bg-image {
@@ -109,7 +109,7 @@ html{background: #eee}
 }
 .c body,
 .e body{
-  font-family: 'Nimbus Mono PS',Calibri, Candara, Segoe, Segoe UI, Optima, Arial, sans-serif;
+  font-family: Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
 }
 .f.bg-image {
   --bg: url(../img/f.webp)
@@ -150,7 +150,7 @@ html{background: #eee}
   visibility: hidden
 }
 body {
-  font: 16px/1.25 Arial, sans-serif;
+  font: 16px/1.25 -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
   font-variant-caps: all-petite-caps;
   color: var(--color4);
 }
