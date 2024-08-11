@@ -23,7 +23,7 @@ html{background: #eee}
   position: fixed;
   top: 50%;
   left: 50%;
-  animation: spin 1s linear infinite;
+  animation: spin .34s linear infinite;
 }
 
 @keyframes spin {
@@ -74,11 +74,11 @@ html{background: #eee}
 }
 
 .d {
-  --color0: #fafafa;
-  --color1: #eeeeee;
-  --color2: #ccdccd;
-  --color3: #bbcbbc;
-  --color4: #223223
+  --color0: #D9E3D5;
+  --color1: #ADB29B;
+  --color2: #92A18C;
+  --color3: #694E52;
+  --color4: #200419
 }
 
 .d.bg-image {
@@ -499,9 +499,11 @@ div.moves {
   place-content: center;
   place-items: center;
   flex-direction: column;
+  flex-wrap: wrap;
 }
 
 .flex div {
+  display: flex;
   place-content: center;
 }
 
@@ -607,6 +609,9 @@ input[type=file]::file-selector-button:active {
 .em4 {
   min-height: 30px;
   max-block-size: 30px;
+}
+.em4.ma4 {
+  margin:0 4px;
 }
 button {
     cursor: pointer;
