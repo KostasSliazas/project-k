@@ -805,29 +805,33 @@
     // })
 
   }
-
+  const concat = (...arrays) => [].concat(...arrays.filter(Array.isArray));
+  
   function setColors() {
     const compStyles = w.getComputedStyle(root);
     const colors = d.querySelectorAll("#colors input[type=color]");
     const arrayColors = [];
     const colorsLength = colors.length;
+
     // colors.forEach(async (e, i) => {
     for (let i = 0; i < colorsLength; i++) {
       const e = colors[i];
-      const compValue = compStyles.getPropertyValue("--color" + i);
+      const compValue = compStyles.getPropertyValue("--color" + i).toUpperCase();
+      arrayColors[i] = `--color${i}:${compValue}`;
       e.value = e.title = compValue;
       const label = getPE(e).getElementsByTagName('label')[0];
-      label.innerText = compValue.toUpperCase();
-      label.addEventListener('click', (event) => {
-        event.preventDefault();
-        copyToClipboard(compValue.toUpperCase());
-      });
+      label.innerText = compValue;
+      // label.addEventListener('click', (event) => {
+      //   event.preventDefault();
+      //   copyToClipboard(compValue.toUpperCase());
+      // });
 
       e.addEventListener("input", (event) => {
-        const label = getPE(event.target).getElementsByTagName('label')[0];
-        label.innerText = event.target.value.toUpperCase();
-        const index = Array.from(colors).indexOf(event.target);
-        arrayColors[index] = `--color${index}:${event.target.value}`;
+        const target = event.target;
+        const label = getPE(target).getElementsByTagName('label')[0];
+        label.innerText = target.value.toUpperCase();
+        const index = Array.from(colors).indexOf(target);
+        arrayColors[index] = `--color${index}:${target.value.toUpperCase()}`;
         setLocalStorageItems("custom-theme", arrayColors.filter(Boolean));
         styleRoot();
       });
