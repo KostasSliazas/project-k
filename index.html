@@ -4,13 +4,14 @@
 <head>
   <meta charset="UTF-8">
   <title>Project-K</title>
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
   <link rel="manifest" href="site.webmanifest">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="msapplication-TileColor" content="#7991b0">
-  <meta name="theme-color" content="#fffdfb">
   <link rel="stylesheet" href="./css/main.min.css">
 </head>
 
@@ -55,6 +56,7 @@
         <a href="https://openclipart.org" target="_blank" rel="noopener noreferrer">openclipart.org</a>
         <a href="https://www.deadlinkchecker.com" target="_blank" rel="noopener noreferrer">deadlinkchecker</a>
         <a href="https://paletton.com/" target="_blank" rel="noopener noreferrer">paletton.com</a>
+        <a href="https://www.freepik.com" target="_blank" rel="noopener noreferrer">freepik.com</a>
         <h1>AI</h1>
         <a href="https://chat.openai.com" target="_blank" rel="noopener noreferrer">chat.openai.com</a>
         <h1>Learning</h1>
@@ -68,8 +70,7 @@
         <a href="https://www.udemy.com/home/my-courses/learning/" target="_blank"
           rel="noopener noreferrer">udemy.com</a>
         <h1>mail</h1>
-        <a href="https://mail.google.com/mail/u/1/#inbox" target="_blank" rel="noopener noreferrer">mail.google.com2</a>
-        <a href="https://mail.google.com/mail/u/0/#inbox" target="_blank" rel="noopener noreferrer">mail.google.com1</a>
+        <a href="https://mail.google.com/mail/u/0/#inbox" target="_blank" rel="noopener noreferrer">mail.google.com</a>
         <h1>translate</h1>
         <a href="https://translate.google.com/?sl=auto&amp;tl=lt&amp;op=translate" target="_blank"
           rel="noopener noreferrer">translate google</a>
@@ -322,6 +323,8 @@
 
       <div class="movable w16 oxs" title="Right click to copy">
         <h1>cmd commands</h1>
+        <p title="Recursively remove copied folders (1)">sudo find -type d -name '*(1)*' -a -prune -exec rm -rf {} \;
+        <p title="Recursively remove node_modules">find . -name "node_modules" -type d -prune -exec rm -rf '{}' +</p>
         <p title="Create a video from a single image and audio">ffmpeg -loop 1 -i f.png -i f.mp3 -c:v libx264 -tune
           stillimage -c:a aac -b:a 192k -pix_fmt yuv420p -shortest out.mp4</p>
         <p title="Convert PNG files to opaque images with white background">find . -name "*.png" -exec convert "{}"
