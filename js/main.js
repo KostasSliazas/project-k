@@ -5,9 +5,6 @@
 /*jshint esversion: 11 */
 (function (w, d) {
   "use strict";
-  // create new sound for timers with base64 encoding
-  const SNDFIN = new w.Audio(
-    'data:audio/mp3;base64,SUQzBABAAAAAIAAAAAwBIAUGXHIhTFRYWFgAAAAKAAAAU29mdHdhcmUA/+NIZAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAAMAAAMYAATExMTExMTE0BAQEBAQEBATExMTExMTExgYGBgYGBgYGBzc3Nzc3Nzc4aGhoaGhoaGk5OTk5OTk5OTpqampqampqa5ubm5ubm5ueDg4ODg4ODg4Pn5+fn5+fn5//////////8AAAA5TEFNRTMuMTAwAicAAAAAAAAAABQYJARFLgAAGAAADGChy0ixAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/+M4ZAAKhhNbLKCcAI8YAuMZQBAAC1rM0JBjxj4E8fkMYxvwLGPAMY37QAAAD//M//PP8wwz////qeeYYYY08+egiAsAYAwBgkEHqe7//////9/9v///9///Y8///3zx8biWTQbjcmeHs0TEzdU9E4lwfeXPv8H5cHwfwQ4DB8H35QEAQ+7EHlwQBAEPicEAQBAEP5cH+CDn//B9AgBD//////yhxVecu6nZvLu6pkRdJWXpUGgJ5hpoGAoWu2DxH+CCYILUUDHEyE+TOCUN43q0HPfhJ4tz/+N4RDIdnbdjjMzgADlS0r8ZmcABUUyajcgVnSuhlVQGQX2YP9HaJprTHUXa9U07Kk2HKBQM8DioCmZP1YWa0d9naex3LTl3Xeg1Q5oMOSiBarNIEbRgFVyQMF4FBkrmxoqo8sqdNMiGn+qNelVaeo8Ihe3jh3V3ueErnWWO0DWymRU2X7pr0RrJvg7Tr3P/88O282Mh1JD+vqzdLcpsu2bGsvyw3es61vKly7vd/mt///rX8/HeH5b5+8ua3vuXebv5Y9///meH/zerpdX60vVRkM71FQ8tLggOBsgHA1Q0K+RgbmQGOkpHEBxlGlm0A9OuyhXuHLxZAMQjPO87R23hm4yRsmmYt7KY6weibozBt1fSNgLWWmt0l7vROJFz0jsKOApDJ7kipIckM5G612BIHp95sjjcONVXrSSt15BRSfOZqZQFDMOvCxOidvKUQ/JYEgiCGuTsdws3LE8+M5l21QwDDL9AP7EZqXU3/Obstda6QIY7b738ZXSRmdhodfZn+6xs1dZVt446yy3jSWc///zxwz1/aX8/536vlbgwUCkgoFJBQKN77xUohTj//HmVFYUql3u3+zNwYeIJhOlo4bMUz0cmgaEtZJ9eTL58SKL3qSo8gltT99Jo26I7q0jNKF31OQ06rJQ+flRIMZndD0X//6u3/+MoREILQQl5LOMoARZqDvJZyTgC/WknA6wC44XEJ1mj+zY9zRZ5P/////3olu1v+zEw8xgzqIJtUt8+/s0hOSWtqZi2ECHZ1J9sxSyPvsrEsruOR48SOmqw8ed3o7LNlZxQwopU2ebbmsb//65n/8dBJ/L3f/iIgtgqG0SQ9MNyH////yt1mvu/+qEo6gli/+M4RAkLKQlvLCUKZxZSEup4SZQ6hPCcnFvcZV/JFlEBckUWl0yWmiFkiIiZATCp+zVyr4hmJknv/ZmaDvi5qO1JExrD+VU0Bm3////7WO/654ehr/JO/yU23VIA0G53/////3Iu2vaIdmJhyopjqZGAwWIYR/bUpmzit71QkwoggZQ4UbeHWy5Mzf9nG0uDfLUdpL+mpr0dYsE9Escaq0qrJ//u1VX/9zA3dvJNf/8AsQhc44FyUqz/////PIVOSS22gODljWhVgO4bdVueZxtbzE6XQ6sm/+M4RBkLaQlfLBlPaRZMEscYGWCZ5JJa0VWK6toY69n1Zed2TQjCoIcfI+ceAXGhMc1HPO///N6/9N0vS2ItzRHCyh+2pz9//ROtHCoJCIcfmf////96DiJmZvKpDcf/QphxCFq9XcML4bUSEeiuPwCFuKvfMql3yKhcqU7lV2oRRI6IgowwPEfQyf//rv19KtKcBBBWTd6vXrr1//b/a36lII77f9f/////////5dzKUltu0iDowDQtgFGgNY9l5KIx1sJgpWGoUisRC23PdCOjoKp9pTDf/+M4RCcKegljLhWilZWkDuJ8OAXD/o99BaY4UkF///9Xb+9aFEJMMj/3p////X/KU5SmMxDXP////////r//1GWabbeHh3YuGAaVKC4SzCDEjjVYd1nLbcaklOc4RBJCcaGEhQTQvn7dDjHRyJh+a/1e9DzDx841T1FJjfp//73T/1oFgSZP+tFS///Tzf9+6df9v///QCbqDklsupDsgAH4urLurqlysyrshIuQiiQGiBnUxq/+iel2R0DXJ1ARNIqylKoiAnWf///+31KrRqOh0HK0y+rJ/+MoZD8K2QdfLxRtgRT63sZeUAWCf+w/4lBFTyv/9ZCO+jSOUeYJQbVErg6hSS23bIDWAAeioN2R0+clfyp5MhjOpYlnOhrUf/827nMdeRO9DlZ0KHkLHmIoDp9////Q5Gb86+ggQO7/pRPuYGxBT3A10FtSk9gExmVoSz89WAj1BbgkkpDsgAHk5+hmbMpg/+M4ZA8KjQlVLwVtkRVSEsJeEFQ+2RBCH8ISyJzfXzvrv4n4QOa6HFIEw6lXO44///qWvupVVjrKBxE0lvcHngoed//iqgbd5X/lXMgXjSJEadeKTwlWGmxRycttu2Qu2AA+YUf73MJDKGmHzii8ffl2KEikYdZzWTI3aaRDEL4VjUT///3f/6UcEmfwVLCIxd1eSb0ILhP/1r6luvLoCoaMxGwiVGzQnEYVERISnVIAwBpQAPwAHcl///5///////7dYxq3///9ls6RkyJ4olgnjdAiJMES/+M4ZCgK9gk8L6DAAJaCLnBdQqAASATC5iKDQdFB/q7///+v1U0Vom06ePpb/Xf////S+3S93simy9FVJKp0VomsmUsoBACPAH8KGDDhNEM0syer/1Qj///////1dEY1af//9dJFlpJTIxRIYXiaKRcSHUOwbIBCQDhFxYhPhaOEVPTcaJ2I//8ERZK///z1R4XY1VC1pEQMucAg8HSVAAATky8TpOuJMwaJvRTtYUqOxHMcculGbTAzu8QGVtu8Z4cOBZqaqKjv3ssZ61ZtfnKautYfveF7/+NoZDkbHeEiDMfoADg7kkARmOABe6a3jrvbusabGr++4bvVL8ANSy7j3tJfrNGhXN85rWemfZd1zefZAzF3G/GgBiwIQzBZMRB43OQ3aeNrb5IZPCUAoUvJacMRau6L3uMu1GRFI54BFuD5NFZLSXod/Ddzv6r8sx7PCP/vlBr9fz4IsZ2b/e65ze+6pbuWO/3z8csfyuX+42u2s8MrF789/Z+au3q9LYxyz72xzPveaxxsZgAMSdugyRiUj6oPAUnqwxBzWoXAEnhF+lk0JjP0V2V2K+47cl3zsv+1d1STNmM4YyvuotSXqme8K+Wd7OrSZ1dXu73jbw5hy32/d23RV3dZZY1tdUcg/e9azs2NMay3T/PzFh4blxiIsFhYKmFzsc3a4BA6oa7iV66qSrxwAiIDA0NmqXANBNUTyxWEQ3DEdT8MAAgrCxyQojQkXwuF3pZllS54a/m+XL+Ud5hQ9/6HP//mLhz/5VPvV79uphLLtNhr+9/v5d//5+Wd7mOX9t9/Xfw59XO3fp8r1jadJAmPWUEAAQIBVESFYF3T41IjTv8JoLQ6Sr/qIso2/+NIZBoP8ZkWXMVQAB+TNkAJhZgCR//WxeuTKZFf//MDws4ehlifJYcknCDdf//ikhhgGBTcWgDDoACA4aCAKOFAh6Qs/rYySdSTo//i5h0kUJ0coiZAiPIiTJoXikVlsrX///5MmJOlJi8dSLpgXTJMvHTxic2NUxqgEAxxAO/4rT/iQiz/5kfMTEnTL/9AvFFyZKBdJr//ybIEWScICTBJDlEHGZ///xXRYRCYMhAKCAdsDT4D2QAzosQNgIeh7kyYstFkv/xBUTcLLEJh9jsFmkwO4corkFIaRFTorq///8hxwgxGpkVKBqTRNl4olwmTAtk0b/apTEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV/+MYZCcAAAGkAOAAAAAAA0gBwAAAVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV');
   const getLocalStorageItems = (item) => {
     try {
       return JSON.parse(localStorage.getItem(item));
@@ -17,6 +14,33 @@
     }
   };
   const setLocalStorageItems = (item, value) => localStorage.setItem(item, JSON.stringify(value));
+  const main = d.getElementById('main');
+  const hide = elem => elem.classList.add('hide');
+  const show = elem => elem.classList.remove('hide');
+  let isLocked = getLocalStorageItems('isLocked');
+
+  if (isLocked) {
+    d.title = 'New Tab'; // change title (document)
+    d.getElementById('loader').style.display = 'none'; // Hide the loader
+    
+    // create a new HTML link element
+    const link = d.createElement('link');
+    link.rel = 'icon';
+    link.type = 'image/x-icon';
+    link.href = 'data:image/x-icon;base64,AAABAAEAEBAAAAAAAABoBQAAFgAAACgAAAAQAAAAIAAAAAEACAAAAAAAAAEAAAAAAAAAAAAAAAEAAAAAAAD///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=';
+    const existingLink = d.querySelector('link[rel="icon"]');
+    if (existingLink) d.head.removeChild(existingLink);
+    d.head.appendChild(link);
+
+    hide(main);
+  } else {
+    show(main);
+  }
+
+  // create new sound for timers with base64 encoding
+  const SNDFIN = new w.Audio(
+    'data:audio/mp3;base64,SUQzBABAAAAAIAAAAAwBIAUGXHIhTFRYWFgAAAAKAAAAU29mdHdhcmUA/+NIZAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAAMAAAMYAATExMTExMTE0BAQEBAQEBATExMTExMTExgYGBgYGBgYGBzc3Nzc3Nzc4aGhoaGhoaGk5OTk5OTk5OTpqampqampqa5ubm5ubm5ueDg4ODg4ODg4Pn5+fn5+fn5//////////8AAAA5TEFNRTMuMTAwAicAAAAAAAAAABQYJARFLgAAGAAADGChy0ixAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/+M4ZAAKhhNbLKCcAI8YAuMZQBAAC1rM0JBjxj4E8fkMYxvwLGPAMY37QAAAD//M//PP8wwz////qeeYYYY08+egiAsAYAwBgkEHqe7//////9/9v///9///Y8///3zx8biWTQbjcmeHs0TEzdU9E4lwfeXPv8H5cHwfwQ4DB8H35QEAQ+7EHlwQBAEPicEAQBAEP5cH+CDn//B9AgBD//////yhxVecu6nZvLu6pkRdJWXpUGgJ5hpoGAoWu2DxH+CCYILUUDHEyE+TOCUN43q0HPfhJ4tz/+N4RDIdnbdjjMzgADlS0r8ZmcABUUyajcgVnSuhlVQGQX2YP9HaJprTHUXa9U07Kk2HKBQM8DioCmZP1YWa0d9naex3LTl3Xeg1Q5oMOSiBarNIEbRgFVyQMF4FBkrmxoqo8sqdNMiGn+qNelVaeo8Ihe3jh3V3ueErnWWO0DWymRU2X7pr0RrJvg7Tr3P/88O282Mh1JD+vqzdLcpsu2bGsvyw3es61vKly7vd/mt///rX8/HeH5b5+8ua3vuXebv5Y9///meH/zerpdX60vVRkM71FQ8tLggOBsgHA1Q0K+RgbmQGOkpHEBxlGlm0A9OuyhXuHLxZAMQjPO87R23hm4yRsmmYt7KY6weibozBt1fSNgLWWmt0l7vROJFz0jsKOApDJ7kipIckM5G612BIHp95sjjcONVXrSSt15BRSfOZqZQFDMOvCxOidvKUQ/JYEgiCGuTsdws3LE8+M5l21QwDDL9AP7EZqXU3/Obstda6QIY7b738ZXSRmdhodfZn+6xs1dZVt446yy3jSWc///zxwz1/aX8/536vlbgwUCkgoFJBQKN77xUohTj//HmVFYUql3u3+zNwYeIJhOlo4bMUz0cmgaEtZJ9eTL58SKL3qSo8gltT99Jo26I7q0jNKF31OQ06rJQ+flRIMZndD0X//6u3/+MoREILQQl5LOMoARZqDvJZyTgC/WknA6wC44XEJ1mj+zY9zRZ5P/////3olu1v+zEw8xgzqIJtUt8+/s0hOSWtqZi2ECHZ1J9sxSyPvsrEsruOR48SOmqw8ed3o7LNlZxQwopU2ebbmsb//65n/8dBJ/L3f/iIgtgqG0SQ9MNyH////yt1mvu/+qEo6gli/+M4RAkLKQlvLCUKZxZSEup4SZQ6hPCcnFvcZV/JFlEBckUWl0yWmiFkiIiZATCp+zVyr4hmJknv/ZmaDvi5qO1JExrD+VU0Bm3////7WO/654ehr/JO/yU23VIA0G53/////3Iu2vaIdmJhyopjqZGAwWIYR/bUpmzit71QkwoggZQ4UbeHWy5Mzf9nG0uDfLUdpL+mpr0dYsE9Escaq0qrJ//u1VX/9zA3dvJNf/8AsQhc44FyUqz/////PIVOSS22gODljWhVgO4bdVueZxtbzE6XQ6sm/+M4RBkLaQlfLBlPaRZMEscYGWCZ5JJa0VWK6toY69n1Zed2TQjCoIcfI+ceAXGhMc1HPO///N6/9N0vS2ItzRHCyh+2pz9//ROtHCoJCIcfmf////96DiJmZvKpDcf/QphxCFq9XcML4bUSEeiuPwCFuKvfMql3yKhcqU7lV2oRRI6IgowwPEfQyf//rv19KtKcBBBWTd6vXrr1//b/a36lII77f9f/////////5dzKUltu0iDowDQtgFGgNY9l5KIx1sJgpWGoUisRC23PdCOjoKp9pTDf/+M4RCcKegljLhWilZWkDuJ8OAXD/o99BaY4UkF///9Xb+9aFEJMMj/3p////X/KU5SmMxDXP////////r//1GWabbeHh3YuGAaVKC4SzCDEjjVYd1nLbcaklOc4RBJCcaGEhQTQvn7dDjHRyJh+a/1e9DzDx841T1FJjfp//73T/1oFgSZP+tFS///Tzf9+6df9v///QCbqDklsupDsgAH4urLurqlysyrshIuQiiQGiBnUxq/+iel2R0DXJ1ARNIqylKoiAnWf///+31KrRqOh0HK0y+rJ/+MoZD8K2QdfLxRtgRT63sZeUAWCf+w/4lBFTyv/9ZCO+jSOUeYJQbVErg6hSS23bIDWAAeioN2R0+clfyp5MhjOpYlnOhrUf/827nMdeRO9DlZ0KHkLHmIoDp9////Q5Gb86+ggQO7/pRPuYGxBT3A10FtSk9gExmVoSz89WAj1BbgkkpDsgAHk5+hmbMpg/+M4ZA8KjQlVLwVtkRVSEsJeEFQ+2RBCH8ISyJzfXzvrv4n4QOa6HFIEw6lXO44///qWvupVVjrKBxE0lvcHngoed//iqgbd5X/lXMgXjSJEadeKTwlWGmxRycttu2Qu2AA+YUf73MJDKGmHzii8ffl2KEikYdZzWTI3aaRDEL4VjUT///3f/6UcEmfwVLCIxd1eSb0ILhP/1r6luvLoCoaMxGwiVGzQnEYVERISnVIAwBpQAPwAHcl///5///////7dYxq3///9ls6RkyJ4olgnjdAiJMES/+M4ZCgK9gk8L6DAAJaCLnBdQqAASATC5iKDQdFB/q7///+v1U0Vom06ePpb/Xf////S+3S93simy9FVJKp0VomsmUsoBACPAH8KGDDhNEM0syer/1Qj///////1dEY1af//9dJFlpJTIxRIYXiaKRcSHUOwbIBCQDhFxYhPhaOEVPTcaJ2I//8ERZK///z1R4XY1VC1pEQMucAg8HSVAAATky8TpOuJMwaJvRTtYUqOxHMcculGbTAzu8QGVtu8Z4cOBZqaqKjv3ssZ61ZtfnKautYfveF7/+NoZDkbHeEiDMfoADg7kkARmOABe6a3jrvbusabGr++4bvVL8ANSy7j3tJfrNGhXN85rWemfZd1zefZAzF3G/GgBiwIQzBZMRB43OQ3aeNrb5IZPCUAoUvJacMRau6L3uMu1GRFI54BFuD5NFZLSXod/Ddzv6r8sx7PCP/vlBr9fz4IsZ2b/e65ze+6pbuWO/3z8csfyuX+42u2s8MrF789/Z+au3q9LYxyz72xzPveaxxsZgAMSdugyRiUj6oPAUnqwxBzWoXAEnhF+lk0JjP0V2V2K+47cl3zsv+1d1STNmM4YyvuotSXqme8K+Wd7OrSZ1dXu73jbw5hy32/d23RV3dZZY1tdUcg/e9azs2NMay3T/PzFh4blxiIsFhYKmFzsc3a4BA6oa7iV66qSrxwAiIDA0NmqXANBNUTyxWEQ3DEdT8MAAgrCxyQojQkXwuF3pZllS54a/m+XL+Ud5hQ9/6HP//mLhz/5VPvV79uphLLtNhr+9/v5d//5+Wd7mOX9t9/Xfw59XO3fp8r1jadJAmPWUEAAQIBVESFYF3T41IjTv8JoLQ6Sr/qIso2/+NIZBoP8ZkWXMVQAB+TNkAJhZgCR//WxeuTKZFf//MDws4ehlifJYcknCDdf//ikhhgGBTcWgDDoACA4aCAKOFAh6Qs/rYySdSTo//i5h0kUJ0coiZAiPIiTJoXikVlsrX///5MmJOlJi8dSLpgXTJMvHTxic2NUxqgEAxxAO/4rT/iQiz/5kfMTEnTL/9AvFFyZKBdJr//ybIEWScICTBJDlEHGZ///xXRYRCYMhAKCAdsDT4D2QAzosQNgIeh7kyYstFkv/xBUTcLLEJh9jsFmkwO4corkFIaRFTorq///8hxwgxGpkVKBqTRNl4olwmTAtk0b/apTEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV/+MYZCcAAAGkAOAAAAAAA0gBwAAAVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV');
+  const setCheckboxChecked = (checkboxId, isChecked) => d.getElementById(checkboxId).checked = isChecked
   const pindiscard = d.getElementById('pindiscard');
   const pinsave = d.getElementById('pinsave');
   const random = (min, max) => Math.floor(Math.random() * (max - min)) + min;
@@ -27,9 +51,6 @@
   const roundToTen = num => Math.ceil(num / 10) * 10;
   const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
   const addLeadingZero = (time) => time.toString().length < 2 ? "0" + time : time;
-  const hide = elem => elem.classList.add('hide');
-  const show = (elem, type) => elem.classList.remove('hide');
-  const main = d.getElementById('main');
   const online = navigator.onLine;
   const getPE = elem => elem.parentElement;
   const root = d.documentElement;
@@ -43,10 +64,12 @@
   const styles = ["width", "height", "left", "top"];
   const blockDefaults = "width:90px;height:20px;left:310px;top:120px;,width:110px;height:40px;left:310px;top:0px;,width:110px;height:60px;left:310px;top:40px;,width:60px;height:60px;left:420px;top:40px;,width:160px;height:440px;left:640px;top:100px;,width:160px;height:200px;left:0px;top:0px;,width:160px;height:420px;left:480px;top:40px;,width:160px;height:160px;left:0px;top:200px;,width:150px;height:240px;left:160px;top:0px;,width:160px;height:80px;left:480px;top:460px;,width:170px;height:400px;left:310px;top:140px;,width:110px;height:40px;left:530px;top:0px;,width:110px;height:40px;left:420px;top:0px;,width:80px;height:20px;left:400px;top:120px;,width:170px;height:20px;left:310px;top:100px;,width:150px;height:300px;left:160px;top:240px;,width:160px;height:20px;left:0px;top:360px;,width:160px;height:80px;left:0px;top:460px;,width:160px;height:80px;left:0px;top:380px;,width:160px;height:100px;left:640px;top:0px;";
   const textAreaDefaults = "Good day. You have the ability to reposition these blocks by selecting and holding the left corner or by pressing the ` key on your keyboard. Alternatively, double-click to minimize them. Additionally, you can customize the theme, colors, and background image. If locked, to unlock, simply triple-click on the background and then click 520 (default PIN) or clear localStorage (because by using this project you will write to it data, like password and other settings)";
-  const counts = {allMouseClicks:0,clicks:0};
-  let isLocked = getLocalStorageItems('isLocked');
+  const counts = {
+    allMouseClicks: 0,
+    clicks: 0
+  };
   let saved = getLocalStorageItems('mustashed') || [5, 2, 0];
-  let minimized = [13,14,16,0];
+  let minimized = [13, 14, 16, 0];
   let mousedown = false;
   let scalingTarget = null;
   let isEnterPass = false;
@@ -699,6 +722,20 @@
     if (!localStorage.length) {
       setLocalStorageItems('theme-lines', true);
     }
+    // remove lines if set to false in local storage by default show them
+    const isCheckedLines = getLocalStorageItems("theme-lines");
+    setCheckboxChecked('bg-toggle', isCheckedLines);
+    main.classList.toggle('lines', isCheckedLines);
+
+    // remove default bg by default true
+    const isCheckedBg = getLocalStorageItems("theme-bg");
+    setCheckboxChecked('enabled-bg', isCheckedBg);
+    root.classList.toggle('bg-image', isCheckedBg);
+
+    // remove default repeating
+    const isRepeatingBg = getLocalStorageItems("bg-repeat");
+    setCheckboxChecked('repeat-toggle', isRepeatingBg);
+    main.classList.toggle('bg-repeat', isRepeatingBg);
 
     // set remembered last counter seconds
     timers.counterTime.textContent = addLeadingZero(timers.totalSeconds());
@@ -746,74 +783,28 @@
       clock.startTime();
     }
 
-      // Hide the loader
-      document.getElementById('loader').style.display = 'none';
-  
-      // Show the content
-      document.getElementById('content').style.visibility = 'visible';
 
-    // remove lines if set to false in local storage by default show them
-    const isCheckedLines = getLocalStorageItems("theme-lines");
-    const bgToggle = d.getElementById('bg-toggle');
 
-    if (isCheckedLines) {
-      bgToggle.checked = true;
-      main.classList.add('lines');
-    } else {
-      bgToggle.checked = false;
-      main.classList.remove('lines');
-    }
+    d.getElementById('loader').style.display = 'none'; // Hide the loader
+    d.getElementById('content').style.visibility = 'visible'; // Show the content
 
-    // remove default bg by default true
-    const isCheckedBg = getLocalStorageItems("theme-bg");
-    const enabledBg = d.getElementById('enabled-bg');
-    
-    if (isCheckedBg) {
-      enabledBg.checked = true;
-      root.classList.add('bg-image');
-    } else {
-      enabledBg.checked = false;
-      root.classList.remove('bg-image');
-    }
-
-    // remove default repeating
-    const isRepeatingBg = getLocalStorageItems("bg-repeat");
-    const repeatToggle = d.getElementById('repeat-toggle');
-
-    if (isRepeatingBg) {
-      repeatToggle.checked = true;
-      main.classList.add('bg-repeat');
-    } else {
-      repeatToggle.checked = false;
-      main.classList.remove('bg-repeat');
-    }
-
-    if (isLocked) {
-      d.title = 'New Tab';
-      hide(main);
-    } else {
-      show(main);
-    }
-    // const tryOnce = new Repeater(700, 1, async ()=>{
-    //   tryOnce.stop()
     //is time 43m passed and we are online?
     if (setTimeStamp(43) && online) {
       await getAll(api_url);
-      await stats(getLocalStorageItems("statsData"));
-      return false;
     }
-    // })
+    // show the data to user    
+    stats(getLocalStorageItems("statsData"));
 
   }
-  const concat = (...arrays) => [].concat(...arrays.filter(Array.isArray));
-  
+
+  // const concat = (...arrays) => [].concat(...arrays.filter(Array.isArray));
+
   function setColors() {
     const compStyles = w.getComputedStyle(root);
     const colors = d.querySelectorAll("#colors input[type=color]");
     const arrayColors = [];
     const colorsLength = colors.length;
 
-    // colors.forEach(async (e, i) => {
     for (let i = 0; i < colorsLength; i++) {
       const e = colors[i];
       const compValue = compStyles.getPropertyValue("--color" + i).toUpperCase();
@@ -821,10 +812,7 @@
       e.value = e.title = compValue;
       const label = getPE(e).getElementsByTagName('label')[0];
       label.innerText = compValue;
-      // label.addEventListener('click', (event) => {
-      //   event.preventDefault();
-      //   copyToClipboard(compValue.toUpperCase());
-      // });
+
 
       e.addEventListener("input", (event) => {
         const target = event.target;
@@ -835,7 +823,6 @@
         setLocalStorageItems("custom-theme", arrayColors.filter(Boolean));
         styleRoot();
       });
-      // });
     }
   }
 
@@ -994,7 +981,7 @@
       counts.clicks = typed.length = 0; // RESET array length and count when not container clicked
       d.addEventListener('mousemove', lockerMouseMovments);
       show(codeDiv);
-    } 
+    }
 
     // show statistics about mouse
     counts.allMouseClicks++;
@@ -1259,30 +1246,30 @@
 
   // ////////////////////////////
 
-    // make refresh after midnigth 00:00
+  // make refresh after midnigth 00:00
 
-          function timeUntilMidnight() {
-            const now = new Date();
-            const nextMidnight = new Date(
-                now.getFullYear(),
-                now.getMonth(),
-                now.getDate() + 1, // next day
-                0, 0, 0, 0 // at 00:00:00
-            );
-            return nextMidnight - now;
-        }
+  function timeUntilMidnight() {
+    const now = new Date();
+    const nextMidnight = new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate() + 1, // next day
+      0, 0, 0, 0 // at 00:00:00
+    );
+    return nextMidnight - now;
+  }
 
-        function scheduleMidnightRefresh() {
-            const msUntilMidnight = timeUntilMidnight();
-            setTimeout(function() {
-                location.reload(); // Refresh the page
-            }, msUntilMidnight);
+  function scheduleMidnightRefresh() {
+    const msUntilMidnight = timeUntilMidnight();
+    setTimeout(function () {
+      location.reload(); // Refresh the page
+    }, msUntilMidnight);
 
-            // Optional: Adjust the timeout every minute to stay accurate
-            setTimeout(scheduleMidnightRefresh, 60000);
-        }
+    // Optional: Adjust the timeout every minute to stay accurate
+    setTimeout(scheduleMidnightRefresh, 60000);
+  }
 
-        window.onload = function() {
-            scheduleMidnightRefresh();
-        };
+  window.onload = function () {
+    scheduleMidnightRefresh();
+  };
 })(window, document);
