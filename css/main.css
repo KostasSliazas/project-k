@@ -663,7 +663,7 @@ button:hover,
 input[type=button]:hover,
 input[type=file]::file-selector-button:hover,
 input[type=reset]:hover {
-    background: var(--color3)
+    background: var(--color0)
 }
 
 input[type=color] {
