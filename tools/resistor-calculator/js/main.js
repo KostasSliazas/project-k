@@ -6,6 +6,19 @@
  * @date 7/7/2023 - 12:57:36 AM
 */
 
+function formatOutputValue(value) {
+  // if (typeof value !== 'number') {
+  //     throw new Error("Value must be a number.");
+  // }
+  if (value >= 1e6) {
+      return (value / 1e6).toFixed(2) + ' MΩ';
+  } else if (value >= 1e3) {
+      return (value / 1e3).toFixed(2) + ' kΩ';
+  } else {
+      return value + ' Ω';
+  }
+}
+
 // const key=value + color , 'T':tolerance --- null will be 20%
 const COLORS = [
   {0: 'BLACK','T': null},
@@ -125,7 +138,7 @@ function colorDetect(e, i) {
         let stringToNum = parseInt(theResistor.slice(0,fourOrFive).join('').replace(reg));
         let stringToNum1 = parseInt(resistorReversed.slice(0,fourOrFive).join('').replace(reg));
 
-        outputValueSpan.innerHTML = '<span>(if reverse:' + (stringToNum1 * powerValueRev) + ')</span>' + (stringToNum * powerValue);
+        outputValueSpan.innerHTML = '<span>(if reverse:' + formatOutputValue(stringToNum1 * powerValueRev) + ')</span>' + formatOutputValue(stringToNum * powerValue);
         outputToleranceSpan.innerHTML = '<span>(if reverse:' + (COLORS[theResistor[0]].T || 20) + ')</span>' + (COLORS[theResistor[theResistor.length - 1]].T || 20);
       }
     }
