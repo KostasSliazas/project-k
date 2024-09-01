@@ -68,11 +68,11 @@ html {
 }
 
 .b {
-    --color0: #1C131E;
-    --color1: #383439;
-    --color2: #605D61;
-    --color3: #888589;
-    --color4: #eeeeee
+    --color0: #FCFCFC;
+    --color1: #E2E7E9;
+    --color2: #E2DED9;
+    --color3: #8A9484;
+    --color4: #333333
 }
 
 .b.bg-image {
@@ -95,7 +95,7 @@ html {
     --color0: #F6F5F4;
     --color1: #DEDDDA;
     --color2: #ACABAA;
-    --color3: #5A5A59;
+    --color3: #777779;
     --color4: #15130F
 }
 
@@ -536,8 +536,8 @@ a {
     max-width: 230px
 }
 
-.oxs {
-    user-select: auto
+.oxs p {
+    user-select: all !important
 }
 
 .oxs:hover,
