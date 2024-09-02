@@ -536,7 +536,7 @@ a {
     max-width: 230px
 }
 
-.oxs p {
+.oxs p, .oxs i:nth-child(even) {
     user-select: all !important
 }
 
@@ -569,7 +569,21 @@ textarea:hover {
     display: flex;
     place-content: center
 }
-
+.table{
+display: grid;
+max-width: max-content;
+grid-template-columns: repeat(2, minmax(1em, auto));
+grid-template-rows: repeat(30, minmax(1em, auto));
+}
+.table i{
+box-shadow: 0 1px 0 0 currentColor;
+font-style: inherit;
+line-height: 1;
+white-space: nowrap;
+overflow: hidden;
+padding: 0 4px;
+text-overflow: ellipsis;
+}
 input[type=text],
 textarea {
     background: var(--color0);
@@ -869,7 +883,9 @@ div:first-of-type+.checkbox {
     aspect-ratio: 1;
     line-height: 1
 }
-
+#calculator input+input:last-child {
+    aspect-ratio: 0;
+}
 #calculator input {
     -webkit-user-select: none;
     -khtml-user-select: none;
