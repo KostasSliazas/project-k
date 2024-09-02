@@ -846,7 +846,7 @@
       setColors();
     }
 
-    if ((e.target.textContent || e.target.value) && e.target.tagName !== 'BUTTON' && (e.target.getAttribute('type') && e.target.getAttribute('type').toUpperCase() !== 'BUTTON' && e.target.getAttribute('type').toUpperCase() !== 'SUBMIT' && e.target.getAttribute('type').toUpperCase() !== 'RESET') || e.target.tagName.toLowerCase() === 'p' || e.target.tagName.toLowerCase() === 'textarea' || e.target.id === 'clipboard') {
+    if ((e.target.textContent || e.target.value) && e.target.tagName !== 'BUTTON' && (e.target.getAttribute('type') && e.target.getAttribute('type').toUpperCase() !== 'BUTTON' && e.target.getAttribute('type').toUpperCase() !== 'SUBMIT' && e.target.getAttribute('type').toUpperCase() !== 'RESET') || e.target.tagName.toLowerCase() === 'p' || e.target.tagName.toLowerCase() === 'i' || e.target.tagName.toLowerCase() === 'textarea' || e.target.id === 'clipboard') {
       copyToClipboard(e.target.textContent || e.target.value);
     }
 
