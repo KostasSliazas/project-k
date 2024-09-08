@@ -17,7 +17,15 @@
         color: inherit
     }
 }
-
+@font-face {
+    font-family: 'kfont';
+    src: url('kfont.woff2') format('woff2'),
+        url('kfont.woff') format('woff'),
+        url('kfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
 :root {
     --color0: #F7F7F7;
     --color1: #ECECEC;
@@ -327,7 +335,7 @@ a {
 }
 
 .movable::before {
-    content: "✥";
+    content: "A";
     width: 20px;
     height: 20px;
     pointer-events: all;
@@ -335,7 +343,8 @@ a {
     top: -1px;
     left: 0;
     text-align: center;
-    line-height: 20px
+    line-height: 20px;
+    font-family: 'kfont';
 }
 
 .movable>div {
@@ -362,7 +371,8 @@ a {
 }
 
 .minimized::before {
-    content: "□"
+    content: "C";
+    font-family: 'kfont';
 }
 
 #clipboard {
@@ -557,7 +567,11 @@ textarea:hover {
 ::-webkit-scrollbar-thumb {
     background: var(--color3)
 }
-
+.cf {
+    font-family: 'kfont';
+    font-weight: normal;
+    font-style: normal;
+}
 .flex {
     place-items: center;
     flex-direction: column;
