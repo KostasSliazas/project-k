@@ -718,23 +718,23 @@
   const timers = new Counter();
 
   async function init() {
-    // set background lines by default (DEFAULTS)
-    if (!localStorage.length) {
-      await setLocalStorageItems('theme-lines', true);
+    // If localStorage is empty, set isCheckedLines to true
+    if (localStorage.length === 0) {
+        setLocalStorageItems('theme-lines', true);
     }
     // remove lines if set to false in local storage by default show them
-    const isCheckedLines = await getLocalStorageItems("theme-lines");
-    await setCheckboxChecked('bg-toggle', isCheckedLines);
+    const isCheckedLines = getLocalStorageItems("theme-lines");
+    setCheckboxChecked('bg-toggle', isCheckedLines);
     main.classList.toggle('lines', isCheckedLines);
 
     // remove default bg by default true
-    const isCheckedBg = await getLocalStorageItems("theme-bg");
-    await setCheckboxChecked('enabled-bg', isCheckedBg);
+    const isCheckedBg = getLocalStorageItems("theme-bg");
+    setCheckboxChecked('enabled-bg', isCheckedBg);
     root.classList.toggle('bg-image', isCheckedBg);
 
     // remove default repeating
-    const isRepeatingBg = await getLocalStorageItems("bg-repeat");
-    await setCheckboxChecked('repeat-toggle', isRepeatingBg);
+    const isRepeatingBg = getLocalStorageItems("bg-repeat");
+    setCheckboxChecked('repeat-toggle', isRepeatingBg);
     main.classList.toggle('bg-repeat', isRepeatingBg);
 
     // set remembered last counter seconds
