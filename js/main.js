@@ -722,6 +722,7 @@
     if (localStorage.length === 0) {
         setLocalStorageItems('theme-lines', true);
     }
+    await delay(77);
     // remove lines if set to false in local storage by default show them
     const isCheckedLines = getLocalStorageItems("theme-lines");
     setCheckboxChecked('bg-toggle', isCheckedLines);
