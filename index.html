@@ -1,559 +1,521 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <title>Project-K</title>
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-  <link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
-  <link rel="manifest" href="site.webmanifest">
-  <link rel="preload" href="./css/main.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-</head>
+  <head>
+    <meta charset="UTF-8">
+    <title>Project-K</title>
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="preload" href="./css/main.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  </head>
 
-<body>
-  <div id="loader"></div>
-  <div id="content" style="visibility: hidden">
-    <main class="main lines" id="main">
+  <body>
+    <div id="loader"></div>
+    <div id="content" style="visibility: hidden">
+      <main class="main lines" id="main">
 
-      <div class="movable" title="To enable clock please refresh page.">
-        <h1>CLOCK</h1>
-        <div class="pe digit" id="clock"></div>
-      </div>
-
-      <div class="movable">
-        <h1>Date</h1>
-        <div class="pe digit" id="today"></div>
-      </div>
-
-      <div class="movable">
-        <h1><a id="stats"
-            href="https://api.open-meteo.com/v1/forecast?latitude=55.7068&longitude=21.1391&current=temperature_2m"
-            target="_blank" rel="noopener noreferrer"
-            title="REAL TIME CURRENT TEMPERATURE (OPENS EXTERNAL LINK[https://api.open-meteo.com])">TEMP?C</a></h1>
-        <div class="movable-p">
-          <div class="svg-holder" title="Temperature in Lithuania, to update values refresh page."></div>
+        <div class="movable" title="To enable clock please refresh page.">
+          <h1>CLOCK</h1>
+          <div class="pe digit" id="clock"></div>
         </div>
-      </div>
 
-      <div class="movable">
-        <h1>todo</h1>
-        <a href="tools/todo-app/index.html" target="_blank" rel="noopener noreferrer">to-do2</a>
-        <a href="tools/todo-app-1/index.html" target="_blank" rel="noopener noreferrer">to-do1</a>
-      </div>
+        <div class="movable">
+          <h1>Date</h1>
+          <div class="pe digit" id="today"></div>
+        </div>
 
-      <div class="movable">
-        <h1>external links2</h1>
-        <a href="tools/links-webpage/index.html" target="_blank" rel="noopener noreferrer">Software and tools</a>
-        <a href="https://vectors-images.myportfolio.com" target="_blank" rel="noopener">vectors and images</a>
-        <a href="https://www.behance.net" target="_blank" rel="noopener noreferrer">www.behance.net</a>
-        <a href="https://contributor.stock.adobe.com/lt/portfolio" target="_blank"
-          rel="noopener noreferrer">stock.adobe.com</a>
-        <a href="https://openclipart.org" target="_blank" rel="noopener noreferrer">openclipart.org</a>
-        <a href="https://www.deadlinkchecker.com" target="_blank" rel="noopener noreferrer">deadlinkchecker</a>
-        <a href="https://paletton.com/" target="_blank" rel="noopener noreferrer">paletton.com</a>
-        <a href="https://www.freepik.com" target="_blank" rel="noopener noreferrer">freepik.com</a>
-        <h1>AI</h1>
-        <a href="https://chat.openai.com" target="_blank" rel="noopener noreferrer">chat.openai.com</a>
-        <h1>Learning</h1>
-        <a href="https://www.slingacademy.com/article/javascript-classes-oop-cheatsheet/" target="_blank"
-          rel="noopener noreferrer">slingacademy.com</a>
-        <a href="https://www.freecodecamp.org" target="_blank" rel="noopener noreferrer">freecodecamp.org</a>
-        <a href="https://www.codecademy.com/learn" target="_blank" rel="noopener noreferrer">codecademy.com</a>
-        <a href="https://www.programiz.com/" target="_blank" rel="noopener noreferrer">programiz.com</a>
-        <a href="https://developer.mozilla.org/en-US/docs/Web/" target="_blank"
-          rel="noopener noreferrer">mozilla.org</a>
-        <a href="https://www.udemy.com/home/my-courses/learning/" target="_blank"
-          rel="noopener noreferrer">udemy.com</a>
-        <h1>mail</h1>
-        <a href="https://mail.google.com/mail/u/0/#inbox" target="_blank" rel="noopener noreferrer">mail.google.com</a>
-        <h1>translate</h1>
-        <a href="https://translate.google.com/?sl=auto&amp;tl=lt&amp;op=translate" target="_blank"
-          rel="noopener noreferrer">translate google</a>
-      </div>
-
-      <div class="movable" id="text-area">
-        <h1>Notes</h1>
-        <label for="notes" class="dspn">Notes</label>
-        <textarea id="notes" name="notes" placeholder="Empty"></textarea>
-      </div>
-
-      <div class="movable">
-        <h1>CSS tools</h1>
-        <a href="tools/gradients-two-colors/index.html" target="_blank" rel="noopener noreferrer">gradient two color</a>
-        <a href="tools/gradient-generator/index.html" target="_blank" rel="noopener noreferrer">gradient stripes</a>
-        <a href="tools/border-radius/index.html" target="_blank" rel="noopener noreferrer">border radius</a>
-        <a href="tools/text-shadow/index.html" target="_blank" rel="noopener noreferrer">text shadow</a>
-        <a href="tools/borders-gen/index.html" target="_blank" rel="noopener noreferrer">borders css</a>
-        <h1>Text tools</h1>
-        <a href="tools/word-generator/index.html" target="_blank" rel="noopener noreferrer">word generator</a>
-        <a href="tools/code-to-html/index.html" target="_blank" rel="noopener noreferrer">code to html</a>
-        <a href="tools/keywords/index.html" target="_blank" rel="noopener noreferrer">keywords</a>
-        <h1>Counting tools</h1>
-        <a href="tools/resistor-calculator/index.html" target="_blank" rel="noopener noreferrer">resistor 4-5 bands</a>
-        <a href="tools/regex-extractor/index.html" target="_blank" rel="noopener noreferrer">regex extractor</a>
-        <a href="tools/calculator/index.html" target="_blank" rel="noopener noreferrer">calculator</a>
-        <h1>Other tools</h1>
-        <a href="tools/links/index.html" target="_blank" rel="noopener noreferrer">custom web links</a>
-        <a href="tools/grids-creator/index.html" target="_blank" rel="noopener noreferrer">grids creator</a>
-        <a href="tools/canvas-magic/index.html" target="_blank" rel="noopener noreferrer">canvas magic</a>
-        <a href="tools/dancing-text/index.html" target="_blank" rel="noopener noreferrer">dancing text</a>
-        <a href="tools/colorzebra/index.html" target="_blank" rel="noopener noreferrer">colorzebra</a>
-        <a href="tools/cvmaker/index.html" target="_blank" rel="noopener noreferrer">cv maker</a>
-      </div>
-
-      <div class="movable" id="vr" title="Just a brick holding all the stuff in place">
-        <h1>
-          <span>b</span>
-          <span>r</span>
-          <span>i</span>
-          <span>c</span>
-          <span>k</span>
-        </h1>
-        <div class="movable-p w14 images">
-          <div>
-            <a href="https://github.com/KostasSliazas/project-k/archive/refs/heads/main.zip" download="project-k.zip"
-              rel="noopener noreferrer" target="_blank"><span class="cf">d</span>Download <span class="small">~4.3MB</span></a>
-            <a href="https://www.paypal.com/donate/?hosted_button_id=FCPW77XUNSHZJ" target="_blank"
-              rel="noopener noreferrer"><img src="./img/QR%20Code.png" alt="Donate"></a>
+        <div class="movable">
+          <h1><a id="stats" href="https://api.open-meteo.com/v1/forecast?latitude=55.7068&longitude=21.1391&current=temperature_2m" target="_blank" rel="noopener noreferrer" title="REAL TIME CURRENT TEMPERATURE (OPENS EXTERNAL LINK[https://api.open-meteo.com])">TEMP?C</a></h1>
+          <div class="movable-p">
+            <div class="svg-holder" title="Temperature in Lithuania, to update values refresh page."></div>
           </div>
         </div>
-      </div>
 
-      <div class="movable w15">
-        <h1>calculator</h1>
-        <div id="calcwrap">
-          <div class="in">
-            <div id="calculator">
-              <label for="esound">sound</label>
-              <label for="src">src</label>
-              <input data-ekr="ekr" type="text" id="src" value="0" title="screen">
-              <input data-fun="x" type="button" value="C">
-              <input data-fun="b" type="button" value="⌫">
-              <input data-fun="s" type="checkbox" value="sound" id="esound" title="sound">
-              <input data-fun="d" type="button" value="/">
-              <input data-num="7" type="button" value="7">
-              <input data-num="8" type="button" value="8">
-              <input data-num="9" type="button" value="9">
-              <input data-fun="m" type="button" value="×">
-              <input data-num="4" type="button" value="4">
-              <input data-num="5" type="button" value="5">
-              <input data-num="6" type="button" value="6">
-              <input data-fun="a" type="button" value="-">
-              <input data-num="1" type="button" value="1">
-              <input data-num="2" type="button" value="2">
-              <input data-num="3" type="button" value="3">
-              <input data-num="0" type="button" value="0">
-              <input data-fun="c" type="button" value=",">
-              <input data-fun="e" type="button" value="=">
-              <input data-fun="p" type="button" value="+">
-            </div>
-          </div>
+        <div class="movable">
+          <h1>todo</h1>
+          <a href="tools/todo-app/index.html" target="_blank" rel="noopener noreferrer">to-do2</a>
+          <a href="tools/todo-app-1/index.html" target="_blank" rel="noopener noreferrer">to-do1</a>
         </div>
-      </div>
 
-      <div class="movable w16">
-        <h1>Games</h1>
-        <a href="games/Questionaire/index.html" target="_blank" rel="noopener noreferrer">questionnaire</a>
-        <a href="games/Memory%20Game2/index.html" target="_blank" rel="noopener noreferrer">Memory Game</a>
-        <a href="games/Roulete/index.html" target="_blank" rel="noopener noreferrer">Random name</a>
-      </div>
-
-      <div class="movable" id="controls">
-        <h1>Appearance</h1>
-        <div class="small">
-          <fieldset class="forms spaceb">
-            <legend>Theme control</legend>
-            <div class="em4">
-              <input type="reset" id="reset-all" value="Reset" title="Clear all localStorage!!! (HARD RESET)">
-              <input type="button" id="lt" value="<" title="Prev">
-              <input type="button" id="gt" value=">" title="Next">
-            </div>
-            <div>Theme:&nbsp;<span id="theme-name"></span></div>
-          </fieldset>
-
-          <fieldset id="colors" class="forms">
-            <legend>Custom colors</legend>
-
-            <div class="spaceb colors small">
-              <div>
-                <input type="color" id="color3" name="color3" value="#ffffff" class="em4">
-                <label for="color3">color3</label>
-              </div>
-
-              <div>
-                <input type="color" id="color1" name="color1" value="#ffffff" class="em4">
-                <label for="color1">color1</label>
-              </div>
-
-              <div>
-                <input type="color" id="color2" name="color2" value="#ffffff" class="em4">
-                <label for="color2">color2</label>
-              </div>
-            </div>
-
-            <div class="spaceb colors small">
-              <div>
-                <input type="reset" id="custom-theme" value="Reset" class="em4">
-              </div>
-
-              <div>
-                <input type="color" id="color4" name="color4" value="#ffffff" class="em4">
-                <label for="color4">color4</label>
-              </div>
-
-              <div>
-                <input type="color" id="color5" name="color5" value="#ffffff" class="em4">
-                <label for="color5">color5</label>
-              </div>
-            </div>
-          </fieldset>
-
-          <fieldset id="background" class="forms spaceb">
-            <legend>Background</legend>
-            <div class="small">
-              <input type="reset" id="bg-theme" value="Reset">
-              <label for="bg-file" class="dspn">Upload image</label>
-              <input id="bg-file" type="file" title="localStorage quota will be exceeded when using large images!">
-            </div>
-            <div class="checkbox">
-              <input id="bg-toggle" type="checkbox">
-              <label for="bg-toggle">Lines</label>
-            </div>
-            <div class="checkbox">
-              <input id="enabled-bg" type="checkbox">
-              <label for="enabled-bg">Default</label>
-            </div>
-            <div class="checkbox">
-              <input type="checkbox" id="repeat-toggle">
-              <label for="repeat-toggle">Repeated</label>
-            </div>
-          </fieldset>
+        <div class="movable">
+          <h1>external links2</h1>
+          <a href="tools/links-webpage/index.html" target="_blank" rel="noopener noreferrer">Software and tools</a>
+          <a href="https://vectors-images.myportfolio.com" target="_blank" rel="noopener">vectors and images</a>
+          <a href="https://www.behance.net" target="_blank" rel="noopener noreferrer">www.behance.net</a>
+          <a href="https://contributor.stock.adobe.com/lt/portfolio" target="_blank" rel="noopener noreferrer">stock.adobe.com</a>
+          <a href="https://openclipart.org" target="_blank" rel="noopener noreferrer">openclipart.org</a>
+          <a href="https://www.deadlinkchecker.com" target="_blank" rel="noopener noreferrer">deadlinkchecker</a>
+          <a href="https://paletton.com/" target="_blank" rel="noopener noreferrer">paletton.com</a>
+          <a href="https://www.freepik.com" target="_blank" rel="noopener noreferrer">freepik.com</a>
+          <h1>AI</h1>
+          <a href="https://chat.openai.com" target="_blank" rel="noopener noreferrer">chat.openai.com</a>
+          <h1>Learning</h1>
+          <a href="https://www.slingacademy.com/article/javascript-classes-oop-cheatsheet/" target="_blank" rel="noopener noreferrer">slingacademy.com</a>
+          <a href="https://www.freecodecamp.org" target="_blank" rel="noopener noreferrer">freecodecamp.org</a>
+          <a href="https://www.codecademy.com/learn" target="_blank" rel="noopener noreferrer">codecademy.com</a>
+          <a href="https://www.programiz.com/" target="_blank" rel="noopener noreferrer">programiz.com</a>
+          <a href="https://developer.mozilla.org/en-US/docs/Web/" target="_blank" rel="noopener noreferrer">mozilla.org</a>
+          <a href="https://www.udemy.com/home/my-courses/learning/" target="_blank" rel="noopener noreferrer">udemy.com</a>
+          <h1>mail</h1>
+          <a href="https://mail.google.com/mail/u/0/#inbox" target="_blank" rel="noopener noreferrer">mail.google.com</a>
+          <h1>translate</h1>
+          <a href="https://translate.google.com/?sl=auto&amp;tl=lt&amp;op=translate" target="_blank" rel="noopener noreferrer">translate google</a>
         </div>
-      </div>
 
-      <div class="movable">
-        <h1>Network</h1>
-        <div class="movable-p small">
-          <div id="is-online"></div>
+        <div class="movable" id="text-area">
+          <h1>Notes</h1>
+          <label for="notes" class="dspn">Notes</label>
+          <textarea id="notes" name="notes" placeholder="Empty"></textarea>
         </div>
-      </div>
 
-      <div class="movable">
-        <h1>weekday</h1>
-        <div class="movable-p small">
-          <div id="day-of-week"></div>
+        <div class="movable">
+          <h1>CSS tools</h1>
+          <a href="tools/gradients-two-colors/index.html" target="_blank" rel="noopener noreferrer">gradient two color</a>
+          <a href="tools/gradient-generator/index.html" target="_blank" rel="noopener noreferrer">gradient stripes</a>
+          <a href="tools/border-radius/index.html" target="_blank" rel="noopener noreferrer">border radius</a>
+          <a href="tools/text-shadow/index.html" target="_blank" rel="noopener noreferrer">text shadow</a>
+          <a href="tools/borders-gen/index.html" target="_blank" rel="noopener noreferrer">borders css</a>
+          <h1>Text tools</h1>
+          <a href="tools/word-generator/index.html" target="_blank" rel="noopener noreferrer">word generator</a>
+          <a href="tools/code-to-html/index.html" target="_blank" rel="noopener noreferrer">code to html</a>
+          <a href="tools/keywords/index.html" target="_blank" rel="noopener noreferrer">keywords</a>
+          <h1>Counting tools</h1>
+          <a href="tools/resistor-calculator/index.html" target="_blank" rel="noopener noreferrer">resistor 4-5 bands</a>
+          <a href="tools/regex-extractor/index.html" target="_blank" rel="noopener noreferrer">regex extractor</a>
+          <a href="tools/calculator/index.html" target="_blank" rel="noopener noreferrer">calculator</a>
+          <h1>Other tools</h1>
+          <a href="tools/links/index.html" target="_blank" rel="noopener noreferrer">custom web links</a>
+          <a href="tools/grids-creator/index.html" target="_blank" rel="noopener noreferrer">grids creator</a>
+          <a href="tools/canvas-magic/index.html" target="_blank" rel="noopener noreferrer">canvas magic</a>
+          <a href="tools/dancing-text/index.html" target="_blank" rel="noopener noreferrer">dancing text</a>
+          <a href="tools/colorzebra/index.html" target="_blank" rel="noopener noreferrer">colorzebra</a>
+          <a href="tools/cvmaker/index.html" target="_blank" rel="noopener noreferrer">cv maker</a>
         </div>
-      </div>
 
-      <div class="movable"
-        title="Copying text or values for temporary storage using the context menu (right mouse button).Double click to clear.">
-        <h1>clipboard</h1>
-        <div class="movable-p">
-          <div id="clipboard">empty</div>
-        </div>
-      </div>
-
-      <div class="movable" title="Triple-click and then select PIN to unlock.">
-        <h1>Child lock</h1>
-        <div class="movable-p w17 pa">
-          <div>few clicks and enter</div>
-          <div title="If the password is incorrect, please refresh the page. Or click few times on empty space">password
-            <span class="small">(Default) 520</span>
-          </div>
-          <div class="flex spaceb">
+        <div class="movable" id="vr" title="Just a brick holding all the stuff in place">
+          <h1>
+            <span>b</span>
+            <span>r</span>
+            <span>i</span>
+            <span>c</span>
+            <span>k</span>
+          </h1>
+          <div class="movable-p w14 images">
             <div>
-              <button class="em4 ma4" id="lock">LOCK</button>
-              <button class="em4 small ma4" id="code">PIN change</button>
+              <a href="https://github.com/KostasSliazas/project-k/archive/refs/heads/main.zip" download="project-k.zip" rel="noopener noreferrer" target="_blank"><span class="cf">d</span>Download <span class="small">~4.3MB</span></a>
+              <a href="https://www.paypal.com/donate/?hosted_button_id=FCPW77XUNSHZJ" target="_blank" rel="noopener noreferrer"><img src="./img/QR%20Code.png" alt="Donate"></a>
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="movable">
-        <h1>Timer</h1>
-        <div class="small">
-          <fieldset class="forms spaceb">
-            <legend>Total seconds</legend>
-            <div class="flex xxl digit" id="counter-time">00</div>
-          </fieldset>
-          <fieldset class="forms spaceb">
-            <legend>Controls</legend>
-            <div class="small">
-              <button class="em4" id="start">Start</button>
-              <button class="em4" id="reset">Reset</button>
-              <button class="em4" id="stop">Stop</button>
+        <div class="movable w15">
+          <h1>calculator</h1>
+          <div id="calcwrap">
+            <div class="in">
+              <div id="calculator">
+                <label for="esound">sound</label>
+                <label for="src">src</label>
+                <input data-ekr="ekr" type="text" id="src" value="0" title="screen">
+                <input data-fun="x" type="button" value="C">
+                <input data-fun="b" type="button" value="⌫">
+                <input data-fun="s" type="checkbox" value="sound" id="esound" title="sound">
+                <input data-fun="d" type="button" value="/">
+                <input data-num="7" type="button" value="7">
+                <input data-num="8" type="button" value="8">
+                <input data-num="9" type="button" value="9">
+                <input data-fun="m" type="button" value="×">
+                <input data-num="4" type="button" value="4">
+                <input data-num="5" type="button" value="5">
+                <input data-num="6" type="button" value="6">
+                <input data-fun="a" type="button" value="-">
+                <input data-num="1" type="button" value="1">
+                <input data-num="2" type="button" value="2">
+                <input data-num="3" type="button" value="3">
+                <input data-num="0" type="button" value="0">
+                <input data-fun="c" type="button" value=",">
+                <input data-fun="e" type="button" value="=">
+                <input data-fun="p" type="button" value="+">
+              </div>
             </div>
-            <div class="checkbox" title="Play the sound when time is over and show popup.">
-              <input type="checkbox" id="sounds-ding" checked>
-              <label for="sounds-ding">Sound</label>
-            </div>
-          </fieldset>
-          <fieldset class="forms">
-            <legend>Time settings</legend>
-
-            <div class="counter timers">
-              <label for="hours" title="Set hours">Hour</label>
-              <button>—</button><button>+</button>
-              <input type="number" id="hours" min="00" max="24" value="00">
-            </div>
-
-            <div class="counter timers">
-              <label for="minutes" title="Set minutes">Minute</label>
-              <button>—</button><button>+</button>
-              <input type="number" id="minutes" min="00" max="60" value="07">
-            </div>
-
-            <div class="counter timers">
-              <label for="seconds" title="Set seconds">Second</label>
-              <button>—</button><button>+</button>
-              <input type="number" id="seconds" min="00" max="60" value="07">
-            </div>
-          </fieldset>
+          </div>
         </div>
-      </div>
 
-      <div class="movable w16" title="Right click to copy">
-        <h1>linux commands</h1>
-        <div class="oxs">
-        <p title="Recursively remove copied folders (1)">sudo find -type d -name '*(1)*' -a -prune -exec rm -rf {} \;
-        <p title="Recursively remove node_modules">find . -name "node_modules" -type d -prune -exec rm -rf '{}' +</p>
-        <p title="Create a video from a single image and audio">ffmpeg -loop 1 -i f.png -i f.mp3 -c:v libx264 -tune
-          stillimage -c:a aac -b:a 192k -pix_fmt yuv420p -shortest out.mp4</p>
-        <p title="Convert PNG files to opaque images with white background">find . -name "*.png" -exec convert "{}"
-          -fill white "{}" -opaque transparent "{}" -alpha off "{}" \;</p>
-        <p title="Download files from the internet">wget
-          https://codeload.github.com/KostasSliazas/template-html.io/zip/refs/tags/1.0</p>
-        <p title="Create an animated GIF from resized images">convert -resize 50% -delay 10 -loop 0 image_{0..99}.jpg
-          output.gif</p>
-        <p title="Create a MPEG video from a single image and audio file">ffmpeg -loop 1 -i picture.png -i audio.ogg
-          -shortest output.mpeg</p>
-        <p title="Resize images and create an animated GIF">convert -resize 768x576 -delay 20 -loop 0 `ls -v`
-          myimage.gif</p>
-        <p title="Create an animated GIF from sequential PNG files">convert -delay 10 `ls -v` -loop 0 {0100..0255}.png
-          output.gif</p>
-        <p title="Batch convert PNG to JPG with white background">mogrify -background white -flatten -format jpg *.png
-        </p>
-        <p title="Resample and resize JPG images in batch">mogrify -resample 72x72 -resize 256x256 *.JPG</p>
-        <p title="Regular expressions to search in files (find one of two things)">grep "(root|nobody)" /etc/passwd</p>
-        <p title="-print/-delete empty folders">find . -type d -empty -print</p>
-        <p title="Archive file list to file">less data.zip > file.txt</p>
-        <p title="Write 'okay' to file">echo okay > filename</p>
-        <p title="Show directories">find / -type d -ls</p>
-        <p title="Remove image metadata">exiv2 rm image.jpg</p>
-        <p title="List image metadata information">exiftool image.jpg</p>
-        <p title="Remove multiple blank lines">less -s filename</p>
-        <p title="File list to file">ls -1a > file.txt</p>
-        <p title="Force and recursively remove all files and subdirectories">rm -rf folder</p>
-        <p title="Make a directory">mkdir newdir</p>
-        <p title="Show processes">ps auxwww</p>
-        <p title="List mounted devices">lsblk</p>
-        <p title="Get the details of the file system">df -h</p>
-        <p title="Change into the root directory of the Linux file system">cd /</p>
-        <p title="Show who is logged in">who</p>
-        <p title="Show working directory (print)">pwd</p>
-        <p title="Move or rename a file">mv</p>
-        <p title="List directory contents">ls</p>
-        <p title="Copy a file">cp</p>
-        <p title="Return to the home directory immediately (use cd ~ or cd)">cd</p>
-      </div>
-      </div>
-
-      <div class="movable">
-        <h1 title="USB CONNECTION MARKING">wiring marking</h1>
-        <div class="movable-p images memo w16">
-          <img src="./img/usb.svg" alt="USB CONNECTION MARKING">
-          <img src="./img/RJ-45c.svg" alt="RJ-45 CONNECTION MARKING Crossower">
-          <img src="./img/RJ-45.svg" alt="RJ-45 CONNECTION MARKING">
+        <div class="movable w16">
+          <h1>Games</h1>
+          <a href="games/Questionaire/index.html" target="_blank" rel="noopener noreferrer">questionnaire</a>
+          <a href="games/Memory%20Game2/index.html" target="_blank" rel="noopener noreferrer">Memory Game</a>
+          <a href="games/Roulete/index.html" target="_blank" rel="noopener noreferrer">Random name</a>
         </div>
-      </div>
 
-      <div class="movable">
-        <h1 title="BLENDER 3D. Index of refraction (IOR) defining how much the ray changes direction.">IOR BLENDER 3D
-        </h1>
+        <div class="movable" id="controls">
+          <h1>Appearance</h1>
+          <div class="small">
+            <fieldset class="forms spaceb">
+              <legend>Theme control</legend>
+              <div class="em4">
+                <input type="reset" id="reset-all" value="Reset" title="Clear all localStorage!!! (HARD RESET)">
+                <input type="button" id="lt" value="<" title="Prev">
+                <input type="button" id="gt" value=">" title="Next">
+              </div>
+              <div>Theme:&nbsp;<span id="theme-name"></span></div>
+            </fieldset>
+
+            <fieldset id="colors" class="forms">
+              <legend>Custom colors</legend>
+
+              <div class="spaceb colors small">
+                <div>
+                  <input type="color" id="color3" name="color3" value="#ffffff" class="em4">
+                  <label for="color3">color3</label>
+                </div>
+
+                <div>
+                  <input type="color" id="color1" name="color1" value="#ffffff" class="em4">
+                  <label for="color1">color1</label>
+                </div>
+
+                <div>
+                  <input type="color" id="color2" name="color2" value="#ffffff" class="em4">
+                  <label for="color2">color2</label>
+                </div>
+              </div>
+
+              <div class="spaceb colors small">
+                <div>
+                  <input type="reset" id="custom-theme" value="Reset" class="em4">
+                </div>
+
+                <div>
+                  <input type="color" id="color4" name="color4" value="#ffffff" class="em4">
+                  <label for="color4">color4</label>
+                </div>
+
+                <div>
+                  <input type="color" id="color5" name="color5" value="#ffffff" class="em4">
+                  <label for="color5">color5</label>
+                </div>
+              </div>
+            </fieldset>
+
+            <fieldset id="background" class="forms spaceb">
+              <legend>Background</legend>
+              <div class="small">
+                <input type="reset" id="bg-theme" value="Reset">
+                <label for="bg-file" class="dspn">Upload image</label>
+                <input id="bg-file" type="file" title="localStorage quota will be exceeded when using large images!">
+              </div>
+              <div class="checkbox">
+                <input id="bg-toggle" type="checkbox">
+                <label for="bg-toggle">Lines</label>
+              </div>
+              <div class="checkbox">
+                <input id="enabled-bg" type="checkbox">
+                <label for="enabled-bg">Default</label>
+              </div>
+              <div class="checkbox">
+                <input type="checkbox" id="repeat-toggle">
+                <label for="repeat-toggle">Repeated</label>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+
+        <div class="movable">
+          <h1>Network</h1>
+          <div class="movable-p small">
+            <div id="is-online"></div>
+          </div>
+        </div>
+
+        <div class="movable">
+          <h1>weekday</h1>
+          <div class="movable-p small">
+            <div id="day-of-week"></div>
+          </div>
+        </div>
+
+        <div class="movable" title="Copying text or values for temporary storage using the context menu (right mouse button).Double click to clear.">
+          <h1>clipboard</h1>
+          <div class="movable-p">
+            <div id="clipboard">empty</div>
+          </div>
+        </div>
+
+        <div class="movable" title="Triple-click and then select PIN to unlock.">
+          <h1>Child lock</h1>
+          <div class="movable-p w17 pa">
+            <div>few clicks and enter</div>
+            <div title="If the password is incorrect, please refresh the page. Or click few times on empty space">password
+              <span class="small">(Default) 520</span>
+            </div>
+            <div class="flex spaceb">
+              <div>
+                <button class="em4 ma4" id="lock">LOCK</button>
+                <button class="em4 small ma4" id="code">PIN change</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="movable">
+          <h1>Timer</h1>
+          <div class="small">
+            <fieldset class="forms spaceb">
+              <legend>Total seconds</legend>
+              <div class="flex xxl digit" id="counter-time">00</div>
+            </fieldset>
+            <fieldset class="forms spaceb">
+              <legend>Controls</legend>
+              <div class="small">
+                <button class="em4" id="start">Start</button>
+                <button class="em4" id="reset">Reset</button>
+                <button class="em4" id="stop">Stop</button>
+              </div>
+              <div class="checkbox" title="Play the sound when time is over and show popup.">
+                <input type="checkbox" id="sounds-ding" checked>
+                <label for="sounds-ding">Sound</label>
+              </div>
+            </fieldset>
+            <fieldset class="forms">
+              <legend>Time settings</legend>
+
+              <div class="counter timers">
+                <label for="hours" title="Set hours">Hour</label>
+                <button>—</button><button>+</button>
+                <input type="number" id="hours" min="00" max="24" value="00">
+              </div>
+
+              <div class="counter timers">
+                <label for="minutes" title="Set minutes">Minute</label>
+                <button>—</button><button>+</button>
+                <input type="number" id="minutes" min="00" max="60" value="08">
+              </div>
+
+              <div class="counter timers">
+                <label for="seconds" title="Set seconds">Second</label>
+                <button>—</button><button>+</button>
+                <input type="number" id="seconds" min="00" max="60" value="40">
+              </div>
+            </fieldset>
+          </div>
+        </div>
+
+        <div class="movable w16" title="Right click to copy">
+          <h1>linux commands</h1>
+          <div class="oxs">
+            <p title="Recursively remove copied folders (1)">sudo find -type d -name '*(1)*' -a -prune -exec rm -rf {} \; </p>
+            <p title="Recursively remove node_modules">find . -name "node_modules" -type d -prune -exec rm -rf '{}' +</p>
+            <p title="Create a video from a single image and audio">ffmpeg -loop 1 -i f.png -i f.mp3 -c:v libx264 -tune stillimage -c:a aac -b:a 192k -pix_fmt yuv420p -shortest out.mp4</p>
+            <p title="Convert PNG files to opaque images with white background">find . -name "*.png" -exec convert "{}" -fill white "{}" -opaque transparent "{}" -alpha off "{}" \;</p>
+            <p title="Download files from the internet">wget https://codeload.github.com/KostasSliazas/template-html.io/zip/refs/tags/1.0</p>
+            <p title="Create an animated GIF from resized images">convert -resize 50% -delay 10 -loop 0 image_{0..99}.jpg output.gif</p>
+            <p title="Create a MPEG video from a single image and audio file">ffmpeg -loop 1 -i picture.png -i audio.ogg -shortest output.mpeg</p>
+            <p title="Resize images and create an animated GIF">convert -resize 768x576 -delay 20 -loop 0 `ls -v` myimage.gif</p>
+            <p title="Create an animated GIF from sequential PNG files">convert -delay 10 `ls -v` -loop 0 {0100..0255}.png output.gif</p>
+            <p title="Batch convert PNG to JPG with white background">mogrify -background white -flatten -format jpg *.png</p>
+            <p title="Resample and resize JPG images in batch">mogrify -resample 72x72 -resize 256x256 *.JPG</p>
+            <p title="Update & Upgrade System">sudo apt update ; sudo apt upgrade -y</p>
+            <p title="Regular expressions to search in files (find one of two things)">grep "(root|nobody)" /etc/passwd</p>
+            <p title="-print/-delete empty folders">find . -type d -empty -print</p>
+            <p title="Archive file list to file">less data.zip &gt; file.txt</p>
+            <p title="Write 'okay' to file">echo okay &gt; filename</p>
+            <p title="Show directories">find / -type d -ls</p>
+            <p title="Remove image metadata">exiv2 rm image.jpg</p>
+            <p title="List image metadata information">exiftool image.jpg</p>
+            <p title="Remove multiple blank lines">less -s filename</p>
+            <p title="File list to file">ls -1a &gt; file.txt</p>
+            <p title="Force and recursively remove all files and subdirectories">rm -rf folder</p>
+            <p title="Make a directory">mkdir newdir</p>
+            <p title="Show processes">ps auxwww</p>
+            <p title="List mounted devices">lsblk</p>
+            <p title="Get the details of the file system">df -h</p>
+            <p title="Change into the root directory of the Linux file system">cd /</p>
+            <p title="Show who is logged in">who</p>
+            <p title="Show working directory (print)">pwd</p>
+            <p title="Move or rename a file">mv</p>
+            <p title="List directory contents">ls</p>
+            <p title="Copy a file">cp</p>
+            <p title="Return to the home directory immediately (use cd ~ or cd)">cd</p>
+          </div>
+        </div>
+
+        <div class="movable">
+          <h1 title="USB CONNECTION MARKING">wiring marking</h1>
+          <div class="movable-p images memo w16">
+            <img src="./img/usb.svg" alt="USB CONNECTION MARKING">
+            <img src="./img/RJ-45c.svg" alt="RJ-45 CONNECTION MARKING Crossower">
+            <img src="./img/RJ-45.svg" alt="RJ-45 CONNECTION MARKING">
+          </div>
+        </div>
+
+        <div class="movable">
+          <h1 title="BLENDER 3D. Index of refraction (IOR) defining how much the ray changes direction.">IOR BLENDER 3D
+          </h1>
           <div class="oxs table"><i>Acrylic glass</i><i>1.491</i><i>Agate</i><i>1.544 - 1.553</i><i>Air</i><i>1.000</i><i>Amber</i><i>1.550</i><i>Amethist</i><i>1.544 - 1.553</i><i>Benzene</i><i>1.501</i><i>Bubble</i><i>1.100</i><i>Clear plastic</i><i>1.400</i><i>Cristal</i><i>1.870</i><i>Crown glass</i><i>1.510</i><i>Diamond</i><i>2.417 - 2.541</i><i>Emerald</i><i>1.576 - 1.582</i><i>Flint glass</i><i>1.613</i><i>Glass</i><i>1.440 - 1.900</i><i>Heavy glass</i><i>1.650</i><i>Ice(H2O)</i><i>1.310</i><i>Jade</i><i>1.660 - 1.680</i><i>Jasper</i><i>1.540</i><i>Light glass</i><i>1.450</i><i>Liquid methane</i><i>1.150</i><i>Obsidian</i><i>1.480 - 1.510</i><i>Onyx</i><i>1.486 - 1.658</i><i>Quartz</i><i>1.550</i><i>Ruby</i><i>1.760 - 2.419</i><i>Salt</i><i>1.544</i><i>Saphire</i><i>1.760</i><i>Standart glass</i><i>1.520</i><i>Sugar</i><i>1.560</i><i>Topaz</i><i>1.620 - 1.627</i><i>Water</i><i>1.333</i></div>
+        </div>
+        <div class="movable">
+          <h1>search with</h1>
+          <form action="https://duckduckgo.com/?t=h_&q=" target="_blank">
+            <label for="duckduckgo" class="dspn">duckduckgo</label>
+            <input id="duckduckgo" type="text" value="" name="q" onclick="this.value = ''" placeholder="duckduckgo.com">
+            <input type="submit" value="submit form" style="display: none">
+          </form>
+
+          <form action="https://www.google.com/search?q=" target="_blank">
+            <label for="google" class="dspn">google</label>
+            <input id="google" type="text" value="" name="q" onclick="this.value = ''" placeholder="google.com">
+            <input type="submit" value="submit form" style="display: none">
+          </form>
+
+          <form action="https://www.ecosia.org/search?method=index&q=go" target="_blank">
+            <label for="ecosia" class="dspn">ecosia</label>
+            <input id="ecosia" type="text" value="" name="q" onclick="this.value = ''" placeholder="ecosia.org">
+            <input type="submit" value="submit form" style="display: none">
+          </form>
+
+          <form action="https://www.bing.com/search?q=" target="_blank">
+            <label for="bing" class="dspn">bing</label>
+            <input id="bing" type="text" value="" name="q" onclick="this.value = ''" placeholder="bing.com">
+            <input type="submit" value="submit form" style="display: none">
+          </form>
+        </div>
+        <div class="movable">
+          <h1>EXTERNAL LINKS1</h1>
+          <a href="https://fonts.google.com" target="_blank" rel="noopener noreferrer">fonts.google.com</a>
+          <a href="http://fontello.com" target="_blank" rel="noopener noreferrer">fontello.com</a>
+          <a href="https://ninite.com" target="_blank" rel="noopener noreferrer">ninite.com</a>
+          <h1>CSS Tools</h1>
+          <a href="http://shrthnd.volume7.io" target="_blank" rel="noopener noreferrer">shrthnd.volume7.io</a>
+          <a href="http://css3generator.com" target="_blank" rel="noopener noreferrer">css3generator.com</a>
+          <a href="https://border-radius.com" target="_blank" rel="noopener noreferrer">border-radius.com</a>
+          <a href="https://css.github.io/csso/csso.html" target="_blank" rel="noopener noreferrer">css.github.io</a>
+          <a href="https://www.cleancss.com" target="_blank" rel="noopener noreferrer">cleancss.com</a>
+          <a href="http://www.cssdrive.com" target="_blank" rel="noopener noreferrer">cssdrive.com</a>
+          <a href="http://netpresent.net/css-inverter.php" target="_blank" rel="noopener noreferrer">css-inverter</a>
+          <a href="https://www.cssmatic.com" target="_blank" rel="noopener noreferrer">cssmatic.com</a>
+          <h1>Other Tools</h1>
+          <a href="http://topfunky.com/baseline-rhythm-calculator" target="_blank" rel="noopener noreferrer">baseline-rhythm</a>
+          <a href="https://drewish.com/tools/vertical-rhythm" target="_blank" rel="noopener noreferrer">vertical-rhythm</a>
+          <a href="https://pinetools.com" target="_blank" rel="noopener noreferrer">pinetools.com</a>
+          <a href="https://www.gridlover.net/try" target="_blank" rel="noopener noreferrer">gridlover.net</a>
+          <a href="http://www.techbomb.com/websafe/" target="_blank" rel="noopener noreferrer">techbomb.com</a>
+          <a href="http://lamb.cc/typograph" target="_blank" rel="noopener noreferrer">lamb.cc</a>
+          <h1>JS Tools</h1>
+          <a href="https://jsfiddle.net" target="_blank" rel="noopener noreferrer">jsfiddle.net</a>
+          <h1>tutorials</h1>
+          <a href="https://www.blenderguru.com/tutorials" target="_blank" rel="noopener noreferrer">blenderguru.com</a>
+          <h1>youtube music</h1>
+          <a href="https://youtube.com/playlist?list=PLsM6CVwrafyc_llQmX0waMGw8TkSCxn0G&feature=shared" target="_blank" rel="noopener noreferrer">Super songs</a>
+          <a href="https://youtube.com/playlist?list=PLsM6CVwrafyetx7ul3ZbIK9g4eQEAT7kG&feature=shared" target="_blank" rel="noopener noreferrer">RAP songs</a>
+        </div>
+        <p class="bottom">&copy; 2025 CAUTION:please, use at your own risk. By <span lang="lt">Kostas Šliažas</span></p>
+      </main>
+
+      <div class="hide center moves">
+        <h1>DONE</h1>
+        <div>The time is ended</div>
+        <button class="em4" id="shutup">OK</button>
       </div>
-      <div class="movable">
-        <h1>search with</h1>
-        <form action="https://duckduckgo.com/?t=h_&q=" target="_blank">
-          <label for="duckduckgo" class="dspn">duckduckgo</label>
-          <input id="duckduckgo" type="text" value="" name="q" onclick="this.value = ''" placeholder="duckduckgo.com">
-          <input type="submit" value="submit form" style="display: none">
-        </form>
 
-        <form action="https://www.google.com/search?q=" target="_blank">
-          <label for="google" class="dspn">google</label>
-          <input id="google" type="text" value="" name="q" onclick="this.value = ''" placeholder="google.com">
-          <input type="submit" value="submit form" style="display: none">
-        </form>
-
-        <form action="https://www.ecosia.org/search?method=index&q=go" target="_blank">
-          <label for="ecosia" class="dspn">ecosia</label>
-          <input id="ecosia" type="text" value="" name="q" onclick="this.value = ''" placeholder="ecosia.org">
-          <input type="submit" value="submit form" style="display: none">
-        </form>
-
-        <form action="https://www.bing.com/search?q=" target="_blank">
-          <label for="bing" class="dspn">bing</label>
-          <input id="bing" type="text" value="" name="q" onclick="this.value = ''" placeholder="bing.com">
-          <input type="submit" value="submit form" style="display: none">
-        </form>
+      <div class="hide center moves" id="moves">
+        <h1><span class="cf">b</span> Controls</h1>
+        <div class="movable-p">
+          <fieldset class="forms flex">
+            <legend>Move blocks</legend>
+            <div>
+              <div>
+                <button id="left" class="em4">←</button>
+              </div>
+              <div>
+                <button id="top" class="em4">↑</button>
+                <button id="bottom" class="em4">↓</button>
+              </div>
+              <div>
+                <button id="right" class="em4">→</button>
+              </div>
+            </div>
+            <div>
+              <div>
+                <label for="hun" class="em4">100px</label>
+                <input type="radio" value="100" name="move" id="hun" checked="">
+              </div>
+              <div>
+                <label for="ten" class="em4">10px</label>
+                <input type="radio" value="10" name="move" id="ten">
+              </div>
+            </div>
+          </fieldset>
+          <fieldset class="forms flex">
+            <legend>Rotated mode</legend>
+            <div>
+              <input type="button" value="Toggle Rotate" name="move" id="rotate90">
+              <label for="rotate90" class="dspn">PRO laziness</label>
+            </div>
+          </fieldset>
+          <div class="forms flex em4">
+            <button id="controls-hide">Hide this window</button>
+          </div>
+        </div>
       </div>
-      <div class="movable">
-      <h1>EXTERNAL LINKS1</h1>
-      <a href="https://fonts.google.com" target="_blank" rel="noopener noreferrer">fonts.google.com</a>
-      <a href="http://fontello.com" target="_blank" rel="noopener noreferrer">fontello.com</a>
-      <a href="https://ninite.com" target="_blank" rel="noopener noreferrer">ninite.com</a>
-      <h1>CSS Tools</h1>
-      <a href="http://shrthnd.volume7.io" target="_blank" rel="noopener noreferrer">shrthnd.volume7.io</a>
-      <a href="http://css3generator.com" target="_blank" rel="noopener noreferrer">css3generator.com</a>
-      <a href="https://border-radius.com" target="_blank" rel="noopener noreferrer">border-radius.com</a>
-      <a href="https://css.github.io/csso/csso.html" target="_blank" rel="noopener noreferrer">css.github.io</a>
-      <a href="https://www.cleancss.com" target="_blank" rel="noopener noreferrer">cleancss.com</a>
-      <a href="http://www.cssdrive.com" target="_blank" rel="noopener noreferrer">cssdrive.com</a>
-      <a href="http://netpresent.net/css-inverter.php" target="_blank" rel="noopener noreferrer">css-inverter</a>
-      <a href="https://www.cssmatic.com" target="_blank" rel="noopener noreferrer">cssmatic.com</a>
-      <h1>Other Tools</h1>
-      <a href="http://topfunky.com/baseline-rhythm-calculator" target="_blank" rel="noopener noreferrer">baseline-rhythm</a>
-      <a href="https://drewish.com/tools/vertical-rhythm" target="_blank" rel="noopener noreferrer">vertical-rhythm</a>
-      <a href="https://pinetools.com" target="_blank" rel="noopener noreferrer">pinetools.com</a>
-      <a href="https://www.gridlover.net/try" target="_blank" rel="noopener noreferrer">gridlover.net</a>
-      <a href="http://www.techbomb.com/websafe/" target="_blank" rel="noopener noreferrer">techbomb.com</a>
-      <a href="http://lamb.cc/typograph" target="_blank" rel="noopener noreferrer">lamb.cc</a>
-      <h1>JS Tools</h1>
-      <a href="https://jsfiddle.net" target="_blank" rel="noopener noreferrer">jsfiddle.net</a>
-      <h1>tutorials</h1>
-      <a href="https://www.blenderguru.com/tutorials" target="_blank" rel="noopener noreferrer">blenderguru.com</a>
-      <h1>youtube music</h1>
-      <a href="https://youtube.com/playlist?list=PLsM6CVwrafyc_llQmX0waMGw8TkSCxn0G&feature=shared" target="_blank" rel="noopener noreferrer">Super songs</a>
-      <a href="https://youtube.com/playlist?list=PLsM6CVwrafyetx7ul3ZbIK9g4eQEAT7kG&feature=shared" target="_blank" rel="noopener noreferrer">RAP songs</a>
-      </div>
-      <p class="bottom">&copy; 2025 CAUTION:please, use at your own risk. By <span lang="lt">Kostas Šliažas</span></p>
-    </main>
-
-    <div class="hide center moves">
-      <h1>DONE</h1>
-      <div>The time is ended</div>
-      <button class="em4" id="shutup">OK</button>
-    </div>
-
-    <div class="hide center moves" id="moves">
-      <h1><span class="cf">b</span> Controls</h1>
-      <div class="movable-p">
-        <fieldset class="forms flex">
-          <legend>Move blocks</legend>
+      <div class="wrp-container">
+        <div class="container">
+          <div>0</div>
+          <div>1</div>
+          <div>2</div>
+          <div>3</div>
+          <div>4</div>
+          <div>5</div>
+          <div>6</div>
+          <div>7</div>
+          <div>8</div>
+        </div>
+        <div class="movable-p w23 flex">
+          <svg id="battery" version="1.1" viewBox="0 0 50 157" xmlns="http://www.w3.org/2000/svg">
+            <path id="path4" d="m0.02 147c0 5.54 4.46 10 10 10h30c5.54 0 10-4.46 10-10v-130c0-5.54-4.46-10-10-10h-5v-3.53c0-2.18-1.73-3.94-3.91-3.94h-12.2c-2.18 0-3.94 1.76-3.94 3.94v3.53h-4.97c-5.54 0-10 4.46-10 10v130z" fill="var(--color4)" />
+            <g fill="var(--color3)">
+              <path id="path8" d="m3.62 146v-6.48c0-4.15 3.34-7.49 7.49-7.49h27.9c4.15 0 7.49 3.34 7.49 7.49v6.48c0 4.15-3.34 7.49-7.49 7.49h-27.9c-4.15 0-7.49-3.34-7.49-7.49z">
+                <animate id="p1" attributeName="fill" attributeType="XML" begin="0s; p12.end" dur="0.7s" from="var(--color3)" to="var(--color1)" />
+                <animate id="p7" attributeName="fill" attributeType="XML" begin="p6.end" dur="0.1s" from="var(--color1)" to="var(--color3)" />
+              </path>
+              <path id="path10" d="m3.62 122v-6.48c0-4.15 3.34-7.49 7.49-7.49h27.9c4.15 0 7.49 3.34 7.49 7.49v6.48c0 4.15-3.34 7.49-7.49 7.49h-27.9c-4.15 0-7.49-3.34-7.49-7.49z">
+                <animate id="p2" attributeName="fill" attributeType="XML" begin="p1.end" dur="0.7s" from="var(--color3)" to="var(--color1)" />
+                <animate id="p8" attributeName="fill" attributeType="XML" begin="p7.end" dur="0.1s" from="var(--color1)" to="var(--color3)" />
+              </path>
+              <path id="path12" d="m3.62 98v-6.48c0-4.15 3.34-7.49 7.49-7.49h27.9c4.15 0 7.49 3.34 7.49 7.49v6.48c0 4.15-3.34 7.49-7.49 7.49h-27.9c-4.15 0-7.49-3.34-7.49-7.49z">
+                <animate id="p3" attributeName="fill" attributeType="XML" begin="p2.end" dur="0.7s" from="var(--color3)" to="var(--color1)" />
+                <animate id="p9" attributeName="fill" attributeType="XML" begin="p8.end" dur="0.1s" from="var(--color1)" to="var(--color3)" />
+              </path>
+              <path id="path14" d="m3.62 73.6v-6.48c0-4.15 3.34-7.49 7.49-7.49h27.9c4.15 0 7.49 3.34 7.49 7.49v6.48c0 4.15-3.34 7.49-7.49 7.49h-27.9c-4.15 0-7.49-3.34-7.49-7.49z">
+                <animate id="p4" attributeName="fill" attributeType="XML" begin="p3.end" dur="0.7s" from="var(--color3)" to="var(--color1)" />
+                <animate id="p10" attributeName="fill" attributeType="XML" begin="p9.end" dur="0.1s" from="var(--color1)" to="var(--color3)" />
+              </path>
+              <path id="path16" d="m3.62 49.6v-6.48c0-4.15 3.34-7.49 7.49-7.49h27.9c4.15 0 7.49 3.34 7.49 7.49v6.48c0 4.15-3.34 7.49-7.49 7.49h-27.9c-4.15 0-7.49-3.34-7.49-7.49z">
+                <animate id="p5" attributeName="fill" attributeType="XML" begin="p4.end" dur="0.7s" from="var(--color3)" to="var(--color1)" />
+                <animate id="p11" attributeName="fill" attributeType="XML" begin="p10.end" dur="0.1s" from="var(--color1)" to="var(--color3)" />
+              </path>
+              <path id="path18" d="m3.62 25.6v-6.48c0-4.15 3.34-7.49 7.49-7.49h27.9c4.15 0 7.49 3.34 7.49 7.49v6.48c0 4.15-3.34 7.49-7.49 7.49h-27.9c-4.15 0-7.49-3.34-7.49-7.49z">
+                <animate id="p6" attributeName="fill" attributeType="XML" begin="p5.end" dur="0.7s" from="var(--color3)" to="var(--color1)" />
+                <animate id="p12" attributeName="fill" attributeType="XML" begin="p11.end" dur="0.1s" from="var(--color1)" to="var(--color3)" />
+              </path>
+            </g>
+          </svg>
+          <div>Mouse clicks: <span id="clicked">0</span></div>
+          <div>Position x,y: <span id="position">0</span></div>
+          <button class="movable-p w11" id="pinsave">save PIN</button>
+          <button class="movable-p w11" id="pindiscard">cancel</button>
           <div>
-            <div>
-              <button id="left" class="em4">←</button>
-            </div>
-            <div>
-              <button id="top" class="em4">↑</button>
-              <button id="bottom" class="em4">↓</button>
-            </div>
-            <div>
-              <button id="right" class="em4">→</button>
-            </div>
           </div>
-          <div>
-            <div>
-              <label for="hun" class="em4">100px</label>
-              <input type="radio" value="100" name="move" id="hun" checked="">
-            </div>
-            <div>
-              <label for="ten" class="em4">10px</label>
-              <input type="radio" value="10" name="move" id="ten">
-            </div>
-          </div>
-        </fieldset>
-        <fieldset class="forms flex">
-          <legend>Rotated mode</legend>
-          <div>
-            <input type="button" value="Toggle Rotate" name="move" id="rotate90">
-            <label for="rotate90" class="dspn">PRO laziness</label>
-          </div>
-        </fieldset>
-        <div class="forms flex em4">
-          <button id="controls-hide">Hide this window</button>
         </div>
       </div>
     </div>
-    <div class="wrp-container">
-      <div class="container">
-        <div>0</div>
-        <div>1</div>
-        <div>2</div>
-        <div>3</div>
-        <div>4</div>
-        <div>5</div>
-        <div>6</div>
-        <div>7</div>
-        <div>8</div>
-      </div>
-      <div class="movable-p w23 flex">
-        <svg id="battery" version="1.1" viewBox="0 0 50 157" xmlns="http://www.w3.org/2000/svg">
-          <path id="path4"
-            d="m0.02 147c0 5.54 4.46 10 10 10h30c5.54 0 10-4.46 10-10v-130c0-5.54-4.46-10-10-10h-5v-3.53c0-2.18-1.73-3.94-3.91-3.94h-12.2c-2.18 0-3.94 1.76-3.94 3.94v3.53h-4.97c-5.54 0-10 4.46-10 10v130z"
-            fill="var(--color4)" />
-          <g fill="var(--color3)">
-            <path id="path8"
-              d="m3.62 146v-6.48c0-4.15 3.34-7.49 7.49-7.49h27.9c4.15 0 7.49 3.34 7.49 7.49v6.48c0 4.15-3.34 7.49-7.49 7.49h-27.9c-4.15 0-7.49-3.34-7.49-7.49z">
-              <animate id="p1" attributeName="fill" attributeType="XML" begin="0s; p12.end" dur="0.7s"
-                from="var(--color3)" to="var(--color1)" />
-              <animate id="p7" attributeName="fill" attributeType="XML" begin="p6.end" dur="0.1s" from="var(--color1)"
-                to="var(--color3)" />
-            </path>
-            <path id="path10"
-              d="m3.62 122v-6.48c0-4.15 3.34-7.49 7.49-7.49h27.9c4.15 0 7.49 3.34 7.49 7.49v6.48c0 4.15-3.34 7.49-7.49 7.49h-27.9c-4.15 0-7.49-3.34-7.49-7.49z">
-              <animate id="p2" attributeName="fill" attributeType="XML" begin="p1.end" dur="0.7s" from="var(--color3)"
-                to="var(--color1)" />
-              <animate id="p8" attributeName="fill" attributeType="XML" begin="p7.end" dur="0.1s" from="var(--color1)"
-                to="var(--color3)" />
-            </path>
-            <path id="path12"
-              d="m3.62 98v-6.48c0-4.15 3.34-7.49 7.49-7.49h27.9c4.15 0 7.49 3.34 7.49 7.49v6.48c0 4.15-3.34 7.49-7.49 7.49h-27.9c-4.15 0-7.49-3.34-7.49-7.49z">
-              <animate id="p3" attributeName="fill" attributeType="XML" begin="p2.end" dur="0.7s" from="var(--color3)"
-                to="var(--color1)" />
-              <animate id="p9" attributeName="fill" attributeType="XML" begin="p8.end" dur="0.1s" from="var(--color1)"
-                to="var(--color3)" />
-            </path>
-            <path id="path14"
-              d="m3.62 73.6v-6.48c0-4.15 3.34-7.49 7.49-7.49h27.9c4.15 0 7.49 3.34 7.49 7.49v6.48c0 4.15-3.34 7.49-7.49 7.49h-27.9c-4.15 0-7.49-3.34-7.49-7.49z">
-              <animate id="p4" attributeName="fill" attributeType="XML" begin="p3.end" dur="0.7s" from="var(--color3)"
-                to="var(--color1)" />
-              <animate id="p10" attributeName="fill" attributeType="XML" begin="p9.end" dur="0.1s" from="var(--color1)"
-                to="var(--color3)" />
-            </path>
-            <path id="path16"
-              d="m3.62 49.6v-6.48c0-4.15 3.34-7.49 7.49-7.49h27.9c4.15 0 7.49 3.34 7.49 7.49v6.48c0 4.15-3.34 7.49-7.49 7.49h-27.9c-4.15 0-7.49-3.34-7.49-7.49z">
-              <animate id="p5" attributeName="fill" attributeType="XML" begin="p4.end" dur="0.7s" from="var(--color3)"
-                to="var(--color1)" />
-              <animate id="p11" attributeName="fill" attributeType="XML" begin="p10.end" dur="0.1s" from="var(--color1)"
-                to="var(--color3)" />
-            </path>
-            <path id="path18"
-              d="m3.62 25.6v-6.48c0-4.15 3.34-7.49 7.49-7.49h27.9c4.15 0 7.49 3.34 7.49 7.49v6.48c0 4.15-3.34 7.49-7.49 7.49h-27.9c-4.15 0-7.49-3.34-7.49-7.49z">
-              <animate id="p6" attributeName="fill" attributeType="XML" begin="p5.end" dur="0.7s" from="var(--color3)"
-                to="var(--color1)" />
-              <animate id="p12" attributeName="fill" attributeType="XML" begin="p11.end" dur="0.1s" from="var(--color1)"
-                to="var(--color3)" />
-            </path>
-          </g>
-        </svg>
-        <div>Mouse clicks: <span id="clicked">0</span></div>
-        <div>Position x,y: <span id="position">0</span></div>
-        <button class="movable-p w11" id="pinsave">save PIN</button>
-        <button class="movable-p w11" id="pindiscard">cancel</button>
-        <div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <script defer src="js/main.min.js"></script>
-  <script defer src="js/gall7.min.js"></script>
-</body>
+    <script defer src="js/main.min.js"></script>
+    <script defer src="js/gall7.min.js"></script>
+  </body>
 
 </html>
