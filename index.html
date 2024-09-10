@@ -7,12 +7,13 @@
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="author" content="Kostas Šliažas">
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
     <link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
     <link rel="manifest" href="site.webmanifest">
-    <link rel="preload" href="./css/main.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="stylesheet" href="./css/main.min.css">
   </head>
 
   <body>
@@ -286,19 +287,19 @@
               <legend>Time settings</legend>
 
               <div class="counter timers">
-                <label for="hours" title="Set hours">Hour</label>
+                <label for="hours" title="Set hours">Hours</label>
                 <button>—</button><button>+</button>
                 <input type="number" id="hours" min="00" max="24" value="00">
               </div>
 
               <div class="counter timers">
-                <label for="minutes" title="Set minutes">Minute</label>
+                <label for="minutes" title="Set minutes">Minutes</label>
                 <button>—</button><button>+</button>
                 <input type="number" id="minutes" min="00" max="60" value="08">
               </div>
 
               <div class="counter timers">
-                <label for="seconds" title="Set seconds">Second</label>
+                <label for="seconds" title="Set seconds">Seconds</label>
                 <button>—</button><button>+</button>
                 <input type="number" id="seconds" min="00" max="60" value="40">
               </div>
