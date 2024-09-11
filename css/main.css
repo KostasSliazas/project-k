@@ -205,7 +205,6 @@ body {
     max-height: 45px;
     max-width: 45px;
     overflow: hidden;
-    cursor: pointer;
     box-sizing: content-box;
     transition: .2s .2s;
     min-width: 45px;
@@ -270,7 +269,6 @@ form {
 
 .movable::before,
 a {
-    cursor: pointer;
     color: var(--color4)
 }
 
@@ -337,7 +335,7 @@ a {
 }
 
 .movable::before {
-    content: "A";
+    content: "m";
     width: 20px;
     height: 20px;
     pointer-events: all;
@@ -373,7 +371,7 @@ a {
 }
 
 .minimized::before {
-    content: "C";
+    content: "e";
     font-family: 'kfont';
 }
 
@@ -472,7 +470,6 @@ a {
 .svg-holder {
     margin: 4px 0;
     position: relative;
-    cursor: pointer;
     font-size: 0
 }
 
@@ -643,6 +640,21 @@ input[type=reset] {
     padding: 0
 }
 
+a,
+button,
+.svg-holder,
+.memo img,
+.checkbox label,
+.movable::before,
+input[type=button],
+input[type=color],
+input[type=file]::file-selector-button,
+input[type=number],
+input[type=radio],
+input[type=reset] {
+cursor: url('cursor.cur'), pointer;
+}
+
 button,
 input[type=button],
 input[type=color],
@@ -652,7 +664,6 @@ input[type=radio],
 input[type=reset] {
     margin: 0;
     overflow: hidden;
-    cursor: pointer;
     color: var(--color4);
     background: var(--color2);
     border: 1px solid var(--color3);
@@ -732,7 +743,6 @@ input[type=file]::file-selector-button:active {
 }
 
 button {
-    cursor: pointer;
     min-inline-size: 43px
 }
 
@@ -920,7 +930,6 @@ div:first-of-type+.checkbox {
     height: 100%;
     line-height: inherit;
     position: relative;
-    cursor: pointer;
     border: 1px solid var(--color3);
     margin: 0;
     outline: 0;
@@ -1029,7 +1038,6 @@ input::-moz-selection {
     border: 1px solid var(--color1);
     color: var(--color4);
     aspect-ratio: 1;
-    cursor: pointer;
     place-items: center;
     text-transform: uppercase;
     font-size: 1.2rem;
@@ -1047,7 +1055,6 @@ input::-moz-selection {
 
 .checkbox label {
     position: relative;
-    cursor: pointer;
     padding-right: 28px
 }
 
