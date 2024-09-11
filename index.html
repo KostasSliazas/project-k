@@ -211,18 +211,27 @@
                 <label for="bg-file" class="dspn">Upload image</label>
                 <input id="bg-file" type="file" title="localStorage quota will be exceeded when using large images!">
               </div>
+
               <div class="checkbox">
-                <input id="bg-toggle" type="checkbox">
-                <label for="bg-toggle">Lines</label>
+                <input type="checkbox" id="cute-mode">
+                <label for="cute-mode">Cute mode</label>
               </div>
-              <div class="checkbox">
-                <input id="enabled-bg" type="checkbox">
-                <label for="enabled-bg">Default</label>
-              </div>
+
               <div class="checkbox">
                 <input type="checkbox" id="repeat-toggle">
                 <label for="repeat-toggle">Repeated</label>
               </div>
+
+              <div class="checkbox">
+                <input id="enabled-bg" type="checkbox">
+                <label for="enabled-bg">Default</label>
+              </div>
+
+              <div class="checkbox">
+                <input id="bg-toggle" type="checkbox">
+                <label for="bg-toggle">Lines</label>
+              </div>
+
             </fieldset>
           </div>
         </div>
@@ -307,7 +316,7 @@
           </div>
         </div>
 
-        <div class="movable w16" title="Right click to copy">
+        <div class="movable w17" title="Right click to copy">
           <h1>linux commands</h1>
           <div class="oxs">
             <p title="Recursively remove copied folders (1)">sudo find -type d -name '*(1)*' -a -prune -exec rm -rf {} \; </p>

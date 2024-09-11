@@ -170,7 +170,9 @@ html {
 [class=bg-image] #main::before {
     background-size: 200px
 }
-
+.cute-mode .movable:nth-child(18),
+.cute-mode .movable:nth-child(19),
+.cute-mode .movable:nth-child(8),
 .e .movable:nth-child(1),
 .e .movable:nth-child(12),
 .e .movable:nth-child(13),
@@ -189,10 +191,26 @@ html {
     visibility: hidden
 }
 
+.cute-mode { cursor: url('dcursor.cur'), auto;}
+.cute-mode a,
+.cute-mode button,
+.cute-mode .svg-holder,
+.cute-mode .memo img,
+.cute-mode .checkbox label,
+.cute-mode .movable::before,
+.cute-mode input[type=button],
+.cute-mode input[type=color],
+.cute-mode input[type=file]::file-selector-button,
+.cute-mode input[type=number],
+.cute-mode input[type=radio],
+.cute-mode input[type=reset] {
+cursor: url('cursor.cur'), pointer !important;
+}
+
+
 body {
     font: 16px/1.25 -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
     font-variant-caps: all-petite-caps;
-    cursor: url('dcursor.cur'), auto;
     color: var(--color4)
 }
 
@@ -653,7 +671,7 @@ input[type=file]::file-selector-button,
 input[type=number],
 input[type=radio],
 input[type=reset] {
-cursor: url('cursor.cur'), pointer !important;
+cursor: pointer;
 }
 
 button,
