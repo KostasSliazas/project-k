@@ -192,6 +192,7 @@ html {
 body {
     font: 16px/1.25 -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
     font-variant-caps: all-petite-caps;
+    cursor: url('dcursor.cur'), auto;
     color: var(--color4)
 }
 
@@ -652,7 +653,7 @@ input[type=file]::file-selector-button,
 input[type=number],
 input[type=radio],
 input[type=reset] {
-cursor: url('cursor.cur'), pointer;
+cursor: url('cursor.cur'), pointer !important;
 }
 
 button,
