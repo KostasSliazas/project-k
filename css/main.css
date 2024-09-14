@@ -170,9 +170,7 @@ html {
 [class=bg-image] #main::before {
     background-size: 200px
 }
-.cute-mode .movable:nth-child(18),
-.cute-mode .movable:nth-child(19),
-.cute-mode .movable:nth-child(8),
+.cute-mode .cute img,
 .e .movable:nth-child(1),
 .e .movable:nth-child(12),
 .e .movable:nth-child(13),
@@ -206,7 +204,9 @@ html {
 .cute-mode input[type=reset] {
 cursor: url('cursor.cur'), pointer !important;
 }
-
+.cute {
+    background: url(../img/k.svg) no-repeat bottom center;
+}
 
 body {
     font: 16px/1.25 -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
