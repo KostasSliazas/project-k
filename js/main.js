@@ -641,6 +641,7 @@
       if (!isCounting) {
         isCounting = true;
         sec = this.totalSeconds(); // set seconds at start
+        this.counterTime.textContent = '-' + this.counterTime.textContent
       }
 
       // set timeout to variable for clearing later
@@ -673,7 +674,7 @@
           // ignition
           this.start();
           // change text content affter click
-          this.counterTime.textContent = addLeadingZero(sec);
+          this.counterTime.textContent = '-'+addLeadingZero(sec);
           // only -1 second when seconds are more then 0
           --sec;
 

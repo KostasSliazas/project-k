@@ -136,7 +136,7 @@ html {
 .f body {
     font-family: monospace
 }
-
+.d body,
 .c body,
 .e body {
     letter-spacing: .3px;
