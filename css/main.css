@@ -363,7 +363,7 @@ a {
     left: 0;
     text-align: center;
     line-height: 20px;
-    font-family: 'kfont';
+    font-family: 'kfont', sans-serif;
 }
 
 .movable>div {
@@ -391,7 +391,7 @@ a {
 
 .minimized::before {
     content: "e";
-    font-family: 'kfont';
+    font-family: 'kfont', sans-serif;
 }
 
 #clipboard {
@@ -588,7 +588,7 @@ textarea:hover {
 }
 
 .cf {
-    font-family: 'kfont';
+    font-family: 'kfont', sans-serif;
     font-weight: normal;
     font-style: normal;
 }
