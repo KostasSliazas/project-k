@@ -1201,34 +1201,20 @@ input[type=number] {
 }
 
 @media screen and (max-width:700px) {
+    .w17, .w16, .w15 { max-width: 100% }
 
-    .w15,
-    .w16 {
-        max-width: 100%
-    }
-
-    #vr.minimized,
-    .bottom,
-    .movable {
+    .bottom, .movable {
         position: relative !important;
         top: 0 !important;
         left: 0 !important;
         width: 100% !important;
-        height: auto !important
     }
 
-    .tetris {
-        clip-path: none
-    }
+    .tetris { clip-path: none }
 
-    #vr h1,
-    .movable::before {
-        display: none !important
-    }
+    #vr { display: none !important }
 
-    .movable.minimized div {
-        display: block !important
-    }
+    .movable.minimized div { display: block !important }
 }
 
 @media screen and (min-width:768px) {
