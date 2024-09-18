@@ -29,7 +29,7 @@
 }
 
 :root {
-    --color0: #FEFEDF; --color1: #D5CABD; --color2: #A9A6DC; --color3: #777EEE; --color4: #011113;
+    --color0: #DEF0F9; --color1: #EEEEEE; --color2: #B3C5CE; --color3: #889AA3; --color4: #32444D;
     --bg: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQIW2NgAAIAAAUAAR4f7BQAAAAASUVORK5CYII=);
     --repeat: center/cover no-repeat
 }
