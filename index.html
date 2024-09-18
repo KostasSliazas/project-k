@@ -334,6 +334,7 @@
             <p title="Update & Upgrade System">sudo apt update ; sudo apt upgrade -y</p>
             <p title="Regular expressions to search in files (find one of two things)">grep "(root|nobody)" /etc/passwd</p>
             <p title="-print/-delete empty folders">find . -type d -empty -print</p>
+            <p title="-print/-delete ALL except with file extension 'txt'">find . -type f ! -name '*.txt' -print</p>
             <p title="Archive file list to file">less data.zip &gt; file.txt</p>
             <p title="Write 'okay' to file">echo okay &gt; filename</p>
             <p title="Show directories">find / -type d -ls</p>
