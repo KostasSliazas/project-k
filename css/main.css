@@ -29,7 +29,11 @@
 }
 
 :root {
-    --color0: #DEF0F9; --color1: #EEEEEE; --color2: #B3C5CE; --color3: #889AA3; --color4: #32444D;
+    --color0: #DEF0F9;
+    --color1: #EEEEEE;
+    --color2: #B3C5CE;
+    --color3: #889AA3;
+    --color4: #32444D;
     --bg: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQIW2NgAAIAAAUAAR4f7BQAAAAASUVORK5CYII=);
     --repeat: center/cover no-repeat
 }
@@ -132,6 +136,7 @@ html {
 .f body {
     font-family: monospace
 }
+
 .d body,
 .c body,
 .e body {
@@ -166,6 +171,7 @@ html {
 [class=bg-image] #main::before {
     background-size: 200px
 }
+
 .cute-mode .cute img,
 .e .movable:nth-child(1),
 .e .movable:nth-child(12),
@@ -175,6 +181,7 @@ html {
 .e .movable:nth-child(17),
 .e .movable:nth-child(18),
 .e .movable:nth-child(19),
+.e .movable:nth-child(22),
 .e .movable:nth-child(2),
 .e .movable:nth-child(24),
 .e .movable:nth-child(3),
@@ -185,7 +192,10 @@ html {
     visibility: hidden
 }
 
-.cute-mode { cursor: url('dcursor.cur'), auto;}
+.cute-mode {
+    cursor: url('dcursor.cur'), auto;
+}
+
 .cute-mode a,
 .cute-mode button,
 .cute-mode .svg-holder,
@@ -198,8 +208,9 @@ html {
 .cute-mode input[type=number],
 .cute-mode input[type=radio],
 .cute-mode input[type=reset] {
-cursor: url('cursor.cur'), pointer !important;
+    cursor: url('cursor.cur'), pointer !important;
 }
+
 .cute {
     background: url(../img/k.svg) no-repeat bottom center;
 }
@@ -601,6 +612,21 @@ textarea:hover {
     place-content: center
 }
 
+.esr {
+    display: grid;
+    max-width: max-content;
+    grid-template-columns: repeat(8, minmax(1em, auto));
+    grid-template-rows: repeat(12, minmax(1em, auto));
+}
+
+.esr i {
+    box-shadow: 1px 1px 0 0 var(--color2);
+}
+
+.c0 {
+    background: var(--color2);
+}
+
 .table {
     display: grid;
     max-width: max-content;
@@ -608,14 +634,18 @@ textarea:hover {
     grid-template-rows: repeat(30, minmax(1em, auto));
 }
 
+.esr i,
 .table i {
-    box-shadow: 0 1px 0 0 var(--color2);
     font-style: inherit;
     line-height: 1;
     white-space: nowrap;
     overflow: hidden;
     padding: 0 4px;
     text-overflow: ellipsis;
+}
+
+.table i {
+    box-shadow: 0 1px 0 0 var(--color2);
 }
 
 input[type=text],
@@ -667,7 +697,7 @@ input[type=file]::file-selector-button,
 input[type=number],
 input[type=radio],
 input[type=reset] {
-cursor: pointer;
+    cursor: pointer;
 }
 
 button,
@@ -1197,20 +1227,32 @@ input[type=number] {
 }
 
 @media screen and (max-width:700px) {
-    .w17, .w16, .w15 { max-width: 100% }
 
-    .bottom, .movable {
+    .w17,
+    .w16,
+    .w15 {
+        max-width: 100%
+    }
+
+    .bottom,
+    .movable {
         position: relative !important;
         top: 0 !important;
         left: 0 !important;
         width: 100% !important;
     }
 
-    .tetris { clip-path: none }
+    .tetris {
+        clip-path: none
+    }
 
-    #vr { display: none !important }
+    #vr {
+        display: none !important
+    }
 
-    .movable.minimized div { display: block !important }
+    .movable.minimized div {
+        display: block !important
+    }
 }
 
 @media screen and (min-width:768px) {

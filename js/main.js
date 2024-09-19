@@ -62,14 +62,14 @@
   const textArea = d.getElementsByTagName("TEXTAREA")[0];
   const bg = d.querySelector("#bg-file");
   const styles = ["width", "height", "left", "top"];
-  const blockDefaults = "width:90px;height:20px;left:160px;top:0px;,width:110px;height:40px;left:480px;top:0px;,width:110px;height:60px;left:480px;top:40px;,width:60px;height:60px;left:590px;top:40px;,width:160px;height:440px;left:970px;top:100px;,width:170px;height:480px;left:160px;top:60px;,width:160px;height:420px;left:650px;top:40px;,width:160px;height:160px;left:0px;top:0px;,width:150px;height:240px;left:330px;top:0px;,width:160px;height:80px;left:650px;top:460px;,width:170px;height:440px;left:480px;top:100px;,width:110px;height:40px;left:700px;top:0px;,width:110px;height:40px;left:590px;top:0px;,width:80px;height:20px;left:250px;top:0px;,width:170px;height:20px;left:160px;top:40px;,width:150px;height:300px;left:330px;top:240px;,width:170px;height:20px;left:160px;top:20px;,width:160px;height:80px;left:0px;top:460px;,width:160px;height:300px;left:0px;top:160px;,width:160px;height:100px;left:970px;top:0px;,width:160px;height:540px;left:810px;top:0px;";
+  const blockDefaults = "width:90px;height:20px;left:160px;top:0px;,width:110px;height:40px;left:480px;top:0px;,width:110px;height:60px;left:480px;top:40px;,width:60px;height:60px;left:590px;top:40px;,width:160px;height:440px;left:970px;top:100px;,width:170px;height:500px;left:160px;top:40px;,width:160px;height:420px;left:650px;top:40px;,width:160px;height:160px;left:0px;top:0px;,width:150px;height:240px;left:330px;top:0px;,width:160px;height:80px;left:650px;top:460px;,width:170px;height:440px;left:480px;top:100px;,width:110px;height:40px;left:700px;top:0px;,width:110px;height:40px;left:590px;top:0px;,width:80px;height:20px;left:250px;top:0px;,width:170px;height:20px;left:160px;top:20px;,width:150px;height:300px;left:330px;top:240px;,width:710px;height:700px;left:420px;top:540px;,width:160px;height:80px;left:0px;top:460px;,width:160px;height:300px;left:0px;top:160px;,width:160px;height:100px;left:970px;top:0px;,width:160px;height:540px;left:810px;top:0px;,width:420px;height:260px;left:0px;top:540px;";
   const textAreaDefaults = "Good day. You have the ability to reposition these blocks by selecting and holding the left corner or by pressing the ` key on your keyboard. Alternatively, double-click to minimize them. Additionally, you can customize the theme, colors, and background image. If locked, to unlock, simply triple-click on the background and then click 520 (default PIN) or clear localStorage (because by using this project you will write to it data, like password and other settings)";
   const counts = {
     allMouseClicks: 0,
     clicks: 0
   };
   let saved = getLocalStorageItems('mustashed') || [5, 2, 0];
-  let minimized = [13, 14, 16, 0];
+  let minimized = [13, 14, 16, 0, 21];
   let mousedown = false;
   let scalingTarget = null;
   let isEnterPass = false;
