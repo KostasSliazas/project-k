@@ -351,6 +351,7 @@ div.moves {
 
 .movable {
     min-width: 52px;
+    max-width: 710px;
     position: relative
 }
 
