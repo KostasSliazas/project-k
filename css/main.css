@@ -78,11 +78,11 @@ html {
 }
 
 .b {
-    --color0: #000710;
-    --color1: #343B44;
-    --color2: #686F78;
-    --color3: #9CA3AC;
-    --color4: #ECF3FC;
+    --color0: #E9F2FB;
+    --color1: #B5BEC7;
+    --color2: #818A93;
+    --color3: #4D565F;
+    --color4: #19222B;
 }
 
 .b.bg-image {
