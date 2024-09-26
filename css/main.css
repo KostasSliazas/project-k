@@ -169,7 +169,7 @@ html {
 
 [class="a bg-image"] #main::before,
 [class=bg-image] #main::before {
-    background-size: 200px
+    background-size: 77px
 }
 
 .cute-mode .cute img,
@@ -424,12 +424,14 @@ a {
     background: var(--color2);
     min-height: 20px;
     width: 100%;
-    padding: 0 20px;
+    padding: 0 0 0 20px;
     white-space: nowrap;
     text-overflow: ellipsis;
     text-transform: uppercase;
-    text-align: center;
+    text-align: right;
     font-weight: 100;
+    text-indent: 2px;
+    direction: rtl;
     overflow: hidden
 }
 
