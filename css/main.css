@@ -29,11 +29,7 @@
 }
 
 :root {
-    --color0: #DEF0F9;
-    --color1: #EEEEEE;
-    --color2: #B3C5CE;
-    --color3: #889AA3;
-    --color4: #32444D;
+    --color0: #545D6D; --color1: #343D4D; --color2: #222222; --color3: #111111; --color4: #A4ADBD;
     --bg: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQIW2NgAAIAAAUAAR4f7BQAAAAASUVORK5CYII=);
     --repeat: center/cover no-repeat
 }
@@ -50,12 +46,20 @@ html {
 }
 
 #loader {
+  padding: 0 7px;
+}
+#loader:after {
+    position: fixed;
+    content: '';
+    display:block;
     border: 7px solid #ccc;
     border-top: 7px solid #777;
     border-radius: 50%;
     width: 34px;
     height: 34px;
-    position: fixed;
+    animation: spin .34s linear infinite;
+    box-sizing: border-box;
+    position: absolute;
     top: 50%;
     left: 50%;
     animation: spin .34s linear infinite
@@ -169,7 +173,7 @@ html {
 
 [class="a bg-image"] #main::before,
 [class=bg-image] #main::before {
-    background-size: 77px
+    background-size: 100px
 }
 
 .cute-mode .cute img,
@@ -214,7 +218,9 @@ html {
 .cute {
     background: url(../img/k.svg) no-repeat bottom center;
 }
-
+.hmove{
+    --color3: #000 !important;
+}
 body {
     font: 16px/1.25 -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
     font-variant-caps: all-petite-caps;
@@ -428,10 +434,7 @@ a {
     white-space: nowrap;
     text-overflow: ellipsis;
     text-transform: uppercase;
-    text-align: right;
     font-weight: 100;
-    text-indent: 2px;
-    direction: rtl;
     overflow: hidden
 }
 
@@ -874,6 +877,7 @@ div:first-of-type+.checkbox {
 }
 
 #vr h1 {
+    text-align: center;
     height: 100%;
     margin: -1px 0;
     padding: 19px 0 2px;

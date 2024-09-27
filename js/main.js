@@ -208,6 +208,9 @@
         await delay(200);
         if (moving) {
           target.classList.add("mousedown");
+          //higlight moving
+          root.classList.add('hmove');
+          main.classList.add('lines');
         }
       });
       // console.timeEnd()
@@ -718,24 +721,27 @@
   // set Counter global variable
   const timers = new Counter();
 
+
+
   async function init() {
     // If localStorage is empty, set isCheckedLines to true
     if (localStorage.length === 0) {
         await setLocalStorageItems('theme-lines', true);
     }
     await delay(77);
-    // remove lines if set to false in local storage by default show them
+
     const isCheckedLines = getLocalStorageItems("theme-lines");
+    const isCheckedBg = getLocalStorageItems("theme-bg");
+    const isRepeatingBg = getLocalStorageItems("bg-repeat");
+    // remove lines if set to false in local storage by default show them
     setCheckboxChecked('bg-toggle', isCheckedLines);
     main.classList.toggle('lines', isCheckedLines);
 
     // remove default bg by default true
-    const isCheckedBg = getLocalStorageItems("theme-bg");
     setCheckboxChecked('enabled-bg', isCheckedBg);
     root.classList.toggle('bg-image', isCheckedBg);
 
     // remove default repeating
-    const isRepeatingBg = getLocalStorageItems("bg-repeat");
     setCheckboxChecked('repeat-toggle', isRepeatingBg);
     main.classList.toggle('bg-repeat', isRepeatingBg);
 
@@ -1072,6 +1078,8 @@
 
     if (targetClass) {
       target.classList.remove("mousedown");
+      root.classList.remove('hmove');
+      if(!document.getElementById('bg-toggle').checked) main.classList.remove('lines');
       setLocalStorageItems('elementStyles', getStyles());
     }
 
@@ -1159,6 +1167,7 @@
 
   const sound = () => {
     BEEP_AUDIO.play();
+    if(w.navigator.vibrate)
     w.navigator.vibrate(30);
   };
 
