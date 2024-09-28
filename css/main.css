@@ -219,8 +219,9 @@ html {
     background: url(../img/k.svg) no-repeat bottom center;
 }
 .hmove{
-    --color3: #000 !important;
+    --color3: #fff !important;
 }
+.super{vertical-align:super}
 body {
     font: 16px/1.25 -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
     font-variant-caps: all-petite-caps;
