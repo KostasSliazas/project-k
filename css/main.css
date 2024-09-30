@@ -618,7 +618,9 @@ textarea:hover {
     display: flex;
     place-content: center
 }
-
+.fone{
+    flex:1;
+}
 .esr {
     display: grid;
     max-width: max-content;
@@ -876,7 +878,9 @@ div:first-of-type+.checkbox {
     min-block-size: 20px;
     line-height: 20px
 }
-
+.gap {
+    gap: 4px;
+}
 #vr h1 {
     text-align: center;
     height: 100%;
