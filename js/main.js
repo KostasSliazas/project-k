@@ -58,6 +58,7 @@
   const codeDiv = d.querySelector(".wrp-container");
   const defaultPin = d.querySelector("#code");
   const shutup = d.querySelector("#shutup");
+  const start = d.querySelector('#start');
   const codeDivElms = Array.from(codeDiv.children[0].children);
   const textArea = d.getElementsByTagName("TEXTAREA")[0];
   const bg = d.querySelector("#bg-file");
@@ -654,7 +655,7 @@
           this.stop();
 
           if (d.getElementById('sounds-ding').checked) {
-            const rep1 = new Repeater(700, 50, playSound);
+            const rep1 = new Repeater(100, 50, playSound);
             const rep2 = new Repeater(1000, 100, playSound);
             show(shutup.parentElement);
             shutup.onclick = (e) => {
@@ -877,8 +878,16 @@
     if (target === "top") loops("top", -1);
     if (target === "bottom") loops("top", 1);
 
-    if (target === "start") timers.start();
-    if (target === "stop") timers.stop();
+    if (target === "start" && e.target.innerText.toUpperCase() === 'START') {
+      timers.start();
+      start.innerText = 'Stop';
+    }else if(target === 'shutup' || target === "start" && e.target.innerText.toUpperCase() === 'STOP'){
+      timers.stop();
+      start.innerText = 'Start';
+    }
+    // if (target === "stop"){
+    //   timers.stop();
+    // }
     if (target === "reset") timers.reset();
 
     if (e.target.tagName === "BUTTON" && e.target.parentElement.classList.contains('counter')) {
