@@ -39,7 +39,9 @@
 
   const sound = () => {
     BEEP_AUDIO.play();
-    window.navigator.vibrate(30);
+    if (typeof window.navigator.vibrate === 'function') {
+      window.navigator.vibrate(30);
+    }
   };
 
   const add = (n, o) => n + o;
@@ -113,6 +115,7 @@
     if (op === "/" || op === "×" || op === "+" || op === "-" || op === "=") {
       if (n2 && lastop) result = cal(Number(n2), Number(result), cals[lastop]);
       lastop = res(op);
+      if (n1[0] === '0' && n1.length === 1) return;
       n2 = result;
       n1.length = 0;
     }
@@ -137,7 +140,13 @@
     else changerClass(THEME_CHANGE.value);
   }
   CALC.addEventListener("mousedown", (e) => btn(e));
-  CALC.addEventListener("mouseup", (e) => setTimeout(() => CALC_SCREEN.classList.remove("blink"), 99)); // blink screen number
+  CALC.addEventListener("mouseup", (e) => {
+    const screenTimeout = setTimeout(() => {
+      clearTimeout(screenTimeout);
+      CALC_SCREEN.classList.remove("blink");
+    }, 7);
+  }); // blink screen number
+
   document.addEventListener("DOMContentLoaded", init);
 
   // click events for context menu and simple click only for theme changing
