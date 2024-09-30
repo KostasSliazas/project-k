@@ -1176,8 +1176,9 @@
 
   const sound = () => {
     BEEP_AUDIO.play();
-    if(w.navigator.vibrate)
-    w.navigator.vibrate(30);
+    if (typeof window.navigator.vibrate === 'function') {
+      w.navigator.vibrate(30);
+    }
   };
 
   const add = (n, o) => n + o;
