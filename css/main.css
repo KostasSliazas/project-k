@@ -209,7 +209,7 @@ html {
     background: url(../img/k.svg) no-repeat bottom center;
 }
 .hmove{
-    --color3: #fff !important;
+    --color3: #000 !important;
 }
 .super{vertical-align:super}
 body {
