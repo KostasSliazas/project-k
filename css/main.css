@@ -18,16 +18,6 @@
     }
 }
 
-@font-face {
-    font-family: 'kfont';
-    src: url('kfont.woff2') format('woff2'),
-        url('kfont.woff') format('woff'),
-        url('kfont.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-}
-
 :root {
     --color0: #545D6D; --color1: #343D4D; --color2: #222222; --color3: #111111; --color4: #A4ADBD;
     --bg: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQIW2NgAAIAAAUAAR4f7BQAAAAASUVORK5CYII=);
@@ -369,7 +359,7 @@ a {
 }
 
 .movable::before {
-    content: "m";
+    content: "✥";
     width: 20px;
     height: 20px;
     pointer-events: all;
@@ -378,7 +368,6 @@ a {
     left: 0;
     text-align: center;
     line-height: 20px;
-    font-family: 'kfont', sans-serif;
 }
 
 .movable>div {
@@ -405,8 +394,7 @@ a {
 }
 
 .minimized::before {
-    content: "e";
-    font-family: 'kfont', sans-serif;
+    content: "🗖";
 }
 
 #clipboard {
@@ -599,12 +587,6 @@ textarea:hover {
 
 ::-webkit-scrollbar-thumb {
     background: var(--color3)
-}
-
-.cf {
-    font-family: 'kfont', sans-serif;
-    font-weight: normal;
-    font-style: normal;
 }
 
 .flex {
