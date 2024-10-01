@@ -60,11 +60,11 @@ html {
 }
 
 .a {
-    --color0: #F8FDFF;
-    --color1: #BCDDEA;
-    --color2: #82ADBE;
-    --color3: #4E7888;
-    --color4: #223E49
+    --color0: #F7F7FE;
+    --color1: #E7E7EE;
+    --color2: #D9D9E0;
+    --color3: #AAAAB1;
+    --color4: #46464D
 }
 
 .a.bg-image {
@@ -108,11 +108,7 @@ html {
 }
 
 .e {
-    --color0: #FFEFEC;
-    --color1: #DCC0BA;
-    --color2: #8A726D;
-    --color3: #312523;
-    --color4: #140907
+    --color0: #CFC6C8; --color1: #B1ABAC; --color2: #777777; --color3: #636363; --color4: #000000
 }
 
 .e.bg-image {
