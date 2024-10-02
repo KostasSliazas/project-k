@@ -19,7 +19,11 @@
 }
 
 :root {
-    --color0: #545D6D; --color1: #343D4D; --color2: #222222; --color3: #111111; --color4: #A4ADBD;
+    --color0: #545D6D;
+    --color1: #343D4D;
+    --color2: #222222;
+    --color3: #111111;
+    --color4: #A4ADBD;
     --bg: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQIW2NgAAIAAAUAAR4f7BQAAAAASUVORK5CYII=);
     --repeat: center/cover no-repeat
 }
@@ -36,12 +40,13 @@ html {
 }
 
 #loader {
-  padding: 0 7px;
+    padding: 0 7px;
 }
+
 #loader:after {
     position: fixed;
     content: '';
-    display:block;
+    display: block;
     border: 7px solid #ccc;
     border-top: 7px solid #777;
     border-radius: 50%;
@@ -64,7 +69,7 @@ html {
     --color1: #E7E7EE;
     --color2: #D9D9E0;
     --color3: #AAAAB1;
-    --color4: #46464D
+    --color4: #333333
 }
 
 .a.bg-image {
@@ -108,7 +113,11 @@ html {
 }
 
 .e {
-    --color0: #CFC6C8; --color1: #B1ABAC; --color2: #777777; --color3: #636363; --color4: #000000
+    --color0: #CFC6C8;
+    --color1: #B1ABAC;
+    --color2: #777777;
+    --color3: #636363;
+    --color4: #000000
 }
 
 .e.bg-image {
@@ -204,10 +213,15 @@ html {
 .cute {
     background: url(../img/k.svg) no-repeat bottom center;
 }
-.hmove{
+
+.hmove {
     --color3: #000 !important;
 }
-.super{vertical-align:super}
+
+.super {
+    vertical-align: super
+}
+
 body {
     font: 16px/1.25 -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
     font-variant-caps: all-petite-caps;
@@ -374,6 +388,10 @@ a {
 
 .pad {
     padding-top: 20px
+}
+
+.scroll:hover {
+    overflow: auto;
 }
 
 .minimized {
@@ -596,9 +614,11 @@ textarea:hover {
     display: flex;
     place-content: center
 }
-.fone{
-    flex:1;
+
+.fone {
+    flex: 1;
 }
+
 .esr {
     display: grid;
     max-width: max-content;
@@ -856,9 +876,11 @@ div:first-of-type+.checkbox {
     min-block-size: 20px;
     line-height: 20px
 }
+
 .gap {
     gap: 4px;
 }
+
 #vr h1 {
     text-align: center;
     height: 100%;
