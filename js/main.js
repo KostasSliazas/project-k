@@ -22,7 +22,7 @@
   if (isLocked) {
     d.title = 'New Tab'; // change title (document)
     d.getElementById('loader').style.display = 'none'; // Hide the loader
-    
+
     // create a new HTML link element
     const link = d.createElement('link');
     link.rel = 'icon';
@@ -152,6 +152,8 @@
     };
   }
 
+  let clickTimeout = null;
+  const clickDelay = 340; // Time in milliseconds
 
   const loopElem = async () => {
     // console.time()
@@ -169,6 +171,11 @@
       e.firstElementChild.title += ' (block index' + movable.indexOf(e) + ')';
       if (e.id === 'text-area') textArea.style.height = e.style.height;
       e.addEventListener("dblclick", async e => {
+        if (clickTimeout) {
+          clearTimeout(clickTimeout);
+          clickTimeout = null;
+        }
+
         if (e.target.classList.contains("movable")) {
           const index = movable.indexOf(e.target);
           let arrayOfMinimized = getLocalStorageItems("elementClass") || minimized;
@@ -195,7 +202,7 @@
         }
       });
 
-      e.addEventListener("mousedown", async function (e) {
+      e.addEventListener("mousedown", function (e) {
         if (e.target === this) {
           moving = true;
         }
@@ -206,12 +213,22 @@
 
         target = this;
         target.style.zIndex = 2;
-        await delay(200);
-        if (moving) {
-          target.classList.add("mousedown");
-          //higlight moving
-          root.classList.add('hmove');
-          main.classList.add('lines');
+
+        if (!clickTimeout) {
+          // If no pending click, set a timeout for single click action
+          clickTimeout = setTimeout(() => {
+            // console.log('Single click action');
+
+
+            // await delay(200);
+            if (moving) {
+              target.classList.add("mousedown");
+              root.classList.add('hmove'); //higlight moving
+              main.classList.add('lines'); //higlight moving
+            }
+
+            clickTimeout = null;
+          }, clickDelay);
         }
       });
       // console.timeEnd()
@@ -678,7 +695,7 @@
           // ignition
           this.start();
           // change text content affter click
-          this.counterTime.textContent = '-'+addLeadingZero(sec);
+          this.counterTime.textContent = '-' + addLeadingZero(sec);
           // only -1 second when seconds are more then 0
           --sec;
 
@@ -727,7 +744,7 @@
   async function init() {
     // If localStorage is empty, set isCheckedLines to true
     if (localStorage.length === 0) {
-        await setLocalStorageItems('theme-lines', true);
+      await setLocalStorageItems('theme-lines', true);
     }
     await delay(77);
 
@@ -881,7 +898,7 @@
     if (target === "start" && e.target.innerText.toUpperCase() === 'START') {
       timers.start();
       start.innerText = 'Stop';
-    }else if(target === 'shutup' || target === "start" && e.target.innerText.toUpperCase() === 'STOP'){
+    } else if (target === 'shutup' || target === "start" && e.target.innerText.toUpperCase() === 'STOP') {
       timers.stop();
       start.innerText = 'Start';
     }
@@ -1088,7 +1105,7 @@
     if (targetClass) {
       target.classList.remove("mousedown");
       root.classList.remove('hmove');
-      if(!document.getElementById('bg-toggle').checked) main.classList.remove('lines');
+      if (!document.getElementById('bg-toggle').checked) main.classList.remove('lines');
       setLocalStorageItems('elementStyles', getStyles());
     }
 
