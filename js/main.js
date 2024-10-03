@@ -426,7 +426,7 @@
   };
 
   const themeName = d.getElementById('theme-name');
-  const longNames = ['inner peace', 'peace on earth', 'cool dudes', 'sunshine', 'someday', 'everything fine', 'night'];
+  const longNames = ['peace on earth', 'inner peace', 'cool dudes', 'sunshine', 'someday', 'everything fine', 'night'];
   const classNameVariables = [0, "a", "b", "c", "d", "e", "f"];
   const THEME_CHANGE = arrayHelper.call(classNameVariables);
 
