@@ -43,7 +43,7 @@ html {
     display: flex;
     flex-direction: column;
     place-content: center;
-    background: url(../safari-pinned-tab.svg) center no-repeat;
+    background: url(../safari-pinned-tab.svg) no-repeat center/contain;
     place-items: center;
     height: 100vh;
     font-size: 12px;
@@ -179,21 +179,15 @@ html {
 
 .cute-mode .cute img,
 .e .movable:nth-child(1),
-.e .movable:nth-child(12),
-.e .movable:nth-child(13),
 .e .movable:nth-child(14),
 .e .movable:nth-child(15),
 .e .movable:nth-child(17),
 .e .movable:nth-child(18),
 .e .movable:nth-child(19),
 .e .movable:nth-child(22),
-.e .movable:nth-child(2),
 .e .movable:nth-child(24),
-.e .movable:nth-child(3),
-.e .movable:nth-child(4),
 .e .movable:nth-child(6),
-.e .movable:nth-child(8),
-.e .movable:nth-child(9) {
+.e .movable:nth-child(8) {
     visibility: hidden
 }
 
