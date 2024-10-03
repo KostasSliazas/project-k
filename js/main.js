@@ -64,7 +64,7 @@
   const bg = d.querySelector("#bg-file");
   const styles = ["width", "height", "left", "top"];
   const blockDefaults = "width:70px;height:40px;left:260px;top:20px;,width:110px;height:40px;left:480px;top:20px;,width:110px;height:60px;left:480px;top:60px;,width:60px;height:60px;left:590px;top:60px;,width:160px;height:440px;left:970px;top:120px;,width:170px;height:500px;left:160px;top:60px;,width:160px;height:420px;left:650px;top:60px;,width:160px;height:160px;left:0px;top:20px;,width:150px;height:240px;left:330px;top:20px;,width:160px;height:80px;left:650px;top:480px;,width:170px;height:440px;left:480px;top:120px;,width:110px;height:40px;left:700px;top:20px;,width:110px;height:40px;left:590px;top:20px;,width:100px;height:40px;left:160px;top:20px;,width:170px;height:20px;left:160px;top:40px;,width:150px;height:300px;left:330px;top:260px;,width:710px;height:700px;left:420px;top:0px;,width:160px;height:80px;left:0px;top:480px;,width:160px;height:300px;left:0px;top:180px;,width:160px;height:100px;left:970px;top:20px;,width:160px;height:540px;left:810px;top:20px;,width:420px;height:260px;left:0px;top:0px;";
-  const textAreaDefaults = "Good day. You have the ability to reposition these blocks by selecting and holding the left corner or by pressing the ` key on your keyboard. Alternatively, double-click to minimize them. Additionally, you can customize the theme, colors, and background image. If locked, to unlock, simply triple-click on the background and then click 520 (default PIN) or clear localStorage (because by using this project you will write to it data, like password and other settings)";
+  const textAreaDefaults = "Good day. You have the ability to reposition these blocks by selecting and holding the left corner or by pressing the ` key ([ctrl]+[`]=Reset to Defaults) on your keyboard. Alternatively, double-click to minimize them. Additionally, you can customize the theme, colors, and background image. If locked, to unlock, simply triple-click on the background and then click 520 (default PIN) or clear localStorage (because by using this project you will write to it data, like password and other settings)";
   const counts = {
     allMouseClicks: 0,
     clicks: 0
@@ -178,7 +178,7 @@
 
         if (e.target.classList.contains("movable")) {
           const index = movable.indexOf(e.target);
-          let arrayOfMinimized = getLocalStorageItems("elementClass") || minimized;
+          let arrayOfMinimized = [...getLocalStorageItems("elementClass") || minimized];
           if (e.target.classList.contains("minimized")) {
             arrayOfMinimized = arrayOfMinimized.filter(c => c !== index);
             await e.target.classList.remove("minimized");
@@ -387,18 +387,35 @@
   }
 
 
-  function applyStyles() {
+  function applyStyles(defaults) {
     const styles = getLocalStorageItems("elementStyles") || blockDefaults;
-    const mini = getLocalStorageItems("elementClass") || minimized;
+    const minimizedElements = getLocalStorageItems("elementClass") || minimized;
+
     const getStyle = styles.split(",");
+
     for (let i = 0; i < movableLength; i++) {
       movable[i].style = getStyle[i];
       movable[i].style.position = "absolute";
-      if (mini.includes(movable.indexOf(movable[i]))) {
-        movable[i].classList.add("minimized");
+
+
+
+      if (defaults) {
+
+        if (minimized.includes(movable.indexOf(movable[i]))) {
+          movable[i].classList.add("minimized");
+        } else {
+          movable[i].classList.remove("minimized");
+        }
+
       } else {
-        movable[i].classList.remove("minimized");
+        // add minimized class if found index in array
+        if (minimizedElements.includes(movable.indexOf(movable[i]))) {
+          movable[i].classList.add("minimized");
+        }
       }
+
+
+
     }
   }
 
@@ -482,13 +499,19 @@
     // event key or target id
     const keyCode = e.key || String.fromCharCode(e.keyCode);
 
+    if ((e.ctrlKey || e.metaKey) && keyCode === '`') {
+        // Prevent the default reload
+        e.preventDefault();
+        // clear local storage
+        localStorage.clear();
+        window.location.reload(); // This reloads the page after your actions
     // check if it's [`] symbol and inputs not focused then toggle class
-    if (keyCode === '`' && !d.querySelector("input:focus")) {
-      moves.classList.toggle("hide");
-      e.preventDefault();
-      e.stopImmediatePropagation();
-    }
+    } else if (keyCode === '`' && !d.querySelector("input:focus")) {
+        moves.classList.toggle("hide");
+        e.preventDefault();
+      }
   }
+
   let handleMousemove = (event) => {
     position.textContent = (`${event.x}:${event.y}`);
   };
@@ -778,7 +801,7 @@
     textArea.value = getLocalStorageItems("textArea") || textAreaDefaults;
 
     await hide(codeDiv);
-    await applyStyles();
+    await applyStyles(false);
     await loopElem();
 
     // codeDivElms.forEach(e => {
@@ -942,7 +965,7 @@
       root.removeAttribute("class");
       setColors();
       changerClass(0);
-      applyStyles();
+      applyStyles(true);
       textArea.removeAttribute('style');
     }
     // set att once theme lines class and item of localStorage
@@ -1180,6 +1203,7 @@
   d.addEventListener("DOMContentLoaded", init /*, { once: true }*/ );
   root.addEventListener("click", rootClick);
   root.addEventListener("contextmenu", contextMenuFun);
+
 
   const BEEP_AUDIO = new w.Audio("data:audio/mp3;base64,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");
   const CALC = d.getElementById("calculator");
