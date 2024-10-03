@@ -36,11 +36,17 @@
 }
 
 html {
-    background: #eee
+    background: #ddd
 }
 
 #loader {
-    padding: 0 7px;
+    display: flex;
+    flex-direction: column;
+    place-content: center;
+    background: url(../safari-pinned-tab.svg) center no-repeat;
+    place-items: center;
+    height: 100vh;
+    font-size: 12px;
 }
 
 #loader:after {
@@ -50,8 +56,8 @@ html {
     border: 7px solid #ccc;
     border-top: 7px solid #777;
     border-radius: 50%;
-    width: 34px;
-    height: 34px;
+    width: 77px;
+    height: 77px;
     animation: spin .34s linear infinite;
     box-sizing: border-box;
     position: absolute;
@@ -1236,6 +1242,12 @@ input::-webkit-outer-spin-button {
 input[type=number] {
     -moz-appearance: textfield;
     appearance: textfield
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus {
+    outline: none;
+    box-shadow: 0 0 7px var(--color3) inset;
 }
 
 @media screen and (max-width:700px) {
