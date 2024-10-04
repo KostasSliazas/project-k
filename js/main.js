@@ -500,16 +500,16 @@
     const keyCode = e.key || String.fromCharCode(e.keyCode);
 
     if ((e.ctrlKey || e.metaKey) && keyCode === '`') {
-        // Prevent the default reload
-        e.preventDefault();
-        // clear local storage
-        localStorage.clear();
-        window.location.reload(); // This reloads the page after your actions
-    // check if it's [`] symbol and inputs not focused then toggle class
+      // Prevent the default reload
+      e.preventDefault();
+      // clear local storage
+      localStorage.clear();
+      window.location.reload(); // This reloads the page after your actions
+      // check if it's [`] symbol and inputs not focused then toggle class
     } else if (keyCode === '`' && !d.querySelector("input:focus")) {
-        moves.classList.toggle("hide");
-        e.preventDefault();
-      }
+      moves.classList.toggle("hide");
+      e.preventDefault();
+    }
   }
 
   let handleMousemove = (event) => {
@@ -963,6 +963,7 @@
     if (target === "reset-all") {
       localStorage.clear();
       root.removeAttribute("class");
+      root.removeAttribute("style");
       setColors();
       changerClass(0);
       applyStyles(true);
