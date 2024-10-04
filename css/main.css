@@ -107,11 +107,11 @@ html {
 }
 
 .d {
-    --color0: #F6F5F4;
-    --color1: #DEDDDA;
-    --color2: #ACABAA;
-    --color3: #777779;
-    --color4: #15130F
+    --color0: #EDEDED;
+    --color1: #DDDDDD;
+    --color2: #CDCDCD;
+    --color3: #BDBDBD;
+    --color4: #333333
 }
 
 .d.bg-image {
