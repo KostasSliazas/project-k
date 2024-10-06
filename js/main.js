@@ -679,6 +679,7 @@
     };
 
     this.start = function () {
+
       // clear timeout everytime so it not dublicates (speed)
       clearTimeout(timeout);
       if (!isCounting) {
@@ -686,12 +687,19 @@
         sec = this.totalSeconds(); // set seconds at start
         this.counterTime.textContent = '-' + this.counterTime.textContent
       }
+        // start if more than zerro
+        if (sec > 0) {
+          // change text content affter click
+          this.counterTime.textContent = '-' + addLeadingZero(sec);
+          // only -1 second when seconds are more then 0
+          --sec;
 
+        }
       // set timeout to variable for clearing later
       timeout = setTimeout(function () {
         // changing (swaping) lines can show negative values, should stay as it is
         if (sec === 0) {
-          this.stop();
+          // this.stop();
 
           if (d.getElementById('sounds-ding').checked) {
             const rep1 = new Repeater(100, 50, playSound);
@@ -707,21 +715,13 @@
           }
 
           // stop and return text DONE
-          // this.stop();
+          this.stop();
           this.counterTime.textContent = 'DONE!'; // mission is done
           return;
         }
 
-        // start if more than zerro
-        if (sec > 0) {
           // ignition
           this.start();
-          // change text content affter click
-          this.counterTime.textContent = '-' + addLeadingZero(sec);
-          // only -1 second when seconds are more then 0
-          --sec;
-
-        }
 
       }.bind(this), 1000);
 
@@ -732,6 +732,7 @@
       clearTimeout(timeout);
       timeout = 0; // timoeut timer
       this.counterTime.textContent = addLeadingZero(this.totalSeconds()); // set seconds at start
+      document.getElementById('start').innerText = 'Start';
       // this.counterTime.textContent = '00';
     };
 
@@ -928,7 +929,6 @@
       start.innerText = 'Stop';
     } else if (target === 'shutup' || target === "start" && timers.isCounting) {
       timers.stop();
-      start.innerText = 'Start';
     }
     if (target === "reset") timers.reset();
 
