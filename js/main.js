@@ -673,7 +673,6 @@
     this.seconds = d.getElementById('seconds');
     this.minutes = d.getElementById('minutes');
     this.hours = d.getElementById('hours');
-
     // calculate to seconds all inputs
     this.totalSeconds = function () {
       return Number(this.seconds.value) + Number(this.minutes.value) * 60 + Number(this.hours.value) * 60 * 60;
@@ -708,7 +707,7 @@
           }
 
           // stop and return text DONE
-          this.stop();
+          // this.stop();
           this.counterTime.textContent = 'DONE!'; // mission is done
           return;
         }
@@ -729,8 +728,8 @@
     };
 
     this.stop = function () {
-      clearTimeout(timeout);
       isCounting = false;
+      clearTimeout(timeout);
       timeout = 0; // timoeut timer
       this.counterTime.textContent = addLeadingZero(this.totalSeconds()); // set seconds at start
       // this.counterTime.textContent = '00';
@@ -742,19 +741,23 @@
       this.counterTime.textContent = this.seconds.value = this.minutes.value = this.hours.value = '00';
     };
 
-    Object.defineProperty(this, 'sec', {
+    Object.defineProperties(this, {
+
+    'sec': {
       get: function () {
         return sec;
       },
       set: function (value) {
         sec = value;
       }
-    });
+    },
 
-    Object.defineProperty(this, 'isCounting', {
+    'isCounting' : {
       get: function () {
         return isCounting;
       },
+    }
+
     });
 
   }
@@ -917,17 +920,16 @@
     if (target === "right") loops("left", 1);
     if (target === "top") loops("top", -1);
     if (target === "bottom") loops("top", 1);
+    // dont alow click button when popup not closed
+    if (target === "start" && !shutup.parentElement.classList.contains('hide')) return;
 
-    if (target === "start" && e.target.innerText.toUpperCase() === 'START') {
+    if (target === "start" && !timers.isCounting) {
       timers.start();
       start.innerText = 'Stop';
-    } else if (target === 'shutup' || target === "start" && e.target.innerText.toUpperCase() === 'STOP') {
+    } else if (target === 'shutup' || target === "start" && timers.isCounting) {
       timers.stop();
       start.innerText = 'Start';
     }
-    // if (target === "stop"){
-    //   timers.stop();
-    // }
     if (target === "reset") timers.reset();
 
     if (e.target.tagName === "BUTTON" && e.target.parentElement.classList.contains('counter')) {
