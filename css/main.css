@@ -142,7 +142,7 @@ html {
     --color0: #444444;
     --color1: #333333;
     --color2: #222222;
-    --color3: #4D6600;
+    --color3: #111111;
     --color4: #9EC91B;
 }
 
@@ -163,11 +163,11 @@ html {
 }
 
 .k {
-    --color0: #BFD5E6;
-    --color1: #FAD486;
-    --color2: #BA814C;
-    --color3: #422117;
-    --color4: #000000;
+    --color0: #E6C18A;
+    --color1: #BBAA8F;
+    --color2: #91897D;
+    --color3: #665A47;
+    --color4: #3C3020;
 }
 
 .f body {
