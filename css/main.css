@@ -138,6 +138,38 @@ html {
     --color4: #B2BBC2
 }
 
+.g {
+    --color0: #444444;
+    --color1: #333333;
+    --color2: #222222;
+    --color3: #4D6600;
+    --color4: #9EC91B;
+}
+
+.h {
+    --color0: #FFFFF6;
+    --color1: #EEF7D2;
+    --color2: #BFB1BC;
+    --color3: #A28EB5;
+    --color4: #3D3846;
+}
+
+.j {
+    --color0: #C5BEB3;
+    --color1: #747C84;
+    --color2: #96938D;
+    --color3: #333333;
+    --color4: #000000;
+}
+
+.k {
+    --color0: #BFD5E6;
+    --color1: #FAD486;
+    --color2: #BA814C;
+    --color3: #422117;
+    --color4: #000000;
+}
+
 .f body {
     font-family: monospace
 }
@@ -147,6 +179,10 @@ html {
 .e body {
     letter-spacing: .3px;
     font-family: Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace
+}
+
+.g.bg-image {
+    --bg: url(../img/h.svg)
 }
 
 .f.bg-image {
