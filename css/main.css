@@ -513,7 +513,7 @@ div.moves {
 
 .movable {
     min-width: 52px;
-    max-width: 710px;
+    max-width: 780px;
     position: relative
 }
 
@@ -577,7 +577,7 @@ a {
 }
 
 .tetris {
-    clip-path: polygon(107% -7%, 107% 59px, 139px 59px, 139px 107%, -7% 107%, -7% -7%)
+    clip-path: polygon(107% -7%, 107% 107%, 19px 107%, 20px 439px, -7% 439px, -7% -7%)
 }
 
 .center h1,
