@@ -25,7 +25,8 @@
     --color3: #B9CCDA;
     --color4: #222233;
     --bg: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQIW2NgAAIAAAUAAR4f7BQAAAAASUVORK5CYII=);
-    --repeat: center/cover no-repeat
+    --repeat: no-repeat;
+    --size: center/cover;
 }
 
 * {
@@ -79,7 +80,8 @@ html {
 }
 
 .a.bg-image {
-    --bg: url(../img/a.svg)
+    --bg: url(../img/a.svg);
+    --size: center/43px;
 }
 
 .b {
@@ -273,7 +275,10 @@ html {
     --color3: #A0937D;
     --color4: #333344;
 }
-
+.x.bg-image {
+    --bg: url(../img/x.svg);
+    --size: center/70px;
+}
 .y {
     --color0: #BEBEBE;
     --color1: #565656;
@@ -294,7 +299,8 @@ html {
 }
 
 .g.bg-image {
-    --bg: url(../img/h.svg)
+    --bg: url(../img/h.svg);
+    --size: right bottom/70px;
 }
 
 .f.bg-image {
@@ -313,11 +319,11 @@ html {
     width: 100%;
     position: fixed;
     display: block;
-    background: var(--bg) var(--repeat), var(--color2)
+    background: var(--bg) var(--size) var(--repeat), var(--color2)
 }
 
 .lines.main::before {
-    background: repeating-linear-gradient(transparent 0, transparent 9px, transparent 9px, var(--color3) 10px)0 0 fixed, repeating-linear-gradient(90deg, transparent 0, transparent 9px, transparent 9px, var(--color3) 10px)0 1px fixed, var(--bg) var(--repeat), var(--color2)
+    background: repeating-linear-gradient(transparent 0, transparent 9px, transparent 9px, var(--color3) 10px)0 0 fixed, repeating-linear-gradient(90deg, transparent 0, transparent 9px, transparent 9px, var(--color3) 10px)0 1px fixed, var(--bg) var(--size) var(--repeat), var(--color2)
 }
 
 [class="a bg-image"] #main::before,
@@ -802,7 +808,9 @@ textarea:hover {
 .table i {
     box-shadow: 0 1px 0 0 var(--color2);
 }
-
+::placeholder {
+    color:    var(--color4);
+}
 input[type=text],
 textarea {
     background: var(--color0);
