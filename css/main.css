@@ -209,13 +209,79 @@ html {
     --color3: #9A91C9;
     --color4: #FFFFFF;
 }
-.r{
+
+.r {
     --color0: #A6A8B1;
     --color1: #72747D;
     --color2: #3E4049;
     --color3: #0A0C15;
     --color4: #FFFFFF;
 }
+
+.s {
+    --color0: #FCFCFC;
+    --color1: #EBEBEB;
+    --color2: #D5D5D5;
+    --color3: #B5B5B2;
+    --color4: #111111;
+}
+
+.t {
+    --color0: #CEE0CE;
+    --color1: #A3B5A3;
+    --color2: #788A78;
+    --color3: #4D5F4D;
+    --color4: #000000;
+}
+
+.u {
+    --color0: #E0E0CE;
+    --color1: #B5B5A3;
+    --color2: #8A8A78;
+    --color3: #5F5F4D;
+    --color4: #000000;
+}
+
+.v {
+    --color0: #788A8A;
+    --color1: #4D5F5F;
+    --color2: #223434;
+    --color3: #A3B5B5;
+    --color4: #CEE0E0;
+}
+
+.q {
+    --color0: #93818A;
+    --color1: #68565F;
+    --color2: #3D2B34;
+    --color3: #BEACB5;
+    --color4: #E9D7E0;
+}
+
+.w {
+    --color0: #FFF2C4;
+    --color1: #FFFDF6;
+    --color2: #FFF7D9;
+    --color3: #E9E4D3;
+    --color4: #333333;
+}
+
+.x {
+    --color0: #F9ECD5;
+    --color1: #D3CEC6;
+    --color2: #C3BBAE;
+    --color3: #A0937D;
+    --color4: #333344;
+}
+
+.y {
+    --color0: #BEBEBE;
+    --color1: #565656;
+    --color2: #222222;
+    --color3: #8A8A8A;
+    --color4: #F2F2F2;
+}
+
 .f body {
     font-family: monospace
 }

@@ -460,13 +460,13 @@
   };
 
   const themeName = d.getElementById('theme-name');
-  const longNames = ['inner peace', 'peace on earth', 'cool dudes', 'sunshine', 'someday', 'everything fine', 'night', "chlorine halogens", "happiness", "jupiter", "Karma", "lightness", "mandarins", "neutral", "optimistic", "paradise", "respect"];
-  const classNameVariables = [0, "a", "b", "c", "d", "e", "f", "g", "h", "j", "k", "l", "m", "n", "o", "p", "r"];
+  const longNames = ['inner peace', 'peace on earth', 'cool dudes', 'sunshine', 'someday', 'everything fine', 'night', "chlorine halogens", "happiness", "jupiter", "Karma", "lightness", "mandarins", "neutral", "optimistic", "paradise", "colored kalcium", "respect", "silver"];
+  const classNameVariables = [0, "a", "b", "c", "d", "e", "f", "g", "h", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y"];
   const THEME_CHANGE = arrayHelper.call(classNameVariables);
 
   // change main theme
   const changerClass = index => {
-    themeName.textContent = longNames[index];
+    themeName.textContent = longNames[index]||"other";
     if (index) root.className = classNameVariables[index];
     else root.removeAttribute("class");
     if (d.getElementById('enabled-bg').checked === true) {
