@@ -209,7 +209,13 @@ html {
     --color3: #9A91C9;
     --color4: #FFFFFF;
 }
-
+.r{
+    --color0: #A6A8B1;
+    --color1: #72747D;
+    --color2: #3E4049;
+    --color3: #0A0C15;
+    --color4: #FFFFFF;
+}
 .f body {
     font-family: monospace
 }
