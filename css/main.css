@@ -71,6 +71,11 @@ html {
     --bg: url(../img/k.svg)
 }
 
+.bg-repeat {
+    --size: center/100px;
+    --repeat: repeat
+}
+
 .a {
     --color0: #F7F7FE;
     --color1: #E7E7EE;
@@ -305,10 +310,6 @@ html {
 
 .f.bg-image {
     --bg: url(../img/f.webp)
-}
-
-.bg-repeat {
-    --repeat: repeat
 }
 
 .main::before {
