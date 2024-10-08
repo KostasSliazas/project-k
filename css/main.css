@@ -170,6 +170,46 @@ html {
     --color4: #3C3020;
 }
 
+.l {
+    --color0: #CED7E7;
+    --color1: #BCC5D5;
+    --color2: #9AA3B3;
+    --color3: #818A9A;
+    --color4: #000000;
+}
+
+.m {
+    --color0: #F9ECF7;
+    --color1: #D7CAD5;
+    --color2: #B5A8B3;
+    --color3: #938691;
+    --color4: #000000;
+}
+
+.n {
+    --color0: #FCEBD5;
+    --color1: #DAC9B3;
+    --color2: #B8A791;
+    --color3: #96856F;
+    --color4: #000000;
+}
+
+.o {
+    --color0: #DFF1E7;
+    --color1: #ADBFB5;
+    --color2: #C6D8CE;
+    --color3: #94A69C;
+    --color4: #3C4741;
+}
+
+.p {
+    --color0: #756CA4;
+    --color1: #50477F;
+    --color2: #2B225A;
+    --color3: #9A91C9;
+    --color4: #FFFFFF;
+}
+
 .f body {
     font-family: monospace
 }
