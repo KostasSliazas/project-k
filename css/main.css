@@ -300,7 +300,8 @@ html {
 
 .c body,
 .d body,
-.e body {
+.e body,
+.g body{
     letter-spacing: .3px;
     font-family: Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace
 }
