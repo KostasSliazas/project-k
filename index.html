@@ -69,7 +69,7 @@
           <a href="https://mail.google.com/mail/u/0/#inbox" target="_blank" rel="noopener noreferrer">mail.google.com</a>
         </div>
 
-        <div class="movable tetris" id="text-area">
+        <div class="movable" id="text-area">
           <h1>Notes</h1>
           <label for="notes" class="dspn">Notes</label>
           <textarea id="notes" name="notes" placeholder="Empty"></textarea>
@@ -432,6 +432,13 @@
           <span>Please note that the figures above are typical for</span>
           <span>standard-grade electrolytes at room temperature.</span>
         </div>
+
+        <div class="movable tetris">
+        <h1>Statistics</h1>
+          <p>Position: <span id="position">0</span></p>
+          <p>Mouse clicks: <span id="clicked">0</span></p>
+        </div>
+
         <p class="bottom" title="CAUTION: If you use this, please do so at your own risk.">&copy; 2023 by <span lang="lt">creator</p>
       </main>
 
@@ -523,8 +530,6 @@
               </path>
             </g>
           </svg>
-          <div>Mouse clicks: <span id="clicked">0</span></div>
-          <div>Position x,y: <span id="position">0</span></div>
           <button class="movable-p w11" id="pinsave">save PIN</button>
           <button class="movable-p w11" id="pindiscard">cancel</button>
           <div>

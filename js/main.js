@@ -63,7 +63,7 @@
   const textArea = d.getElementsByTagName("TEXTAREA")[0];
   const bg = d.querySelector("#bg-file");
   const styles = ["width", "height", "left", "top"];
-  const blockDefaults = "width:70px;height:30px;left:160px;top:20px;,width:110px;height:40px;left:310px;top:40px;,width:110px;height:60px;left:310px;top:80px;,width:60px;height:60px;left:420px;top:80px;,width:160px;height:440px;left:800px;top:140px;,width:160px;height:460px;left:0px;top:20px;,width:160px;height:420px;left:480px;top:80px;,width:20px;height:120px;left:0px;top:460px;,width:150px;height:240px;left:160px;top:40px;,width:160px;height:80px;left:480px;top:500px;,width:170px;height:440px;left:310px;top:140px;,width:110px;height:40px;left:530px;top:40px;,width:110px;height:40px;left:420px;top:40px;,width:100px;height:20px;left:230px;top:20px;,width:140px;height:100px;left:20px;top:480px;,width:150px;height:300px;left:160px;top:280px;,width:780px;height:740px;left:180px;top:0px;,width:160px;height:20px;left:330px;top:20px;,width:180px;height:500px;left:0px;top:0px;,width:160px;height:100px;left:800px;top:40px;,width:160px;height:540px;left:640px;top:40px;,width:470px;height:20px;left:490px;top:20px;";
+  const blockDefaults = "width:70px;height:30px;left:160px;top:20px;,width:110px;height:40px;left:310px;top:40px;,width:110px;height:60px;left:310px;top:80px;,width:60px;height:60px;left:420px;top:80px;,width:160px;height:440px;left:800px;top:140px;,width:160px;height:400px;left:0px;top:20px;,width:160px;height:420px;left:480px;top:80px;,width:20px;height:120px;left:140px;top:460px;,width:150px;height:240px;left:160px;top:40px;,width:160px;height:80px;left:480px;top:500px;,width:170px;height:440px;left:310px;top:140px;,width:110px;height:40px;left:530px;top:40px;,width:110px;height:40px;left:420px;top:40px;,width:100px;height:20px;left:230px;top:20px;,width:140px;height:100px;left:0px;top:480px;,width:150px;height:300px;left:160px;top:280px;,width:780px;height:20px;left:180px;top:0px;,width:160px;height:20px;left:330px;top:20px;,width:180px;height:20px;left:0px;top:0px;,width:160px;height:100px;left:800px;top:40px;,width:160px;height:540px;left:640px;top:40px;,width:470px;height:20px;left:490px;top:20px;,width:160px;height:60px;left:0px;top:420px;";
   const textAreaDefaults = "Good day. You have the ability to reposition these blocks by selecting and holding the left corner or by pressing the ` key ([ctrl]+[`]=Reset to Defaults) on your keyboard. Alternatively, double-click to minimize them. Additionally, you can customize the theme, colors, and background image. If locked, to unlock, simply triple-click on the background and then click 520 (default PIN) or clear localStorage (because by using this project you will write to it data, like password and other settings)";
   const counts = {
     allMouseClicks: 0,
@@ -515,7 +515,7 @@
   let handleMousemove = (event) => {
     position.textContent = (`${event.x}:${event.y}`);
   };
-  const lockerMouseMovments = debounce(handleMousemove, 200);
+  // const lockerMouseMovments = debounce(handleMousemove, 200);
 
   const isDisplayed = (elem) => {
     const style = w.getComputedStyle(elem);
@@ -773,8 +773,7 @@
     if (localStorage.length === 0) {
       await setLocalStorageItems('theme-lines', true);
     }
-    await delay(77);
-
+    d.addEventListener('mousemove', handleMousemove);
     const isCheckedLines = getLocalStorageItems("theme-lines");
     const isCheckedBg = getLocalStorageItems("theme-bg");
     const isRepeatingBg = getLocalStorageItems("bg-repeat");
@@ -821,7 +820,7 @@
           d.title = documentTitle;
           hide(codeDiv);
           show(main);
-          d.removeEventListener('mousemove', lockerMouseMovments);
+          // d.removeEventListener('mousemove', lockerMouseMovments);
         }
       };
     }
@@ -1055,7 +1054,7 @@
     counts.clicks++;
     if (e.target.className !== "container" && counts.clicks > 2 && isLockedScreen) {
       counts.clicks = typed.length = 0; // RESET array length and count when not container clicked
-      d.addEventListener('mousemove', lockerMouseMovments);
+      // d.addEventListener('mousemove', lockerMouseMovments);
       show(codeDiv);
     }
 
