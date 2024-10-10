@@ -202,11 +202,11 @@ html {
 }
 
 .o {
-    --color0: #DFF1E7;
-    --color1: #ADBFB5;
-    --color2: #C6D8CE;
-    --color3: #94A69C;
-    --color4: #3C4741
+    --color0: #E9E5E0;
+    --color1: #BEBAB5;
+    --color2: #938F8A;
+    --color3: #68645F;
+    --color4: #000000
 }
 
 .p {
@@ -431,6 +431,7 @@ h3 {
 
 p {
     padding: 0 4px;
+    line-height: 1;
     place-self: start
 }
 
