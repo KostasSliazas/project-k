@@ -231,7 +231,9 @@ html {
     --color2: #2B225A;
     --color3: #9A91C9
 }
-
+.p.bg-image {
+    --bg: url(../img/p.svg);
+}
 .r {
     --color0: #A6A8B1;
     --color1: #72747D;
@@ -246,7 +248,9 @@ html {
     --color3: #B5B5B2;
     --color4: #111111
 }
-
+.s.bg-image {
+    --bg: url(../img/s.svg);
+}
 .t,.u {
     --color4: #000000
 }
@@ -280,7 +284,9 @@ html {
     --color3: #BEACB5;
     --color4: #E9D7E0
 }
-
+.q.bg-image {
+    --bg: url(../img/q.svg);
+}
 .w {
     --color0: #FFF2C4;
     --color1: #FFFDF6;
