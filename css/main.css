@@ -1,10 +1,10 @@
 @keyframes spin {
     0% {
-        transform: translate(-50%, -50%) rotate(0)
+        transform: translate(-50%,-50%) rotate(0)
     }
 
     to {
-        transform: translate(-50%, -50%) rotate(360deg)
+        transform: translate(-50%,-50%) rotate(360deg)
     }
 }
 
@@ -29,11 +29,14 @@
     --size: center/cover
 }
 
+#loader:after,* {
+    box-sizing: border-box
+}
+
 * {
     margin: 0;
     padding: 0;
-    scrollbar-width: thin;
-    box-sizing: border-box
+    scrollbar-width: thin
 }
 
 html {
@@ -44,23 +47,20 @@ html {
     display: flex;
     flex-direction: column;
     place-content: center;
-    background: url(../safari-pinned-tab.svg) no-repeat center/contain;
+    background: url(../safari-pinned-tab.svg)no-repeat center/contain;
     place-items: center;
     height: 100vh;
     font-size: 12px
 }
 
 #loader:after {
-    position: fixed;
-    content: '';
+    content: "";
     display: block;
     border: 7px solid #ccc;
     border-top: 7px solid #777;
     border-radius: 50%;
     width: 77px;
     height: 77px;
-    animation: spin .34s linear infinite;
-    box-sizing: border-box;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -189,7 +189,10 @@ html {
     --color0: #F9ECF7;
     --color1: #D7CAD5;
     --color2: #B5A8B3;
-    --color3: #938691;
+    --color3: #938691
+}
+
+.m,.n,.o {
     --color4: #000000
 }
 
@@ -197,32 +200,32 @@ html {
     --color0: #FCEBD5;
     --color1: #DAC9B3;
     --color2: #B8A791;
-    --color3: #96856F;
-    --color4: #000000
+    --color3: #96856F
 }
 
 .o {
     --color0: #E9E5E0;
     --color1: #BEBAB5;
     --color2: #938F8A;
-    --color3: #68645F;
-    --color4: #000000
+    --color3: #68645F
+}
+
+.p,.r {
+    --color4: #FFFFFF
 }
 
 .p {
     --color0: #756CA4;
     --color1: #50477F;
     --color2: #2B225A;
-    --color3: #9A91C9;
-    --color4: #FFFFFF
+    --color3: #9A91C9
 }
 
 .r {
     --color0: #A6A8B1;
     --color1: #72747D;
     --color2: #3E4049;
-    --color3: #0A0C15;
-    --color4: #FFFFFF
+    --color3: #0A0C15
 }
 
 .s {
@@ -233,20 +236,22 @@ html {
     --color4: #111111
 }
 
+.t,.u {
+    --color4: #000000
+}
+
 .t {
     --color0: #CEE0CE;
     --color1: #A3B5A3;
     --color2: #788A78;
-    --color3: #4D5F4D;
-    --color4: #000000
+    --color3: #4D5F4D
 }
 
 .u {
     --color0: #E0E0CE;
     --color1: #B5B5A3;
     --color2: #8A8A78;
-    --color3: #5F5F4D;
-    --color4: #000000
+    --color3: #5F5F4D
 }
 
 .v {
@@ -298,12 +303,9 @@ html {
     font-family: monospace
 }
 
-.c body,
-.d body,
-.e body,
-.g body{
+.c body,.d body,.e body,.g body {
     letter-spacing: .3px;
-    font-family: Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace
+    font-family: Menlo,Consolas,Monaco,Liberation Mono,Lucida Console,monospace
 }
 
 .g.bg-image {
@@ -323,58 +325,35 @@ html {
     width: 100%;
     position: fixed;
     display: block;
-    background: var(--bg) var(--size) var(--repeat), var(--color2)
+    background: var(--bg) var(--size) var(--repeat),var(--color2)
 }
 
 .lines.main::before {
-    background: repeating-linear-gradient(transparent 0, transparent 9px, transparent 9px, var(--color3) 10px) 0 0 fixed, repeating-linear-gradient(90deg, transparent 0, transparent 9px, transparent 9px, var(--color3) 10px) 0 1px fixed, var(--bg) var(--size) var(--repeat), var(--color2)
+    background: repeating-linear-gradient(transparent 0,transparent 9px,transparent 9px,var(--color3) 10px)0 0 fixed,repeating-linear-gradient(90deg,transparent 0,transparent 9px,transparent 9px,var(--color3) 10px)0 1px fixed,var(--bg) var(--size) var(--repeat),var(--color2)
 }
 
-[class="a bg-image"] #main::before,
-[class=bg-image] #main::before {
+[class="a bg-image"] #main::before,[class=bg-image] #main::before {
     background-size: 100px
 }
 
-.cute-mode .cute img,
-.e .movable:nth-child(1),
-.e .movable:nth-child(14),
-.e .movable:nth-child(15),
-.e .movable:nth-child(17),
-.e .movable:nth-child(18),
-.e .movable:nth-child(19),
-.e .movable:nth-child(23),
-.e .movable:nth-child(22),
-.e .movable:nth-child(24),
-.e .movable:nth-child(6),
-.e .movable:nth-child(8) {
+.cute-mode .cute img,.e .movable:nth-child(1),.e .movable:nth-child(14),.e .movable:nth-child(15),.e .movable:nth-child(17),.e .movable:nth-child(18),.e .movable:nth-child(19),.e .movable:nth-child(22),.e .movable:nth-child(23),.e .movable:nth-child(24),.e .movable:nth-child(6),.e .movable:nth-child(8) {
     visibility: hidden
 }
 
 .cute-mode {
-    cursor: url(dcursor.cur), auto
+    cursor: url(dcursor.cur),auto
 }
 
-.cute-mode .checkbox label,
-.cute-mode .memo img,
-.cute-mode .movable::before,
-.cute-mode .svg-holder,
-.cute-mode a,
-.cute-mode button,
-.cute-mode input[type=button],
-.cute-mode input[type=color],
-.cute-mode input[type=file]::file-selector-button,
-.cute-mode input[type=number],
-.cute-mode input[type=radio],
-.cute-mode input[type=reset] {
-    cursor: url(cursor.cur), pointer !important
+.cute-mode .checkbox label,.cute-mode .memo img,.cute-mode .movable::before,.cute-mode .svg-holder,.cute-mode a,.cute-mode button,.cute-mode input[type=button],.cute-mode input[type=color],.cute-mode input[type=file]::file-selector-button,.cute-mode input[type=number],.cute-mode input[type=radio],.cute-mode input[type=reset] {
+    cursor: url(cursor.cur),pointer!important
 }
 
 .cute {
-    background: url(../img/k.svg) no-repeat bottom center
+    background: url(../img/k.svg)no-repeat bottom center
 }
 
 .hmove {
-    --color3: #000 !important
+    --color3: #000!important
 }
 
 .super {
@@ -382,7 +361,7 @@ html {
 }
 
 body {
-    font: 16px/1.25 -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
+    font: 16px/1.25 -apple-system,BlinkMacSystemFont,avenir next,avenir,segoe ui,helvetica neue,helvetica,Cantarell,Ubuntu,roboto,noto,arial,sans-serif;
     font-variant-caps: all-petite-caps;
     color: var(--color4)
 }
@@ -413,26 +392,20 @@ body {
     margin: 4px 0
 }
 
-a,
-h1,
-h2,
-h3,
-p {
+a,h1,h2,h3,p {
     font-size: 1em;
     font-family: inherit;
     line-height: 1.25
-}
-
-h1,
-h2,
-h3 {
-    padding: 1.25em 0
 }
 
 p {
     padding: 0 4px;
     line-height: 1;
     place-self: start
+}
+
+h1,h2,h3 {
+    padding: 1.25em 0
 }
 
 .small {
@@ -460,8 +433,7 @@ form {
     margin: 0 1px 1px 0
 }
 
-.movable::before,
-a {
+.movable::before,a {
     color: var(--color4)
 }
 
@@ -483,7 +455,7 @@ div.moves button {
 
 div.moves {
     box-shadow: 0 0 77px;
-    z-index: 2 !important
+    z-index: 2!important
 }
 
 .hide {
@@ -491,15 +463,13 @@ div.moves {
     visibility: hidden
 }
 
-#calculator label,
-.dspn {
+#calculator label,.dspn {
     display: none
 }
 
-.center,
-.movable {
+.center,.movable {
     background: var(--color1);
-    box-shadow: -1px -1px 0 var(--color3) inset, -1px -1px 0 var(--color3);
+    box-shadow: -1px -1px 0 var(--color3) inset,-1px -1px 0 var(--color3);
     -webkit-user-select: none;
     -khtml-user-select: none;
     -moz-user-select: none;
@@ -522,9 +492,7 @@ div.moves {
     position: relative
 }
 
-.movable a,
-.movable h1 span,
-a {
+.movable a,.movable h1 span,a {
     display: block
 }
 
@@ -555,11 +523,11 @@ a {
 }
 
 .minimized {
-    overflow: hidden !important;
-    height: 19px !important;
+    overflow: hidden!important;
+    height: 19px!important;
     padding: 0;
     min-height: 0;
-    box-shadow: -1px -1px 0 0 var(--color3), -1px 1px 0 0 var(--color3);
+    box-shadow: -1px -1px 0 0 var(--color3),-1px 1px 0 0 var(--color3);
     pointer-events: all
 }
 
@@ -582,11 +550,10 @@ a {
 }
 
 .tetris {
-    clip-path: polygon(107% -7%, 107% 39px, 139px 39px, 139px 107%, -7% 107%, -7% -7%)
+    clip-path: polygon(107% -7%,107% 39px,139px 39px,139px 107%,-7% 107%,-7% -7%)
 }
 
-.center h1,
-.movable h1 {
+.center h1,.movable h1 {
     font-size: 16px;
     line-height: 20px;
     color: var(--color4);
@@ -609,12 +576,10 @@ a {
 .mousedown {
     transition: none;
     z-index: 2;
-    box-shadow: -1px -1px 0 var(--color3) inset, -1px -1px 0 var(--color3), 0 0 7px #000
+    box-shadow: -1px -1px 0 var(--color3) inset,-1px -1px 0 var(--color3),0 0 7px #000
 }
 
-.r1,
-.r2,
-.r3 {
+.r1,.r2,.r3 {
     height: 100vw
 }
 
@@ -644,11 +609,10 @@ a {
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%)
+    transform: translate(-50%,-50%)
 }
 
-#clock,
-#today {
+#clock,#today {
     letter-spacing: 2px;
     font-weight: 400
 }
@@ -659,7 +623,7 @@ a {
 }
 
 .digit {
-    font-family: Numbers, sans-serif
+    font-family: Numbers,sans-serif
 }
 
 .svg-holder {
@@ -677,7 +641,7 @@ a {
 }
 
 #sunshine {
-    background: repeating-linear-gradient(90deg, var(--color2)0, transparent 2px 3px);
+    background: repeating-linear-gradient(90deg,var(--color2)0,transparent 2px 3px);
     shape-rendering: optimizespeed;
     height: 32px;
     max-width: 140px
@@ -740,13 +704,11 @@ a {
     max-width: 230px
 }
 
-.oxs i:nth-child(even),
-.oxs p {
-    user-select: all !important
+.oxs i:nth-child(even),.oxs p {
+    user-select: all!important
 }
 
-.oxs:hover,
-textarea:hover {
+.oxs:hover,textarea:hover {
     overflow: auto
 }
 
@@ -769,8 +731,7 @@ textarea:hover {
     flex-wrap: wrap
 }
 
-.flex,
-.flex div {
+.flex,.flex div {
     display: flex;
     place-content: center
 }
@@ -782,8 +743,8 @@ textarea:hover {
 .esr {
     display: grid;
     max-width: max-content;
-    grid-template-columns: repeat(8, minmax(1em, auto));
-    grid-template-rows: repeat(12, minmax(1em, auto))
+    grid-template-columns: repeat(8,minmax(1em,auto));
+    grid-template-rows: repeat(12,minmax(1em,auto))
 }
 
 .esr i {
@@ -797,12 +758,11 @@ textarea:hover {
 .table {
     display: grid;
     max-width: max-content;
-    grid-template-columns: repeat(2, minmax(1em, auto));
-    grid-template-rows: repeat(30, minmax(1em, auto))
+    grid-template-columns: repeat(2,minmax(1em,auto));
+    grid-template-rows: repeat(30,minmax(1em,auto))
 }
 
-.esr i,
-.table i {
+.esr i,.table i {
     font-style: inherit;
     line-height: 1;
     white-space: nowrap;
@@ -819,8 +779,7 @@ textarea:hover {
     color: var(--color4)
 }
 
-input[type=text],
-textarea {
+input[type=text],textarea {
     background: var(--color0);
     color: inherit;
     border: 0;
@@ -839,7 +798,7 @@ textarea {
     min-height: 1em;
     outline: 0;
     height: 100%;
-    font-size: 0.8750em;
+    font-size: .875em;
     font-family: inherit;
     background: 0 0
 }
@@ -848,37 +807,15 @@ textarea {
     background: var(--color1)
 }
 
-button,
-input[type=button],
-input[type=color],
-input[type=number],
-input[type=radio],
-input[type=reset] {
+input[type=color],input[type=number],input[type=radio] {
     padding: 0
 }
 
-.checkbox label,
-.memo img,
-.movable::before,
-.svg-holder,
-a,
-button,
-input[type=button],
-input[type=color],
-input[type=file]::file-selector-button,
-input[type=number],
-input[type=radio],
-input[type=reset] {
+.checkbox label,.memo img,.movable::before,.svg-holder,a,button,input[type=button],input[type=color],input[type=file]::file-selector-button,input[type=number],input[type=radio],input[type=reset] {
     cursor: pointer
 }
 
-button,
-input[type=button],
-input[type=color],
-input[type=file]::file-selector-button,
-input[type=number],
-input[type=radio],
-input[type=reset] {
+button,input[type=button],input[type=color],input[type=file]::file-selector-button,input[type=number],input[type=radio],input[type=reset] {
     margin: 0;
     overflow: hidden;
     color: var(--color4);
@@ -889,7 +826,7 @@ input[type=reset] {
     font-size: inherit;
     line-height: inherit;
     box-sizing: border-box;
-    font-family: "IBM Plex Sans Condensed", Tuffy, Arial, sans-serif;
+    font-family: "IBM Plex Sans Condensed",Tuffy,Arial,sans-serif;
     transition: .2s .1s
 }
 
@@ -897,36 +834,21 @@ input[type=number] {
     background: var(--color0)
 }
 
-button,
-input[type=button],
-input[type=file],
-input[type=reset] {
+button,input[type=button],input[type=file],input[type=reset] {
     flex: 1 1 auto;
     margin: 0 4px;
     min-block-size: 20px
 }
 
-button,
-input[type=button],
-input[type=reset] {
+button,input[type=button],input[type=reset] {
     padding: 0 4px
 }
 
-button:first-child,
-button:last-child,
-input[type=button]:first-child,
-input[type=button]:last-child,
-input[type=file]:first-child,
-input[type=file]:last-child,
-input[type=reset]:first-child,
-input[type=reset]:last-child {
+button:first-child,button:last-child,input[type=button]:first-child,input[type=button]:last-child,input[type=file]:first-child,input[type=file]:last-child,input[type=reset]:first-child,input[type=reset]:last-child {
     margin: 0
 }
 
-button:hover,
-input[type=button]:hover,
-input[type=file]::file-selector-button:hover,
-input[type=reset]:hover {
+button:hover,input[type=button]:hover,input[type=file]::file-selector-button:hover,input[type=reset]:hover {
     background: var(--color0)
 }
 
@@ -935,17 +857,16 @@ input[type=color] {
     line-height: 0;
     min-block-size: 30px;
     max-block-size: 30px;
-    background-color: var(--color2) !important;
-    border-block: 0 !important;
-    border-inline: 0 !important
+    background-color: var(--color2)!important;
+    border-block: 0!important;
+    border-inline: 0!important
 }
 
 .forms input[type=color]:nth-child(n+2) {
     margin: 0 2px
 }
 
-button:active,
-input[type=file]::file-selector-button:active {
+button:active,input[type=file]::file-selector-button:active {
     background: var(--color0);
     color: var(--color2)
 }
@@ -988,8 +909,7 @@ input[type=file]::file-selector-button {
     padding: 0 4px
 }
 
-#vr p,
-input[type=file] {
+#vr p,input[type=file] {
     padding: 0
 }
 
@@ -1026,8 +946,7 @@ div:first-of-type+.checkbox {
     margin: 4px 0 0
 }
 
-#vr,
-.forms div {
+#vr,.forms div {
     display: flex
 }
 
@@ -1061,18 +980,17 @@ div:first-of-type+.checkbox {
 }
 
 #vr.minimized {
-    width: 20px !important;
+    width: 20px!important;
     min-width: 0;
-    height: auto !important
+    height: auto!important
 }
 
-.bottom,
-.sleepy {
+.bottom,.sleepy {
     position: absolute
 }
 
 .sleepy {
-    transform: translate(-50%, -50%) rotate3D(0, 0, 1, -90deg);
+    transform: translate(-50%,-50%) rotate3D(0,0,1,-90deg);
     bottom: 0;
     left: 0
 }
@@ -1085,10 +1003,7 @@ div:first-of-type+.checkbox {
 }
 
 @font-face {
-  font-family: "Numbers";
-  src: url(data:font/truetype;charset=utf-8;base64,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+Ssr+QLdICEh/rABUP6wK/orK/orISEg/pABUCv6Kyv6/oUgICEAAAAIADL//AHDAt0ABQAGAAcADQATABkAHwAlAAATMxcHIycBGQEXFQcnNTcHIyc3MwUXFQcnNTcnNTcXFQM3MxcHI375Kyv5LAFQISEgICv5LCz5/tshISAgICAhISz5Kyv5At0gISH+sAFQ/rAr+isr+ishISAgK/orK/orK/orK/r+hSAgIQAACwBSAB0BwwLdAAUACwARABIAEwAUABUAFgAXABgAGQAAEzMXByMnIRcVByc1ExcVByc1NyEZATERASF++Ssr+SwBUCEhICAhISAg/rABUP6wAt0gISEr+isr+v7bK/orK/or/rABUAFQ/WAABwAy//wBwwLdAAUACwARABcAHQAjACkAABMzFwcjJyEXFQcnNRMXFQcnNTcHIyc3MwUXFQcnNTcnNTcXFQM3MxcHI375Kyv5LAFQISEgICEhICAr+Sws+f7bISEgICAgISEs+Ssr+QLdICEhK/orK/r+2yv6Kyv6KyEhICAr+isr+isr+isr+v6FICAhAAAACAAy//wBwwLdAAUACwARABcAGAAZAB8AJQAAEzMXByMnIRcVByc1ExcVByc1NwcjJzczARExJzU3FxUDNzMXByN++Ssr+SwBUCEhICAhISAgK/ksLPn+2yAgISEs+Ssr+QLdICEhK/orK/r+2yv6Kyv6KyEhIP6QAVAr+isr+v6FICAhAAAAAAEAAAAAAAAAAAADAAA5AwAAAA4ArgABAAAAAAAAAB0APAABAAAAAAABAAkAbgABAAAAAAACAAcAiAABAAAAAAADACUA3AABAAAAAAAEAAkBFgABAAAAAAAFABABQgABAAAAAAAGAAkBZwADAAEECQAAADoAAAADAAEECQABABIAWgADAAEECQACAA4AeAADAAEECQADAEoAkAADAAEECQAEABIBAgADAAEECQAFACABIAADAAEECQAGABIBUwBDAG8AcAB5AHIAaQBnAGgAdAAgACgAYwApACAAMgAwADEAOQAsACAASwBvAHMAdABhAHMALAAsACwAAENvcHlyaWdodCAoYykgMjAxOSwgS29zdGFzLCwsAABVAG4AdABpAHQAbABlAGQAMQAAVW50aXRsZWQxAABSAGUAZwB1AGwAYQByAABSZWd1bGFyAABGAG8AbgB0AEYAbwByAGcAZQAgADIALgAwACAAOgAgAFUAbgB0AGkAdABsAGUAZAAxACAAOgAgADEANQAtADMALQAyADAAMQA5AABGb250Rm9yZ2UgMi4wIDogVW50aXRsZWQxIDogMTUtMy0yMDE5AABVAG4AdABpAHQAbABlAGQAMQAAVW50aXRsZWQxAABWAGUAcgBzAGkAbwBuACAAMAAwADEALgAwADAAMAAgAABWZXJzaW9uIDAwMS4wMDAgAABVAG4AdABpAHQAbABlAGQAMQAAVW50aXRsZWQxAAAAAgAAAAAAAP67ADIAAAAAAAAAAAAAAAAAAAAAAAAAAAAcAAABAgEDABEAEwAUABUAFgAXABgAGQAaABsAHAEEAQUBBgEHAQgBCQEKAQsBDAENAQ4BDwEQAREGZ2x5cGgxB3VuaTAwMEQHdW5pMjAwMAd1bmkyMDAxB3VuaTIwMDIHdW5pMjAwMwd1bmkyMDA0B3VuaTIwMDUHdW5pMjAwNgd1bmkyMDA3B3VuaTIwMDgHdW5pMjAwOQd1bmkyMDBBB3VuaTIwMkYHdW5pMjA1Rgd1bmkyNUZDAAAAAAEAAf//AA8AAQAAAAwAAAAWAAAAAgABAAEAGwABAAQAAAACAAAAAAAAAAEAAAAA1e1FuAAAAADYsJFJAAAAANiwp9I=) format("truetype");
-  font-weight: 400;
-  font-style: normal;
+    font-family:"Numbers";src:url(data:font/truetype;charset=utf-8;base64,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+Ssr+QLdICEh/rABUP6wK/orK/orISEg/pABUCv6Kyv6/oUgICEAAAAIADL//AHDAt0ABQAGAAcADQATABkAHwAlAAATMxcHIycBGQEXFQcnNTcHIyc3MwUXFQcnNTcnNTcXFQM3MxcHI375Kyv5LAFQISEgICv5LCz5/tshISAgICAhISz5Kyv5At0gISH+sAFQ/rAr+isr+ishISAgK/orK/orK/orK/r+hSAgIQAACwBSAB0BwwLdAAUACwARABIAEwAUABUAFgAXABgAGQAAEzMXByMnIRcVByc1ExcVByc1NyEZATERASF++Ssr+SwBUCEhICAhISAg/rABUP6wAt0gISEr+isr+v7bK/orK/or/rABUAFQ/WAABwAy//wBwwLdAAUACwARABcAHQAjACkAABMzFwcjJyEXFQcnNRMXFQcnNTcHIyc3MwUXFQcnNTcnNTcXFQM3MxcHI375Kyv5LAFQISEgICEhICAr+Sws+f7bISEgICAgISEs+Ssr+QLdICEhK/orK/r+2yv6Kyv6KyEhICAr+isr+isr+isr+v6FICAhAAAACAAy//wBwwLdAAUACwARABcAGAAZAB8AJQAAEzMXByMnIRcVByc1ExcVByc1NwcjJzczARExJzU3FxUDNzMXByN++Ssr+SwBUCEhICAhISAgK/ksLPn+2yAgISEs+Ssr+QLdICEhK/orK/r+2yv6Kyv6KyEhIP6QAVAr+isr+v6FICAhAAAAAAEAAAAAAAAAAAADAAA5AwAAAA4ArgABAAAAAAAAAB0APAABAAAAAAABAAkAbgABAAAAAAACAAcAiAABAAAAAAADACUA3AABAAAAAAAEAAkBFgABAAAAAAAFABABQgABAAAAAAAGAAkBZwADAAEECQAAADoAAAADAAEECQABABIAWgADAAEECQACAA4AeAADAAEECQADAEoAkAADAAEECQAEABIBAgADAAEECQAFACABIAADAAEECQAGABIBUwBDAG8AcAB5AHIAaQBnAGgAdAAgACgAYwApACAAMgAwADEAOQAsACAASwBvAHMAdABhAHMALAAsACwAAENvcHlyaWdodCAoYykgMjAxOSwgS29zdGFzLCwsAABVAG4AdABpAHQAbABlAGQAMQAAVW50aXRsZWQxAABSAGUAZwB1AGwAYQByAABSZWd1bGFyAABGAG8AbgB0AEYAbwByAGcAZQAgADIALgAwACAAOgAgAFUAbgB0AGkAdABsAGUAZAAxACAAOgAgADEANQAtADMALQAyADAAMQA5AABGb250Rm9yZ2UgMi4wIDogVW50aXRsZWQxIDogMTUtMy0yMDE5AABVAG4AdABpAHQAbABlAGQAMQAAVW50aXRsZWQxAABWAGUAcgBzAGkAbwBuACAAMAAwADEALgAwADAAMAAgAABWZXJzaW9uIDAwMS4wMDAgAABVAG4AdABpAHQAbABlAGQAMQAAVW50aXRsZWQxAAAAAgAAAAAAAP67ADIAAAAAAAAAAAAAAAAAAAAAAAAAAAAcAAABAgEDABEAEwAUABUAFgAXABgAGQAaABsAHAEEAQUBBgEHAQgBCQEKAQsBDAENAQ4BDwEQAREGZ2x5cGgxB3VuaTAwMEQHdW5pMjAwMAd1bmkyMDAxB3VuaTIwMDIHdW5pMjAwMwd1bmkyMDA0B3VuaTIwMDUHdW5pMjAwNgd1bmkyMDA3B3VuaTIwMDgHdW5pMjAwOQd1bmkyMDBBB3VuaTIwMkYHdW5pMjA1Rgd1bmkyNUZDAAAAAAEAAf//AA8AAQAAAAwAAAAWAAAAAgABAAEAGwABAAQAAAACAAAAAAAAAAEAAAAA1e1FuAAAAADYsJFJAAAAANiwp9I=)format("truetype");font-weight:400;font-style:normal
 }
 
 .in {
@@ -1103,7 +1018,7 @@ div:first-of-type+.checkbox {
     -ms-grid-rows: 1fr 2px 1fr 2px 1fr 2px 1fr 2px 1fr 2px 1fr;
     -ms-flex-align: center;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4,1fr);
     grid-template-rows: min-content;
     justify-items: center;
     align-items: stretch;
@@ -1111,7 +1026,7 @@ div:first-of-type+.checkbox {
     padding: 2px;
     height: 100%;
     width: 100%;
-    font: 16px/1.25 Arial, sans-serif
+    font: 16px/1.25 Arial,sans-serif
 }
 
 #calculator>[data-fun=p] {
@@ -1168,9 +1083,7 @@ div:first-of-type+.checkbox {
     border: 1px solid var(--color4)
 }
 
-#calculator input::-moz-focus-inner,
-#calculator input:focus,
-#calculator:focus {
+#calculator input::-moz-focus-inner,#calculator input:focus,#calculator:focus {
     color: var(--color4);
     outline: 0
 }
@@ -1220,8 +1133,7 @@ input::-moz-selection {
     color: var(--color3)
 }
 
-.container div,
-.wrp-container {
+.container div,.wrp-container {
     display: flex;
     place-content: center
 }
@@ -1244,14 +1156,14 @@ input::-moz-selection {
 
 .container {
     display: grid;
-    grid-template-columns: repeat(3, minmax(48px, 1fr));
+    grid-template-columns: repeat(3,minmax(48px,1fr));
     gap: 8px;
     max-width: 200px;
     max-height: 200px;
     margin: 0 auto;
     top: 50%;
     position: absolute;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%,-50%);
     left: 50%
 }
 
@@ -1271,8 +1183,7 @@ input::-moz-selection {
     display: none
 }
 
-#calculator #src,
-.checkbox label::before {
+#calculator #src,.checkbox label::before {
     box-sizing: border-box
 }
 
@@ -1281,8 +1192,7 @@ input::-moz-selection {
     padding-right: 28px
 }
 
-.checkbox label::after,
-.checkbox label::before {
+.checkbox label::after,.checkbox label::before {
     content: "";
     display: block;
     position: absolute;
@@ -1335,8 +1245,7 @@ button:active {
     color: var(--color0)
 }
 
-.counter .max,
-.counter .max~input {
+.counter .max,.counter .max~input {
     background: var(--color4)
 }
 
@@ -1344,9 +1253,7 @@ button:active {
     order: 1
 }
 
-.counter button:first-of-type::after,
-.counter button:last-of-type::after,
-.counter button:last-of-type::before {
+.counter button:first-of-type::after,.counter button:last-of-type::after,.counter button:last-of-type::before {
     content: "";
     display: block;
     position: absolute;
@@ -1376,8 +1283,7 @@ button:active {
     margin: 0
 }
 
-.checkbox,
-.counter {
+.checkbox,.counter {
     display: flex;
     padding: 4px 0;
     place-items: center;
@@ -1393,8 +1299,7 @@ button:active {
     margin-right: 4px
 }
 
-input::-webkit-inner-spin-button,
-input::-webkit-outer-spin-button {
+input::-webkit-inner-spin-button,input::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0
 }
@@ -1404,26 +1309,21 @@ input[type=number] {
     appearance: textfield
 }
 
-input[type=number]:focus,
-input[type=text]:focus {
+input[type=number]:focus,input[type=text]:focus {
     outline: 0;
     box-shadow: 0 0 7px var(--color3) inset
 }
 
 @media screen and (max-width:700px) {
-
-    .w15,
-    .w16,
-    .w17 {
+    .w15,.w16,.w17 {
         max-width: 100%
     }
 
-    .bottom,
-    .movable {
-        position: relative !important;
-        top: 0 !important;
-        left: 0 !important;
-        width: 100% !important
+    .bottom,.movable {
+        position: relative!important;
+        top: 0!important;
+        left: 0!important;
+        width: 100%!important
     }
 
     .tetris {
@@ -1431,11 +1331,11 @@ input[type=text]:focus {
     }
 
     #vr {
-        display: none !important
+        display: none!important
     }
 
     .movable.minimized div {
-        display: block !important
+        display: block!important
     }
 }
 
