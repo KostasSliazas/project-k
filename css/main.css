@@ -168,7 +168,10 @@ html {
     --color3: #333333;
     --color4: #000000
 }
-
+.j.bg-image {
+    --bg: url(../img/j.svg);
+    --size: center/403px
+}
 .k {
     --color0: #E6C18A;
     --color1: #BBAA8F;
@@ -176,7 +179,9 @@ html {
     --color3: #665A47;
     --color4: #3C3020
 }
-
+.k.bg-image {
+    --bg: url(../img/ka.svg);
+}
 .l {
     --color0: #CED7E7;
     --color1: #BCC5D5;
@@ -184,14 +189,18 @@ html {
     --color3: #818A9A;
     --color4: #000000
 }
-
+.l.bg-image {
+    --bg: url(../img/l.svg);
+}
 .m {
     --color0: #F9ECF7;
     --color1: #D7CAD5;
     --color2: #B5A8B3;
     --color3: #938691
 }
-
+.m.bg-image {
+    --bg: url(../img/m.svg);
+}
 .m,.n,.o {
     --color4: #000000
 }
@@ -202,7 +211,9 @@ html {
     --color2: #B8A791;
     --color3: #96856F
 }
-
+.n.bg-image {
+    --bg: url(../img/n.svg);
+}
 .o {
     --color0: #E9E5E0;
     --color1: #BEBAB5;

@@ -135,6 +135,9 @@
   const aLength = aGetElms.length;
   for (let i = 0; i < aLength; i++) aGetElms[i].onclick = (e) => aClickHandler.buttonClicker(e);
 
+  //show how many links
+  // d.getElementById('total-links').textContent = aGetElms.length;
+
   // create input timeout click handlers
   // const inputClickHandler = new ClickHandler(200);
   // const inputGetElms = Array.from(d.getElementsByTagName("input"));
@@ -466,7 +469,7 @@
   };
 
   const themeName = d.getElementById('theme-name');
-  const longNames = ['inner peace', 'peace on earth', 'cool dudes', 'sunshine', 'someday', 'everything fine', 'night', "chlorine halogens", "happiness", "jupiter", "Karma", "lightness", "mandarins", "neutral", "optimistic", "paradise", "colored kalcium", "respect", "silver"];
+  const longNames = ['inner peace', 'peace on earth', 'cool dudes', 'sunshine', 'someday', 'everything fine', 'night', "chlorine halogens", "happiness", "jupiter", "Karma", "lightness", "marigold", "neutral", "optimistic", "paradise", "colored kalcium", "respect", "silver"];
   const classNameVariables = [0, "a", "b", "c", "d", "e", "f", "g", "h", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y"];
   const THEME_CHANGE = arrayHelper.call(classNameVariables);
 
