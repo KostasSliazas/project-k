@@ -236,7 +236,9 @@ html {
     --color2: #3E4049;
     --color3: #0A0C15
 }
-
+.r.bg-image {
+    --bg: url(../img/r.svg)
+}
 .s {
     --color0: #FCFCFC;
     --color1: #EBEBEB;
@@ -295,11 +297,6 @@ html {
     --color2: #C3BBAE;
     --color3: #A0937D;
     --color4: #333344
-}
-
-.x.bg-image {
-    --bg: url(../img/x.svg);
-    --size: center/70px
 }
 
 .y {
