@@ -75,7 +75,9 @@ html {
     --size: center/100px;
     --repeat: repeat
 }
-
+.l,.m,.n,.o,.u,.j,.e {
+    --color4: #000000
+}
 .a {
     --color0: #F7F7FE;
     --color1: #E7E7EE;
@@ -130,7 +132,6 @@ html {
     --color1: #B1ABAC;
     --color2: #777777;
     --color3: #636363;
-    --color4: #000000
 }
 
 .e.bg-image {
@@ -166,7 +167,6 @@ html {
     --color1: #747C84;
     --color2: #96938D;
     --color3: #333333;
-    --color4: #000000
 }
 .j.bg-image {
     --bg: url(../img/j.svg);
@@ -187,7 +187,6 @@ html {
     --color1: #BCC5D5;
     --color2: #9AA3B3;
     --color3: #818A9A;
-    --color4: #000000
 }
 .l.bg-image {
     --bg: url(../img/l.svg);
@@ -200,9 +199,6 @@ html {
 }
 .m.bg-image {
     --bg: url(../img/m.svg);
-}
-.m,.n,.o {
-    --color4: #000000
 }
 
 .n {
@@ -251,15 +247,13 @@ html {
 .s.bg-image {
     --bg: url(../img/s.svg);
 }
-.t,.u {
-    --color4: #000000
-}
 
 .t {
-    --color0: #CEE0CE;
-    --color1: #A3B5A3;
-    --color2: #788A78;
-    --color3: #4D5F4D
+    --color0: #444447;
+    --color1: #333337;
+    --color2: #222227;
+    --color3: #111117;
+    --color4: #EEEEE7;
 }
 
 .u {
