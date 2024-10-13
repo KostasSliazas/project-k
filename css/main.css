@@ -347,7 +347,12 @@ html {
 .cute-mode .cute img,.e .movable:nth-child(1),.e .movable:nth-child(14),.e .movable:nth-child(15),.e .movable:nth-child(17),.e .movable:nth-child(18),.e .movable:nth-child(19),.e .movable:nth-child(22),.e .movable:nth-child(23),.e .movable:nth-child(24),.e .movable:nth-child(6),.e .movable:nth-child(8) {
     visibility: hidden
 }
-
+.g {
+    cursor: url(cursord.cur), auto;
+}
+.g .checkbox label,.g .memo img,.g .movable::before,.g .svg-holder,.g a,.g button,.g input[type=button],.g input[type=color],.g input[type=file]::file-selector-button,.g input[type=number],.g input[type=radio],.g input[type=reset] {
+    cursor: url(cursors.cur),pointer!important
+}
 .cute-mode {
     cursor: url(dcursor.cur),auto
 }
