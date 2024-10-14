@@ -69,14 +69,14 @@
   const textArea = d.getElementsByTagName("TEXTAREA")[0];
   const bg = d.querySelector("#bg-file");
   const styles = ["width", "height", "left", "top"];
-  const blockDefaults = "width:70px;height:30px;left:160px;top:20px;,width:110px;height:40px;left:310px;top:40px;,width:110px;height:60px;left:310px;top:80px;,width:60px;height:60px;left:420px;top:80px;,width:160px;height:440px;left:800px;top:140px;,width:160px;height:400px;left:0px;top:20px;,width:160px;height:420px;left:480px;top:80px;,width:20px;height:120px;left:140px;top:460px;,width:150px;height:240px;left:160px;top:40px;,width:160px;height:80px;left:480px;top:500px;,width:170px;height:440px;left:310px;top:140px;,width:110px;height:40px;left:530px;top:40px;,width:110px;height:40px;left:420px;top:40px;,width:100px;height:20px;left:230px;top:20px;,width:140px;height:100px;left:0px;top:480px;,width:150px;height:300px;left:160px;top:280px;,width:780px;height:20px;left:180px;top:0px;,width:160px;height:20px;left:330px;top:20px;,width:180px;height:20px;left:0px;top:0px;,width:160px;height:100px;left:800px;top:40px;,width:160px;height:540px;left:640px;top:40px;,width:470px;height:20px;left:490px;top:20px;,width:160px;height:60px;left:0px;top:420px;";
-  const textAreaDefaults = "Good day. You have the ability to reposition these blocks by selecting and holding the left corner or by pressing the ` key ([ctrl]+[`]=Reset to Defaults) on your keyboard. Alternatively, double-click to minimize them. Additionally, you can customize the theme, colors, and background image. If locked, to unlock, simply triple-click on the background and then click 520 (default PIN) or clear localStorage (because by using this project you will write to it data, like password and other settings)";
+  const blockDefaults = "width:960px;height:20px;left:20px;top:20px;,width:70px;height:20px;left:480px;top:80px;,width:100px;height:40px;left:280px;top:60px;,width:110px;height:60px;left:330px;top:100px;,width:60px;height:60px;left:440px;top:100px;,width:160px;height:110px;left:20px;top:100px;,width:170px;height:400px;left:330px;top:160px;,width:20px;height:120px;left:960px;top:520px;,width:150px;height:240px;left:180px;top:100px;,width:180px;height:80px;left:330px;top:560px;,width:160px;height:430px;left:20px;top:210px;,width:100px;height:40px;left:380px;top:60px;,width:100px;height:40px;left:180px;top:60px;,width:100px;height:20px;left:550px;top:80px;,width:160px;height:100px;left:20px;top:80px;,width:150px;height:300px;left:180px;top:340px;,width:960px;height:20px;left:20px;top:40px;,width:160px;height:20px;left:20px;top:60px;,width:180px;height:20px;left:650px;top:80px;,width:160px;height:80px;left:660px;top:100px;,width:500px;height:20px;left:480px;top:60px;,width:150px;height:20px;left:830px;top:80px;,width:160px;height:540px;left:500px;top:100px;,width:160px;height:460px;left:660px;top:180px;,width:160px;height:540px;left:820px;top:100px;";
+  const textAreaDefaults = "Good day. You have the ability to reposition these blocks by clicking (✥) and holding (the left) corner or by pressing the ` key on your keyboard. ([ctrl]+[`]=Reset to Defaults) Alternatively, double-click (🗖) to maximize them or minimize (✥). You can also change the theme by right-clicking (context menu) and customize the colors and background image through the user interface. If locked, you can unlock it by clicking a few times on the background and then entering the default PIN: 520. Alternatively, you can clear the localStorage (since this project stores data such as PIN(password) and other settings in localStorage).";
   const counts = {
     allMouseClicks: 0,
     clicks: 0
   };
   let saved = getLocalStorageItems('mustashed') || [5, 2, 0];
-  let minimized = [0, 13, 16, 17, 18, 21, 7];
+  let minimized = [0,1,7,13,14,16,17,18,20,21];
   let mousedown = false;
   let scalingTarget = null;
   let isEnterPass = false;
@@ -473,11 +473,21 @@
   const classNameVariables = [0, "a", "b", "c", "d", "e", "f", "g", "h", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y"];
   const THEME_CHANGE = arrayHelper.call(classNameVariables);
 
+  // const moveElement = function(pixels, direction, elements) {
+  //   let pixel = (this.getAttribute('data-moved') === elements.join()) ? -pixels : pixels
+  //     this.style[direction] = parseInt(this.style[direction]) + pixel + 'px';
+  //     this.setAttribute('data-moved', elements);
+  // }
+
+  // const arrayForMoveElems = [20, 19, 4];
+  //   if(index === 13)
+  //   arrayForMoveElems.forEach(e => moveElement.call( movable[e], 320, 'left', arrayForMoveElems))
   // change main theme
   const changerClass = index => {
     themeName.textContent = longNames[index] || "other";
     if (index) root.className = classNameVariables[index];
     else root.removeAttribute("class");
+
     if (d.getElementById('enabled-bg').checked === true) {
       root.classList.add('bg-image');
     } else {

@@ -307,9 +307,8 @@ html {
     --color4: #F2F2F2
 }
 
-.f body {
-    font-family: monospace
-}
+.f body,.y body { font-family: Consolas, monaco, monospace;}
+.b body { font-family: Tahoma, Verdana, Segoe, sans-serif;}
 
 .c body,.d body,.e body,.g body {
     letter-spacing: .3px;
@@ -344,8 +343,24 @@ html {
     background-size: 100px
 }
 
-.cute-mode .cute img,.e .movable:nth-child(1),.e .movable:nth-child(14),.e .movable:nth-child(15),.e .movable:nth-child(17),.e .movable:nth-child(18),.e .movable:nth-child(19),.e .movable:nth-child(22),.e .movable:nth-child(23),.e .movable:nth-child(24),.e .movable:nth-child(6),.e .movable:nth-child(8) {
+.cute-mode .cute img,
+.e .movable:nth-child(1),
+.e .movable:nth-child(2),
+.e .movable:nth-child(3),
+.e .movable:nth-child(8),
+.e .movable:nth-child(12),
+.e .movable:nth-child(13),
+.e .movable:nth-child(14),
+.e .movable:nth-child(18),
+.e .movable:nth-child(19),
+.e .movable:nth-child(21),
+.e .movable:nth-child(22),
+.e .movable:nth-child(15),
+.e .movable:nth-child(17) {
     visibility: hidden
+}
+.e .movable:nth-child(25){
+    clip-path: none;
 }
 
 .cute-mode {
@@ -496,7 +511,7 @@ div.moves {
 
 .movable {
     min-width: 52px;
-    max-width: 780px;
+    max-width: 960px;
     position: relative
 }
 
@@ -558,7 +573,7 @@ div.moves {
 }
 
 .tetris {
-    clip-path: polygon(107% -7%,107% 39px,139px 39px,139px 107%,-7% 107%,-7% -7%)
+    clip-path:polygon(107% -7%,107% 419px,139px 419px,139px 107%,-7% 107%,-7% -7%)
 }
 
 .center h1,.movable h1 {
@@ -676,41 +691,20 @@ div.moves {
     animation: seconds 1s alternate infinite
 }
 
-.w7 {
-    max-width: 70px
-}
 
-.w11 {
-    width: 110px
-}
 
-.w12 {
-    width: 120px
-}
-
-.w14 {
-    max-width: 140px
-}
-
-.w15 {
-    max-width: 150px
-}
-
-.w16 {
-    max-width: 160px
-}
-
-.w17 {
-    max-width: 170px
-}
-
-.w18 {
-    max-width: 180px
-}
-
-.w23 {
-    max-width: 230px
-}
+.w11{width:110px}
+.w14 {max-width: 140px}
+.w15 {max-width: 150px}
+.w16 {max-width: 160px}
+.w17 {max-width: 170px}
+.w18 {max-width: 180px}
+.w23 {max-width: 230px}
+.mw15{min-width:150px}
+.mw16{min-width:160px}
+.mw10{min-width:100px}
+.mw50{min-width:500px}
+.mw96{min-width:960px}
 
 .oxs i:nth-child(even),.oxs p {
     user-select: all!important
@@ -766,10 +760,20 @@ div.moves {
 .table {
     display: grid;
     max-width: max-content;
-    grid-template-columns: repeat(2,minmax(1em,auto));
-    grid-template-rows: repeat(30,minmax(1em,auto))
+    min-width:100%;
 }
-
+.t30{
+    grid-template-columns: repeat(2,minmax(1em,auto));
+    grid-template-rows: repeat(30,minmax(1em,auto));
+}
+.t16 {
+    grid-template-columns: repeat(2, auto);
+    grid-template-rows: repeat(16, auto);
+}
+.t7 {
+    grid-template-columns: repeat(2, auto);
+    grid-template-rows: repeat(7, auto);
+}
 .esr i,.table i {
     font-style: inherit;
     line-height: 1;
@@ -922,7 +926,7 @@ input[type=file]::file-selector-button {
 }
 
 input[type=file i] {
-    width: 14ch;
+    width: 100%;
     padding: 0 0 0 4px;
     line-height: 20px;
     font-family: inherit
@@ -1323,10 +1327,10 @@ input[type=number]:focus,input[type=text]:focus {
 }
 
 @media screen and (max-width:700px) {
-    .w15,.w16,.w17 {
-        max-width: 100%
-    }
 
+    .mw96,.mw50{
+        min-width:0;
+    }
     .bottom,.movable {
         position: relative!important;
         top: 0!important;
