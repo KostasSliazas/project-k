@@ -2,23 +2,24 @@
  * Main off "moving blocks" script created by K.S.
  * @date 07/07/2023 - 07:07:07 AM
  */
+/* eslint-disable no-undef */
 /*jshint esversion: 11 */
 (function (w, d) {
   "use strict";
   const getLocalStorageItems = (item) => {
     try {
-      return JSON.parse(localStorage.getItem(item));
+      return JSON.parse(w.localStorage.getItem(item));
     } catch (error) {
-      console.error("Error parsing JSON:", error.message);
+      w.console.error("Error parsing JSON:", error.message);
       return null; // or any other default value
     }
   };
-  const setLocalStorageItems = (item, value) => localStorage.setItem(item, JSON.stringify(value));
+  const setLocalStorageItems = (item, value) => w.localStorage.setItem(item, JSON.stringify(value));
   const main = d.getElementById('main');
   const hide = elem => elem.classList.add('hide');
   const show = elem => elem.classList.remove('hide');
   let isLocked = getLocalStorageItems('isLocked');
-  const random = (min, max) => Math.floor(Math.random() * (max - min)) + min;
+  // const random = (min, max) => Math.floor(Math.random() * (max - min)) + min;
 
   function isLockig() {
     //icon images encoded base64
@@ -33,7 +34,7 @@
     if (isLocked) {
       d.title = 'New Tab'; // change title (document)
       d.getElementById('loader').style.display = 'none'; // Hide the loader
-      link.href = emtyIcon
+      link.href = emtyIcon;
       hide(main);
     } else {
       d.title = 'Project-K'; // change title (document)
@@ -47,7 +48,7 @@
   // create new sound for timers with base64 encoding
   const SNDFIN = new w.Audio(
     'data:audio/mp3;base64,SUQzBABAAAAAIAAAAAwBIAUGXHIhTFRYWFgAAAAKAAAAU29mdHdhcmUA/+NIZAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAAMAAAMYAATExMTExMTE0BAQEBAQEBATExMTExMTExgYGBgYGBgYGBzc3Nzc3Nzc4aGhoaGhoaGk5OTk5OTk5OTpqampqampqa5ubm5ubm5ueDg4ODg4ODg4Pn5+fn5+fn5//////////8AAAA5TEFNRTMuMTAwAicAAAAAAAAAABQYJARFLgAAGAAADGChy0ixAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/+M4ZAAKhhNbLKCcAI8YAuMZQBAAC1rM0JBjxj4E8fkMYxvwLGPAMY37QAAAD//M//PP8wwz////qeeYYYY08+egiAsAYAwBgkEHqe7//////9/9v///9///Y8///3zx8biWTQbjcmeHs0TEzdU9E4lwfeXPv8H5cHwfwQ4DB8H35QEAQ+7EHlwQBAEPicEAQBAEP5cH+CDn//B9AgBD//////yhxVecu6nZvLu6pkRdJWXpUGgJ5hpoGAoWu2DxH+CCYILUUDHEyE+TOCUN43q0HPfhJ4tz/+N4RDIdnbdjjMzgADlS0r8ZmcABUUyajcgVnSuhlVQGQX2YP9HaJprTHUXa9U07Kk2HKBQM8DioCmZP1YWa0d9naex3LTl3Xeg1Q5oMOSiBarNIEbRgFVyQMF4FBkrmxoqo8sqdNMiGn+qNelVaeo8Ihe3jh3V3ueErnWWO0DWymRU2X7pr0RrJvg7Tr3P/88O282Mh1JD+vqzdLcpsu2bGsvyw3es61vKly7vd/mt///rX8/HeH5b5+8ua3vuXebv5Y9///meH/zerpdX60vVRkM71FQ8tLggOBsgHA1Q0K+RgbmQGOkpHEBxlGlm0A9OuyhXuHLxZAMQjPO87R23hm4yRsmmYt7KY6weibozBt1fSNgLWWmt0l7vROJFz0jsKOApDJ7kipIckM5G612BIHp95sjjcONVXrSSt15BRSfOZqZQFDMOvCxOidvKUQ/JYEgiCGuTsdws3LE8+M5l21QwDDL9AP7EZqXU3/Obstda6QIY7b738ZXSRmdhodfZn+6xs1dZVt446yy3jSWc///zxwz1/aX8/536vlbgwUCkgoFJBQKN77xUohTj//HmVFYUql3u3+zNwYeIJhOlo4bMUz0cmgaEtZJ9eTL58SKL3qSo8gltT99Jo26I7q0jNKF31OQ06rJQ+flRIMZndD0X//6u3/+MoREILQQl5LOMoARZqDvJZyTgC/WknA6wC44XEJ1mj+zY9zRZ5P/////3olu1v+zEw8xgzqIJtUt8+/s0hOSWtqZi2ECHZ1J9sxSyPvsrEsruOR48SOmqw8ed3o7LNlZxQwopU2ebbmsb//65n/8dBJ/L3f/iIgtgqG0SQ9MNyH////yt1mvu/+qEo6gli/+M4RAkLKQlvLCUKZxZSEup4SZQ6hPCcnFvcZV/JFlEBckUWl0yWmiFkiIiZATCp+zVyr4hmJknv/ZmaDvi5qO1JExrD+VU0Bm3////7WO/654ehr/JO/yU23VIA0G53/////3Iu2vaIdmJhyopjqZGAwWIYR/bUpmzit71QkwoggZQ4UbeHWy5Mzf9nG0uDfLUdpL+mpr0dYsE9Escaq0qrJ//u1VX/9zA3dvJNf/8AsQhc44FyUqz/////PIVOSS22gODljWhVgO4bdVueZxtbzE6XQ6sm/+M4RBkLaQlfLBlPaRZMEscYGWCZ5JJa0VWK6toY69n1Zed2TQjCoIcfI+ceAXGhMc1HPO///N6/9N0vS2ItzRHCyh+2pz9//ROtHCoJCIcfmf////96DiJmZvKpDcf/QphxCFq9XcML4bUSEeiuPwCFuKvfMql3yKhcqU7lV2oRRI6IgowwPEfQyf//rv19KtKcBBBWTd6vXrr1//b/a36lII77f9f/////////5dzKUltu0iDowDQtgFGgNY9l5KIx1sJgpWGoUisRC23PdCOjoKp9pTDf/+M4RCcKegljLhWilZWkDuJ8OAXD/o99BaY4UkF///9Xb+9aFEJMMj/3p////X/KU5SmMxDXP////////r//1GWabbeHh3YuGAaVKC4SzCDEjjVYd1nLbcaklOc4RBJCcaGEhQTQvn7dDjHRyJh+a/1e9DzDx841T1FJjfp//73T/1oFgSZP+tFS///Tzf9+6df9v///QCbqDklsupDsgAH4urLurqlysyrshIuQiiQGiBnUxq/+iel2R0DXJ1ARNIqylKoiAnWf///+31KrRqOh0HK0y+rJ/+MoZD8K2QdfLxRtgRT63sZeUAWCf+w/4lBFTyv/9ZCO+jSOUeYJQbVErg6hSS23bIDWAAeioN2R0+clfyp5MhjOpYlnOhrUf/827nMdeRO9DlZ0KHkLHmIoDp9////Q5Gb86+ggQO7/pRPuYGxBT3A10FtSk9gExmVoSz89WAj1BbgkkpDsgAHk5+hmbMpg/+M4ZA8KjQlVLwVtkRVSEsJeEFQ+2RBCH8ISyJzfXzvrv4n4QOa6HFIEw6lXO44///qWvupVVjrKBxE0lvcHngoed//iqgbd5X/lXMgXjSJEadeKTwlWGmxRycttu2Qu2AA+YUf73MJDKGmHzii8ffl2KEikYdZzWTI3aaRDEL4VjUT///3f/6UcEmfwVLCIxd1eSb0ILhP/1r6luvLoCoaMxGwiVGzQnEYVERISnVIAwBpQAPwAHcl///5///////7dYxq3///9ls6RkyJ4olgnjdAiJMES/+M4ZCgK9gk8L6DAAJaCLnBdQqAASATC5iKDQdFB/q7///+v1U0Vom06ePpb/Xf////S+3S93simy9FVJKp0VomsmUsoBACPAH8KGDDhNEM0syer/1Qj///////1dEY1af//9dJFlpJTIxRIYXiaKRcSHUOwbIBCQDhFxYhPhaOEVPTcaJ2I//8ERZK///z1R4XY1VC1pEQMucAg8HSVAAATky8TpOuJMwaJvRTtYUqOxHMcculGbTAzu8QGVtu8Z4cOBZqaqKjv3ssZ61ZtfnKautYfveF7/+NoZDkbHeEiDMfoADg7kkARmOABe6a3jrvbusabGr++4bvVL8ANSy7j3tJfrNGhXN85rWemfZd1zefZAzF3G/GgBiwIQzBZMRB43OQ3aeNrb5IZPCUAoUvJacMRau6L3uMu1GRFI54BFuD5NFZLSXod/Ddzv6r8sx7PCP/vlBr9fz4IsZ2b/e65ze+6pbuWO/3z8csfyuX+42u2s8MrF789/Z+au3q9LYxyz72xzPveaxxsZgAMSdugyRiUj6oPAUnqwxBzWoXAEnhF+lk0JjP0V2V2K+47cl3zsv+1d1STNmM4YyvuotSXqme8K+Wd7OrSZ1dXu73jbw5hy32/d23RV3dZZY1tdUcg/e9azs2NMay3T/PzFh4blxiIsFhYKmFzsc3a4BA6oa7iV66qSrxwAiIDA0NmqXANBNUTyxWEQ3DEdT8MAAgrCxyQojQkXwuF3pZllS54a/m+XL+Ud5hQ9/6HP//mLhz/5VPvV79uphLLtNhr+9/v5d//5+Wd7mOX9t9/Xfw59XO3fp8r1jadJAmPWUEAAQIBVESFYF3T41IjTv8JoLQ6Sr/qIso2/+NIZBoP8ZkWXMVQAB+TNkAJhZgCR//WxeuTKZFf//MDws4ehlifJYcknCDdf//ikhhgGBTcWgDDoACA4aCAKOFAh6Qs/rYySdSTo//i5h0kUJ0coiZAiPIiTJoXikVlsrX///5MmJOlJi8dSLpgXTJMvHTxic2NUxqgEAxxAO/4rT/iQiz/5kfMTEnTL/9AvFFyZKBdJr//ybIEWScICTBJDlEHGZ///xXRYRCYMhAKCAdsDT4D2QAzosQNgIeh7kyYstFkv/xBUTcLLEJh9jsFmkwO4corkFIaRFTorq///8hxwgxGpkVKBqTRNl4olwmTAtk0b/apTEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV/+MYZCcAAAGkAOAAAAAAA0gBwAAAVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV');
-  const setCheckboxChecked = (checkboxId, isChecked) => d.getElementById(checkboxId).checked = isChecked
+  const setCheckboxChecked = (checkboxId, isChecked) => d.getElementById(checkboxId).checked = isChecked;
   const pindiscard = d.getElementById('pindiscard');
   const pinsave = d.getElementById('pinsave');
   const position = d.getElementById('position');
@@ -55,9 +56,9 @@
   const movable = Array.from(d.getElementsByClassName("movable"));
   const movableLength = movable.length;
   const roundToTen = num => Math.ceil(num / 10) * 10;
-  const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+  const delay = ms => new Promise(resolve => w.setTimeout(resolve, ms));
   const addLeadingZero = (time) => time.toString().length < 2 ? "0" + time : time;
-  const online = navigator.onLine;
+  const online = w.navigator.onLine;
   const getPE = elem => elem.parentElement;
   const root = d.documentElement;
   const typed = [];
@@ -147,8 +148,10 @@
   function getStyles() {
     let styleValues = [];
     for (let i = 0; i < movableLength; i++) {
-      styles.forEach((value) => styleValues.push(`${value}:${movable[i].style[value]};`));
-      styleValues.push(',');
+      	(function(i,styleValues) {
+      		styles.forEach((value) => styleValues.push(`${value}:${movable[i].style[value]};`));
+      		styleValues.push(',');
+  		})(i,styleValues);
     }
     return styleValues.join('');
   }
@@ -181,7 +184,7 @@
       if (e.id === 'text-area') textArea.style.height = e.style.height;
       e.addEventListener("dblclick", async e => {
         if (clickTimeout) {
-          clearTimeout(clickTimeout);
+          w.clearTimeout(clickTimeout);
           clickTimeout = null;
         }
 
@@ -225,7 +228,7 @@
 
         if (!clickTimeout) {
           // If no pending click, set a timeout for single click action
-          clickTimeout = setTimeout(() => {
+          clickTimeout = w.setTimeout(() => {
             // console.log('Single click action');
 
 
@@ -271,8 +274,8 @@
     startTime() {
       this.updateClock();
 
-      const gogo = setTimeout(function () {
-        clearTimeout(gogo);
+      const gogo = w.setTimeout(function () {
+        w.clearTimeout(gogo);
         this.startTime();
       }.bind(this), 6000); // when seconds update change 1000
     }
@@ -306,7 +309,7 @@
   // Defining async function
   async function getAll(url) {
     // Storing response
-    const response = await fetch(url);
+    const response = await w.fetch(url);
     // Storing data in form of JSON
     const data = await response.json();
     // no data? return
@@ -432,7 +435,7 @@
   function setTimeStamp(interval) {
     // Check if localStorage is available
     if (typeof localStorage === 'undefined') {
-      console.error("localStorage is not available.");
+      w.console.error("localStorage is not available.");
       return false;
     }
 
@@ -440,7 +443,7 @@
     const currentDate = Math.floor(new Date().getTime() / 1000);
 
     // Retrieve previous timestamp from localStorage
-    const previousTimeStamp = parseInt(localStorage.getItem("timeStamp"));
+    const previousTimeStamp = parseInt(w.localStorage.getItem("timeStamp"));
 
     // If timestamp exists and interval has not passed, return false
     if (!isNaN(previousTimeStamp) && (currentDate - previousTimeStamp) < interval) {
@@ -448,7 +451,7 @@
     }
 
     // Set new timestamp in localStorage
-    localStorage.setItem("timeStamp", currentDate.toString());
+    w.localStorage.setItem("timeStamp", currentDate.toString());
 
     // Return true to indicate that interval has passed
     return true;
@@ -522,8 +525,8 @@
       // Prevent the default reload
       e.preventDefault();
       // clear local storage
-      localStorage.clear();
-      window.location.reload(); // This reloads the page after your actions
+      w.localStorage.clear();
+      w.location.reload(); // This reloads the page after your actions
       // check if it's [`] symbol and inputs not focused then toggle class
     } else if (keyCode === '`' && !d.querySelector("input:focus")) {
       moves.classList.toggle("hide");
@@ -573,7 +576,7 @@
   // Function to save all input values to localStorage
   const saveAllInputs = () => {
     const values = Array.from(counters, counter => getElem(counter).value);
-    localStorage.setItem('K-InputValues', values.join(','));
+    w.localStorage.setItem('K-InputValues', values.join(','));
   };
 
   // Flag to prevent multiple saves during a short time
@@ -640,7 +643,7 @@
   };
 
   // Retrieve input values from localStorage
-  const values = localStorage.getItem('K-InputValues') && localStorage.getItem('K-InputValues').split(',').map((Number) => addLeadingZero(Number));
+  const values = w.localStorage.getItem('K-InputValues') && w.localStorage.getItem('K-InputValues').split(',').map((Number) => addLeadingZero(Number));
   // console.time()
 
   // Initialize counters with values and event listeners
@@ -659,17 +662,17 @@
   function Repeater(time, stopCase, callback) {
     this.timesRepeated = 0;
     this.timeOut = 0;
-    this.stop = () => clearTimeout(this.timeOut);
+    this.stop = () => w.clearTimeout(this.timeOut);
     // create inner function with arrow to not loose context of this
     const inner = () => {
 
-      this.timeOut = setTimeout(function () {
-        clearTimeout(this.timeOut);
+      this.timeOut = w.setTimeout(function () {
+        w.clearTimeout(this.timeOut);
         this.timeOut = 0;
         this.timesRepeated++;
         //if not number and true || less than stop case repeat else not
         if ((isNaN(stopCase) && stopCase) || this.timesRepeated < stopCase) inner();
-        else clearTimeout(this.timeOut);
+        else w.clearTimeout(this.timeOut);
         callback();
       }.bind(this), time || 1000); // if no time defaul 1000ms (1s)
       return this;
@@ -700,11 +703,11 @@
     this.start = function () {
 
       // clear timeout everytime so it not dublicates (speed)
-      clearTimeout(timeout);
+      w.clearTimeout(timeout);
       if (!isCounting) {
         isCounting = true;
         sec = this.totalSeconds(); // set seconds at start
-        this.counterTime.textContent = '-' + this.counterTime.textContent
+        this.counterTime.textContent = '-' + this.counterTime.textContent;
       }
       // start if more than zerro
       if (sec > 0) {
@@ -715,7 +718,7 @@
 
       }
       // set timeout to variable for clearing later
-      timeout = setTimeout(function () {
+      timeout = w.setTimeout(function () {
         // changing (swaping) lines can show negative values, should stay as it is
         if (sec === 0) {
           // this.stop();
@@ -748,10 +751,10 @@
 
     this.stop = function () {
       isCounting = false;
-      clearTimeout(timeout);
+      w.clearTimeout(timeout);
       timeout = 0; // timoeut timer
       this.counterTime.textContent = addLeadingZero(this.totalSeconds()); // set seconds at start
-      document.getElementById('start').innerText = 'Start';
+      d.getElementById('start').innerText = 'Start';
       // this.counterTime.textContent = '00';
     };
 
@@ -789,7 +792,7 @@
 
   async function init() {
     // If localStorage is empty, set isCheckedLines to true
-    if (localStorage.length === 0) {
+    if (w.localStorage.length === 0) {
       await setLocalStorageItems('theme-lines', true);
     }
     d.addEventListener('mousemove', handleMousemove);
@@ -869,7 +872,7 @@
     if (setTimeStamp(43) && online) {
       await getAll(api_url);
     }
-    // show the data to user    
+    // show the data to user
     stats(getLocalStorageItems("statsData"));
 
   }
@@ -916,7 +919,7 @@
 
     if (e.target.tagName === "MAIN") {
       e.preventDefault();
-      THEME_CHANGE.decrement(); // eslint-disable-line
+      THEME_CHANGE.decrement();
       changerClass(THEME_CHANGE.value);
       //set local storage only when user click
       setLocalStorageItems("theme", THEME_CHANGE.value);
@@ -977,12 +980,12 @@
 
     if (target === "custom-theme" || target === "bg-toggle" || target === "reset-all" || target === "bg-theme") {
       e.target.removeAttribute("style");
-      localStorage.removeItem(target);
+      w.localStorage.removeItem(target);
       styleRoot();
     }
 
     if (target === "reset-all") {
-      localStorage.clear();
+      w.localStorage.clear();
       root.removeAttribute("class");
       root.removeAttribute("style");
       textArea.removeAttribute('style');
@@ -1101,7 +1104,7 @@
 
   function bgChange(e) {
     const inputValue = e.target.files[0];
-    const reader = new FileReader();
+    const reader = new w.FileReader();
 
     reader.addEventListener("load", async () => {
       const fileString = `--bg:url(${reader.result})`;
@@ -1151,7 +1154,7 @@
     if (targetClass) {
       target.classList.remove("mousedown");
       root.classList.remove('hmove');
-      if (!document.getElementById('bg-toggle').checked) main.classList.remove('lines');
+      if (!d.getElementById('bg-toggle').checked) main.classList.remove('lines');
       setLocalStorageItems('elementStyles', getStyles());
     }
 
@@ -1163,7 +1166,7 @@
         setLocalStorageItems('elementStyles', getStyles());
       }
     } catch (error) {
-      console.log({
+      w.console.log({
         error
       });
     }
@@ -1188,19 +1191,19 @@
     }
   }
 
-  function debounce(func, delay) {
-    let timeoutId;
+  // function debounce(func, delay) {
+  //   let timeoutId;
 
-    return function () {
-      const context = this;
-      const args = arguments;
+  //   return function () {
+  //     const context = this;
+  //     const args = arguments;
 
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(() => {
-        func.apply(context, args);
-      }, delay);
-    };
-  }
+  //     w.clearTimeout(timeoutId);
+  //     timeoutId = w.setTimeout(() => {
+  //       func.apply(context, args);
+  //     }, delay);
+  //   };
+  // }
 
   function throttle(func, delay) {
     let lastCallTime = 0;
@@ -1240,7 +1243,7 @@
 
   const sound = () => {
     BEEP_AUDIO.play();
-    if (typeof window.navigator.vibrate === 'function') {
+    if (typeof w.navigator.vibrate === 'function') {
       w.navigator.vibrate(30);
     }
   };
@@ -1329,7 +1332,7 @@
       result = n2 = n1.length = 0;
     }
 
-    // convert to string and change lenth 
+    // convert to string and change lenth
     if (result.toString().length > 10) result = result.toString(10).substring(0, 14);
 
     CALC_SCREEN.value = isFinite(result) ? result : "ERROR";
@@ -1337,9 +1340,9 @@
   };
 
   CALC.addEventListener("mousedown", (e) => btn(e));
-  CALC.addEventListener("mouseup", (e) => {
-    const screenTimeout = setTimeout(() => {
-      clearTimeout(screenTimeout);
+  CALC.addEventListener("mouseup", () => {
+    const screenTimeout = w.setTimeout(() => {
+      w.clearTimeout(screenTimeout);
       CALC_SCREEN.classList.remove("blink");
     }, 7);
   }); // blink screen number
@@ -1362,15 +1365,15 @@
 
   function scheduleMidnightRefresh() {
     const msUntilMidnight = timeUntilMidnight();
-    setTimeout(function () {
-      location.reload(); // Refresh the page
+    w.setTimeout(function () {
+      w.location.reload(); // Refresh the page
     }, msUntilMidnight);
 
     // Optional: Adjust the timeout every minute to stay accurate
-    setTimeout(scheduleMidnightRefresh, 60000);
+    w.setTimeout(scheduleMidnightRefresh, 60000);
   }
 
-  window.onload = function () {
+  w.onload = function () {
     scheduleMidnightRefresh();
   };
 })(window, document);
