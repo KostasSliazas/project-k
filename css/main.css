@@ -520,7 +520,7 @@ div.moves {
 }
 
 .movable::before {
-    content: "✥";
+    content: "\25A1";
     width: 20px;
     height: 20px;
     pointer-events: all;
@@ -559,7 +559,7 @@ div.moves {
 }
 
 .minimized::before {
-    content: "🗖"
+    content: "\25AD"
 }
 
 #clipboard {
