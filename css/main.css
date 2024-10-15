@@ -310,7 +310,7 @@ html {
 .f body,.y body { font-family: Consolas, monaco, monospace;}
 .b body { font-family: Helvetica Neue, Helvetica, Arial, sans-serif;}
 
-.c body,.d body,.e body,.g body {
+.c body,.d body,.g body {
     letter-spacing: .3px;
     font-family: monaco, Consolas, Lucida Console, monospace;
 }
@@ -464,6 +464,8 @@ a {
     text-transform: uppercase;
     padding: 0 4px;
     width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
     text-decoration: none
 }
 
@@ -1306,10 +1308,14 @@ button:active {
     flex: 1 1 auto;
     position: relative;
     line-height: 1.5;
+    overflow: hidden;
+    text-overflow: ellipsis;
     font-size: 16px
 }
 
 .counter label {
+    overflow: hidden;
+    text-overflow: ellipsis;
     margin-right: 4px
 }
 
