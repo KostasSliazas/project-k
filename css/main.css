@@ -308,7 +308,7 @@ html {
 }
 
 .f body,.y body { font-family: Consolas, monaco, monospace;}
-.b body { font-family: Tahoma, Verdana, Segoe, sans-serif;}
+.b body { font-family: Helvetica Neue, Helvetica, Arial, sans-serif;}
 
 .c body,.d body,.e body,.g body {
     letter-spacing: .3px;
