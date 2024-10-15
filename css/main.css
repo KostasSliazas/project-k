@@ -811,7 +811,8 @@ textarea {
     min-height: 1em;
     outline: 0;
     height: 100%;
-    font-size: .875em;
+    font-size: 1em;
+    line-height: 1.25;
     font-family: inherit;
     background: 0 0
 }
