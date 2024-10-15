@@ -51,7 +51,7 @@
   const setCheckboxChecked = (checkboxId, isChecked) => d.getElementById(checkboxId).checked = isChecked;
   const pindiscard = d.getElementById('pindiscard');
   const pinsave = d.getElementById('pinsave');
-  const position = d.getElementById('position');
+  // const position = d.getElementById('position');
   const clicked = d.getElementById('clicked');
   const movable = Array.from(d.getElementsByClassName("movable"));
   const movableLength = movable.length;
@@ -534,9 +534,9 @@
     }
   }
 
-  let handleMousemove = (event) => {
-    position.textContent = (`${event.x}:${event.y}`);
-  };
+  // let handleMousemove = (event) => {
+  //   position.textContent = (`${event.x}:${event.y}`);
+  // };
   // const lockerMouseMovments = debounce(handleMousemove, 200);
 
   const isDisplayed = (elem) => {
@@ -795,7 +795,7 @@
     if (w.localStorage.length === 0) {
       await setLocalStorageItems('theme-lines', true);
     }
-    d.addEventListener('mousemove', handleMousemove);
+    // d.addEventListener('mousemove', handleMousemove);
     const isCheckedLines = getLocalStorageItems("theme-lines");
     const isCheckedBg = getLocalStorageItems("theme-bg");
     const isRepeatingBg = getLocalStorageItems("bg-repeat");
