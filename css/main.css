@@ -312,7 +312,7 @@ html {
 
 .c body,.d body,.e body,.g body {
     letter-spacing: .3px;
-    font-family: Menlo,Consolas,Monaco,Liberation Mono,Lucida Console,monospace
+    font-family: monaco, Consolas, Lucida Console, monospace;
 }
 
 .g.bg-image {
@@ -384,7 +384,7 @@ html {
 }
 
 body {
-    font: 16px/1.25 -apple-system,BlinkMacSystemFont,avenir next,avenir,segoe ui,helvetica neue,helvetica,Cantarell,Ubuntu,roboto,noto,arial,sans-serif;
+    font: 16px/1.25 Calibri, Candara, Segoe, Segoe UI, Optima, Arial, sans-serif;
     font-variant-caps: all-petite-caps;
     color: var(--color4)
 }
@@ -839,7 +839,7 @@ button,input[type=button],input[type=color],input[type=file]::file-selector-butt
     font-size: inherit;
     line-height: inherit;
     box-sizing: border-box;
-    font-family: "IBM Plex Sans Condensed",Tuffy,Arial,sans-serif;
+    font-family: Arial,sans-serif;
     transition: .2s .1s
 }
 
