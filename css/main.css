@@ -311,7 +311,6 @@ html {
 .b body { font-family: Helvetica Neue, Helvetica, Arial, sans-serif;}
 
 .c body,.d body,.g body {
-    letter-spacing: .3px;
     font-family: monaco, Consolas, Lucida Console, monospace;
 }
 
@@ -438,6 +437,7 @@ h1,h2,h3 {
 
 .xxl {
     font-size: 30px;
+    line-height: 1;
     min-block-size: 30px
 }
 
