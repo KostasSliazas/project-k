@@ -1,0 +1,62 @@
+{
+  "screenSize": true,
+  "isItemDuplicate": false,
+  "isStats": false,
+  "todoApp": [
+    {
+      "todo": "Check for useful data to save to external USB or HDD",
+      "done": false,
+      "status": 1,
+      "timeAdd": [],
+      "timeFin": []
+    },
+    {
+      "todo": "Make partitions for DATA and OS or add seperate SSD or HDD and add label for each",
+      "done": false,
+      "status": 1,
+      "timeAdd": [],
+      "timeFin": []
+    },
+    {
+      "todo": "Make setings in BIOS for bootable USB or CD",
+      "done": false,
+      "status": 1,
+      "timeAdd": [],
+      "timeFin": []
+    },
+    {
+      "todo": "Install OS (operating system) to computer",
+      "done": false,
+      "status": 1,
+      "timeAdd": [],
+      "timeFin": []
+    },
+    {
+      "todo": "Make settings for example langue switching. folders(unhide sys files if needed). desktop. internet",
+      "done": false,
+      "status": 1,
+      "timeAdd": [],
+      "timeFin": []
+    },
+    {
+      "todo": "Install programs for images. video. music. programing. creation",
+      "done": false,
+      "status": 1,
+      "timeAdd": [],
+      "timeFin": []
+    }
+  ],
+  "isLocked": true,
+  "checkedSum": false,
+  "colorText": false,
+  "isListNumbers": false,
+  "sortedItems": [
+    false,
+    false
+  ],
+  "visitor": true,
+  "HTML5_QRCODE_DATA": {
+    "hasPermission": false,
+    "lastUsedCameraId": null
+  }
+}
