@@ -1,0 +1,90 @@
+[
+  {
+    "text": "mute",
+    "url": "addons.mozilla.org",
+    "full": "https://addons.mozilla.org/en-US/firefox/addon/mutelinks/",
+    "type": [
+      "add-ons"
+    ]
+  },
+  {
+    "text": "",
+    "url": "addons.mozilla.org",
+    "full": "https://addons.mozilla.org/en-US/firefox/addon/colorzilla/",
+    "type": [
+      "add-ons,web-browser"
+    ]
+  },
+  {
+    "text": "",
+    "url": "addons.mozilla.org",
+    "full": "https://addons.mozilla.org/en-US/firefox/addon/restclient/",
+    "type": [
+      "add-ons,web-browser"
+    ]
+  },
+  {
+    "text": "",
+    "url": "addons.mozilla.org",
+    "full": "https://addons.mozilla.org/en-US/firefox/addon/wave-accessibility-tool/",
+    "type": [
+      "add-ons,web-browser"
+    ]
+  },
+  {
+    "text": "",
+    "url": "addons.mozilla.org",
+    "full": "https://addons.mozilla.org/en-US/firefox/addon/ublock-origin/",
+    "type": [
+      "add-ons,web-browser"
+    ]
+  },
+  {
+    "text": "",
+    "url": "addons.mozilla.org",
+    "full": "https://addons.mozilla.org/en-US/firefox/addon/easyscreenshot/",
+    "type": [
+      "add-ons,web-browser"
+    ]
+  },
+  {
+    "text": "",
+    "url": "addons.mozilla.org",
+    "full": "https://addons.mozilla.org/en-US/firefox/addon/web-developer/",
+    "type": [
+      "add-ons,web-browser"
+    ]
+  },
+  {
+    "text": "",
+    "url": "addons.mozilla.org",
+    "full": "https://addons.mozilla.org/en-US/firefox/addon/empty-cache-button/",
+    "type": [
+      "add-ons,web-browser"
+    ]
+  },
+  {
+    "text": "",
+    "url": "addons.mozilla.org",
+    "full": "https://addons.mozilla.org/en-US/firefox/addon/ghostery/",
+    "type": [
+      "add-ons,web-browser"
+    ]
+  },
+  {
+    "text": "rest",
+    "url": "addons.mozilla.org",
+    "full": "https://addons.mozilla.org/en-US/firefox/addon/rester/",
+    "type": [
+      "add-ons,plugin,programing"
+    ]
+  },
+  {
+    "text": "",
+    "url": "addons.mozilla.org",
+    "full": "https://addons.mozilla.org/en-US/firefox/addon/cors-everywhere/",
+    "type": [
+      "add-ons,web-browser"
+    ]
+  }
+]
