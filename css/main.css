@@ -634,7 +634,7 @@ a {
 }
 
 .tetris {
-    clip-path: polygon(107% -7%, 107% 431px, 143px 431px, 143px 107%, -7% 107%, -7% -7%);
+    clip-path: polygon(107% -7%,107% 431px,155px 431px,155px 107%,-7% 107%,-7% -7%);
 }
 
 .center h1,
@@ -1457,6 +1457,7 @@ button:active {
     border-right: 0;
     width: 3ch;
     height: 24px;
+    font-family:Numbers,Arial,sans-serif;
     box-sizing: border-box;
     margin: 0
 }
