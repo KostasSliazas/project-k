@@ -47,9 +47,9 @@ git clone https://github.com/KostasSliazas/project-k.git
 
 | Project Name             | Description                                               | Quick Link                  |
 |--------------------------|-----------------------------------------------------------|-----------------------------|
-| **Memory Game2**         | A fun memory matching game to improve memory skills.       | <a href="https://kostassliazas.github.io/project-k/tools/memory-game2" target="_blank" rel="noopener noreferrer">Live Demo</a>               |
-| **Questionnaire**        | A tool for creating customizable questionnaires.           | <a href="https://kostassliazas.github.io/project-k/tools/questionnaire" target="_blank" rel="noopener noreferrer">Live Demo</a>              |
-| **Roulette**             | A simple roulette game for fun and entertainment.          | <a href="https://kostassliazas.github.io/project-k/tools/roulette" target="_blank" rel="noopener noreferrer">Live Demo</a>                   |
+| **Memory Game2**         | A fun memory matching game to improve memory skills.       | <a href="https://kostassliazas.github.io/project-k/games/memory-game2" target="_blank" rel="noopener noreferrer">Live Demo</a>               |
+| **Questionnaire**        | A tool for creating customizable questionnaires.           | <a href="https://kostassliazas.github.io/project-k/games/questionnaire" target="_blank" rel="noopener noreferrer">Live Demo</a>              |
+| **Roulette**             | A simple roulette game for fun and entertainment.          | <a href="https://kostassliazas.github.io/project-k/games/roulette" target="_blank" rel="noopener noreferrer">Live Demo</a>                   |
 
 ## Contact
 
