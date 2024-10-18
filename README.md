@@ -16,7 +16,7 @@ To get started with any of the projects, clone the repository and open the desir
 
 ```bash
 git clone https://github.com/KostasSliazas/project-k.git
-
+```
 
 | Project Name             | Description                                               | Quick Link                  |
 |--------------------------|-----------------------------------------------------------|-----------------------------|
