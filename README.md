@@ -21,6 +21,7 @@ Clone the repository and open the desired project folder. All tools are separate
 ```bash
 git clone https://github.com/KostasSliazas/project-k.git
 ```
+## Available tools
 
 | Project Name             | Description                                               | Quick Link                  |
 |--------------------------|-----------------------------------------------------------|-----------------------------|
@@ -45,9 +46,7 @@ git clone https://github.com/KostasSliazas/project-k.git
 | **todo-app-1**           | An enhanced version of the to-do list application.       | <a href="https://kostassliazas.github.io/project-k/tools/todo-app-1" target="_blank" rel="noopener noreferrer">Live Demo</a>           |
 | **word-generator**       | A tool for generating random words.                       | <a href="https://kostassliazas.github.io/project-k/tools/word-generator" target="_blank" rel="noopener noreferrer">Live Demo</a>       |
 
-## Available Games
-
-Below is a list of games included in **Project K**. Each game can be used independently by opening the corresponding `index.html` file.
+## Available games
 
 | Game Name                | Description                                               | Quick Link                  |
 |--------------------------|-----------------------------------------------------------|-----------------------------|
