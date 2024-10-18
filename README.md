@@ -1,7 +1,7 @@
 # Project K
 
 Welcome to **Project K**! This repository contains a collection of web-based tools and applications designed to simplify various tasks and enhance productivity for developers and designers. Each tool serves a unique purpose, from generating CSS styles to managing tasks efficiently.
-
+[Project Overview](#projects-overview) | [Screenshots](#screenshots) | [Getting Started](#getting-started) | [License](#license) | [Contact](#contact)
 ## Project Overview
 
 ## Screenshots
@@ -40,3 +40,15 @@ git clone https://github.com/KostasSliazas/project-k.git
 | **todo-app**             | A simple to-do list application.                          | <a href="https://kostassliazas.github.io/project-k/tools/todo-app" target="_blank" rel="noopener noreferrer">Live Demo</a>             |
 | **todo-app-1**           | An enhanced version of the to-do list application.       | <a href="https://kostassliazas.github.io/project-k/tools/todo-app-1" target="_blank" rel="noopener noreferrer">Live Demo</a>           |
 | **word-generator**       | A tool for generating random words.                       | <a href="https://kostassliazas.github.io/project-k/tools/word-generator" target="_blank" rel="noopener noreferrer">Live Demo</a>       |
+
+## License
+
+This project is licensed under the MIT License. See the LICENSE file for details.
+
+## Contact
+
+For any inquiries or suggestions, feel free to contact me:
+
+Kostas Šliažas
+[kostazzz@balticum-tv.lt]
+[https://kostassliazas.github.io/]
