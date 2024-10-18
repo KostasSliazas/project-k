@@ -52,7 +52,7 @@ Below is a list of games included in **Project K**. Each game can be used indepe
 | Game Name                | Description                                               | Quick Link                  |
 |--------------------------|-----------------------------------------------------------|-----------------------------|
 | **Memory Game2**         | A fun memory matching game to improve memory skills.       | <a href="https://kostassliazas.github.io/project-k/games/memory-game" target="_blank" rel="noopener noreferrer">Live Demo</a>               |
-| **Questionnaire**        | A tool for creating customizable questionnaires.           | <a href="https://kostassliazas.github.io/project-k/games/questionnaire" target="_blank" rel="noopener noreferrer">Live Demo</a>              |
+| **Questionnaire**        | A game for answering customizable sets of questions.           | <a href="https://kostassliazas.github.io/project-k/games/questionnaire" target="_blank" rel="noopener noreferrer">Live Demo</a>              |
 | **Roulette**             | A simple roulette game for fun and entertainment.          | <a href="https://kostassliazas.github.io/project-k/games/roulette" target="_blank" rel="noopener noreferrer">Live Demo</a>                   |
 
 ## Contact
