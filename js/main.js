@@ -16,6 +16,7 @@
   };
   const setLocalStorageItems = (item, value) => w.localStorage.setItem(item, JSON.stringify(value));
   const main = d.getElementById('main');
+  const overlay = d.getElementById("overlay");
   const hide = elem => elem.classList.add('hide');
   const show = elem => elem.classList.remove('hide');
   let isLocked = getLocalStorageItems('isLocked');
@@ -55,7 +56,7 @@
   const clicked = d.getElementById('clicked');
   const movable = Array.from(d.getElementsByClassName("movable"));
   const movableLength = movable.length;
-  const roundToTen = num => Math.ceil(num / 10) * 10;
+  const roundToTen = num => Math.ceil(num / 12) * 12;
   const delay = ms => new Promise(resolve => w.setTimeout(resolve, ms));
   const addLeadingZero = (time) => time.toString().length < 2 ? "0" + time : time;
   const online = w.navigator.onLine;
@@ -70,14 +71,14 @@
   const textArea = d.getElementsByTagName("TEXTAREA")[0];
   const bg = d.querySelector("#bg-file");
   const styles = ["width", "height", "left", "top"];
-  const blockDefaults = "width:960px;height:20px;left:0px;top:0px;,width:70px;height:20px;left:460px;top:60px;,width:100px;height:40px;left:260px;top:40px;,width:110px;height:60px;left:310px;top:80px;,width:60px;height:60px;left:420px;top:80px;,width:160px;height:110px;left:0px;top:80px;,width:170px;height:400px;left:310px;top:140px;,width:160px;height:160px;left:620px;top:500px;,width:150px;height:240px;left:160px;top:80px;,width:170px;height:80px;left:310px;top:540px;,width:160px;height:430px;left:0px;top:190px;,width:100px;height:40px;left:360px;top:40px;,width:100px;height:40px;left:160px;top:40px;,width:100px;height:20px;left:530px;top:60px;,width:160px;height:20px;left:0px;top:60px;,width:150px;height:300px;left:160px;top:320px;,width:960px;height:20px;left:0px;top:20px;,width:160px;height:20px;left:0px;top:40px;,width:180px;height:20px;left:630px;top:60px;,width:160px;height:80px;left:800px;top:80px;,width:500px;height:20px;left:460px;top:40px;,width:150px;height:20px;left:810px;top:60px;,width:160px;height:540px;left:640px;top:80px;,width:160px;height:460px;left:800px;top:160px;,width:160px;height:540px;left:480px;top:80px;";
+  const blockDefaults = "width:1008px;height:24px;left:0px;top:0px;,width:84px;height:24px;left:612px;top:48px;,width:108px;height:48px;left:276px;top:48px;,width:108px;height:48px;left:168px;top:48px;,width:168px;height:48px;left:0px;top:96px;,width:180px;height:576px;left:324px;top:96px;,width:24px;height:144px;left:648px;top:528px;,width:156px;height:252px;left:168px;top:96px;,width:168px;height:24px;left:0px;top:144px;,width:168px;height:504px;left:0px;top:168px;,width:120px;height:48px;left:492px;top:48px;,width:108px;height:48px;left:384px;top:48px;,width:144px;height:24px;left:696px;top:48px;,width:168px;height:24px;left:840px;top:48px;,width:156px;height:324px;left:168px;top:348px;,width:1008px;height:24px;left:0px;top:24px;,width:168px;height:24px;left:0px;top:72px;,width:168px;height:24px;left:0px;top:48px;,width:168px;height:96px;left:840px;top:96px;,width:396px;height:24px;left:612px;top:72px;,width:168px;height:576px;left:672px;top:96px;,width:168px;height:480px;left:840px;top:192px;,width:168px;height:576px;left:504px;top:96px;";
   const textAreaDefaults = "Good day. You have the ability to reposition these blocks by clicking (□) and holding (the left) corner or by pressing the ` key on your keyboard. ([ctrl]+[`]=Reset to Defaults) Alternatively, double-click (▭) to maximize them or minimize (□). You can also change the theme by right-clicking (context menu) and customize the colors and background image through the user interface. If locked, you can unlock it by clicking a few times on the background and then entering the default PIN: 520. Alternatively, you can clear the localStorage (since this project stores data such as PIN(password) and other settings in localStorage).";
   const counts = {
     allMouseClicks: 0,
     clicks: 0
   };
   let saved = getLocalStorageItems('mustashed') || [5, 2, 0];
-  let minimized = [0,1,7,13,14,16,17,18,20,21];
+  let minimized = [16,8,6,17,15,0,19,12,1,13];
   let mousedown = false;
   let scalingTarget = null;
   let isEnterPass = false;
@@ -180,7 +181,7 @@
       await delay(30);
       e.style.width = roundToTen(e.offsetWidth) + "px";
       e.style.height = roundToTen(e.offsetHeight) + "px";
-      e.firstElementChild.title += ' (block index' + movable.indexOf(e) + ')';
+      if(e.firstElementChild)e.firstElementChild.title += ' (block index' + movable.indexOf(e) + ')';
       if (e.id === 'text-area') textArea.style.height = e.style.height;
       e.addEventListener("dblclick", async e => {
         if (clickTimeout) {
@@ -199,18 +200,19 @@
             e.target.style.height = "auto";
             let height = roundToTen(e.target.offsetHeight);
             let width = roundToTen(e.target.offsetWidth);
-            if (e.target.id === 'text-area') height -= 20;
+            if (e.target.id === 'text-area') height -= 24;
             await delay(9);
             e.target.style.width = width + "px";
             e.target.style.height = height + "px";
-
+            //add popup overlay
           } else if (e.target.classList.contains("movable")) {
             e.target.classList.add("minimized");
             arrayOfMinimized.push(index);
           }
-
           setLocalStorageItems('elementStyles', getStyles());
           setLocalStorageItems("elementClass", arrayOfMinimized);
+
+
         }
       });
 
@@ -343,18 +345,18 @@
     const main = d.querySelector(".svg-holder");
     // make length shorter
     data.length = 34;
-    const arrayConverted = reduceValuesDynamically(data.map(e => e.toFixed(2) * 10), 16);
+    const arrayConverted = reduceValuesDynamically(data.map(e => e.toFixed(2) * 10), 8);
     const svg = d.createElementNS("http://www.w3.org/2000/svg", "svg");
     svg.setAttribute("version", "1.1");
-    svg.setAttribute("viewBox", "0 0 100 32");
+    svg.setAttribute("viewBox", "0 0 100 16");
     svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
     svg.setAttribute("id", "sunshine");
     let space = 2;
     for (let i = 0; i < arrayConverted.length; i++) {
-      const result = arrayConverted[i] > 0 ? 16 - arrayConverted[i] : 16 - arrayConverted[i];
+      const result = arrayConverted[i] > 0 ? 8 - arrayConverted[i] : 8 - arrayConverted[i];
       const fixed = result.toFixed(2);
       const path = d.createElementNS("http://www.w3.org/2000/svg", "path");
-      path.setAttribute("d", "M" + space + ',' + fixed + " V 16");
+      path.setAttribute("d", "M" + space + ',' + fixed + " V 8");
       path.setAttribute("stroke-width", "2");
       path.setAttribute("data-value", data[i]);
       // add hour numbers
@@ -489,7 +491,7 @@
   const changerClass = index => {
     themeName.textContent = longNames[index] || "other";
     if (index) root.className = classNameVariables[index];
-    else root.removeAttribute("class");
+    else root.className = "default";
 
     if (d.getElementById('enabled-bg').checked === true) {
       root.classList.add('bg-image');
@@ -816,6 +818,11 @@
     setCheckboxChecked('cute-mode', cuteMode);
     d.body.classList.toggle('cute-mode', cuteMode);
 
+    // popup mode
+    const popupMode = getLocalStorageItems("popup-mode");
+    setCheckboxChecked('popup-mode', popupMode);
+    d.body.classList.toggle('popup-mode', popupMode);
+
     // set remembered last counter seconds
     timers.counterTime.textContent = addLeadingZero(timers.totalSeconds());
 
@@ -935,7 +942,14 @@
   const rotations = arrayHelper.call(classNamesForRotations);
 
   function rootClick(e) {
-    const target = e.target.id;
+
+    const clickedElement = e.target;
+    const target = clickedElement.id;
+
+    if(clickedElement.tagName == 'H1' && d.body.classList.contains('popup-mode')) {
+      overlay.classList.toggle('hide', !overlay.classList.contains('hide'));
+    }
+
     if (target === "gt") THEME_CHANGE.decrement();
     if (target === "lt") THEME_CHANGE.increment();
 
@@ -1012,6 +1026,17 @@
       } else {
         setLocalStorageItems('cute-mode', false);
         d.body.classList.remove('cute-mode');
+      }
+    }
+
+        // set cuteMode  theme lines class and item of localStorage
+    if (target === "popup-mode") {
+      if (!main.classList.contains('popup-mode') && e.target.checked) {
+        setLocalStorageItems('popup-mode', true);
+        d.body.classList.add('popup-mode');
+      } else {
+        setLocalStorageItems('popup-mode', false);
+        d.body.classList.remove('popup-mode');
       }
     }
 
@@ -1129,8 +1154,8 @@
 
   function mouseMoveEvents(z) {
     if (!moving || target === null || !target.classList.contains("movable")) return;
-    cursorPositions.x = z.clientX - 10;
-    cursorPositions.y = z.clientY - 10;
+    cursorPositions.x = z.clientX - 12;
+    cursorPositions.y = z.clientY - 12;
     // check if height exceeded of main when moving element
     if (main.offsetHeight < z.clientY + target.offsetHeight) {
       w.scrollTo(0, cursorPositions.y);
