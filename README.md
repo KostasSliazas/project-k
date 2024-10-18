@@ -40,4 +40,3 @@ git clone https://github.com/KostasSliazas/project-k.git
 | **todo-app**             | A simple to-do list application.                          | [Live Demo](https://kostassliazas.github.io/project-k/tools/todo-app){:target="_blank" rel="noopener noreferrer"}             |
 | **todo-app-1**           | An enhanced version of the to-do list application.       | [Live Demo](https://kostassliazas.github.io/project-k/tools/todo-app-1){:target="_blank" rel="noopener noreferrer"}           |
 | **word-generator**       | A tool for generating random words.                       | [Live Demo](https://kostassliazas.github.io/project-k/tools/word-generator){:target="_blank" rel="noopener noreferrer"}       |
-
