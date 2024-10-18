@@ -45,11 +45,15 @@ git clone https://github.com/KostasSliazas/project-k.git
 | **todo-app-1**           | An enhanced version of the to-do list application.       | <a href="https://kostassliazas.github.io/project-k/tools/todo-app-1" target="_blank" rel="noopener noreferrer">Live Demo</a>           |
 | **word-generator**       | A tool for generating random words.                       | <a href="https://kostassliazas.github.io/project-k/tools/word-generator" target="_blank" rel="noopener noreferrer">Live Demo</a>       |
 
-| Project Name             | Description                                               | Quick Link                  |
+## Available Games
+
+Below is a list of games included in **Project K**. Each game can be used independently by opening the corresponding `index.html` file.
+
+| Game Name                | Description                                               | Quick Link                  |
 |--------------------------|-----------------------------------------------------------|-----------------------------|
-| **Memory Game2**         | A fun memory matching game to improve memory skills.       | <a href="https://kostassliazas.github.io/project-k/games/memory-game2" target="_blank" rel="noopener noreferrer">Live Demo</a>               |
-| **Questionnaire**        | A tool for creating customizable questionnaires.           | <a href="https://kostassliazas.github.io/project-k/games/questionnaire" target="_blank" rel="noopener noreferrer">Live Demo</a>              |
-| **Roulette**             | A simple roulette game for fun and entertainment.          | <a href="https://kostassliazas.github.io/project-k/games/roulette" target="_blank" rel="noopener noreferrer">Live Demo</a>                   |
+| **Memory Game2**         | A fun memory matching game to improve memory skills.       | <a href="https://kostassliazas.github.io/project-k/games/Memory%20Game2" target="_blank" rel="noopener noreferrer">Live Demo</a>               |
+| **Questionnaire**        | A tool for creating customizable questionnaires.           | <a href="https://kostassliazas.github.io/project-k/games/Questionnaire" target="_blank" rel="noopener noreferrer">Live Demo</a>              |
+| **Roulette**             | A simple roulette game for fun and entertainment.          | <a href="https://kostassliazas.github.io/project-k/games/Roulette" target="_blank" rel="noopener noreferrer">Live Demo</a>                   |
 
 ## Contact
 
