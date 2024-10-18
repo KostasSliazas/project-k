@@ -6,7 +6,7 @@ Welcome to **Project K**! This repository contains a collection of web-based too
 
 ## Screenshots
 
-Here are some quick screenshots of the tools in action:
+Here are some quick screenshots of the tools:
 
 ![Project K Screenshot](screenshots.png)
 
