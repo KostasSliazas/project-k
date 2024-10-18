@@ -54,3 +54,18 @@ For any inquiries or suggestions, feel free to contact me:
 Kostas Šliažas
 [kostazzz@balticum-tv.lt]
 [https://kostassliazas.github.io/]
+
+## Technologies Used
+
+This project is built using the following technologies:
+
+- **HTML**: For structuring the web applications.
+- **CSS**: For styling and layout design.
+- **JavaScript(Vanilla)**: For implementing core functionalities without any frameworks.
+- **Vue.js**: A progressive JavaScript framework for building user interfaces.
+
+## Disclaimer
+
+Please note that some of the tools included in this project are not originally created by me. They are utilized to enhance functionality and provide additional features. I acknowledge and appreciate the efforts of the original creators of these tools.
+
+Please note that the external links included in this project are not owned or maintained by me. They are used for reference and convenience to enhance the functionality of the tools. I do not take responsibility for the content or availability of these external resources.
