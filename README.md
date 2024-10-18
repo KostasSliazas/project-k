@@ -16,7 +16,7 @@ Here are some quick screenshots of the tools:
 
 ## Getting Started
 
-To get started with any of the projects, clone the repository and open the desired project folder. Each project may have its own README file with specific instructions on how to run or use it.
+Clone the repository and open the desired project folder. All tools are separate, small projects in the folder named 'tools'. Each tool can be used individually by opening the respective index.html file.
 
 ```bash
 git clone https://github.com/KostasSliazas/project-k.git
@@ -45,9 +45,11 @@ git clone https://github.com/KostasSliazas/project-k.git
 | **todo-app-1**           | An enhanced version of the to-do list application.       | <a href="https://kostassliazas.github.io/project-k/tools/todo-app-1" target="_blank" rel="noopener noreferrer">Live Demo</a>           |
 | **word-generator**       | A tool for generating random words.                       | <a href="https://kostassliazas.github.io/project-k/tools/word-generator" target="_blank" rel="noopener noreferrer">Live Demo</a>       |
 
-## License
-
-This project is licensed under the MIT License. See the LICENSE file for details.
+| Project Name             | Description                                               | Quick Link                  |
+|--------------------------|-----------------------------------------------------------|-----------------------------|
+| **Memory Game2**         | A fun memory matching game to improve memory skills.       | <a href="https://kostassliazas.github.io/project-k/tools/memory-game2" target="_blank" rel="noopener noreferrer">Live Demo</a>               |
+| **Questionnaire**        | A tool for creating customizable questionnaires.           | <a href="https://kostassliazas.github.io/project-k/tools/questionnaire" target="_blank" rel="noopener noreferrer">Live Demo</a>              |
+| **Roulette**             | A simple roulette game for fun and entertainment.          | <a href="https://kostassliazas.github.io/project-k/tools/roulette" target="_blank" rel="noopener noreferrer">Live Demo</a>                   |
 
 ## Contact
 
@@ -65,6 +67,10 @@ This project is built using the following technologies:
 - **CSS**: For styling and layout design.
 - **JavaScript(Vanilla)**: For implementing core functionalities without any frameworks.
 - **Vue.js**: A progressive JavaScript framework for building user interfaces.
+
+## License
+
+This project is licensed under the MIT License. See the LICENSE file for details.
 
 ## Disclaimer
 
