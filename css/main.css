@@ -400,7 +400,11 @@ html {
     cursor: url(dcursor.cur), auto
 }
 .popup-mode h1, .popup-mode button,.popup-mode input[type="button"], .popup-mode input[type="reset"], .popup-mode input[type="file"]::file-selector-button, .popup-mode #esound{
-background-image: linear-gradient(45deg, #eee3 0%, #eee3 50%, #aaa3 50%) !important
+background-image: linear-gradient(45deg,var(--color2) 0,var(--color2) 50%,#aaa3 50%) !important;
+box-shadow: 0 0 1px 1px var(--color2) inset;
+}
+.cute-mode button, .cute-mode input, .cute-mode input[type="file"]::file-selector-button, .cute-mode label::before, .cute-mode input[type="checkbox"] {
+  border-radius: 7px !important;
 }
 .cute-mode h1,
 .cute-mode label,
