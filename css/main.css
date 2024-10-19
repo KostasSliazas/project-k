@@ -357,13 +357,13 @@ html {
 .f body,
 .y body,
 .b body {
-    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .c body,
 .d body,
 .g body {
-    font-family: monaco, Consolas, Lucida Console, monospace;
+    font-family: monaco, Consolas, "Lucida Console", monospace;
 }
 
 .g.bg-image {
@@ -392,14 +392,16 @@ html {
     visibility: hidden
 }
 
-.e .movable:nth-child(23) {
+.e .movable:nth-child(6) {
     clip-path: none;
 }
 
 .cute-mode {
     cursor: url(dcursor.cur), auto
 }
-
+.popup-mode h1, .popup-mode button,.popup-mode input[type="button"], .popup-mode input[type="reset"], .popup-mode input[type="file"]::file-selector-button, .popup-mode #esound{
+background-image: linear-gradient(45deg, #eee3 0%, #eee3 50%, #aaa3 50%) !important
+}
 .cute-mode h1,
 .cute-mode label,
 .cute-mode img,
@@ -408,7 +410,7 @@ html {
 .cute-mode a,
 .cute-mode button,
 .cute-mode input,
-input[type=file]::file-selector-button {
+input[type="file"]::file-selector-button {
     cursor: url(cursor.cur), pointer !important
 }
 
@@ -431,7 +433,7 @@ input[type=file]::file-selector-button {
 }
 
 body {
-    font: 16px/1.5 Calibri, Candara, Segoe, Segoe UI, Optima, Arial, sans-serif;
+    font: 16px/1.5 Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
     color: var(--color4)
 }
 
@@ -910,7 +912,7 @@ textarea:hover {
     color: var(--color4)
 }
 
-input[type=text],
+input[type="text"],
 textarea {
     background: var(--color0);
     color: inherit;
@@ -920,7 +922,7 @@ textarea {
     width: 100%
 }
 
-input[type=text] {
+input[type="text"] {
     display: block;
     height: 23px;
 }
@@ -940,9 +942,9 @@ textarea {
     background: var(--color1)
 }
 
-input[type=color],
-input[type=number],
-input[type=radio] {
+input[type="color"],
+input[type="number"],
+input[type="radio"] {
     padding: 0
 }
 
@@ -951,23 +953,23 @@ input[type=radio] {
 .movable::before,
 .svg-holder,
 a,
-button,
-input[type=button],
-input[type=color],
-input[type=file]::file-selector-button,
-input[type=number],
-input[type=radio],
-input[type=reset] {
+button,#esound,
+input[type="button"],
+input[type="color"],
+input[type="file"]::file-selector-button,
+input[type="number"],
+input[type="radio"],
+input[type="reset"] {
     cursor: pointer
 }
 
 button,
-input[type=button],
-input[type=color],
-input[type=file]::file-selector-button,
-input[type=number],
-input[type=radio],
-input[type=reset] {
+input[type="button"],
+input[type="color"],
+input[type="file"]::file-selector-button,
+input[type="number"],
+input[type="radio"],
+input[type="reset"] {
     margin: 0;
     overflow: hidden;
     color: var(--color4);
@@ -996,30 +998,30 @@ input[type=reset] {
 }
 
 button,
-input[type=button],
-input[type=reset] {
+input[type="button"],
+input[type="reset"] {
     padding: 0 4px
 }
 
 button:first-child,
 button:last-child,
-input[type=button]:first-child,
-input[type=button]:last-child,
-input[type=file]:first-child,
-input[type=file]:last-child,
-input[type=reset]:first-child,
-input[type=reset]:last-child {
+input[type="button"]:first-child,
+input[type="button"]:last-child,
+input[type="file"]:first-child,
+input[type="file"]:last-child,
+input[type="reset"]:first-child,
+input[type="reset"]:last-child {
     margin: 0
 }
 
 button:hover,
-input[type=button]:hover,
-input[type=file]::file-selector-button:hover,
-input[type=reset]:hover {
+input[type="button"]:hover,
+input[type="file"]::file-selector-button:hover,
+input[type="reset"]:hover {
     background: var(--color0)
 }
 
-input[type=color] {
+input[type="color"] {
     max-height: 30px;
     line-height: 0;
     min-block-size: 30px;
@@ -1029,12 +1031,12 @@ input[type=color] {
     border-inline: 0 !important
 }
 
-.forms input[type=color]:nth-child(n+2) {
+.forms input[type="color"]:nth-child(n+2) {
     margin: 0 2px
 }
 
 button:active,
-input[type=file]::file-selector-button:active {
+input[type="file"]::file-selector-button:active {
     background: var(--color0);
     color: var(--color2)
 }
