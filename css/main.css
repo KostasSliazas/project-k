@@ -146,11 +146,11 @@ html {
 }
 
 .d {
-    --color0: #EDEDED;
-    --color1: #DDDDDD;
-    --color2: #CDCDCD;
-    --color3: #BDBDBD;
-    --color4: #333333
+    --color0: #1B445A;
+    --color1: #2A2E32;
+    --color2: #1B1E20;
+    --color3: #111111;
+    --color4: #C0BFBC
 }
 
 .d.bg-image {
