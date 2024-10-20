@@ -48,7 +48,7 @@
 
         <div class="movable" id="text-area">
           <h1>Notes</h1>
-          <label for="notes" class="dspn">Notes</label>
+          <label for="notes" class="visually-hidden">Notes</label>
           <textarea id="notes" name="notes" placeholder="Empty"></textarea>
         </div>
 
@@ -100,8 +100,8 @@
           <div id="calcwrap">
             <div class="in">
               <div id="calculator">
-                <label for="esound">sound</label>
-                <label for="src">src</label>
+                <label for="esound" class="visually-hidden">sound</label>
+                <label for="src" class="visually-hidden">src</label>
                 <input data-ekr="ekr" type="text" id="src" value="0" title="screen">
                 <input data-fun="x" type="button" value="C">
                 <input data-fun="b" type="button" value="⌫">
@@ -199,7 +199,7 @@
               <legend>Background</legend>
               <div class="small">
                 <input type="reset" id="bg-theme" value="Reset">
-                <label for="bg-file" class="dspn">Upload image</label>
+                <label for="bg-file" class="visually-hidden">Upload image</label>
                 <input id="bg-file" type="file" title="localStorage quota will be exceeded when using large images!">
               </div>
 
@@ -360,19 +360,19 @@
         <div class="movable mw16 w16">
           <h1>search with</h1>
           <form action="https://duckduckgo.com/?t=h_&q=" target="_blank">
-            <label for="duckduckgo" class="dspn">duckduckgo</label>
+            <label for="duckduckgo" class="visually-hidden">duckduckgo</label>
             <input id="duckduckgo" type="text" value="" name="q" onclick="this.value = ''" placeholder="duckduckgo.com">
             <input type="submit" value="submit form" style="display: none">
           </form>
 
           <form action="https://www.google.com/search?q=" target="_blank">
-            <label for="google" class="dspn">google</label>
+            <label for="google" class="visually-hidden">google</label>
             <input id="google" type="text" value="" name="q" onclick="this.value = ''" placeholder="google.com">
             <input type="submit" value="submit form" style="display: none">
           </form>
 
           <form action="https://www.ecosia.org/search?method=index&q=go" target="_blank">
-            <label for="ecosia" class="dspn">ecosia</label>
+            <label for="ecosia" class="visually-hidden">ecosia</label>
             <input id="ecosia" type="text" value="" name="q" onclick="this.value = ''" placeholder="ecosia.org">
             <input type="submit" value="submit form" style="display: none">
           </form>
