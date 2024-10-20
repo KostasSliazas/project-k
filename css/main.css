@@ -150,7 +150,7 @@ html {
     --color1: #2A2E32;
     --color2: #1B1E20;
     --color3: #111111;
-    --color4: #C0BFBC
+    --color4: #CCCCCC
 }
 
 .d.bg-image {
@@ -1131,7 +1131,7 @@ fieldset {
     flex-direction: column;
     place-items: stretch;
     place-content: center;
-    padding: 6px;
+    padding: 4px;
     margin: 0 auto;
     min-inline-size: 48px
 }
