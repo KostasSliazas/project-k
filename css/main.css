@@ -586,7 +586,6 @@ div.moves {
     min-width: 36px;
     max-width: 1008px;
     position: relative;
-    overscroll-behavior: contain;
 }
 
 .movable a,
