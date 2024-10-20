@@ -363,7 +363,7 @@ html {
 .c body,
 .d body,
 .g body {
-    font-family: monaco, Consolas, "Lucida Console", monospace;
+    font-family: system-ui, -apple-system, "Segoe UI", "Noto Sans", Roboto, "Helvetica Neue", "Liberation Sans", Arial, sans-serif;
 }
 
 .g.bg-image {
