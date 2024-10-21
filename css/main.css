@@ -399,22 +399,25 @@ html {
 .cute-mode {
     cursor: url(dcursor.cur), auto
 }
+
 .popup-mode h1,
 .popup-mode button,
 .popup-mode input[type="button"],
 .popup-mode input[type="reset"],
 .popup-mode input[type="file"]::file-selector-button,
-.popup-mode #esound{
-background-image: linear-gradient(45deg,#7771 0,#7771 50%,#fff1 50%) !important;
-box-shadow: 0 0 1px 1px var(--color2) inset;
+.popup-mode #esound {
+    background-image: linear-gradient(45deg, #7771 0, #7771 50%, #fff1 50%) !important;
+    box-shadow: 0 0 1px 1px var(--color2) inset;
 }
+
 .cute-mode #content button,
 .cute-mode input,
 .cute-mode input[type="file"]::file-selector-button,
 .cute-mode label::before,
 .cute-mode input[type="checkbox"] {
-  border-radius: 7px !important;
+    border-radius: 7px !important;
 }
+
 .cute-mode h1,
 .cute-mode label,
 .cute-mode img,
@@ -583,7 +586,7 @@ div.moves {
 
 .movable {
     min-width: 36px;
-    max-width: 1008px;
+    max-width: 960px;
     position: relative;
 }
 
@@ -612,7 +615,7 @@ a {
 }
 
 .pad {
-    padding-top: 20px
+    padding-top: 24px
 }
 
 .scroll:hover {
@@ -641,14 +644,14 @@ a {
 }
 
 .visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  padding: 0;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  border: 0;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
 }
 
 .main {
@@ -658,7 +661,7 @@ a {
 }
 
 .tetris {
-    clip-path: polygon(107% -7%,107% 431px,155px 431px,155px 107%,-7% 107%,-7% -7%);
+    clip-path: polygon(107% -7%, 107% 431px, 155px 431px, 155px 107%, -7% 107%, -7% -7%);
 }
 
 .center h1,
@@ -668,13 +671,17 @@ a {
     background: var(--color2);
     min-height: 24px;
     width: 100%;
-    padding: 0 0 0 24px;
+    padding: 0 0 0 4px;
     white-space: nowrap;
     text-overflow: ellipsis;
     text-transform: uppercase;
     font-weight: 100;
     overflow: hidden;
     font-size: 16px;
+}
+
+.movable h1:first-child {
+    padding: 0 0 0 24px;
 }
 
 .movable h1 {
@@ -834,11 +841,11 @@ a {
 }
 
 .mw36 {
-    min-width: 396px
+    min-width: 348px
 }
 
 .mw96 {
-    min-width: 1008px
+    min-width: 960px
 }
 
 .oxs i:nth-child(even),
@@ -975,7 +982,8 @@ input[type="radio"] {
 .movable::before,
 .svg-holder,
 a,
-button,#esound,
+button,
+#esound,
 input[type="button"],
 input[type="color"],
 input[type="file"]::file-selector-button,
@@ -1049,7 +1057,7 @@ input[type="color"] {
     min-block-size: 30px;
     max-block-size: 30px;
     background-color: var(--color2) !important;
-    padding: 7px;
+    padding: 4px;
     border-block: 0 !important;
     border-inline: 0 !important
 }
@@ -1065,12 +1073,16 @@ input[type="file"]::file-selector-button:active {
 }
 
 .em4 {
-    min-height: 30px;
-    max-block-size: 30px
+    min-height: 32px;
+    max-block-size: 32px
 }
 
 .em4.ma4 {
     margin: 0 4px
+}
+
+.em4.ma {
+    margin: 4px
 }
 
 button {
@@ -1482,7 +1494,7 @@ button:active {
     border-right: 0;
     width: 3ch;
     height: 24px;
-    font-family:Numbers,Arial,sans-serif;
+    font-family: Numbers, Arial, sans-serif;
     box-sizing: border-box;
     margin: 0
 }
