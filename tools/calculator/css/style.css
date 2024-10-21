@@ -1,18 +1,22 @@
-@font-face {
-  font-family: "Numbers";
-  src: url(data:font/truetype;charset=utf-8;base64,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+Ssr+QLdICEh/rABUP6wK/orK/orISEg/pABUCv6Kyv6/oUgICEAAAAIADL//AHDAt0ABQAGAAcADQATABkAHwAlAAATMxcHIycBGQEXFQcnNTcHIyc3MwUXFQcnNTcnNTcXFQM3MxcHI375Kyv5LAFQISEgICv5LCz5/tshISAgICAhISz5Kyv5At0gISH+sAFQ/rAr+isr+ishISAgK/orK/orK/orK/r+hSAgIQAACwBSAB0BwwLdAAUACwARABIAEwAUABUAFgAXABgAGQAAEzMXByMnIRcVByc1ExcVByc1NyEZATERASF++Ssr+SwBUCEhICAhISAg/rABUP6wAt0gISEr+isr+v7bK/orK/or/rABUAFQ/WAABwAy//wBwwLdAAUACwARABcAHQAjACkAABMzFwcjJyEXFQcnNRMXFQcnNTcHIyc3MwUXFQcnNTcnNTcXFQM3MxcHI375Kyv5LAFQISEgICEhICAr+Sws+f7bISEgICAgISEs+Ssr+QLdICEhK/orK/r+2yv6Kyv6KyEhICAr+isr+isr+isr+v6FICAhAAAACAAy//wBwwLdAAUACwARABcAGAAZAB8AJQAAEzMXByMnIRcVByc1ExcVByc1NwcjJzczARExJzU3FxUDNzMXByN++Ssr+SwBUCEhICAhISAgK/ksLPn+2yAgISEs+Ssr+QLdICEhK/orK/r+2yv6Kyv6KyEhIP6QAVAr+isr+v6FICAhAAAAAAEAAAAAAAAAAAADAAA5AwAAAA4ArgABAAAAAAAAAB0APAABAAAAAAABAAkAbgABAAAAAAACAAcAiAABAAAAAAADACUA3AABAAAAAAAEAAkBFgABAAAAAAAFABABQgABAAAAAAAGAAkBZwADAAEECQAAADoAAAADAAEECQABABIAWgADAAEECQACAA4AeAADAAEECQADAEoAkAADAAEECQAEABIBAgADAAEECQAFACABIAADAAEECQAGABIBUwBDAG8AcAB5AHIAaQBnAGgAdAAgACgAYwApACAAMgAwADEAOQAsACAASwBvAHMAdABhAHMALAAsACwAAENvcHlyaWdodCAoYykgMjAxOSwgS29zdGFzLCwsAABVAG4AdABpAHQAbABlAGQAMQAAVW50aXRsZWQxAABSAGUAZwB1AGwAYQByAABSZWd1bGFyAABGAG8AbgB0AEYAbwByAGcAZQAgADIALgAwACAAOgAgAFUAbgB0AGkAdABsAGUAZAAxACAAOgAgADEANQAtADMALQAyADAAMQA5AABGb250Rm9yZ2UgMi4wIDogVW50aXRsZWQxIDogMTUtMy0yMDE5AABVAG4AdABpAHQAbABlAGQAMQAAVW50aXRsZWQxAABWAGUAcgBzAGkAbwBuACAAMAAwADEALgAwADAAMAAgAABWZXJzaW9uIDAwMS4wMDAgAABVAG4AdABpAHQAbABlAGQAMQAAVW50aXRsZWQxAAAAAgAAAAAAAP67ADIAAAAAAAAAAAAAAAAAAAAAAAAAAAAcAAABAgEDABEAEwAUABUAFgAXABgAGQAaABsAHAEEAQUBBgEHAQgBCQEKAQsBDAENAQ4BDwEQAREGZ2x5cGgxB3VuaTAwMEQHdW5pMjAwMAd1bmkyMDAxB3VuaTIwMDIHdW5pMjAwMwd1bmkyMDA0B3VuaTIwMDUHdW5pMjAwNgd1bmkyMDA3B3VuaTIwMDgHdW5pMjAwOQd1bmkyMDBBB3VuaTIwMkYHdW5pMjA1Rgd1bmkyNUZDAAAAAAEAAf//AA8AAQAAAAwAAAAWAAAAAgABAAEAGwABAAQAAAACAAAAAAAAAAEAAAAA1e1FuAAAAADYsJFJAAAAANiwp9I=) format("truetype");
-  font-weight: 400;
-  font-style: normal;
-}
+/* =========================
+   Font Face Definitions
+   ========================= */
+@font-face{font-family:Numbers;src:url(data:font/truetype;charset=utf-8;base64,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+Ssr+QLdICEh/rABUP6wK/orK/orISEg/pABUCv6Kyv6/oUgICEAAAAIADL//AHDAt0ABQAGAAcADQATABkAHwAlAAATMxcHIycBGQEXFQcnNTcHIyc3MwUXFQcnNTcnNTcXFQM3MxcHI375Kyv5LAFQISEgICv5LCz5/tshISAgICAhISz5Kyv5At0gISH+sAFQ/rAr+isr+ishISAgK/orK/orK/orK/r+hSAgIQAACwBSAB0BwwLdAAUACwARABIAEwAUABUAFgAXABgAGQAAEzMXByMnIRcVByc1ExcVByc1NyEZATERASF++Ssr+SwBUCEhICAhISAg/rABUP6wAt0gISEr+isr+v7bK/orK/or/rABUAFQ/WAABwAy//wBwwLdAAUACwARABcAHQAjACkAABMzFwcjJyEXFQcnNRMXFQcnNTcHIyc3MwUXFQcnNTcnNTcXFQM3MxcHI375Kyv5LAFQISEgICEhICAr+Sws+f7bISEgICAgISEs+Ssr+QLdICEhK/orK/r+2yv6Kyv6KyEhICAr+isr+isr+isr+v6FICAhAAAACAAy//wBwwLdAAUACwARABcAGAAZAB8AJQAAEzMXByMnIRcVByc1ExcVByc1NwcjJzczARExJzU3FxUDNzMXByN++Ssr+SwBUCEhICAhISAgK/ksLPn+2yAgISEs+Ssr+QLdICEhK/orK/r+2yv6Kyv6KyEhIP6QAVAr+isr+v6FICAhAAAAAAEAAAAAAAAAAAADAAA5AwAAAA4ArgABAAAAAAAAAB0APAABAAAAAAABAAkAbgABAAAAAAACAAcAiAABAAAAAAADACUA3AABAAAAAAAEAAkBFgABAAAAAAAFABABQgABAAAAAAAGAAkBZwADAAEECQAAADoAAAADAAEECQABABIAWgADAAEECQACAA4AeAADAAEECQADAEoAkAADAAEECQAEABIBAgADAAEECQAFACABIAADAAEECQAGABIBUwBDAG8AcAB5AHIAaQBnAGgAdAAgACgAYwApACAAMgAwADEAOQAsACAASwBvAHMAdABhAHMALAAsACwAAENvcHlyaWdodCAoYykgMjAxOSwgS29zdGFzLCwsAABVAG4AdABpAHQAbABlAGQAMQAAVW50aXRsZWQxAABSAGUAZwB1AGwAYQByAABSZWd1bGFyAABGAG8AbgB0AEYAbwByAGcAZQAgADIALgAwACAAOgAgAFUAbgB0AGkAdABsAGUAZAAxACAAOgAgADEANQAtADMALQAyADAAMQA5AABGb250Rm9yZ2UgMi4wIDogVW50aXRsZWQxIDogMTUtMy0yMDE5AABVAG4AdABpAHQAbABlAGQAMQAAVW50aXRsZWQxAABWAGUAcgBzAGkAbwBuACAAMAAwADEALgAwADAAMAAgAABWZXJzaW9uIDAwMS4wMDAgAABVAG4AdABpAHQAbABlAGQAMQAAVW50aXRsZWQxAAAAAgAAAAAAAP67ADIAAAAAAAAAAAAAAAAAAAAAAAAAAAAcAAABAgEDABEAEwAUABUAFgAXABgAGQAaABsAHAEEAQUBBgEHAQgBCQEKAQsBDAENAQ4BDwEQAREGZ2x5cGgxB3VuaTAwMEQHdW5pMjAwMAd1bmkyMDAxB3VuaTIwMDIHdW5pMjAwMwd1bmkyMDA0B3VuaTIwMDUHdW5pMjAwNgd1bmkyMDA3B3VuaTIwMDgHdW5pMjAwOQd1bmkyMDBBB3VuaTIwMkYHdW5pMjA1Rgd1bmkyNUZDAAAAAAEAAf//AA8AAQAAAAwAAAAWAAAAAgABAAEAGwABAAQAAAACAAAAAAAAAAEAAAAA1e1FuAAAAADYsJFJAAAAANiwp9I=) format("truetype");font-weight:400;font-style:normal}
 
+/* =========================
+   Root Variables
+   ========================= */
 :root {
-  --color0: #ecfeff;
-  --color1: #d0faff;
-  --color2: #22d3ee;
-  --color3: #0891b2;
-  --color4: #155e75;
+  --color0: #ecfeff; /* Lightest color */
+  --color1: #d0faff; /* Light color */
+  --color2: #22d3ee; /* Primary color */
+  --color3: #0891b2; /* Secondary color */
+  --color4: #155e75; /* Darkest color */
+  --button-active-scale: 0.99; /* Example scale variable */
 }
-
+/* =========================
+   Theme Color Palettes
+   ========================= */
 .a {
   --color0: #fcfcfc;
   --color1: #c0b7bc;
@@ -100,49 +104,50 @@
   --color4: #555;
 }
 
-.l input[data-fun] {
+.l .calculator__button:not(.calculator__button--number) {
   color: var(--color3);
   background: var(--color1);
 }
 
-.l input[data-fun]:active {
+.l .calculator__button:not(.calculator__button--number):active {
   background: var(--color0);
 }
 
-.m input + input {
+.m .calculator__button {
   color: var(--color3);
   background: var(--color1);
 }
 
-.n input + input {
+.n .calculator__button {
   border-radius: 7px;
   box-shadow: 0 -1px 3px 0 var(--color0), 0 0 1px 0 var(--color4);
 }
 
-.n input:first-child {
+.n .calculator__screen {
   box-shadow: 0 1px 1px var(--color0) inset, 0 -1px 0 var(--color4);
 }
-.o input + input[type="checkbox"],
-.o input + input[type="button"] {
+.o .calculator__button {
   border-radius: 3em;
 }
-.p input + input[type="checkbox"],
-.p input + input[type="button"] {
+.p .calculator__button {
   aspect-ratio: 1;
-  font-size: 22px;
 }
 
-.p #calculator {
+.p .calculator__wrapper {
   height: auto;
 }
 
-.q #calculator {
+.q .calculator__wrapper {
   gap: 2px;
 }
+/* =========================
+   Theme Color Styles END
+   ========================= */
 
-html,
-body,
-#calcwrap {
+/* =========================
+   Global Styles
+   ========================= */
+html, body, .calculator {
   width: 100%;
   height: 100%;
   margin: 0 auto;
@@ -153,8 +158,19 @@ body {
   overflow: hidden;
   background: var(--color3);
 }
+/* =========================
+   Global Styles END
+   ========================= */
 
-main::after {
+/* =========================
+   Calculator Styles
+   ========================= */
+.title {
+  display: none;
+}
+
+/* NOTICE */
+.calculator::after {
   content: "by Kostas Šliažas (only for learning purposes)";
   text-align: center;
   height: 10px;
@@ -166,11 +182,8 @@ main::after {
   color: var(--color2);
 }
 
-h1 {
-  display: none;
-}
-
-.in {
+/* BEM Class naming */
+.calculator__input-container {
   background: var(--color2);
   margin: 0 auto;
   height: calc(100% - 28px);
@@ -179,12 +192,7 @@ h1 {
   font-size: 3em;
 }
 
-#calculator {
-  display: -ms-grid;
-  -ms-grid-columns: 1fr 2px 1fr 2px 1fr 2px 1fr;
-  -ms-grid-rows: 1fr 2px 1fr 2px 1fr 2px 1fr 2px 1fr 2px 1fr;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
+.calculator__wrapper {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: min-content;
@@ -194,36 +202,13 @@ h1 {
   height: 100%;
 }
 
-#calculator input::-moz-focus-inner,
-#calculator input:focus,
-#calculator:focus {
-  outline: 0;
-  -moz-outline: 0;
-  border: 0;
-}
-
-#calculator > [data-fun="p"] {
-  -ms-grid-row: 5;
-  grid-row-start: 5;
-  -ms-grid-row-span: 2;
-  grid-row-end: 7;
-  -ms-grid-column: 4;
-  grid-column-start: 4;
-  grid-row: 5 / span 2;
-  grid-column: 4;
-}
-
-#calculator div:empty {
+.calculator div:empty {
   background: var(--color4);
 }
 
-input {
+/* Input styling */
+.calculator__button,.calculator__screen {
   border-radius: inherit;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
   width: 100%;
   height: 100%;
@@ -243,28 +228,47 @@ input {
   border-radius: 2px;
   font-family: inherit;
 }
+.calculator__button:hover {
+  transform: scale(1.05); /* Slightly increase size */
+}
+.calculator__button {
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.1s ease, transform 0.1s ease; /* Add transform for scale */
+}
 
-.a #calculator input[data-fun="x"] {
+.calculator__button:active {
+    transform: scale(var(--button-active-scale)); /* Use variable Slightly shrink the button */
+}
+
+.calculator__button::selection {
+  background: 0 0;
+}
+
+.calculator__button::-moz-selection {
+  background: 0 0;
+}
+
+.calculator__button ::-moz-focus-inner,
+.calculator__button :focus {
+  outline: 0;
+  border: 0;
+}
+
+.calculator__button--clear {
   filter: hue-rotate(160deg);
 }
 
-input {
-  -webkit-tap-highlight-color: #000;
+.calculator__button--add {
+  grid-row-start: 5;
+  grid-row-end: 7;
+  grid-column-start: 4;
+  grid-row: 5 / span 2;
+  grid-column: 4;
 }
-
-#calculator input[type="button"]:active {
-  background: var(--color4);
+.calculator__button:not(.calculator__button--number) {
+  background: var(--color4); /* Change background function buttons */
 }
-
-input::selection {
-  background: 0 0;
-}
-
-input::-moz-selection {
-  background: 0 0;
-}
-
-#esound {
+.calculator__button--sound {
   font-size: 0.3755em;
   text-align: right;
   padding: 0 0.1em;
@@ -276,17 +280,16 @@ input::-moz-selection {
   font-weight: 700;
 }
 
-input:checked::after {
+.calculator__button--sound:checked::after {
   content: "sound\aon!";
 }
 
-input::after {
+.calculator__button--sound::after {
   content: "sound\aoff";
   line-height: 1;
   margin: 0 10px;
 }
-
-#src {
+.calculator__screen {
   grid-column-start: 1;
   grid-column-end: 5;
   margin: 0 2px;
@@ -298,16 +301,18 @@ input::after {
   font-family: inherit;
   line-height: 1;
 }
-
-#src.blink {
+.calculator__screen--blink {
   color: var(--color1);
 }
 
 @media screen and (min-width: 768px) {
-  .in {
+  .calculator__input-container {
     border-radius: 2px;
     max-width: 300px;
     height: auto;
     font-size: 2em;
   }
 }
+/* =========================
+   Calculator Styles END
+   ========================= */
