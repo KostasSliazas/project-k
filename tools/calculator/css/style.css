@@ -12,7 +12,8 @@
   --color2: #22d3ee; /* Primary color */
   --color3: #0891b2; /* Secondary color */
   --color4: #155e75; /* Darkest color */
-  --button-active-scale: 0.99; /* Example scale variable */
+  --button-active-scale: 0.97; /* Example scale variable */
+  --spacing: 8px;
 }
 /* =========================
    Theme Color Palettes
@@ -106,11 +107,11 @@
 
 .l .calculator__button:not(.calculator__button--number) {
   color: var(--color3);
-  background: var(--color1);
+  background-color: var(--color1);
 }
 
 .l .calculator__button:not(.calculator__button--number):active {
-  background: var(--color0);
+  background-color: var(--color0);
 }
 
 .m .calculator__button {
@@ -137,8 +138,9 @@
   height: auto;
 }
 
-.q .calculator__wrapper {
-  gap: 2px;
+.q .calculator__button {
+  --spacing: 2px;
+  background-image: linear-gradient(45deg,#7771 0,#7771 50%,#fff1 50%);
 }
 /* =========================
    Theme Color Styles END
@@ -151,6 +153,15 @@ html, body, .calculator {
   width: 100%;
   height: 100%;
   margin: 0 auto;
+}
+
+/* =========================
+   Global reset
+   ========================= */
+*{
+  margin:0;
+  padding:0;
+  box-sizing: border-box;
 }
 
 body {
@@ -187,18 +198,16 @@ body {
   background: var(--color2);
   margin: 0 auto;
   height: calc(100% - 28px);
-  padding: 12px;
+  padding: var(--spacing);
   border: 2px solid var(--color4);
   font-size: 3em;
 }
 
 .calculator__wrapper {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: min-content;
-  justify-items: center;
-  align-items: stretch;
-  gap: 12px;
+  grid-template-columns: repeat(4,minmax(48px,1fr));
+  place-content: center;
+  place-items: stretch;
   height: 100%;
 }
 
@@ -210,14 +219,12 @@ body {
 .calculator__button,.calculator__screen {
   border-radius: inherit;
   user-select: none;
-  width: 100%;
-  height: 100%;
   font-size: inherit;
   line-height: inherit;
   position: relative;
   cursor: pointer;
   border: 0;
-  margin: 0;
+  margin: var(--spacing);
   outline: 0;
   color: var(--color1);
   background: var(--color3);
@@ -228,18 +235,21 @@ body {
   border-radius: 2px;
   font-family: inherit;
 }
-.calculator__button:hover {
-  transform: scale(1.05); /* Slightly increase size */
-}
+
 .calculator__button {
+  transform-origin:center bottom;
   -webkit-tap-highlight-color: transparent;
   transition: background 0.1s ease, transform 0.1s ease; /* Add transform for scale */
 }
 
 .calculator__button:active {
+    background-color: var(--color4);
     transform: scale(var(--button-active-scale)); /* Use variable Slightly shrink the button */
 }
-
+.calculator__button:hover {
+  box-shadow: 0 0 4px #0007;
+  z-index: 1;
+}
 .calculator__button::selection {
   background: 0 0;
 }
@@ -266,7 +276,7 @@ body {
   grid-column: 4;
 }
 .calculator__button:not(.calculator__button--number) {
-  background: var(--color4); /* Change background function buttons */
+  background-color: var(--color4); /* Change background function buttons */
 }
 .calculator__button--sound {
   font-size: 0.3755em;
@@ -289,17 +299,18 @@ body {
   line-height: 1;
   margin: 0 10px;
 }
+
 .calculator__screen {
   grid-column-start: 1;
   grid-column-end: 5;
-  margin: 0 2px;
-  box-sizing: border-box;
+  margin:calc(var(--spacing) / 2);
   background: var(--color0);
   color: var(--color3);
   text-align: right;
   padding: 0 5px;
   font-family: inherit;
   line-height: 1;
+  overflow:hidden;
 }
 .calculator__screen--blink {
   color: var(--color1);
