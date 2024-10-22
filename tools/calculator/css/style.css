@@ -206,8 +206,8 @@ body {
 .calculator__wrapper {
   display: grid;
   grid-template-columns: repeat(4,minmax(48px,1fr));
-  place-content: center;
-  place-items: stretch;
+/*  place-content: center;
+  place-items: stretch;*/
   height: 100%;
 }
 
@@ -269,15 +269,15 @@ body {
 }
 
 .calculator__button--add {
-  grid-row-start: 5;
-  grid-row-end: 7;
-  grid-column-start: 4;
   grid-row: 5 / span 2;
   grid-column: 4;
+  place-self: stretch;
 }
+
 .calculator__button:not(.calculator__button--number) {
   background-color: var(--color4); /* Change background function buttons */
 }
+
 .calculator__button--sound {
   font-size: 0.3755em;
   text-align: right;
