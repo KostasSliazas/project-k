@@ -59,11 +59,11 @@
 }
 
 .f {
-  --color0: #0a010a;
-  --color1: #282429;
-  --color2: #847885;
-  --color3: #dfd6df;
-  --color4: #140b14;
+  --color0: #f2f2f2;
+  --color1: #ececec;
+  --color2: #88BBA8;
+  --color3: #437965;
+  --color4: #3A8C6D;
 }
 
 .g {
@@ -90,19 +90,19 @@
 }
 
 .j {
-  --color0: #999;
-  --color1: #999;
-  --color3: #fff;
-  --color2: #eee;
-  --color4: #555;
+  --color0: #E3E3E3;
+  --color1: #f9f9f9;
+  --color2: #bdbdbd;
+  --color3: #868F94;
+  --color4: #A6B8C1;
 }
 
 .k {
-  --color0: #999;
-  --color1: #999;
-  --color3: #fff;
-  --color2: #eee;
-  --color4: #555;
+  --color0: #BABBBB;
+  --color1: #bfbfbf;
+  --color2: #2C3032;
+  --color3: #161C1F;
+  --color4: #383D40;
 }
 
 .l .calculator__button:not(.calculator__button--number) {
