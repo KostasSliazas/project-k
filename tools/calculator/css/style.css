@@ -197,7 +197,7 @@ body {
 .calculator__input-container {
   background: var(--color2);
   margin: 0 auto;
-  height: calc(100% - 28px);
+  height: 100%; /*calc(100% - 28px);*/
   padding: var(--spacing);
   border: 2px solid var(--color4);
   font-size: 3em;
