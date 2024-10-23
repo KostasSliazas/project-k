@@ -90,11 +90,11 @@
 }
 
 .j {
-  --color0: #E3E3E3;
-  --color1: #f9f9f9;
-  --color2: #bdbdbd;
-  --color3: #868F94;
-  --color4: #A6B8C1;
+  --color0: #B9DBE0;
+  --color1: #000000;
+  --color2: #A2AFB0;
+  --color3: #7D9699;
+  --color4: #6F8D92;
 }
 
 .k {
@@ -121,11 +121,11 @@
 
 .n .calculator__button {
   border-radius: 7px;
-  box-shadow: 0 -1px 3px 0 var(--color0), 0 0 1px 0 var(--color4);
+  box-shadow: 0 0 1px 1px #0007;
 }
 
 .n .calculator__screen {
-  box-shadow: 0 1px 1px var(--color0) inset, 0 -1px 0 var(--color4);
+  box-shadow: 0 1px 1px #0007 inset, 0 -1px 0 #0007;
 }
 .o .calculator__button {
   border-radius: 3em;
@@ -147,23 +147,23 @@
    ========================= */
 
 /* =========================
+   Reset
+   ========================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* =========================
    Global Styles
    ========================= */
 html, body, .calculator {
   width: 100%;
   height: 100%;
   margin: 0 auto;
+  display: flex;
 }
-
-/* =========================
-   Global reset
-   ========================= */
-*{
-  margin:0;
-  padding:0;
-  box-sizing: border-box;
-}
-
 body {
   font: 16px/1.5 "Numbers", monospace;
   overflow: hidden;
@@ -180,7 +180,7 @@ body {
   display: none;
 }
 
-/* NOTICE */
+/* NOTICE (OPTIONAL)*/
 .calculator::after {
   content: "by Kostas Šliažas (only for learning purposes)";
   text-align: center;
@@ -193,7 +193,6 @@ body {
   color: var(--color2);
 }
 
-/* BEM Class naming */
 .calculator__input-container {
   background: var(--color2);
   margin: 0 auto;
@@ -206,8 +205,6 @@ body {
 .calculator__wrapper {
   display: grid;
   grid-template-columns: repeat(4,minmax(48px,1fr));
-/*  place-content: center;
-  place-items: stretch;*/
   height: 100%;
 }
 
@@ -304,8 +301,8 @@ body {
   grid-column-start: 1;
   grid-column-end: 5;
   margin:calc(var(--spacing) / 2);
-  background: var(--color0);
-  color: var(--color3);
+  background: var(--color4);
+  color: var(--color1);
   text-align: right;
   padding: 0 5px;
   font-family: inherit;
@@ -323,6 +320,7 @@ body {
     max-width: 300px;
     height: auto;
     font-size: 2em;
+    place-self: center;
   }
 }
 /* =========================
