@@ -101,7 +101,6 @@ html {
 .l,
 .m,
 .n,
-.o,
 .u,
 .j,
 .e {
@@ -173,7 +172,7 @@ html {
     --color1: #2B3D4F;
     --color2: #495D71;
     --color3: #70808F;
-    --color4: #B2BBC2
+    --color4: #EEEEEE
 }
 
 .g {
@@ -250,10 +249,11 @@ html {
 }
 
 .o {
-    --color0: #E9E5E0;
-    --color1: #BEBAB5;
-    --color2: #938F8A;
-    --color3: #68645F
+    --color0: #242829;
+    --color1: #36393A;
+    --color2: #1A1D1E;
+    --color3: #414C4F;
+    --color4: #E3F5FB;
 }
 
 .p,
