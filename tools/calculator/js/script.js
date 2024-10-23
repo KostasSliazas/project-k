@@ -63,7 +63,7 @@
 
   // Map operators to corresponding mathematical functions
   const cals = {
-    "/": div,
+    "÷": div,
     "×": mul,
     "+": add,
     "-": sub,
@@ -78,7 +78,7 @@
       const len1 = (n1 && n1.length) || 0;
       const len2 = (n2 && n2.length) || 0;
 
-      if (lastop !== "/") {
+      if (lastop !== "÷") {
         return parseFloat(calback(Number(num1), Number(num2)).toFixed(len1 + len2));
       }
 
