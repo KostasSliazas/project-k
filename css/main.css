@@ -538,8 +538,8 @@ a {
     overflow: hidden;
     text-overflow: ellipsis;
     text-decoration: none;
-    font-size: 0.75em; /* 12px */
-    line-height: 2; /* 24px */
+    font-size:0.875em;
+    line-height:1.71428571;
 }
 
 a:hover {
