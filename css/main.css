@@ -28,6 +28,8 @@
 }
 
 html {
+    font: 16px/1.5 Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+    color: var(--color4);
     background: #ddd
 }
 
@@ -351,15 +353,15 @@ html {
     --color4: #F2F2F2
 }
 
-.f body,
-.y body,
-.b body {
+.f,
+.y,
+.b {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
-
-.c body,
-.d body,
-.g body {
+.o,
+.c,
+.d,
+.g {
     font-family: system-ui, -apple-system, "Segoe UI", "Noto Sans", Roboto, "Helvetica Neue", "Liberation Sans", Arial, sans-serif;
 }
 
@@ -444,11 +446,6 @@ input[type="file"]::file-selector-button {
 
 .super {
     vertical-align: super
-}
-
-body {
-    font: 16px/1.5 Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
-    color: var(--color4)
 }
 
 .memo {
