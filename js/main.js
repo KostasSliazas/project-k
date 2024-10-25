@@ -1260,6 +1260,7 @@
       const newLeft = currentLeft - leftmost + centerPosition;
       el.style.left = `${Math.floor(newLeft / 12) * 12}px`; // round more to left
     });
+    setLocalStorageItems('elementStyles', getStyles());
   }
 
   function throttle(func, delay) {
