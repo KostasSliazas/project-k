@@ -256,16 +256,12 @@ html {
     --color4: #E3F5FB;
 }
 
-.p,
-.r {
-    --color4: #FFFFFF
-}
-
 .p {
-    --color0: #756CA4;
-    --color1: #50477F;
-    --color2: #2B225A;
-    --color3: #9A91C9
+    --color0: #1A1D20;
+    --color1: #35383B;
+    --color2: #222629;
+    --color3: #424B54;
+    --color4: #72BAFF;
 }
 
 .p.bg-image {
@@ -276,7 +272,8 @@ html {
     --color0: #A6A8B1;
     --color1: #72747D;
     --color2: #3E4049;
-    --color3: #0A0C15
+    --color3: #0A0C15;
+    --color4: #FFFFFF
 }
 
 .r.bg-image {
@@ -400,6 +397,7 @@ html {
     cursor: url(dcursor.cur), auto
 }
 
+
 .popup-mode h1,
 .popup-mode #content button,
 .popup-mode input[type="button"],
@@ -501,8 +499,10 @@ h3 {
 }
 
 .small {
-    font-size: 12px;
-    line-height: 24px
+    font-size: 0.75em;
+    /* 12px */
+    line-height: 2;
+    /* 24px */
 }
 
 .xxl {
@@ -530,6 +530,13 @@ form {
 a {
     color: var(--color4)
 }
+.popup-mode .main{
+   counter-reset: section;
+}
+.popup-mode .movable a::before{
+counter-increment: section; /* Increment the counter */
+content: counter(section)". "; /* Add numbering */
+}
 
 a {
     text-transform: lowercase;
@@ -538,8 +545,8 @@ a {
     overflow: hidden;
     text-overflow: ellipsis;
     text-decoration: none;
-    font-size:0.875em;
-    line-height:1.71428571;
+    font-size: 0.875em;
+    line-height: 1.71428571;
 }
 
 a:hover {
