@@ -78,7 +78,7 @@
     clicks: 0
   };
   let saved = getLocalStorageItems('mustashed') || [5, 2, 0];
-  let minimized = [16,8,6,17,15,0,19,12,1,13];
+  let minimized = [16, 8, 6, 17, 15, 0, 19, 12, 1, 13];
   let mousedown = false;
   let scalingTarget = null;
   let isEnterPass = false;
@@ -149,10 +149,10 @@
   function getStyles() {
     let styleValues = [];
     for (let i = 0; i < movableLength; i++) {
-      	(function(i,styleValues) {
-      		styles.forEach((value) => styleValues.push(`${value}:${movable[i].style[value]};`));
-      		styleValues.push(',');
-  		})(i,styleValues);
+      (function (i, styleValues) {
+        styles.forEach((value) => styleValues.push(`${value}:${movable[i].style[value]};`));
+        styleValues.push(',');
+      })(i, styleValues);
     }
     return styleValues.join('');
   }
@@ -181,7 +181,7 @@
       await delay(30);
       e.style.width = roundToTen(e.offsetWidth) + "px";
       e.style.height = roundToTen(e.offsetHeight) + "px";
-      if(e.firstElementChild)e.firstElementChild.title += ' (block index' + movable.indexOf(e) + ')';
+      if (e.firstElementChild) e.firstElementChild.title += ' (block index' + movable.indexOf(e) + ')';
       if (e.id === 'text-area') textArea.style.height = e.style.height;
       e.addEventListener("dblclick", async e => {
         if (clickTimeout) {
@@ -271,7 +271,7 @@
         m,
         s
       } = this.getCurrentTime();
-      this.clockElement.textContent = [h, m , s].join(':');
+      this.clockElement.textContent = [h, m, s].join(':');
     }
     startTime() {
       this.updateClock();
@@ -946,7 +946,7 @@
     const clickedElement = e.target;
     const target = clickedElement.id;
 
-    if(clickedElement.tagName == 'H1' && d.body.classList.contains('popup-mode')) {
+    if (clickedElement.tagName == 'H1' && d.body.classList.contains('popup-mode')) {
       overlay.classList.toggle('hide', !overlay.classList.contains('hide'));
     }
 
@@ -981,6 +981,9 @@
       changerClass(THEME_CHANGE.value);
       setLocalStorageItems("theme", THEME_CHANGE.value);
       setColors();
+    }
+    if (target === 'center-elements') {
+      centerElements()
     }
 
     if (target === 'rotate90') {
@@ -1029,7 +1032,7 @@
       }
     }
 
-        // set cuteMode  theme lines class and item of localStorage
+    // set cuteMode  theme lines class and item of localStorage
     if (target === "popup-mode") {
       if (!main.classList.contains('popup-mode') && e.target.checked) {
         setLocalStorageItems('popup-mode', true);
@@ -1229,6 +1232,35 @@
   //     }, delay);
   //   };
   // }
+
+  function centerElements() {
+    const container = document.getElementById('main');
+    const elements = document.querySelectorAll('.movable');
+
+    let leftmost = Number.POSITIVE_INFINITY;
+    let rightmost = Number.NEGATIVE_INFINITY;
+
+    // Find the leftmost and rightmost positions
+    elements.forEach(el => {
+      const left = el.getBoundingClientRect().left - container.getBoundingClientRect().left;
+      const right = left + el.offsetWidth;
+
+      leftmost = Math.min(leftmost, left);
+      rightmost = Math.max(rightmost, right);
+    });
+
+    // Calculate the center position
+    const containerWidth = container.offsetWidth;
+    const totalWidth = rightmost - leftmost;
+    const centerPosition = (containerWidth - totalWidth) / 2;
+
+    // Move elements to center
+    elements.forEach(el => {
+      const currentLeft = el.getBoundingClientRect().left - container.getBoundingClientRect().left;
+      const newLeft = currentLeft - leftmost + centerPosition;
+      el.style.left = `${Math.floor(newLeft / 12) * 12}px`; // round more to left
+    });
+  }
 
   function throttle(func, delay) {
     let lastCallTime = 0;
