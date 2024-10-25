@@ -263,7 +263,7 @@ html {
     --color1: #35383B;
     --color2: #222629;
     --color3: #424B54;
-    --color4: #72BAFF;
+    --color4: #7FADDE;
 }
 
 .p.bg-image {
@@ -1016,7 +1016,7 @@ input[type="reset"] {
     font-size: inherit;
     line-height: inherit;
     box-sizing: border-box;
-    font-family: Arial, sans-serif;
+    font-family: inherit;
     transition: .2s .1s
 }
 
@@ -1226,10 +1226,6 @@ fieldset {
 }
 
 #calculator {
-    display: -ms-grid;
-    -ms-grid-columns: 1fr 2px 1fr 2px 1fr 2px 1fr;
-    -ms-grid-rows: 1fr 2px 1fr 2px 1fr 2px 1fr 2px 1fr 2px 1fr;
-    -ms-flex-align: center;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: min-content;
@@ -1239,16 +1235,9 @@ fieldset {
     padding: 2px;
     height: 100%;
     width: 100%;
-    font: 16px/1.25 Arial, sans-serif
 }
 
 #calculator>[data-fun=p] {
-    -ms-grid-row: 5;
-    grid-row-start: 5;
-    -ms-grid-row-span: 2;
-    grid-row-end: 7;
-    -ms-grid-column: 4;
-    grid-column-start: 4;
     grid-row: 5/span 2;
     grid-column: 4
 }
@@ -1576,6 +1565,5 @@ input[type=text]:focus {
     .in {
         max-width: 300px;
         height: auto;
-        font-size: 2em
     }
 }
