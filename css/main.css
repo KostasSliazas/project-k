@@ -8,6 +8,29 @@
     }
 }
 
+/* Universal box-sizing */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Targeted margin and padding reset */
+body, h1, h2, h3, h4, h5, h6, p, ol, ul, textarea {
+  margin: 0;
+  padding: 0;
+}
+
+/* Remove list and table spacing */
+ol, ul {
+  list-style: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
 :root {
     --color0: #FAFBFD;
     --color1: #F0F4F9;
@@ -17,14 +40,6 @@
     --bg: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQIW2NgAAIAAAUAAR4f7BQAAAAASUVORK5CYII=);
     --repeat: no-repeat;
     --size: center/cover
-}
-
-#loader:after,
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    scrollbar-width: thin
 }
 
 html {
