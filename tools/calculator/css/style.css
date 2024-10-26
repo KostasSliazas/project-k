@@ -163,6 +163,7 @@ html, body, .calculator {
   height: 100%;
   margin: 0 auto;
   display: flex;
+  place-content: end;
 }
 body {
   font: 16px/1.5 "Numbers", monospace;
@@ -311,7 +312,7 @@ body {
   overflow:hidden;
 }
 .calculator__screen--blink {
-  color: var(--color1);
+  color: var(--color3);
 }
 
 @media screen and (min-width: 768px) {
@@ -320,7 +321,8 @@ body {
     max-width: 300px;
     height: auto;
     font-size: 2em;
-    place-self: center;
+    place-self: baseline;
+    margin: 0;
   }
 }
 /* =========================
