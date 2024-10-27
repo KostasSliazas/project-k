@@ -415,12 +415,12 @@ html {
 }
 
 
-.popup-mode h1,
-.popup-mode #content button,
-.popup-mode input[type="button"],
-.popup-mode input[type="reset"],
-.popup-mode input[type="file"]::file-selector-button,
-.popup-mode #esound {
+.cute-mode h1,
+.cute-mode #content button,
+.cute-mode input[type="button"],
+.cute-mode input[type="reset"],
+.cute-mode input[type="file"]::file-selector-button,
+.cute-mode #esound {
     background-image: linear-gradient(45deg, #7771 0, #7771 50%, #fff1 50%) !important;
     box-shadow: 0 0 1px 1px var(--color2) inset;
 }
