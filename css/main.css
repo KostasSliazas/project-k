@@ -978,7 +978,8 @@ input[type="text"] {
 }
 
 textarea {
-    min-width: 70px;
+    min-width: 120px;
+    max-width: 100%;
     min-height: 1em;
     outline: 0;
     height: 100%;
