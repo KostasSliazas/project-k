@@ -20,7 +20,13 @@
   const hide = elem => elem.classList.add('hide');
   const show = elem => elem.classList.remove('hide');
   let isLocked = getLocalStorageItems('isLocked');
-  // const random = (min, max) => Math.floor(Math.random() * (max - min)) + min;
+  // Generate a random integer between min (inclusive) and max (exclusive)
+  const getRandomInRange = (min, max) => Math.floor(Math.random() * (max - min)) + min;
+
+  const getIndexOfItem = (arr, item) => arr.indexOf(item);
+
+  // Use getRandomInRange to select a random item from an array
+  const getRandomFromArray = (arr) => arr[getRandomInRange(0, arr.length)];
 
   function isLockig() {
     //icon images encoded base64
@@ -476,6 +482,7 @@
   const themeName = d.getElementById('theme-name');
   const longNames = ['inner peace', 'peace on earth', 'cool dudes', 'sunshine', 'someday', 'everything fine', 'night', "green", "happiness", "jupiter", "Karma", "lightness", "marigold", "neutral", "optimistic", "paradise", "colored kalcium", "respect", "silver"];
   const classNameVariables = [0, "a", "b", "c", "d", "e", "f", "g", "h", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y"];
+  const nightThemes = ['b','d','f','g','o','p','q','r','t','v','y'];
   const THEME_CHANGE = arrayHelper.call(classNameVariables);
 
   // const moveElement = function(pixels, direction, elements) {
@@ -822,6 +829,13 @@
     const popupMode = getLocalStorageItems("popup-mode");
     setCheckboxChecked('popup-mode', popupMode);
     d.body.classList.toggle('popup-mode', popupMode);
+    if(popupMode){
+      doAfter19h(() => {
+        const theme = getRandomFromArray(nightThemes);
+        const index = getIndexOfItem(classNameVariables, theme)
+        changerClass(index);
+      });
+    }
 
     // set remembered last counter seconds
     timers.counterTime.textContent = addLeadingZero(timers.totalSeconds());
@@ -1435,4 +1449,18 @@
   w.onload = function () {
     scheduleMidnightRefresh();
   };
+
+
+  function doAfter19h(action) {
+    const now = new Date();
+    const currentHour = now.getHours();
+
+    if (currentHour >= 19) {
+      action(); // Execute the specified action if it's after 19:00
+    } else {
+      const timeUntil19h = new Date(now.setHours(19, 0, 0, 0)) - new Date();
+      setTimeout(action, timeUntil19h); // Schedule the action for 19:00
+    }
+  }
+
 })(window, document);
