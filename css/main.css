@@ -552,7 +552,8 @@ content: counter(section)". "; /* Add numbering */
 
 a {
     text-transform: lowercase;
-    width: calc(100% - 24px);
+    padding: 0 12px;
+    width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
     text-decoration: none;
