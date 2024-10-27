@@ -545,11 +545,11 @@ a {
 .popup-mode .main{
    counter-reset: section;
 }
-.popup-mode .movable a::before{
+.popup-mode .links a::before{
 counter-increment: section; /* Increment the counter */
 content: counter(section)". "; /* Add numbering */
 }
-
+.popup-mode a{padding:0 4px;}
 a {
     text-transform: lowercase;
     padding: 0 12px;
