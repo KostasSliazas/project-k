@@ -32,10 +32,10 @@ table {
 }
 
 :root {
-    --color0: #FAFBFD;
-    --color1: #F0F4F9;
-    --color2: #E1EAF1;
-    --color3: #B9CCDA;
+    --color0: #f7f7f7;
+    --color1: #f2f2f2;
+    --color2: #e0e6ed;
+    --color3: #c4d2d7;
     --color4: #000000;
     --bg: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQIW2NgAAIAAAUAAR4f7BQAAAAASUVORK5CYII=);
     --repeat: no-repeat;
