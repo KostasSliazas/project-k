@@ -1052,6 +1052,14 @@
       if (!main.classList.contains('popup-mode') && e.target.checked) {
         setLocalStorageItems('popup-mode', true);
         d.body.classList.add('popup-mode');
+
+        // start timer to change theme
+        doAfter19h(() => {
+          const theme = getRandomFromArray(nightThemes);
+          const index = getIndexOfItem(classNameVariables, theme)
+          changerClass(index);
+        });
+
       } else {
         setLocalStorageItems('popup-mode', false);
         d.body.classList.remove('popup-mode');
