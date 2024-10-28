@@ -25,6 +25,13 @@
 
   const getIndexOfItem = (arr, item) => arr.indexOf(item);
 
+  // Common action to be performed after 19 hours
+  function performNightThemeChange() {
+      const theme = getRandomFromArray(nightThemes);
+      const index = getIndexOfItem(classNameVariables, theme);
+      changerClass(index);
+  }
+
   // Use getRandomInRange to select a random item from an array
   const getRandomFromArray = (arr) => arr[getRandomInRange(0, arr.length)];
 
@@ -830,11 +837,7 @@
     setCheckboxChecked('popup-mode', popupMode);
     d.body.classList.toggle('popup-mode', popupMode);
     if(popupMode){
-      doAfter19h(() => {
-        const theme = getRandomFromArray(nightThemes);
-        const index = getIndexOfItem(classNameVariables, theme)
-        changerClass(index);
-      });
+      doAfter19h(performNightThemeChange);
     }
 
     // set remembered last counter seconds
@@ -1054,11 +1057,7 @@
         d.body.classList.add('popup-mode');
 
         // start timer to change theme
-        doAfter19h(() => {
-          const theme = getRandomFromArray(nightThemes);
-          const index = getIndexOfItem(classNameVariables, theme)
-          changerClass(index);
-        });
+        doAfter19h(performNightThemeChange);
 
       } else {
         setLocalStorageItems('popup-mode', false);
