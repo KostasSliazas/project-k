@@ -143,9 +143,12 @@ html {
     --color2: #D9D9E0;
     --color3: #AAAAB1;
     --color4: #333333;
-    --bg: url(../img/a.svg?v=1);
     --size: center/43px;
     --blend: soft-light;
+}
+
+.a.bg-image {
+    --bg: url(../img/a.svg?v=1);
 }
 
 .b {
@@ -154,6 +157,9 @@ html {
     --color2: #222222;
     --color3: #111111;
     --color4: #A4ADBD;
+}
+
+.b.bg-image {
     --bg: url(../img/b.webp?v=1)
 }
 
@@ -163,8 +169,11 @@ html {
     --color2: #A0BACB;
     --color3: #6B8EA4;
     --color4: #032337;
-    --bg: url(../img/c.webp?v=1);
     --blend: luminosity;
+}
+
+.c.bg-image {
+    --bg: url(../img/c.webp?v=1);
 }
 
 .d {
@@ -173,8 +182,11 @@ html {
     --color2: #1B1E20;
     --color3: #111111;
     --color4: #CCCCCC;
-    --bg: url(../img/d.webp?v=1);
     --blend: multiply;
+}
+
+.d.bg-image {
+    --bg: url(../img/d.webp?v=1);
 }
 
 .e {
@@ -182,6 +194,9 @@ html {
     --color1: #B1ABAC;
     --color2: #777777;
     --color3: #636363;
+}
+
+.e.bg-image {
     --bg: url(../img/e.webp?v=1)
 }
 
@@ -191,8 +206,11 @@ html {
     --color2: #495D71;
     --color3: #70808F;
     --color4: #EEEEEE;
-    --bg: url(../img/f.webp?v=1);
     --blend: multiply;
+}
+
+.f.bg-image {
+    --bg: url(../img/f.webp?v=1);
 }
 
 .g {
@@ -201,9 +219,13 @@ html {
     --color2: #222222;
     --color3: #111111;
     --color4: #9EC91B;
-    --bg: url(../img/h.svg?v=1);
     --size: right bottom/70px;
 }
+
+.g.bg-image {
+    --bg: url(../img/h.svg?v=1);
+}
+
 
 .h {
     --color0: #FFFFF6;
@@ -219,8 +241,11 @@ html {
     --color1: #747C84;
     --color2: #96938D;
     --color3: #333333;
-    --bg: url(../img/j.svg?v=1);
     --size: center/403px;
+}
+
+.j.bg-image {
+    --bg: url(../img/j.svg?v=1);
 }
 
 .k {
@@ -229,8 +254,11 @@ html {
     --color2: #91897D;
     --color3: #665A47;
     --color4: #3C3020;
-    --bg: url(../img/ka.svg?v=1);
     --blend: luminosity;
+}
+
+.k.bg-image {
+    --bg: url(../img/ka.svg?v=1);
 }
 
 .l {
@@ -238,6 +266,9 @@ html {
     --color1: #BCC5D5;
     --color2: #9AA3B3;
     --color3: #818A9A;
+}
+
+.l.bg-image {
     --bg: url(../img/l.svg?v=1);
 }
 
@@ -246,8 +277,11 @@ html {
     --color1: #D7CAD5;
     --color2: #B5A8B3;
     --color3: #938691;
-    --bg: url(../img/m.svg?v=1);
     --blend: color;
+}
+
+.m.bg-image {
+    --bg: url(../img/m.svg?v=1);
 }
 
 .n {
@@ -255,7 +289,10 @@ html {
     --color1: #DAC9B3;
     --color2: #B8A791;
     --color3: #96856F;
-    --bg: url(../img/n.svg?v=1);
+}
+
+.n.bg-image {
+    --bg: url(../img/n.svg?v=1)
 }
 
 .o {
@@ -273,6 +310,9 @@ html {
     --color2: #222629;
     --color3: #424B54;
     --color4: #7FADDE;
+}
+
+.p.bg-image {
     --bg: url(../img/p.svg?v=1);
 }
 
@@ -282,6 +322,9 @@ html {
     --color2: #3E4049;
     --color3: #0A0C15;
     --color4: #FFFFFF;
+}
+
+.r.bg-image {
     --bg: url(../img/r.svg?v=1)
 }
 
@@ -291,6 +334,9 @@ html {
     --color2: #D5D5D5;
     --color3: #B5B5B2;
     --color4: #111111;
+}
+
+.s.bg-image {
     --bg: url(../img/s.svg?v=1);
 }
 
@@ -326,6 +372,9 @@ html {
     --color2: #3D2B34;
     --color3: #BEACB5;
     --color4: #E9D7E0;
+}
+
+.q.bg-image {
     --bg: url(../img/q.svg?v=1);
 }
 
