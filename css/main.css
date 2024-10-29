@@ -579,7 +579,8 @@ a {
 .popup-mode .links a::before {
     counter-increment: section;
     /* Increment the counter */
-    content: counter(section)". ";
+    content: counter(section, decimal-leading-zero)". ";
+    color: var(--color3);
     /* Add numbering */
 }
 
