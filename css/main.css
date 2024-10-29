@@ -88,7 +88,7 @@ html {
 }
 
 .bg-image {
-    --bg: url(../img/k.svg)
+    --bg: url(../img/k.svg?v=1)
 }
 
 .bg-repeat~#overlay,
@@ -133,7 +133,7 @@ html {
 }
 
 .a.bg-image {
-    --bg: url(../img/a.svg);
+    --bg: url(../img/a.svg?v=1);
     --size: center/43px
 }
 
@@ -146,7 +146,7 @@ html {
 }
 
 .b.bg-image {
-    --bg: url(../img/b.webp)
+    --bg: url(../img/b.webp?v=1)
 }
 
 .c {
@@ -158,7 +158,7 @@ html {
 }
 
 .c.bg-image {
-    --bg: url(../img/c.webp)
+    --bg: url(../img/c.webp?v=1)
 }
 
 .d {
@@ -170,7 +170,7 @@ html {
 }
 
 .d.bg-image {
-    --bg: url(../img/d.webp)
+    --bg: url(../img/d.webp?v=1)
 }
 
 .e {
@@ -181,7 +181,7 @@ html {
 }
 
 .e.bg-image {
-    --bg: url(../img/e.webp)
+    --bg: url(../img/e.webp?v=1)
 }
 
 .f {
@@ -216,7 +216,7 @@ html {
 }
 
 .j.bg-image {
-    --bg: url(../img/j.svg);
+    --bg: url(../img/j.svg?v=1);
     --size: center/403px
 }
 
@@ -229,7 +229,7 @@ html {
 }
 
 .k.bg-image {
-    --bg: url(../img/ka.svg);
+    --bg: url(../img/ka.svg?v=1);
 }
 
 .l {
@@ -240,7 +240,7 @@ html {
 }
 
 .l.bg-image {
-    --bg: url(../img/l.svg);
+    --bg: url(../img/l.svg?v=1);
 }
 
 .m {
@@ -251,7 +251,7 @@ html {
 }
 
 .m.bg-image {
-    --bg: url(../img/m.svg);
+    --bg: url(../img/m.svg?v=1);
 }
 
 .n {
@@ -262,7 +262,7 @@ html {
 }
 
 .n.bg-image {
-    --bg: url(../img/n.svg);
+    --bg: url(../img/n.svg?v=1);
 }
 
 .o {
@@ -282,7 +282,7 @@ html {
 }
 
 .p.bg-image {
-    --bg: url(../img/p.svg);
+    --bg: url(../img/p.svg?v=1);
 }
 
 .r {
@@ -294,7 +294,7 @@ html {
 }
 
 .r.bg-image {
-    --bg: url(../img/r.svg)
+    --bg: url(../img/r.svg?v=1)
 }
 
 .s {
@@ -306,7 +306,7 @@ html {
 }
 
 .s.bg-image {
-    --bg: url(../img/s.svg);
+    --bg: url(../img/s.svg?v=1);
 }
 
 .t {
@@ -341,7 +341,7 @@ html {
 }
 
 .q.bg-image {
-    --bg: url(../img/q.svg);
+    --bg: url(../img/q.svg?v=1);
 }
 
 .w {
@@ -381,12 +381,12 @@ html {
 }
 
 .g.bg-image {
-    --bg: url(../img/h.svg);
+    --bg: url(../img/h.svg?v=1);
     --size: right bottom/70px
 }
 
 .f.bg-image {
-    --bg: url(../img/f.webp)
+    --bg: url(../img/f.webp?v=1)
 }
 
 .cute-mode .cute img,
@@ -411,7 +411,7 @@ html {
 }
 
 .cute-mode {
-    cursor: url(dcursor.cur), auto
+    cursor: url(dcursor.cur?v=1), auto
 }
 
 
@@ -442,11 +442,11 @@ html {
 .cute-mode button,
 .cute-mode input,
 input[type="file"]::file-selector-button {
-    cursor: url(cursor.cur), pointer !important
+    cursor: url(cursor.cur?v=1), pointer !important
 }
 
 .cute {
-    background: url(../img/k.svg)no-repeat bottom center
+    background: url(../img/k.svg?v=1)no-repeat bottom center
 }
 
 
