@@ -281,7 +281,7 @@ html {
     --color1: #D7CAD5;
     --color2: #B5A8B3;
     --color3: #938691;
-    --blend: color;
+    --blend: saturation;
 }
 
 .m.bg-image {
