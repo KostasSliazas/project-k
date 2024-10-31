@@ -1471,15 +1471,27 @@
   }
 
     if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
+        try {
             navigator.serviceWorker.register('/project-k/sw.js?v=1')
                 .then((registration) => {
                     console.log('Service Worker registered with scope:', registration.scope);
                 })
                 .catch((error) => {
+                    if (error.message.includes("ServiceWorkerContainer.register: Script URL's scheme is not 'http' or 'https'")) {
+                        return console.warn('Service Worker registration error: Insecure context. Please use HTTPS or localhost.', error);
+                    }
                     console.error('Service Worker registration failed:', error);
                 });
-        });
+        } catch (error) {
+            console.error('Unexpected error during Service Worker registration:', error);
+        }
+    } else {
+        console.log('Service Workers are not supported in this browser.');
     }
+
+
+     // show message Developer Zone!
+    console.log('%cYou are in the Developer Zone! Proceed with caution and make sure you know what you’re doing.',
+            'color: #df7eaa; background-color: #680733; padding: 8px; font-size: 16px; font-weight: bold; border-radius: 4px;');
 
 })(window, document);
