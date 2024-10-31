@@ -1,6 +1,7 @@
 {
     "name": "Project-kitty",
-    "short_name": "Project-kitty",
+    "short_name": "Project-k",
+    "description": "a collection of useful tools!",
     "icons": [
         {
             "src": "/android-chrome-192x192.png",
@@ -13,6 +14,7 @@
             "type": "image/png"
         }
     ],
+    "start_url": "/index.html",
     "theme_color": "#ffffff",
     "background_color": "#ffffff",
     "display": "standalone"
