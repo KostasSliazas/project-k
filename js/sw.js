@@ -1,0 +1,1 @@
+const CACHE_NAME="project-k-v1",urlsToCache=["/","/index.html","/css/main.min.v1.css","/js/gall7.min.v1.js","/js/main.min.v1.js","/js/sw.js"];self.addEventListener("install",(e=>{e.waitUntil(caches.open(CACHE_NAME).then((e=>e.addAll(urlsToCache))))})),self.addEventListener("fetch",(e=>{e.respondWith(caches.match(e.request).then((s=>s||fetch(e.request))))}));
