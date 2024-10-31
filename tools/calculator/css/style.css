@@ -163,7 +163,7 @@ html, body, .calculator {
   height: 100%;
   margin: 0 auto;
   display: flex;
-  place-content: end;
+  place-content: center;
 }
 body {
   font: 16px/1.5 "Numbers", monospace;

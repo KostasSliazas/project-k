@@ -151,7 +151,25 @@
     THEME_CHANGE.value = parseInt(localStorage.getItem("calculatorThemeNumber"));
     if (isNaN(THEME_CHANGE.value)) changerClass(random(0, THEME_CHANGE.full));
     else changerClass(THEME_CHANGE.value); // Set theme from localStorage or random
-  }
+
+    if ('serviceWorker' in navigator) {
+        try {
+            navigator.serviceWorker.register('/project-k/sw.js?v=1')
+                .then((registration) => {
+                    console.log('Service Worker registered with scope:', registration.scope);
+                })
+                .catch((error) => {
+                    if (error.message.includes("ServiceWorkerContainer.register: Script URL's scheme is not 'http' or 'https'")) {
+                        return console.warn('Service Worker registration error: Insecure context. Please use HTTPS or localhost.', error);
+                    }
+                    console.error('Service Worker registration failed:', error);
+                });
+        } catch (error) {
+            console.error('Unexpected error during Service Worker registration:', error);
+        }
+    } else {
+        console.log('Service Workers are not supported in this browser.');
+    }
 
   // Event listeners for mouse and theme changes
   CALC.addEventListener("mousedown", (e) => btn(e));
@@ -179,7 +197,7 @@
     changerClass(THEME_CHANGE.value);
     localStorage.setItem("calculatorThemeNumber", THEME_CHANGE.value);
   });
-
+  }
   // Initialize theme on DOM load
   d.addEventListener("DOMContentLoaded", init);
 
