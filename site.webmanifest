@@ -14,7 +14,8 @@
             "type": "image/png"
         }
     ],
-    "start_url": "/index.html",
+    "start_url": "/project-k/",
+    "scope": "/project-k/",
     "theme_color": "#ffffff",
     "background_color": "#ffffff",
     "display": "standalone"
