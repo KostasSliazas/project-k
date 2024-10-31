@@ -1143,6 +1143,16 @@
       hide(pinsave);
       hide(pindiscard);
     }
+
+    // Check if the clicked element is one of the search inputs
+  const searchInputs = ['duckduckgo', 'google', 'ecosia'];
+  if (searchInputs.includes(target)) {
+    const inputElement = document.getElementById(target);
+    if (inputElement) {
+      inputElement.value = ''; // Clear the input value
+    }
+  }
+
   }
 
 

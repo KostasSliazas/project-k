@@ -8,7 +8,7 @@
     <meta name="msapplication-TileColor" content="#5bbad5">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="description" content="Explore Project K, a collection of useful tools like border-radius generators, color pickers, regex extractors, and more. Enhance your web development with easy-to-use utilities in vanilla JavaScript, Vue.js, HTML, and CSS.">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' data:; script-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data:; connect-src 'self' https://api.open-meteo.com; media-src 'self' data:;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' data:; script-src 'self'; font-src 'self' data:; img-src 'self' data:; connect-src 'self' https://api.open-meteo.com; media-src 'self' data:;">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <title>Project-K</title>
     <link rel="preload" href="css/main.min.v1.css?v=1" as="style" type="text/css" fetchpriority="high">
@@ -358,19 +358,19 @@
           <h1>search with</h1>
           <form action="https://duckduckgo.com/?t=h_&q=" target="_blank">
             <label for="duckduckgo" class="visually-hidden">duckduckgo</label>
-            <input id="duckduckgo" type="text" value="" name="q" onclick="this.value = ''" placeholder="duckduckgo.com">
+            <input id="duckduckgo" type="text" value="" name="q" placeholder="duckduckgo.com">
             <input type="submit" value="submit form" style="display: none">
           </form>
 
           <form action="https://www.google.com/search?q=" target="_blank">
             <label for="google" class="visually-hidden">google</label>
-            <input id="google" type="text" value="" name="q" onclick="this.value = ''" placeholder="google.com">
+            <input id="google" type="text" value="" name="q" placeholder="google.com">
             <input type="submit" value="submit form" style="display: none">
           </form>
 
           <form action="https://www.ecosia.org/search?method=index&q=go" target="_blank">
             <label for="ecosia" class="visually-hidden">ecosia</label>
-            <input id="ecosia" type="text" value="" name="q" onclick="this.value = ''" placeholder="ecosia.org">
+            <input id="ecosia" type="text" value="" name="q" placeholder="ecosia.org">
             <input type="submit" value="submit form" style="display: none">
           </form>
 
