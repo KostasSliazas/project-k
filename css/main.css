@@ -507,7 +507,7 @@ input[type="file"]::file-selector-button {
     max-width: 45px;
     overflow: hidden;
     box-sizing: content-box;
-    transition: .2s .2s;
+    transition: .1s .1s;
     min-width: 45px;
     aspect-ratio: 1;
     margin: 4px;
@@ -607,6 +607,7 @@ a:hover {
     text-decoration: underline;
     color: var(--color3)
 }
+.movable h1 a{padding:0}
 
 div.moves button {
     height: 3em
@@ -642,7 +643,7 @@ div.moves {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    transition: .2s;
+    transition: .1s;
     margin: 0 auto;
     z-index: 1
 }
@@ -686,7 +687,6 @@ a {
 }
 
 .minimized {
-    overflow: hidden !important;
     height: 23px !important;
     padding: 0;
     min-height: 0;
@@ -752,7 +752,6 @@ a {
     border: 1px solid var(--color3);
     border-width: 0 1px 0 0
 }
-
 .mousedown {
     transition: none;
     z-index: 2;
@@ -1075,7 +1074,7 @@ input[type="reset"] {
     line-height: inherit;
     box-sizing: border-box;
     font-family: inherit;
-    transition: .2s .1s
+    transition: .1s .1s
 }
 
 input[type=number] {
@@ -1477,7 +1476,7 @@ input::-moz-selection {
     border-color: var(--color4);
     width: 10px;
     height: 10px;
-    transition: border-top-color .2s .2s linear;
+    transition: border-top-color .1s .1s linear;
     top: 5px;
     right: 7px;
     box-sizing: border-box;
