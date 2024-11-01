@@ -1499,9 +1499,11 @@
         console.log('Service Workers are not supported in this browser.');
     }
 
+console.log(
+  "%c🐾 Welcome to the Cuddle Zone of Coding! 🐱✨\n%cKeep your coding paws steady and have fun! 💻",
+  "font-size: 20px; background-color: #f7f7f7; color: #000000; padding: 10px; border-radius: 5px;",
+  "font-size: 16px; background-color: #e0e6ed; color: #000000; padding: 10px; border-radius: 5px;"
+);
 
-     // show message Developer Zone!
-    console.log('%cYou are in the Developer Zone! Proceed with caution and make sure you know what you’re doing.',
-            'color: #df7eaa; background-color: #680733; padding: 8px; font-size: 16px; font-weight: bold; border-radius: 4px;');
 
 })(window, document);
