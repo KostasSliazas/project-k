@@ -850,9 +850,9 @@
     await applyStyles(false);
     await loopElem();
     //try to center element for first time load
-    // if(await !getLocalStorageItems('elementStyles')) {
-    //   await centerElements();
-    // }
+    if (w.localStorage.length === 0) {
+      centerElements();
+    }
     // codeDivElms.forEach(e => {
     const codeDivElmsLength = codeDivElms.length;
     for (let i = 0; i < codeDivElmsLength; i++) {
@@ -878,11 +878,7 @@
     changerClass(NUM);
     styleRoot();
     setColors();
-    // If localStorage is empty, set isCheckedLines to true
-    if (w.localStorage.length === 0) {
-      // await setLocalStorageItems('theme-lines', true);
-      centerElements();
-    }
+
     d.getElementById("today").innerHTML = showDate();
 
     // renew clock if only displayed
