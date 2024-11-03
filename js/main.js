@@ -807,10 +807,7 @@
 
 
   async function init() {
-    // If localStorage is empty, set isCheckedLines to true
-    if (w.localStorage.length === 0) {
-      await setLocalStorageItems('theme-lines', true);
-    }
+
     // d.addEventListener('mousemove', handleMousemove);
     const isCheckedLines = getLocalStorageItems("theme-lines");
     const isCheckedBg = getLocalStorageItems("theme-bg");
@@ -881,7 +878,11 @@
     changerClass(NUM);
     styleRoot();
     setColors();
-
+    // If localStorage is empty, set isCheckedLines to true
+    if (w.localStorage.length === 0) {
+      // await setLocalStorageItems('theme-lines', true);
+      centerElements();
+    }
     d.getElementById("today").innerHTML = showDate();
 
     // renew clock if only displayed
