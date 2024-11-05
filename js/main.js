@@ -95,10 +95,10 @@
   let mousedown = false;
   let scalingTarget = null;
   let isEnterPass = false;
-  // boolean value for test is moving or not
-  let moving = false;
-  // target global element variable
-  let target = null;
+  const state = {
+    target: null,
+    moving: false,
+  };
   // add all movable class eventlistener mousedown
   textArea.addEventListener("input", async (e) => {
     await delay(3000);
@@ -170,8 +170,8 @@
     return styleValues.join('');
   }
 
-  function getOffset(el) {
-    const rect = el.getBoundingClientRect();
+  function getOffset(e) {
+    const rect = e.getBoundingClientRect();
     return {
       left: rect.left + w.scrollX,
       top: rect.top + w.scrollY,
@@ -181,22 +181,24 @@
   let clickTimeout = null;
   const clickDelay = 340; // Time in milliseconds
 
-  const loopElem = async () => {
+  const loopElem =  () => {
     // console.time()
     // movable.forEach(async (e) => {
     // using for loops for performance
     for (let i = 0; i < movableLength; i++) {
+    (async function(w,i,clickTimeout,minimized,getOffset,getStyles){
       const e = movable[i];
-      await delay(30);
-      e.style.left = roundToTen(getOffset(e).left) + "px";
-      e.style.top = roundToTen(getOffset(e).top) + "px";
+      // await delay(30);
+      const { left, top } = getOffset(e); // Pass e as an argument
+      e.style.left = roundToTen(left) + "px";
+      e.style.top = roundToTen(top) + "px";
       e.style.position = "absolute";
-      await delay(30);
+      // await delay(30);
       e.style.width = roundToTen(e.offsetWidth) + "px";
       e.style.height = roundToTen(e.offsetHeight) + "px";
       if (e.firstElementChild) e.firstElementChild.title += ' (block index' + movable.indexOf(e) + ')';
       if (e.id === 'text-area') textArea.style.height = e.style.height;
-      e.addEventListener("dblclick", async e => {
+        e.addEventListener("dblclick", async e => {
         if (clickTimeout) {
           w.clearTimeout(clickTimeout);
           clickTimeout = null;
@@ -228,18 +230,17 @@
 
         }
       });
-
       e.addEventListener("mousedown", function (e) {
         if (e.target === this) {
-          moving = true;
+          state.moving = true;
         }
 
-        if (target !== null) {
-          target.style.zIndex = 1;
+        if (state.target !== null) {
+          state.target.style.zIndex = 1;
         }
 
-        target = this;
-        target.style.zIndex = 2;
+        state.target = this;
+        state.target.style.zIndex = 2;
 
         if (!clickTimeout) {
           // If no pending click, set a timeout for single click action
@@ -248,8 +249,8 @@
 
 
             // await delay(200);
-            if (moving) {
-              target.classList.add("mousedown");
+            if (state.moving) {
+              state.target.classList.add("mousedown");
               root.classList.add('hmove'); //higlight moving
               main.classList.add('lines'); //higlight moving
             }
@@ -258,10 +259,10 @@
           }, clickDelay);
         }
       });
+      })(w,i,clickTimeout,minimized,getOffset,getStyles);
       // console.timeEnd()
     }
   };
-
 
   class Clock {
     constructor(clockElementId) {
@@ -853,10 +854,11 @@
     if (w.localStorage.length === 0) {
       centerElements();
     }
+    const locking = isLockig();
     // codeDivElms.forEach(e => {
     const codeDivElmsLength = codeDivElms.length;
     for (let i = 0; i < codeDivElmsLength; i++) {
-
+    (function(i,d,isLocked,isEnterPass,saved){
       codeDivElms[i].onclick = (e) => {
         e.stopPropagation(); //prevent from parent clicks
         typed.push(codeDivElms.indexOf(e.target));
@@ -866,10 +868,11 @@
           d.title = documentTitle;
           hide(codeDiv);
           show(main);
-          isLockig();
+          locking();
           // d.removeEventListener('mousemove', lockerMouseMovments);
         }
       };
+    })(i,d,isLocked,isEnterPass,saved);
     }
     // });
 
@@ -906,8 +909,10 @@
     const colors = d.querySelectorAll("#colors input[type=color]");
     const arrayColors = [];
     const colorsLength = colors.length;
+    const rootStyle = styleRoot();
 
     for (let i = 0; i < colorsLength; i++) {
+      // (function(i){
       const e = colors[i];
       const compValue = compStyles.getPropertyValue("--color" + i).toUpperCase();
       arrayColors[i] = `--color${i}:${compValue}`;
@@ -923,8 +928,9 @@
         const index = Array.from(colors).indexOf(target);
         arrayColors[index] = `--color${index}:${target.value.toUpperCase()}`;
         setLocalStorageItems("custom-theme", arrayColors.filter(Boolean));
-        styleRoot();
+        rootStyle();
       });
+      // })(i);
     }
   }
 
@@ -998,7 +1004,7 @@
       setColors();
     }
     if (target === 'center-elements') {
-      centerElements()
+      centerElements();
     }
 
     if (target === 'rotate90') {
@@ -1185,31 +1191,31 @@
   };
 
   function mouseMoveEvents(z) {
-    if (!moving || target === null || !target.classList.contains("movable")) return;
+    if (!state.moving || state.target === null || !state.target.classList.contains("movable")) return;
     cursorPositions.x = z.clientX - 12;
     cursorPositions.y = z.clientY - 12;
     // check if height exceeded of main when moving element
-    if (main.offsetHeight < z.clientY + target.offsetHeight) {
+    if (main.offsetHeight < z.clientY + state.target.offsetHeight) {
       w.scrollTo(0, cursorPositions.y);
     }
 
-    mouseMoves(target);
+    mouseMoves(state.target);
   }
 
 
   function mouseUpEvents(e) {
-    moving = false;
+    state.moving = false;
 
     const eventTarget = e.target;
     // Make opacity (highlight).5 for links with class "movable" till next refresh(like visited)
     if (eventTarget.tagName === "A") eventTarget.style.opacity = ".5";
     // GLOBAL target!!!
-    if (!target) return;
-    const peTarget = getPE(target);
+    if (!state.target) return;
+    const peTarget = getPE(state.target);
     const targetClass = peTarget ? peTarget.className : null;
 
     if (targetClass) {
-      target.classList.remove("mousedown");
+      state.target.classList.remove("mousedown");
       root.classList.remove('hmove');
       if (!d.getElementById('bg-toggle').checked) main.classList.remove('lines');
       setLocalStorageItems('elementStyles', getStyles());
@@ -1238,11 +1244,11 @@
       const computedStyles = w.getComputedStyle(scalingTarget);
       const height = await computedStyles.getPropertyValue('height');
       const width = await computedStyles.getPropertyValue('width');
+      const parentElement = getPE(scalingTarget);
 
       scalingTarget.style.width = roundToTen(parseInt(width)) + "px";
       scalingTarget.style.height = roundToTen(parseInt(height)) + "px";
 
-      const parentElement = getPE(scalingTarget);
       parentElement.style.width = "auto";
       parentElement.style.height = "auto";
     }
