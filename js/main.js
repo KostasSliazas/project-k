@@ -909,10 +909,9 @@
     const colors = d.querySelectorAll("#colors input[type=color]");
     const arrayColors = [];
     const colorsLength = colors.length;
-    const rootStyle = styleRoot();
+    const rootStyle = styleRoot;
 
     for (let i = 0; i < colorsLength; i++) {
-      // (function(i){
       const e = colors[i];
       const compValue = compStyles.getPropertyValue("--color" + i).toUpperCase();
       arrayColors[i] = `--color${i}:${compValue}`;
@@ -930,7 +929,7 @@
         setLocalStorageItems("custom-theme", arrayColors.filter(Boolean));
         rootStyle();
       });
-      // })(i);
+
     }
   }
 
