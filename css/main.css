@@ -43,11 +43,7 @@ table {
 }
 
 :root {
-    --color0: #f7f7f7;
-    --color1: #f2f2f2;
-    --color2: #e0e6ed;
-    --color3: #c4d2d7;
-    --color4: #111111;
+    --color0: #EDF3FD; --color1: #E4EDED; --color2: #D4DDDD; --color3: #C4CDCD; --color4: #343D3D;
     --bg: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQIW2NgAAIAAAUAAR4f7BQAAAAASUVORK5CYII=);
     --repeat: no-repeat;
     --size: center/cover;
@@ -128,7 +124,6 @@ html {
     background-blend-mode: var(--blend);
 }
 
-.l,
 .m,
 .n,
 .u,
@@ -266,10 +261,11 @@ html {
 }
 
 .l {
-    --color0: #CED7E7;
-    --color1: #BCC5D5;
-    --color2: #9AA3B3;
-    --color3: #818A9A;
+    --color0:#EAF3FC;
+    --color1:#E3ECF5;
+    --color2:#D5DEE7;
+    --color3:#C7D0D9;
+    --color4:#343D46;
 }
 
 .l.bg-image {
