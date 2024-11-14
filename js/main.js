@@ -15,11 +15,13 @@
     }
   };
   const setLocalStorageItems = (item, value) => w.localStorage.setItem(item, JSON.stringify(value));
+  const negativeOrPositive = (number) => number > 0 ? `+${number}` : `${number}`
   const main = d.getElementById('main');
   const overlay = d.getElementById("overlay");
   const hide = elem => elem.classList.add('hide');
   const show = elem => elem.classList.remove('hide');
   let isLocked = getLocalStorageItems('isLocked');
+
   // Generate a random integer between min (inclusive) and max (exclusive)
   const getRandomInRange = (min, max) => Math.floor(Math.random() * (max - min)) + min;
 
@@ -85,7 +87,7 @@
   const bg = d.querySelector("#bg-file");
   const styles = ["width", "height", "left", "top"];
   const blockDefaults = "width:960px;height:24px;left:0px;top:0px;,width:84px;height:24px;left:432px;top:72px;,width:120px;height:48px;left:840px;top:48px;,width:108px;height:48px;left:624px;top:48px;,width:168px;height:48px;left:0px;top:96px;,width:180px;height:576px;left:324px;top:96px;,width:24px;height:144px;left:480px;top:528px;,width:156px;height:252px;left:168px;top:96px;,width:168px;height:24px;left:0px;top:144px;,width:168px;height:504px;left:0px;top:168px;,width:108px;height:48px;left:516px;top:48px;,width:108px;height:48px;left:732px;top:48px;,width:120px;height:24px;left:168px;top:72px;,width:144px;height:24px;left:288px;top:72px;,width:156px;height:324px;left:168px;top:348px;,width:960px;height:24px;left:0px;top:24px;,width:168px;height:24px;left:0px;top:72px;,width:168px;height:24px;left:0px;top:48px;,width:168px;height:96px;left:624px;top:96px;,width:348px;height:24px;left:168px;top:48px;,width:120px;height:576px;left:504px;top:96px;,width:168px;height:480px;left:624px;top:192px;,width:168px;height:576px;left:792px;top:96px;";
-  const textAreaDefaults = "Good day. You have the ability to reposition these blocks by clicking (-) and holding (the left) corner or by pressing the ` key on your keyboard. ([ctrl]+[`]=Reset to Defaults) Alternatively, double-click (+) to maximize them or minimize (-). You can also change the theme by right-clicking (context menu) and customize the colors and background image through the user interface. If locked, you can unlock it by clicking a few times on the background and then entering the default PIN: 520. Alternatively, you can clear the localStorage (since this project stores data such as PIN(password) and other settings in localStorage).";
+  const textAreaDefaults = "Good day. You have the ability to reposition these blocks by clicking (□ or ▭) and holding (the left) corner or by pressing the ` key on your keyboard. ([ctrl]+[`]=Reset to Defaults) Alternatively, double-click (▭) to maximize them or minimize (□). You can also change the theme by right-clicking (context menu) and customize the colors and background image through the user interface. If locked, you can unlock it by clicking a few times on the background and then entering the default PIN: 520. Alternatively, you can clear the localStorage (since this project stores data such as PIN(password) and other settings in localStorage).";
   const counts = {
     allMouseClicks: 0,
     clicks: 0
@@ -384,8 +386,7 @@
     }
     main.appendChild(svg);
 
-
-    const output = data[currentHour] + "°C";
+    const output = negativeOrPositive(data[currentHour]) + "°C";
 
     main.addEventListener("mouseover", function (e) {
       // Extracting the target element from the event object
@@ -394,11 +395,12 @@
       // Checking if the target element is a 'path'
       if (targetElement.tagName === "path") {
         // Retrieving temperature and hour data attributes from the target element
-        const temperature = targetElement.getAttribute("data-value") + "°C";
+        const temperature = negativeOrPositive(targetElement.getAttribute("data-value"));
+
         const hour = targetElement.getAttribute("data-hour");
 
         // Setting the text content of the 'stats' element with temperature
-        let statsText = temperature;
+        let statsText = temperature + "°C";
 
         // If hour data is available, formatting it with leading zero and appending it to statsText
         if (hour !== null) {
@@ -894,8 +896,8 @@
     d.getElementById('content').style.visibility = 'visible'; // Show the content
 
     //is time 43m passed and we are online?
-    if (setTimeStamp(43) && online) {
-      await getAll(api_url);
+    if (await setTimeStamp(77) && online) {
+      getAll(api_url);
     }
     // show the data to user
     stats(getLocalStorageItems("statsData"));
