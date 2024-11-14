@@ -897,7 +897,7 @@
 
     //is time 43m passed and we are online?
     if (await setTimeStamp(77) && online) {
-      getAll(api_url);
+      await getAll(api_url);
     }
     // show the data to user
     stats(getLocalStorageItems("statsData"));
