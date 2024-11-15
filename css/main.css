@@ -415,19 +415,11 @@ html {
     --blend: color-burn;
 }
 
-.f,
-.y,
-.b {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
+.f,.y,.b {font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;}
 
-.v,.g {font-family: kitten-corner, Andale Mono, AndaleMono, monospace;}
+.s,.v,.g {font-family: kitten-corner, Andale Mono, AndaleMono, monospace;}
 
-.o,
-.c,
-.d{
-    font-family: system-ui, -apple-system, "Segoe UI", "Noto Sans", Roboto, "Helvetica Neue", "Liberation Sans", Arial, sans-serif;
-}
+.o,.c,.d{font-family: system-ui, -apple-system, "Segoe UI", "Noto Sans", Roboto, "Helvetica Neue", "Liberation Sans", Arial, sans-serif;}
 
 .cute-mode .cute img,
 .e .movable:nth-child(1),
@@ -731,7 +723,7 @@ a {
 }
 
 .tetris {
-    clip-path: polygon(107% -7%, 107% 431px, 155px 431px, 155px 107%, -7% 107%, -7% -7%);
+    clip-path: polygon(107% -7%, 107% 431px, 143px 431px, 143px 107%, -7% 107%, -7% -7%);
 }
 
 .center h1,
