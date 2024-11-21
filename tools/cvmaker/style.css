@@ -3,6 +3,13 @@
   cursor: pointer;
 }
 
+.righ:empty,
+.left:empty {
+  min-block-size: 24px;
+  min-width: 48px;
+  background: #eee;
+}
+
 #upload_form {
   position: absolute;
   display: block;

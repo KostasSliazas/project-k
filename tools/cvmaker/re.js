@@ -1,52 +1,54 @@
 /*jshint esversion: 11 */
-(function () {
+(function (document) {
   'use strict';
-class DraggableManager {
-    constructor(containerSelector, draggableSelector) {
-        this.container = document.querySelector(containerSelector);
-        this.draggables = Array.from(this.container.querySelectorAll(draggableSelector));
-        this.draggedElement = null;
 
-        this.setupDragListeners();
+
+  class DraggableManager {
+    constructor(containerSelector, draggableSelector) {
+      this.container = document.querySelector(containerSelector);
+      this.draggables = Array.from(this.container.querySelectorAll(draggableSelector));
+      this.draggedElement = null;
+
+      this.setupDragListeners();
     }
 
     setupDragListeners() {
-        this.draggables.forEach(draggable => {
-            // draggable.setAttribute('draggable', 'true');
+      this.draggables.forEach(draggable => {
+        // draggable.setAttribute('draggable', 'true');
 
-            draggable.addEventListener('dragstart', this.handleDragStart.bind(this));
-            draggable.addEventListener('dragover', this.handleDragOver.bind(this));
-            draggable.addEventListener('drop', this.handleDrop.bind(this));
-        });
+        draggable.addEventListener('dragstart', this.handleDragStart.bind(this));
+        draggable.addEventListener('dragover', this.handleDragOver.bind(this));
+        draggable.addEventListener('drop', this.handleDrop.bind(this));
+      });
     }
 
     handleDragStart(event) {
-        this.draggedElement = event.target;
-        event.dataTransfer.setData('text/plain', ''); // required for Firefox
+      this.draggedElement = event.target;
+      event.dataTransfer.setData('text/plain', ''); // required for Firefox
     }
 
     handleDragOver(event) {
-        event.preventDefault(); // allow drop
+      event.preventDefault(); // allow drop
     }
 
     handleDrop(event) {
-        const targetElement = event.currentTarget;
-        if (this.draggedElement && this.draggedElement !== targetElement&&this.draggedElement.tagName === 'DIV') {
-            const targetIndex = this.draggables.indexOf(targetElement);
-            const draggedIndex = this.draggables.indexOf(this.draggedElement);
+      const targetElement = event.currentTarget;
+      if (this.draggedElement && this.draggedElement !== targetElement && this.draggedElement.tagName === 'DIV') {
+        const targetIndex = this.draggables.indexOf(targetElement);
+        const draggedIndex = this.draggables.indexOf(this.draggedElement);
 
-            // Swap elements in the array
-            [this.draggables[draggedIndex], this.draggables[targetIndex]] = [this.draggables[targetIndex], this.draggables[draggedIndex]];
+        // Swap elements in the array
+        [this.draggables[draggedIndex], this.draggables[targetIndex]] = [this.draggables[targetIndex], this.draggables[draggedIndex]];
 
-            // Update the visual order of draggables in the container
-            this.container.innerHTML = ''; // Clear container
-            this.draggables.forEach(draggable => this.container.appendChild(draggable));
-        }
+        // Update the visual order of draggables in the container
+        this.container.innerHTML = ''; // Clear container
+        this.draggables.forEach(draggable => this.container.appendChild(draggable));
+      }
     }
-}
+  }
 
-// Initialize DraggableManager
-const draggableManager = new DraggableManager('#cv', '.blokas');
+  // Initialize DraggableManager
+  const draggableManager = new DraggableManager('#cv', '.blokas');
 
   let iBytesUploaded = 0;
   let iBytesTotal = 0;
@@ -232,23 +234,24 @@ const draggableManager = new DraggableManager('#cv', '.blokas');
     }
     return element;
   }
-  function containsOnlyLetters(str) {
-      return /^[a-zA-Z\s]+$/.test(str);
-  }
-  function htmls() {
 
+  function containsOnlyLetters(str) {
+    return /^[a-zA-Z\s]+$/.test(str);
+  }
+
+  function htmls() {
     // set default name of file
     let ceds = 'cv-europass'
     const vardasNode = document.getElementById('vardas').childNodes[0];
     // if test pass only letters use safely make name of file as person name
-    if(containsOnlyLetters(vardasNode.nodeValue))
-    ceds = vardasNode.nodeValue.replace(/\s/g, '-') + '(CV)'; //(-) can be a good choice for file names words seperations + add (CV)
-
+    if (containsOnlyLetters(vardasNode.nodeValue))
+      ceds = vardasNode.nodeValue.replace(/\s/g, '-') + '(CV)'; //(-) can be a good choice for file names words seperations + add (CV)
+    const date = generateDate()
     // Remove elements using pure JavaScript
     document.querySelectorAll('.remove').forEach(function (element) {
       element.parentNode.removeChild(element);
     });
-    document.querySelectorAll('[draggable="true"]').forEach(e=>e.removeAttribute("draggable"))
+    document.querySelectorAll('[draggable="true"]').forEach(e => e.removeAttribute("draggable"))
     // Remove all script elements
     document.querySelectorAll('script').forEach(function (script) {
       script.parentNode.removeChild(script);
@@ -272,7 +275,16 @@ const draggableManager = new DraggableManager('#cv', '.blokas');
     htmlString = `<!DOCTYPE html>\n${htmlString}`;
 
     // Trigger file download
-    download(ceds, htmlString);
+    download(date + '_'+ ceds, htmlString);
+
+    // Call all extraction functions
+    extractBasics();
+    extractWorkExperience();
+    extractEducation();
+    extractSkills();
+    extractLanguages();
+    extractPersonalSkills();
+    exportToJson(jsonData, date + '_'+ ceds + '.json');
   }
 
   let ef;
@@ -385,11 +397,15 @@ const draggableManager = new DraggableManager('#cv', '.blokas');
     });
   });
 
+  let count = 0; // Declare the initial value
+  const increment = () => ++count; // Increment the count variable
+
   document.body.addEventListener('click', function (e) {
     const target = e.target;
 
-  if (target.classList.contains('rem')) {
-      if(target.parentNode.classList.contains('toka')){
+
+    if (target.classList.contains('rem')) {
+      if (target.parentNode.classList.contains('toka')) {
         const row = target.parentNode.getElementsByClassName('krow')
         const last = row[row.length - 1]
         return (row.length > 3) && last.remove()
@@ -399,29 +415,33 @@ const draggableManager = new DraggableManager('#cv', '.blokas');
 
     } else if (target.classList.contains('add')) {
 
-      if(target.parentNode.classList.contains('toka')){
+      if (target.parentNode.classList.contains('toka')) {
         const row = target.parentNode.getElementsByClassName('krow')
         const last = row[row.length - 1]
         return last.parentNode.appendChild(last.cloneNode(true))
       }
+      const node = target.parentNode;
+      const copy = node.cloneNode(true);
 
-      target.parentNode.before(target.parentNode.cloneNode(true));
+      const num = increment();
+      copy.getElementsByTagName('h3')[5].textContent = num + ' ' + copy.getElementsByTagName('h3')[5].textContent.replace(/\d+/g, '').trim();
+      node.before(copy);
 
-    } else if (target.tagName === 'H3'||target.tagName === 'H2'||target.parentNode.id === "number" || target.parentNode.id === "email") {
+    } else if (target.tagName === 'H3' || target.tagName === 'H2' || target.parentNode.id === "number" || target.parentNode.id === "email") {
 
       e.preventDefault()
 
       const input = document.createElement('input');
-      if(target.id) input.setAttribute('id', target.id);
-      if(target.className) input.setAttribute('class', target.className);
+      if (target.id) input.setAttribute('id', target.id);
+      if (target.className) input.setAttribute('class', target.className);
       input.setAttribute('type', 'text');
       input.value = target.textContent;
       target.replaceWith(input);
       input.select();
       input.focus();
 
-    } else if (target.tagName !== 'SELECT'&&target.tagName !== 'INPUT'){
-       // run all to make text not inputs function
+    } else if (target.tagName !== 'SELECT' && target.tagName !== 'INPUT') {
+      // run all to make text not inputs function
       outf();
     }
   }, true);
@@ -432,7 +452,7 @@ const draggableManager = new DraggableManager('#cv', '.blokas');
       e.preventDefault();
 
       const selectHtml =
-      `<select>
+        `<select>
         <option value="A1 – Breakthrough">A1 – Breakthrough</option>
         <option value="A2 – Waystage">A2 – Waystage</option>
         <option value="B1 – Threshold">B1 – Threshold</option>
@@ -455,41 +475,41 @@ const draggableManager = new DraggableManager('#cv', '.blokas');
     link.setAttribute('href', href);
     link.textContent = textContent;
     return link;
-}
+  }
 
-function replaceElementWithHeading(input, tagName) {
+  function replaceElementWithHeading(input, tagName) {
     const heading = document.createElement(tagName);
     if (input.className) heading.setAttribute('class', input.className);
     if (input.id) heading.setAttribute('id', input.id);
     if (input.value) heading.textContent = input.value;
     input.parentNode.replaceChild(heading, input);
-}
+  }
 
-function outf() {
+  function outf() {
     const cvInputs = document.querySelectorAll('select, input:not(#image-file)');
 
     cvInputs.forEach((input) => {
-        if (input.parentNode.id === 'email') {
-            const emailLink = createLinkElement(input.className, `mailto:${input.value}?subject=Darbas`, input.value);
-            input.parentNode.replaceChild(emailLink, input);
-        } else if (input.parentNode.id === 'number') {
-            const numberLink = createLinkElement(input.className, `tel:${input.value}`, input.value);
-            input.parentNode.replaceChild(numberLink, input);
-        } else if (input.tagName === 'SELECT') {
-            input.parentNode.innerHTML = input.options[input.selectedIndex].value;
-        } else if (input.tagName === 'INPUT') {
-            const tagName = input.classList.contains('left') ? 'h2' : 'h3';
-            replaceElementWithHeading(input, tagName);
-        }
-    });
-}
-
-
-  document.addEventListener('mouseup', (e)=>{
-    const target = e.target
-       if(target.tagName === 'OPTION'){
-         target.parentNode.parentNode.innerHTML = target.value;
+      if (input.parentNode.id === 'email') {
+        const emailLink = createLinkElement(input.className, `mailto:${input.value}?subject=Darbas`, input.value);
+        input.parentNode.replaceChild(emailLink, input);
+      } else if (input.parentNode.id === 'number') {
+        const numberLink = createLinkElement(input.className, `tel:${input.value}`, input.value);
+        input.parentNode.replaceChild(numberLink, input);
+      } else if (input.tagName === 'SELECT') {
+        input.parentNode.innerHTML = input.options[input.selectedIndex].value;
+      } else if (input.tagName === 'INPUT') {
+        const tagName = input.classList.contains('left') ? 'h2' : 'h3';
+        replaceElementWithHeading(input, tagName);
       }
+    });
+  }
+
+
+  document.addEventListener('mouseup', (e) => {
+    const target = e.target
+    if (target.tagName === 'OPTION') {
+      target.parentNode.parentNode.innerHTML = target.value;
+    }
   })
   document.addEventListener('keyup', function (e) {
     // const focusedInput = document.querySelector('input:focus');
@@ -500,4 +520,180 @@ function outf() {
     }
   });
 
-})();
+  const jsonData = {
+    "basics": {},
+    "work": [],
+    "volunteer": [],
+    "education": [],
+    "awards": [],
+    "certificates": [],
+    "publications": [],
+    "skills": [],
+    "languages": [],
+    "interests": [],
+    "references": [],
+    "projects": []
+  };
+
+  // Function to extract basic information (personal info)  >>>>>>>>>>>>>>>>>>>>>>>basics<<<<<<<<<<<<<<<<<<<<<<<
+  function extractBasics() {
+    const name = document.querySelector('#vardas') ? document.querySelector('#vardas').textContent.trim() : null;
+    const email = document.querySelector('#email a') ? document.querySelector('#email a').textContent.trim() : null;
+    const phone = document.querySelector('#number a') ? document.querySelector('#number a').textContent.trim() : null;
+    const address = document.querySelector('section:nth-child(6) h3') ? document.querySelector('section:nth-child(6) h3').textContent.trim() : null;
+    const city = document.querySelector('section:nth-child(7) h3') ? document.querySelector('section:nth-child(7) h3').textContent.trim() : null;
+    const image = document.querySelector('#preview') ? document.querySelector('#preview').src : null;
+
+    // Only add the fields if they exist
+    if (name) jsonData.basics.name = name;
+    if (email) jsonData.basics.email = email;
+    if (phone) jsonData.basics.phone = phone;
+    if (image) jsonData.basics.image = image;
+
+    if (address || city) {
+      jsonData.basics.location = {};
+      if (address) jsonData.basics.location.address = address;
+      if (city) jsonData.basics.location.city = city;
+      jsonData.basics.location.countryCode = 'LT'; // Assuming Lithuania, adjust as needed
+    }
+  }
+  // Function to extract WORK experience  >>>>>>>>>>>>>>>>>>>>>>>work<<<<<<<<<<<<<<<<<<<<<<<
+  function extractWorkExperience() {
+
+    const workElements = [...document.getElementsByClassName('darb')];
+
+    workElements.forEach((work) => {
+      let workExperience = {};
+
+      const dateStart = work?.getElementsByTagName('h3')[0]?.textContent.trim() || null;
+      const dateEnd = work?.getElementsByTagName('h3')[1]?.textContent.trim() || null;
+      const position = work?.getElementsByTagName('h3')[2]?.textContent.trim() || null;
+      const name = work?.getElementsByTagName('h3')[5]?.textContent.trim() || null;
+      const highlights = work?.getElementsByTagName('h3')[4]?.textContent.trim() || null;
+      const summary = work?.getElementsByTagName('h3')[3]?.textContent.trim() || null;
+
+      // const url = workSections[5]?.getElementsByTagName('h3')[0]?.textContent.trim() || null;
+      // Only add fields if they exist
+      if (dateStart) workExperience.startDate = dateStart;
+      if (dateEnd) workExperience.endDate = dateEnd;
+      if (position) workExperience.position = position;
+      if (summary) workExperience.summary = summary;
+      if (highlights) workExperience.highlights = [highlights];
+      if (name) workExperience.name = name;
+      // if (url) workExperience.url = url;
+
+      if (Object.keys(workExperience).length > 0) {
+        jsonData.work.push(workExperience);
+      }
+    });
+  }
+
+  // Function to extract education information >>>>>>>>>>>>>>>>>>>>>>>education<<<<<<<<<<<<<<<<<<<<<<<
+  function extractEducation() {
+    const educationSections = [...document.getElementsByClassName('prof')];
+
+    educationSections.forEach((eduSection) => {
+      let education = {};
+
+      const dateStart = eduSection?.getElementsByTagName('h3')[0]?.textContent.trim() || null;
+      const dateEnd = eduSection?.getElementsByTagName('h3')[1]?.textContent.trim() || null;
+      const studyType = eduSection?.getElementsByTagName('h3')[2]?.textContent.trim() || null;
+      const area = eduSection?.getElementsByTagName('h3')[3]?.textContent.trim() || null;
+      const institution = eduSection?.getElementsByTagName('h3')[4]?.textContent.trim() || null;
+      const score = eduSection?.getElementsByTagName('h3')[5]?.textContent.trim() || null;
+
+      // Only add fields if they exist
+      if (dateStart) education.startDate = dateStart;
+      if (dateEnd) education.endDate = dateEnd;
+      if (studyType) education.studyType = studyType;
+      if (area) education.area = area;
+      if (institution) education.institution = institution;
+      if (score) education.score = score;
+
+      if (Object.keys(education).length > 0) {
+        jsonData.education.push(education);
+      }
+    });
+  }
+
+  // Function to extract skills
+  function extractSkills() {
+    const skillsSections = document.querySelectorAll('.blokas .num');
+
+    skillsSections.forEach((skillSection) => {
+      let skill = {};
+
+      const name = skillSection.textContent.trim();
+      // Add skill only if it exists
+      if (name) {
+        skill.name = name;
+        skill.level = 'N/A'; // You can adjust if you have skill levels
+        skill.keywords = ['N/A']; // Adjust if you have specific keywords for skills
+
+        jsonData.skills.push(skill);
+      }
+    });
+  }
+
+  // Function to extract languages
+  function extractLanguages() {
+    const languageSections = document.querySelectorAll('.toka .kalbos .krow');
+
+    languageSections.forEach((langSection) => {
+      let language = {};
+
+      const languageName = langSection.querySelector('.langue') ? langSection.querySelector('.langue').textContent.trim() : null;
+      const fluency = 'N/A'; // Default value for fluency
+
+      if (languageName) {
+        language.language = languageName;
+        language.fluency = fluency;
+
+        jsonData.languages.push(language);
+      }
+    });
+  }
+
+  // Function to extract personal skills and competences
+  function extractPersonalSkills() {
+    const personalSkillSection = document.querySelector('.toka');
+
+    // Extract specific personal skills or interests if needed
+    // For example, adding a random personal interest:
+    jsonData.interests.push({
+      "name": "Personal Skill Example",
+      "keywords": ["Skill 1", "Skill 2"]
+    });
+  }
+
+  function generateDate() {
+    const date = new Date(); // Get the current date
+    const year = date.getFullYear(); // Get the full year (4 digits)
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Get the month (0-based, so add 1 and pad to 2 digits)
+    const day = String(date.getDate()).padStart(2, '0'); // Get the day of the month and pad to 2 digits
+
+    return `${year}-${month}-${day}`; // Return the formatted date
+  }
+
+  function exportToJson(data, fileName = 'data.json') {
+    // Convert the data object to a JSON string
+    const jsonString = JSON.stringify(data, null, 2);
+
+    // Create a Blob with the JSON data
+    const blob = new Blob([jsonString], {
+      type: 'application/json'
+    });
+
+    // Create a download link
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = fileName;
+
+    // Trigger the download
+    link.click();
+
+    // Clean up
+    URL.revokeObjectURL(link.href);
+  }
+
+})(document);

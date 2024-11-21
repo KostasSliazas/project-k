@@ -1,56 +1,505 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
-    <meta charset="utf-8" />
-    <title>CV Europass</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAAAAAA6mKC9AAAAAmJLR0QA94lURI0AAAAJcEhZcwAACxMAAAsTAQCanBgAAAAHdElNRQfhCAMVKBRuY53kAAAAp0lEQVQYGQXBkQLFMAyG0bzlMFgsBovB4I/FYnE4HN5HGA6Hn95zDAAAgHtjwJ15A/B4yKBaViuAPbKM3TU1+wYy47TPpd5L/sIhf+2K6fvXlMnT1DDlKNhd/p6RhVWOE3CNXRUXNqrfwIrqTf5ilXEBT5u9qYEpxwJo6jEEdoUc+NaYigsMVx7t8Ltr+gfG6pqa7XVVBwzkMcJ/FSHAgOdc5w1rAfwBOKCycaxSaL4AAAAASUVORK5CYII=" rel="icon" type="image/x-icon" />
-    <style>
-      body {
+<head>
+  <meta charset="utf-8">
+  <title>CV Europass</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAAAAAA6mKC9AAAAAmJLR0QA94lURI0AAAAJcEhZcwAACxMAAAsTAQCanBgAAAAHdElNRQfhCAMVKBRuY53kAAAAp0lEQVQYGQXBkQLFMAyG0bzlMFgsBovB4I/FYnE4HN5HGA6Hn95zDAAAgHtjwJ15A/B4yKBaViuAPbKM3TU1+wYy47TPpd5L/sIhf+2K6fvXlMnT1DDlKNhd/p6RhVWOE3CNXRUXNqrfwIrqTf5ilXEBT5u9qYEpxwJo6jEEdoUc+NaYigsMVx7t8Ltr+gfG6pqa7XVVBwzkMcJ/FSHAgOdc5w1rAfwBOKCycaxSaL4AAAAASUVORK5CYII=" rel="icon" type="image/x-icon">
+  <style>
+    body {
+      margin: 0;
+      font: 16px/1.5 Calibri, Candara, Segoe, Segoe UI, Optima, Arial, sans-serif;
+      background: #EFEFFF;
+      color: #111;
+    }
+
+    #vardas,
+    .kcell h2 {
+      text-transform: capitalize;
+    }
+
+    #email {
+      text-transform: lowercase;
+    }
+
+    img {
+      height: 116px;
+      width: 116px;
+      background: #fff;
+      padding: 2px;
+      box-shadow: 0 0 0 5px #fff, 0 0 0 6px #d7d8de;
+    }
+
+    h1 {
+      font-size: 1.5em;
+      line-height: 1;
+      margin: 1em 0 0;
+    }
+
+    h2,
+    h3 {
+      font-size: 1em;
+    }
+
+    blockquote,
+    label,
+    p,
+    pre,
+    td,
+    th,
+    ul {
+      font-size: 1em;
+      line-height: 1.5;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p {
+      font-weight: 400;
+      margin: 0 6px;
+    }
+
+    #header .title {
+      letter-spacing: 0.125em;
+      color: #90939e;
+    }
+
+    .ktable h3,
+    .tr {
+      text-align: right;
+    }
+
+    .title {
+      letter-spacing: 0.125em;
+      font-weight: 900;
+      direction: rtl;
+    }
+
+    .progress {
+      width: auto;
+      display: block;
+      position: relative;
+      padding: 2px 4px 2px 2px;
+      margin: 0;
+      color: #111;
+    }
+
+    #photo,
+    .percent {
+      position: absolute;
+    }
+
+    .percent {
+      display: block;
+      overflow: hidden;
+    }
+
+    .kcell,
+    .percent {
+      text-indent: 4px;
+    }
+
+    .langue {
+      margin: 0 24px;
+    }
+
+    .hm {
+      -webkit-box-shadow: -12px 0 0 1px #d7d8de;
+      box-shadow: -12px 0 0 1px #d7d8de;
+    }
+
+    #photo {
+      padding: 24px;
+      width: 120px;
+      height: 120px;
+      top: 0;
+      right: 0;
+    }
+
+    #cv input {
+      line-height: 24px;
+      height: 24px;
+      border: 0;
+      padding: 0;
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2);
+    }
+
+    #cv,
+    #header,
+    #main,
+    .left,
+    .righ,
+    section {
+      margin: 0 auto;
+      position: relative;
+    }
+
+    #header,
+    #main,
+    section {
+      width: 960px;
+      min-height: 24px;
+    }
+
+    #he,
+    #header {
+      height: 168px;
+      overflow: hidden;
+    }
+
+    .left {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      float: left;
+      width: 324px;
+      text-align: right;
+      padding: 0 24px;
+    }
+
+    .righ {
+      float: right;
+      letter-spacing: 1px;
+      width: 576px;
+      margin-right: 12px;
+    }
+
+    #main {
+      margin: 24px auto;
+      padding-bottom: 1px;
+      font-variant-caps: all-small-caps;
+    }
+
+    #header .title {
+      text-shadow: -1px -1px 0 #f7f7f7, -2px -2px 2px #eee, 1px 1px 0 #f7f7f7, 2px 2px 2px #aaa;
+      letter-spacing: 2px;
+      padding: 24px 0;
+      position: relative;
+    }
+
+    .blokas {
+      display: block;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .blokas,
+    #header {
+      -webkit-box-shadow: 0 0 0 1px #d7d8de, 0 0 0 1px #fff inset;
+      box-shadow: 0 0 0 1px #d7d8de, 0 0 0 1px #fff inset;
+    }
+
+    #header {
+      background: rgba(255, 255, 255, 0.5);
+    }
+
+    .darb:last-child,
+    .prof:last-child {
+      box-shadow: none;
+    }
+
+    .darb,
+    .prof {
+      box-shadow: 0 -1px 0 0 #d7d8de inset;
+    }
+
+    a {
+      color: #767;
+      font-variant-caps: initial;
+    }
+
+    a:focus {
+      outline: 0;
+    }
+
+    a:active,
+    a:focus,
+    a:link,
+    a:visited {
+      color: #767;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: #000;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    .ktable {
+      width: 936px;
+      float: left;
+      padding: 0 0 1px;
+      margin: 0 0 1em 0;
+    }
+
+    .kcell,
+    .kcelli {
+      box-sizing: border-box;
+      float: left;
+      height: 24px;
+      overflow: hidden;
+      line-height: 24px;
+    }
+
+    .kcell {
+      text-align: left;
+      -webkit-box-shadow: 0 0 0 1px #ddd;
+      box-shadow: 0 0 0 1px #ddd;
+      background: #fff;
+      text-overflow: ellipsis;
+      font-size: 0.75em;
+    }
+
+    .kcelli {
+      width: 372px;
+      box-shadow: -1px 0 0 0 #d7d8de inset;
+    }
+
+    .lent {
+      width: 112px;
+    }
+
+    .titlelentbig {
+      width: 224px;
+    }
+
+    .titlelent {
+      height: 48px;
+    }
+
+    .hauto {
+      text-align: center;
+    }
+
+    section:after {
+      content: " ";
+      visibility: hidden;
+      display: block;
+      height: 0;
+      width: 0;
+      clear: both;
+      font-size: 0;
+      overflow: hidden;
+    }
+
+    .blokas>section:first-of-type {
+      background: #fff;
+    }
+
+    section {
+      background-image: -ms-linear-gradient(left, rgba(245, 245, 245, 0.4) 360px, #d7d8de 360px, #d7d8de 361px, #fff 361px);
+      background-image: -webkit-linear-gradient(left, rgba(245, 245, 245, 0.4) 360px, #d7d8de 360px 361px, #fff 361px);
+      background-image: -moz-linear-gradient(left, rgba(245, 245, 245, 0.4) 360px, #d7d8de 360px 361px, #fff 361px);
+      background-image: -o-linear-gradient(left, rgba(245, 245, 245, 0.4) 360px, #d7d8de 360px 361px, #fff 361px);
+      background-image: linear-gradient(to right, rgba(245, 245, 245, 0.4) 360px, #d7d8de 360px 361px, #fff 361px);
+    }
+
+    .blokas section:last-child {
+      border-bottom: 1px solid #d7d8de;
+    }
+
+    .fl {
+      display: block;
+      width: auto;
+      margin: 0 24px 0 0;
+      float: left;
+    }
+
+    @media only screen and (max-width: 960px) {
+      .langue {
         margin: 0;
-        font: 16px/1.5 Calibri, Candara, Segoe, Segoe UI, Optima, Arial, sans-serif;
-        background: #EFEFFF;
-        color: #111;
       }
 
-      #vardas,
-      .kcell h2 {
-        text-transform: capitalize;
+      .blokas,
+      section {
+        background: none;
       }
 
-      #email {
-        text-transform: lowercase;
+      .left,
+      .righ {
+        clear: both;
+        width: 100%;
+        padding: 0;
+        height: auto !important;
+        overflow: hidden;
+        text-align: left;
       }
 
+      #main,
+      section {
+        width: auto;
+      }
+
+      .left,
+      .righ {
+        position: relative;
+        float: none;
+        margin: 0 6px;
+      }
+
+      #main {
+        display: block;
+        margin: 0 auto;
+      }
+
+      #cv {
+        padding: 6px;
+      }
+
+      #header {
+        display: block;
+        min-height: 168px;
+        height: auto;
+        width: auto;
+      }
+
+      .kbody,
+      .krow {
+        width: 100%;
+        margin: 0;
+      }
+
+      .blokas>section:first-of-type .left,
+      .kcell {
+        margin: 0;
+      }
+
+      .ktable {
+        width: 100%;
+      }
+
+      .ktable h3 {
+        direction: ltr;
+        text-align: left;
+        text-indent: 0;
+      }
+
+      .kal {
+        width: 15%;
+      }
+
+      .kcell {
+        width: 17%;
+        -ms-word-break: break-all;
+        word-break: break-all;
+        -webkit-hyphens: auto;
+        -moz-hyphens: auto;
+        hyphens: auto;
+      }
+
+      .titlelentbig {
+        width: 34%;
+      }
+
+      .titlelent {
+        font-size: 0.625em;
+        line-height: 2.4;
+      }
+
+      #photo,
+      #preview,
       img {
-        height: 116px;
-        width: 116px;
-        background: #fff;
-        padding: 2px;
-        box-shadow: 0 0 0 5px #fff, 0 0 0 6px #d7d8de;
+        margin: 0 auto;
+        overflow: hidden;
+        text-align: center;
+        position: relative;
       }
 
-      h1 {
-        font-size: 1.5em;
-        line-height: 1;
-        margin: 1em 0 0;
+      .hi {
+        display: none;
       }
 
+      .num,
+      h1,
       h2,
-      h3 {
-        font-size: 1em;
+      span.cen {
+        text-align: center;
       }
 
-      blockquote,
-      label,
-      p,
-      pre,
-      td,
-      th,
-      ul {
-        font-size: 1em;
-        line-height: 1.5;
+      .hm {
+        -webkit-box-shadow: 0 0 0 1px #d7d8de, 0 0 0 2px #fff;
+        box-shadow: 0 0 0 1px #d7d8de, 0 0 0 2px #fff;
+      }
+    }
+
+    @media print {
+
+      #main,
+      #header,
+      .blokas,
+      section,
+      body,
+      html {
+        min-width: 100%;
+        max-width: 100%;
+        background-color: transparent;
+        background-image: none !important;
+        background: 0 0 !important;
+        border: 0 !important;
+        box-shadow: none;
+        width: 100%;
+      }
+
+      #header {
+        min-height: 144px;
+      }
+
+      #cv,
+      #main,
+      #photo {
+        border: 0;
+      }
+
+      .kcell {
+        border: 1px solid #eee;
+        box-sizing: border-box;
+      }
+
+      #cv,
+      #main,
+      body,
+      html {
+        margin: 0;
+        width: auto;
+      }
+
+      #cv,
+      #header,
+      #main,
+      .left,
+      .righ,
+      body,
+      html {
+        padding: 0;
+        height: auto;
+      }
+
+      #header,
+      .left {
+        margin: 0;
+        width: 23%;
+      }
+
+      #header {
+        width: auto;
+      }
+
+      .righ {
+        width: 75%;
+        margin: 0 0 0 2%;
+      }
+
+      .hm,
+      .blokas,
+      .kcelli {
+        box-shadow: none;
       }
 
       h1,
@@ -60,667 +509,234 @@
       h5,
       h6,
       p {
-        font-weight: 400;
-        margin: 0 6px;
+        font-size: 10pt;
       }
 
-      #header .title {
-        letter-spacing: 0.125em;
-        color: #90939e;
-      }
-
-      .ktable h3,
-      .tr {
-        text-align: right;
-      }
-
-      .title {
-        letter-spacing: 0.125em;
-        font-weight: 900;
-        direction: rtl;
-      }
-
-      .progress {
-        width: auto;
-        display: block;
-        position: relative;
-        padding: 2px 4px 2px 2px;
-        margin: 0;
-        color: #111;
-      }
-
-      #photo,
-      .percent {
-        position: absolute;
-      }
-
-      .percent {
-        display: block;
-        overflow: hidden;
-      }
-
+      .kbody,
       .kcell,
-      .percent {
-        text-indent: 4px;
-      }
-
-      .langue {
-        margin: 0 24px;
-      }
-
-
-
-      .hm {
-        -webkit-box-shadow: -12px 0 0 1px #d7d8de;
-        box-shadow: -12px 0 0 1px #d7d8de;
-      }
-
-      #photo {
-        padding: 24px;
-        width: 120px;
-        height: 120px;
-        top: 0;
-        right: 0;
-      }
-
-      #cv input {
-        line-height: 24px;
-        height: 24px;
-        border: 0;
-        padding: 0;
-        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2);
-      }
-
-      #cv,
-      #header,
-      #main,
-      .left,
-      .righ,
-      section {
-        margin: 0 auto;
-        position: relative;
-      }
-
-      #header,
-      #main,
-      section {
-        width: 960px;
-        min-height: 24px;
-      }
-
-      #he,
-      #header {
-        height: 168px;
-        overflow: hidden;
-      }
-
-      .left {
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        float: left;
-        width: 324px;
-        text-align: right;
-        padding: 0 24px;
-      }
-
-      .righ {
-        float: right;
-        letter-spacing: 1px;
-        width: 576px;
-        margin-right: 12px;
-      }
-
-      #main {
-        margin: 24px auto;
-        padding-bottom: 1px;
-        font-variant-caps: all-small-caps;
-      }
-
-      #header .title {
-        text-shadow: -1px -1px 0 #f7f7f7, -2px -2px 2px #eee, 1px 1px 0 #f7f7f7, 2px 2px 2px #aaa;
-        letter-spacing: 2px;
-        padding: 24px 0;
-        position: relative;
-      }
-
-      .blokas {
-        display: block;
-        position: relative;
-        overflow: hidden;
-      }
-
-      .blokas,
-      #header {
-        -webkit-box-shadow: 0 0 0 1px #d7d8de, 0 0 0 1px #fff inset;
-        box-shadow: 0 0 0 1px #d7d8de, 0 0 0 1px #fff inset;
-      }
-
-      #header {
-        background: rgba(255, 255, 255, 0.5);
-      }
-
-      .darb:last-child,
-      .prof:last-child {
-        box-shadow: none;
-      }
-
-      .darb,
-      .prof {
-        box-shadow: 0 -1px 0 0 #d7d8de inset;
-      }
-
-      a {
-        color: #767;
-        font-variant-caps: initial;
-      }
-
-      a:focus {
-        outline: 0;
-      }
-
-      a:active,
-      a:focus,
-      a:link,
-      a:visited {
-        color: #767;
-        text-decoration: none;
-      }
-
-      a:hover {
-        color: #000;
-        text-decoration: underline;
-        cursor: pointer;
-      }
-
+      .krow,
       .ktable {
-        width: 936px;
-        float: left;
-        padding: 0 0 1px;
-        margin: 0 0 1em 0;
+        display: block;
+        overflow: hidden;
+        width: 100%;
+        background: none;
       }
 
       .kcell,
       .kcelli {
-        box-sizing: border-box;
-        float: left;
-        height: 24px;
-        overflow: hidden;
-        line-height: 24px;
-      }
-
-      .kcell {
-        text-align: left;
-        -webkit-box-shadow: 0 0 0 1px #ddd;
-        box-shadow: 0 0 0 1px #ddd;
-        background: #fff;
-        text-overflow: ellipsis;
-        font-size: 0.75em;
-      }
-
-      .kcelli {
-        width: 372px;
-        box-shadow: -1px 0 0 0 #d7d8de inset;
-      }
-
-      .lent {
-        width: 112px;
+        width: 15%;
+        -ms-word-break: break-all;
+        word-break: break-all;
+        -webkit-hyphens: auto;
+        -moz-hyphens: auto;
+        hyphens: auto;
       }
 
       .titlelentbig {
-        width: 224px;
+        width: 30%;
       }
 
-      .titlelent {
-        height: 48px;
+      #main:before {
+        font-size: 24pt;
       }
+    }
+  </style>
+</head>
 
-      .hauto {
-        text-align: center;
-      }
-
-      section:after {
-        content: " ";
-        visibility: hidden;
-        display: block;
-        height: 0;
-        width: 0;
-        clear: both;
-        font-size: 0;
-        overflow: hidden;
-      }
-
-      .blokas>section:first-of-type {
-        background: #fff;
-      }
-
-      section {
-        background-image: -ms-linear-gradient(left, rgba(245, 245, 245, 0.4) 360px, #d7d8de 360px, #d7d8de 361px, #fff 361px);
-        background-image: -webkit-linear-gradient(left, rgba(245, 245, 245, 0.4) 360px, #d7d8de 360px 361px, #fff 361px);
-        background-image: -moz-linear-gradient(left, rgba(245, 245, 245, 0.4) 360px, #d7d8de 360px 361px, #fff 361px);
-        background-image: -o-linear-gradient(left, rgba(245, 245, 245, 0.4) 360px, #d7d8de 360px 361px, #fff 361px);
-        background-image: linear-gradient(to right, rgba(245, 245, 245, 0.4) 360px, #d7d8de 360px 361px, #fff 361px);
-      }
-
-      .blokas section:last-child {
-        border-bottom: 1px solid #d7d8de;
-      }
-
-      @media only screen and (max-width: 960px) {
-        .langue {
-          margin: 0;
-        }
-
-        .blokas,
-        section {
-          background: none;
-        }
-
-        .left,
-        .righ {
-          clear: both;
-          width: 100%;
-          padding: 0;
-          height: auto !important;
-          overflow: hidden;
-          text-align: left;
-        }
-
-        #main,
-        section {
-          width: auto;
-        }
-
-        .left,
-        .righ {
-          position: relative;
-          float: none;
-          margin: 0 6px;
-        }
-
-        #main {
-          display: block;
-          margin: 0 auto;
-        }
-
-        #cv {
-          padding: 6px;
-        }
-
-        #header {
-          display: block;
-          min-height: 168px;
-          height: auto;
-          width: auto;
-        }
-
-        .kbody,
-        .krow {
-          width: 100%;
-          margin: 0;
-        }
-
-        .blokas>section:first-of-type .left,
-        .kcell {
-          margin: 0;
-        }
-
-        .ktable {
-          width: 100%;
-        }
-
-        .ktable h3 {
-          direction: ltr;
-          text-align: left;
-          text-indent: 0;
-        }
-
-        .kal {
-          width: 15%;
-        }
-
-        .kcell {
-          width: 17%;
-          -ms-word-break: break-all;
-          word-break: break-all;
-          -webkit-hyphens: auto;
-          -moz-hyphens: auto;
-          hyphens: auto;
-        }
-
-        .titlelentbig {
-          width: 34%;
-        }
-
-        .titlelent {
-          font-size: 0.625em;
-          line-height: 2.4;
-        }
-
-        #photo,
-        #preview,
-        img {
-          margin: 0 auto;
-          overflow: hidden;
-          text-align: center;
-          position: relative;
-        }
-
-        .hi {
-          display: none;
-        }
-
-        .num,
-        h1,
-        h2,
-        span.cen {
-          text-align: center;
-        }
-
-        .hm {
-          -webkit-box-shadow: 0 0 0 1px #d7d8de, 0 0 0 2px #fff;
-          box-shadow: 0 0 0 1px #d7d8de, 0 0 0 2px #fff;
-        }
-      }
-
-      @media print {
-
-        #main,
-        #header,
-        .blokas,
-        section,
-        body,
-        html {
-          min-width: 100%;
-          max-width: 100%;
-          background-color: transparent;
-          background-image: none !important;
-          background: 0 0 !important;
-          border: 0 !important;
-          box-shadow: none;
-          width: 100%;
-        }
-
-        #header {
-          min-height: 144px;
-        }
-
-        #cv,
-        #main,
-        #photo {
-          border: 0;
-        }
-
-        .kcell {
-          border: 1px solid #eee;
-          box-sizing: border-box;
-        }
-
-        #cv,
-        #main,
-        body,
-        html {
-          margin: 0;
-          width: auto;
-        }
-
-        #cv,
-        #header,
-        #main,
-        .left,
-        .righ,
-        body,
-        html {
-          padding: 0;
-          height: auto;
-        }
-
-        #header,
-        .left {
-          margin: 0;
-          width: 23%;
-        }
-
-        #header {
-          width: auto;
-        }
-
-        .righ {
-          width: 75%;
-          margin: 0 0 0 2%;
-        }
-
-        .hm,
-        .blokas,
-        .kcelli {
-          box-shadow: none;
-        }
-
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6,
-        p {
-          font-size: 10pt;
-        }
-
-        .kbody,
-        .kcell,
-        .krow,
-        .ktable {
-          display: block;
-          overflow: hidden;
-          width: 100%;
-          background: none;
-        }
-
-        .kcell,
-        .kcelli {
-          width: 15%;
-          -ms-word-break: break-all;
-          word-break: break-all;
-          -webkit-hyphens: auto;
-          -moz-hyphens: auto;
-          hyphens: auto;
-        }
-
-        .titlelentbig {
-          width: 30%;
-        }
-
-        #main:before {
-          font-size: 24pt;
-        }
-      }
-    </style>
-  </head>
-
-  <body>
-    <div id="main">
-      <div id="header">
-        <div id="he" class="left">
-          <h1 class="title">Europass CV</h1>
-        </div>
-        <div id="photo"><img src="person.png" id="preview" alt=""></div>
+<body>
+  <div id="main">
+    <div id="header">
+      <div id="he" class="left">
+        <h1 class="title">Europass CV</h1>
       </div>
-      <div id="cv"><div class="blokas" draggable="true">
+      <div id="photo"><img src="person.png" id="preview" alt=""></div>
+    </div>
+    <div id="cv">
+      <div class="blokas" draggable="true">
+        <section>
+          <h2 class="left num hm">Personal Information</h2>
+        </section>
+        <section>
+          <h2 class="left hi">Profession Field</h2>
+          <h3 class="righ num">IT, Telecommunications, Programming, Other</h3>
+        </section>
+        <section>
+          <h2 class="left hi">Name / Surname</h2>
+          <h3 id="vardas" class="righ num">Europass Maker</h3>
+        </section>
+        <section>
+          <h2 class="left hi">Phone Number(s)</h2>
+          <h3 class="righ num" id="number"><a href="tel:0000000000000000000">0000000000000000000</a></h3>
+        </section>
+        <section>
+          <h2 class="left hi">Email Address(es)</h2>
+          <h3 class="righ" id="email"><a href="mailto:e-pastas@gmail.com?subject=WORK">e-pastas@gmail.com</a></h3>
+        </section>
+        <section>
+          <h2 class="left">Address(es)</h2>
+          <h3 class="righ">Address Address, Address Address (Address)</h3>
+        </section>
+        <section>
+          <h2 class="left">Nationality</h2>
+          <h3 class="righ">Nationality</h3>
+        </section>
+        <section>
+          <h2 class="left">Date of Birth</h2>
+          <h3 class="righ">Year Month Day</h3>
+        </section>
+        <section>
+          <h2 class="left">Gender</h2>
+          <h3 class="righ">Gender</h3>
+        </section>
+      </div>
+      <div class="blokas" draggable="true">
+        <section>
+          <h2 class="left num hm">Work Experience</h2>
+        </section>
+        <div class="darb">
           <section>
-            <h2 class="left num hm">Profession Field</h2>
+            <h2 class="left">Dates</h2>
+            <h3 class="righ fl">Start</h3>
+            <h3 class="righ fl">End</h3>
           </section>
           <section>
-            <h3 class="righ num">IT, Telecommunications, Programming, Other</h3>
-          </section>
-        </div><div class="blokas" draggable="true">
-          <section>
-            <h2 class="left num hm">Personal Information</h2>
-          </section>
-          <section>
-            <h2 class="left hi">Name / Surname</h2>
-            <h3 id="vardas" class="righ num">Europass Maker</h3>
-          </section>
-          <section>
-            <h2 class="left hi">Phone Number(s)</h2>
-            <h3 class="righ num" id="number"><a href="tel:0000000000000000000">0000000000000000000</a></h3>
-          </section>
-          <section>
-            <h2 class="left hi">Email Address(es)</h2>
-            <h3 class="righ" id="email"><a href="mailto:e-pastas@gmail.com?subject=WORK">e-pastas@gmail.com</a></h3>
-          </section>
-          <section>
-            <h2 class="left">Address(es)</h2>
-            <h3 class="righ">Address Address, Address Address (Address)</h3>
-          </section>
-          <section>
-            <h2 class="left">Nationality</h2>
-            <h3 class="righ">Nationality</h3>
-          </section>
-          <section>
-            <h2 class="left">Date of Birth</h2>
-            <h3 class="righ">Year Month Day</h3>
-          </section>
-          <section>
-            <h2 class="left">Gender</h2>
-            <h3 class="righ">Gender</h3>
-          </section>
-        </div><div class="blokas" draggable="true">
-          <section>
-            <h2 class="left num hm">Work Experience</h2>
-          </section>
-          <div id="darb" class="darb">
-            <section>
-              <h2 class="left">Dates</h2>
-              <h3 class="righ">Date - Date</h3>
-            </section>
-            <section>
-              <h2 class="left">Profession or Position</h2>
-              <h3 class="righ">CV Template Creation</h3>
-            </section>
-            <section>
-              <h2 class="left">Main Activities and Responsibilities</h2>
-              <h3 class="righ">CV Template Creation</h3>
-            </section>
-            <section>
-              <h2 class="left">Employer Name and Address</h2>
-              <h3 class="righ">CV Maker, Europe, Lithuania</h3>
-            </section>
-            <section>
-              <h2 class="left">Employer's Field of Activity or Industry Sector</h2>
-              <h3 class="righ">Employer's Field of Activity or Industry Sector</h3>
-            </section>
-          </div>
-        </div><div class="blokas" draggable="true">
-          <section>
-            <h2 class="left num hm">Education</h2>
-          </section>
-          <div id="prof" class="prof">
-            <section>
-              <h2 class="left">Dates</h2>
-              <h3 class="righ">Date - Date</h3>
-            </section>
-            <section>
-              <h2 class="left">Qualification</h2>
-              <h3 class="righ">Qualification</h3>
-            </section>
-            <section>
-              <h2 class="left">Key Subjects / Professional Skills</h2>
-              <h3 class="righ">General Subjects - Computer Science, Foreign Language (English) Professional Subjects - Computer Hardware Setup, Maintenance, Servicing</h3>
-            </section>
-            <section>
-              <h2 class="left">Name and Type of Educational Provider</h2>
-              <h3 class="righ">School Address Address, Address (Country)</h3>
-            </section>
-            <section>
-              <h2 class="left">Qualification Level According to National or International Classification</h2>
-              <h3 class="righ">ISCED7</h3>
-            </section>
-          </div>
-        </div><div class="blokas" draggable="true">
-          <section>
-            <h2 class="left num hm">Technical Skills and Competences</h2>
-          </section>
-          <section>
+            <h2 class="left">Profession or Position</h2>
             <h3 class="righ">CV Template Creation</h3>
           </section>
-        </div><div class="blokas topr" draggable="true">
           <section>
-            <h2 class="left num hm">Computer Skills and Competences</h2>
+            <h2 class="left">Main Activities and Responsibilities</h2>
+            <h3 class="righ">CV Template Creation</h3>
           </section>
           <section>
-            <h3 class="righ sss">Operating Systems: Unix/Linux, Windows, Mac OS, Android.</h3>
-          </section>
-        </div><div class="blokas" draggable="true">
-          <section>
-            <h2 class="left num hm">Social Skills and Competences</h2>
+            <h2 class="left">Employer Name and Address</h2>
+            <h3 class="righ">CV Maker, Europe, Lithuania</h3>
           </section>
           <section>
-            <h3 class="righ">Good communication skills; Ability to work in a team and independently</h3>
+            <h2 class="left">Employer's Field of Activity or Industry Sector</h2>
+            <h3 class="righ">Employer's Field of Activity or Industry Sector</h3>
           </section>
-        </div><div class="blokas toka" draggable="true">
+          <!--            <section>
+              <h2 class="left">Employer's homepage</h2>
+              <h3 class="righ">Employer's homepage</h3>
+            </section>-->
+        </div>
+      </div>
+      <div class="blokas" draggable="true">
+        <section>
+          <h2 class="left num hm">Education</h2>
+        </section>
+        <div id="prof" class="prof">
           <section>
-            <h2 class="left num hm">Personal Skills and Competences</h2>
+            <h2 class="left">Dates</h2>
+            <h3 class="righ fl">Start</h3>
+            <h3 class="righ fl">End</h3>
           </section>
           <section>
-            <h2 class="left">Native Language(s)</h2>
-            <h3 class="righ">Lithuanian</h3>
+            <h2 class="left">Qualification</h2>
+            <h3 class="righ">Qualification</h3>
           </section>
           <section>
-            <h2 class="left">Other Language(s)</h2>
-            <h3 class="righ brd">Language, language</h3>
+            <h2 class="left">Key Subjects / Professional Skills</h2>
+            <h3 class="righ">General Subjects - Computer Science, Foreign Language (English) Professional Subjects - Computer Hardware Setup, Maintenance, Servicing</h3>
           </section>
           <section>
-            <div class="table">
-              <div class="ktable">
-                <div class="kbody kalbos">
-                  <div class="krow">
-                    <div class="kcelli hauto kal"></div>
-                    <div class="kcell titlelentbig hauto">
-                      <h2>Understanding</h2>
-                    </div>
-                    <div class="kcell titlelentbig hauto">
-                      <h2>Speaking</h2>
-                    </div>
-                    <div class="kcell lent hauto">
-                      <h2>Writing</h2>
-                    </div>
+            <h2 class="left">Name and Type of Educational Provider</h2>
+            <h3 class="righ">School Address Address, Address (Country)</h3>
+          </section>
+          <section>
+            <h2 class="left">Qualification Level According to National or International Classification</h2>
+            <h3 class="righ">ISCED7</h3>
+          </section>
+        </div>
+      </div>
+      <div class="blokas" draggable="true">
+        <section>
+          <h2 class="left num hm">Technical Skills and Competences</h2>
+        </section>
+        <section>
+          <h3 class="righ">CV Template Creation</h3>
+        </section>
+      </div>
+      <div class="blokas topr" draggable="true">
+        <section>
+          <h2 class="left num hm">Computer Skills and Competences</h2>
+        </section>
+        <section>
+          <h3 class="righ sss">Operating Systems: Unix/Linux, Windows, Mac OS, Android.</h3>
+        </section>
+      </div>
+      <div class="blokas" draggable="true">
+        <section>
+          <h2 class="left num hm">Social Skills and Competences</h2>
+        </section>
+        <section>
+          <h3 class="righ">Good communication skills; Ability to work in a team and independently</h3>
+        </section>
+      </div>
+      <div class="blokas toka" draggable="true">
+        <section>
+          <h2 class="left num hm">Personal Skills and Competences</h2>
+        </section>
+        <section>
+          <h2 class="left">Native Language(s)</h2>
+          <h3 class="righ">Lithuanian</h3>
+        </section>
+        <section>
+          <h2 class="left">Other Language(s)</h2>
+          <h3 class="righ brd">Language, language</h3>
+        </section>
+        <section>
+          <div class="table">
+            <div class="ktable">
+              <div class="kbody kalbos">
+                <div class="krow">
+                  <div class="kcelli hauto kal"></div>
+                  <div class="kcell titlelentbig hauto">
+                    <h2>Understanding</h2>
                   </div>
-                  <div class="krow">
-                    <div class="kcelli titlelent hauto kal"></div>
-                    <div class="kcell lent titlelent hauto">Listening</div>
-                    <div class="kcell lent titlelent hauto">Reading</div>
-                    <div class="kcell lent titlelent hauto">Spoken Interaction</div>
-                    <div class="kcell lent titlelent hauto">Spoken Production</div>
-                    <div class="kcell lent titlelent hauto"></div>
+                  <div class="kcell titlelentbig hauto">
+                    <h2>Speaking</h2>
                   </div>
-                  <div class="krow">
-                    <div class="kcelli kal">
-                      <h3 class="langue">Language</h3>
-                    </div>
-                    <div class="kcell edit lent">Double Click</div>
-                    <div class="kcell edit lent">Double Click</div>
-                    <div class="kcell edit lent">Double Click</div>
-                    <div class="kcell edit lent">Double Click</div>
-                    <div class="kcell edit lent">Double Click</div>
+                  <div class="kcell lent hauto">
+                    <h2>Writing</h2>
                   </div>
-                  <div class="krow">
-                    <div class="kcelli kal">
-                      <h3 class="langue">Other Language</h3>
-                    </div>
-                    <div class="kcell edit lent">Double Click</div>
-                    <div class="kcell edit lent">Double Click</div>
-                    <div class="kcell edit lent">Double Click</div>
-                    <div class="kcell edit lent">Double Click</div>
-                    <div class="kcell edit lent">Double Click</div>
+                </div>
+                <div class="krow">
+                  <div class="kcelli titlelent hauto kal"></div>
+                  <div class="kcell lent titlelent hauto">Listening</div>
+                  <div class="kcell lent titlelent hauto">Reading</div>
+                  <div class="kcell lent titlelent hauto">Spoken Interaction</div>
+                  <div class="kcell lent titlelent hauto">Spoken Production</div>
+                  <div class="kcell lent titlelent hauto"></div>
+                </div>
+                <div class="krow">
+                  <div class="kcelli kal">
+                    <h3 class="langue">Language</h3>
                   </div>
+                  <div class="kcell edit lent">Double Click</div>
+                  <div class="kcell edit lent">Double Click</div>
+                  <div class="kcell edit lent">Double Click</div>
+                  <div class="kcell edit lent">Double Click</div>
+                  <div class="kcell edit lent">Double Click</div>
+                </div>
+                <div class="krow">
+                  <div class="kcelli kal">
+                    <h3 class="langue">Other Language</h3>
+                  </div>
+                  <div class="kcell edit lent">Double Click</div>
+                  <div class="kcell edit lent">Double Click</div>
+                  <div class="kcell edit lent">Double Click</div>
+                  <div class="kcell edit lent">Double Click</div>
+                  <div class="kcell edit lent">Double Click</div>
                 </div>
               </div>
             </div>
-          </section>
-        </div></div>
+          </div>
+        </section>
+      </div>
     </div>
-    <script src="re.js"></script>
-  </body>
+  </div>
+  <script src="re.js"></script>
+</body>
 
 </html>
