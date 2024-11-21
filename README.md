@@ -4,8 +4,6 @@ Welcome to **Project K**! This repository contains a collection of web-based too
 
 [Screenshots](#screenshots) | [Getting Started](#getting-started) | [License](#license) | [Contact](#contact)
 
-## Project Overview
-
 ## Screenshots
 
 Here are some quick screenshots of the tools:
@@ -53,15 +51,6 @@ git clone https://github.com/KostasSliazas/project-k.git
 | **Memory Game2**         | A fun memory matching game to improve memory skills.       | [Live Demo](https://kostassliazas.github.io/project-k/games/memory-game)       |
 | **Questionnaire**        | A game for answering customizable sets of questions.       | [Live Demo](https://kostassliazas.github.io/project-k/games/questionnaire)     |
 | **Roulette**             | A simple roulette game for fun and entertainment.          | [Live Demo](https://kostassliazas.github.io/project-k/games/roulette)          |
-
-
-## Contact
-
-For any inquiries or suggestions, feel free to contact me:
-
-Kostas Šliažas
-[kostazzz@balticum-tv.lt]
-[https://kostassliazas.github.io/]
 
 ## Technologies Used
 
