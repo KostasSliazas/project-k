@@ -194,7 +194,8 @@
     const link = document.createElement('a');
     link.href = href;
     link.textContent = input.value; // Set link text to input value
-
+    link.target = "_blank"; // Open link in a new tab
+    link.rel = "noopener noreferrer nofollow"; // Add safe and nofollow attributes
     return link; // Return the <a> tag without any class
   };
 
@@ -203,7 +204,7 @@
     const heading = document.createElement(tagName);
     if (input.className) heading.setAttribute('class', input.className); // Preserve class on the heading
     if (input.id) heading.setAttribute('id', input.id); // Preserve id on the heading
-    if (input.value) heading.textContent = input.value; // Set text content from input value
+    if (input.value) heading.textContent = input.value.trim(); // Set text content from input value
     input.parentNode.replaceChild(heading, input); // Replace the input with the heading
     return heading; // Return the newly created heading
   }
@@ -430,7 +431,7 @@ function uploadProgress(e) {
     const phone = document?.getElementById('number')?.getElementsByTagName('a')[0]?.textContent.replace(/\s+/g, '') || null;
     const address = document?.getElementById('address')?.textContent.trim() || null;
     const image = document?.getElementById('preview')?.src || null;
-    const url = document?.getElementById('url').getElementsByTagName('a')[0]?.textContent.replace(/\s+/g, '') || null;
+    const url = document?.getElementById('url').getElementsByTagName('a')[0]?.href.trim() || null;
     const postalCode = document?.getElementById('postal-code')?.textContent.trim() || null;
     const city = document?.getElementById('city')?.textContent.trim() || null;
     const countryCode = document?.getElementById('country-code')?.textContent.trim() || null;
