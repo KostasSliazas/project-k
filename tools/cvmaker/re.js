@@ -115,7 +115,7 @@
   });
   infocDiv.appendChild(spanElement);
 
-  const infoTextContent = `Please do not close this window until your work is saved, as no information is stored in the database. To save your text, simply press 'Enter'. You can change language levels by double-clicking with the mouse. For the best experience, please ensure your photo is sized at 120x120 pixels. To optimize loading times, reduce the file size of your photo as much as possible. You can rearrange blocks by dragging them.`;
+  const infoTextContent = `Please do not close this window until your work is saved, as no information is stored in the database. To save your text, simply press 'Enter'. You can change language levels by double-clicking with the mouse. For the best experience, please ensure your photo is sized at 100x128 pixels. To optimize loading times, reduce the file size of your photo as much as possible. You can rearrange blocks by dragging them.`;
   const infoTextDiv = createHTMLElement('div', infoTextContent, {
     id: 'info-text'
   });
@@ -551,17 +551,6 @@ function uploadProgress(e) {
       element.parentNode.removeChild(element);
     });
     document.querySelectorAll('[draggable="true"]').forEach(e => e.removeAttribute("draggable"));
-    // Remove all script elements
-    document.querySelectorAll('script').forEach(function (script) {
-      script.parentNode.removeChild(script);
-    });
-
-    // Remove the last link element
-    const links = document.querySelectorAll('link');
-    if (links.length > 0) {
-      const lastLink = links[links.length - 1];
-      lastLink.parentNode.removeChild(lastLink);
-    }
 
     // Clone the HTML content
     const htmlElement = document.querySelector('html');
@@ -574,7 +563,7 @@ function uploadProgress(e) {
     htmlString = `<!DOCTYPE html>\n${htmlString}`;
 
     // Trigger file download
-    download(date + '_' + ceds, htmlString);
+    download(ceds + '-' + date, htmlString);
 
     // Call all extraction functions
     // extractSkills();
@@ -583,7 +572,7 @@ function uploadProgress(e) {
     extractBasics();
     extractWorkExperience();
     extractEducation();
-    exportToJson(jsonData, date + '_' + ceds + '.json');
+    exportToJson(jsonData, ceds + '-' + date + '.json');
   }
 
   function download(fileName, html) {

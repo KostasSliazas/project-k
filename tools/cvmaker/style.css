@@ -31,6 +31,10 @@
   pointer-events: none;
 }
 
+#number a {
+  font-variant: all-petite-caps;
+}
+
 #speed,
 #remaining {
   float: left;
@@ -76,7 +80,6 @@ button {
 .shd {
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2);
 }
-
 input[type="file"] {
   position: absolute;
   top: -1px;
@@ -96,9 +99,9 @@ input[type="file"] {
   position: absolute;
   margin: 0;
   padding: 0;
-  bottom: 26px;
+  bottom: 32px;
   left: 26px;
-  width: 114px;
+  width: 98px;
   height: 24px;
   text-align: center;
   z-index: 555;
