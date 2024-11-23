@@ -168,31 +168,83 @@
     });
   });
 
-  //let count = 0; // Declare the initial value
-  //const increment = () => ++count; // Increment the count variable
-  //const h = document.getElementById('header');
-  //const s = document.querySelectorAll('.date, h3, .percent');
-  //const btn = document.getElementById('karo');
 
-  function outf() {
-    const cvInputs = document.querySelectorAll('select, input:not(#image-file)');
+// Helper function to create the link element
+const createLink = (input) => {
+  let href = '';
 
-    cvInputs.forEach((input) => {
-      if (input.parentNode.id === 'email') {
-        const emailLink = createLinkElement(input.className, `mailto:${input.value}?subject=Darbas`, input.value);
-        input.parentNode.replaceChild(emailLink, input);
-      } else if (input.parentNode.id === 'number') {
-        const numberLink = createLinkElement(input.className, `tel:${input.value}`, input.value);
-        input.parentNode.replaceChild(numberLink, input);
-      } else if (input.tagName === 'SELECT') {
-        input.parentNode.innerHTML = input.options[input.selectedIndex].value;
-      } else if (input.tagName === 'INPUT') {
-        const tagName = input.classList.contains('left') ? 'h2' : 'h3';
-        replaceElementWithHeading(input, tagName);
-      }
-    });
-    document.title = document.getElementById('name').innerText;
+  // Check if the input is an email, number, or URL and set the appropriate link
+  if (input.id === 'email') {
+    href = `mailto:${input.value.replace(/\s+/g, '')}`;
+  } else if (input.id === 'number') {
+    href = `tel:${input.value.replace(/\s+/g, '')}`;
+  } else if (input.id === 'url') {
+    // For URL input, check if it starts with http:// or https://
+    if (/^https?:\/\//.test(input.value)) {
+      href = input.value; // If it already has http:// or https://, use it
+    } else {
+      href = `http://${input.value}`; // Otherwise, prepend http://
+    }
+  } else if (input.value && /https?:\/\//.test(input.value)) {
+    // For simple URLs (http/https)
+    href = input.value;
   }
+
+  // Create a simple <a> tag with the appropriate href
+  const link = document.createElement('a');
+  link.href = href;
+  link.textContent = input.value; // Set link text to input value
+
+  return link; // Return the <a> tag without any class
+};
+
+// Function to replace input with h2 or h3 and preserve class and id
+function replaceElementWithHeading(input, tagName) {
+  const heading = document.createElement(tagName);
+  if (input.className) heading.setAttribute('class', input.className); // Preserve class on the heading
+  if (input.id) heading.setAttribute('id', input.id); // Preserve id on the heading
+  if (input.value) heading.textContent = input.value; // Set text content from input value
+  input.parentNode.replaceChild(heading, input); // Replace the input with the heading
+  return heading; // Return the newly created heading
+}
+
+function outf() {
+  const cvInputs = document.querySelectorAll('select, input:not(#image-file)');
+
+  cvInputs.forEach((input) => {
+    let tagName = input.classList.contains('left') ? 'h2' : 'h3';
+
+    // Replace text input with an h2 or h3 based on the class
+    if (input.tagName === 'INPUT' && input.type === 'text') {
+      const newElement = replaceElementWithHeading(input, tagName);
+
+      // If it's an email or number input, replace it with a link
+      if (input.id === 'email' || input.id === 'number') {
+        newElement.innerHTML = ''; // Clear the text content of the new heading
+        newElement.appendChild(createLink(input)); // Append the link inside the heading
+      }
+      // If it's a URL (http/https), create a regular link
+      else if (input.id === 'url' || (input.value && /https?:\/\//.test(input.value))) {
+        newElement.innerHTML = ''; // Clear the heading content
+        newElement.appendChild(createLink(input)); // Append the URL link
+      }
+    }
+
+    // Replace select element with the selected option's value
+    else if (input.tagName === 'SELECT') {
+      input.parentElement.innerText = input.options[input.selectedIndex].value;
+    }
+  });
+
+  // Update the document title based on the 'name' element
+  const nameElement = document.getElementById('name');
+  if (nameElement) {
+    document.title = nameElement.innerText;
+  }
+}
+
+
+
 
   // let oTimer = 0;
   //let iBytesUploaded = 0;
@@ -371,11 +423,11 @@ function uploadProgress(e) {
   function extractBasics() {
     const label = document?.getElementById('label')?.textContent.trim() || null;
     const name = document?.getElementById('name')?.textContent.trim() || null;
-    const email = document?.getElementById('email')?.getElementsByTagName('a')[0]?.textContent.trim() || null;
-    const phone = document?.getElementById('number')?.getElementsByTagName('a')[0]?.textContent.trim() || null;
+    const email = document?.getElementById('email')?.getElementsByTagName('a')[0]?.href || null;
+    const phone = document?.getElementById('number')?.getElementsByTagName('a')[0]?.href || null;
     const address = document?.getElementById('address')?.textContent.trim() || null;
     const image = document?.getElementById('preview')?.src || null;
-    const url = document?.getElementById('url')?.href || null;
+    const url = document?.getElementById('url').getElementsByTagName('a')[0]?.href || null;
     const postalCode = document?.getElementById('postal-code')?.textContent.trim() || null;
     const city = document?.getElementById('city')?.textContent.trim() || null;
     const countryCode = document?.getElementById('country-code')?.textContent.trim() || null;
@@ -415,7 +467,6 @@ function uploadProgress(e) {
       const summary = work?.getElementsByTagName('h3')[3]?.textContent.trim() || null;
       const url = work?.getElementsByTagName('h3')[6]?.getElementsByTagName('a')[0]?.href || null;
 
-      // const url = workSections[5]?.getElementsByTagName('h3')[0]?.textContent.trim() || null;
       // Only add fields if they exist
       if (name) workExperience.name = name;
       if (position) workExperience.position = position;
@@ -461,56 +512,6 @@ function uploadProgress(e) {
     });
   }
 
-  // Function to extract skills
-  // function extractSkills() {
-  //   const skillsSections = document.querySelectorAll('.blokas .num');
-
-  //   skillsSections.forEach((skillSection) => {
-  //     let skill = {};
-
-  //     const name = skillSection.textContent.trim();
-  //     // Add skill only if it exists
-  //     if (name) {
-  //       skill.name = name;
-  //       // skill.level = 'N/A'; // You can adjust if you have skill levels
-  //       // skill.keywords = ['N/A']; // Adjust if you have specific keywords for skills
-
-  //       jsonData.skills.push(skill);
-  //     }
-  //   });
-  // }
-
-  // Function to extract languages
-  // function extractLanguages() {
-  //   const languageSections = document.querySelectorAll('.toka .kalbos .krow');
-
-  //   languageSections.forEach((langSection) => {
-  //     let language = {};
-
-  //     const languageName = langSection?.querySelector('.langue')?.textContent.trim() || null;
-  //     const fluency = 'N/A'; // Default value for fluency
-
-  //     if (languageName) {
-  //       language.language = languageName;
-  //       language.fluency = fluency;
-
-  //       jsonData.languages.push(language);
-  //     }
-  //   });
-  // }
-
-  // Function to extract personal skills and competences
-  // function extractPersonalSkills() {
-  //   const personalSkillSection = document.querySelector('.toka');
-
-  //   // Extract specific personal skills or interests if needed
-  //   // For example, adding a random personal interest:
-  //   jsonData.interests.push({
-  //     "name": "Personal Skill Example",
-  //     "keywords": ["Skill 1", "Skill 2"]
-  //   });
-  // }
-
   // helper functions
   function createLinkElement(className, href, textContent) {
     const link = document.createElement('a');
@@ -518,14 +519,6 @@ function uploadProgress(e) {
     link.setAttribute('href', href);
     link.textContent = textContent;
     return link;
-  }
-
-  function replaceElementWithHeading(input, tagName) {
-    const heading = document.createElement(tagName);
-    if (input.className) heading.setAttribute('class', input.className);
-    if (input.id) heading.setAttribute('id', input.id);
-    if (input.value) heading.textContent = input.value;
-    input.parentNode.replaceChild(heading, input);
   }
 
   function generateDate() {
@@ -580,12 +573,12 @@ function uploadProgress(e) {
     download(date + '_' + ceds, htmlString);
 
     // Call all extraction functions
-    extractBasics();
-    extractWorkExperience();
-    extractEducation();
     // extractSkills();
     // extractLanguages();
     // extractPersonalSkills();
+    extractBasics();
+    extractWorkExperience();
+    extractEducation();
     exportToJson(jsonData, date + '_' + ceds + '.json');
   }
 
@@ -643,7 +636,7 @@ function uploadProgress(e) {
   document.addEventListener('keyup', function (e) {
     if (e.key === 'Enter') {
       outf();
-      localStorage.setItem(document.getElementById('name').textContent.replace(/\s+/g, ""), JSON.stringify(jsonData));
+      // localStorage.setItem(document.getElementById('name').textContent.replace(/\s+/g, ""), JSON.stringify(jsonData));
     }
   });
 
