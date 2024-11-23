@@ -87,8 +87,8 @@ input[type="file"] {
   margin: 0;
   padding: 0;
   opacity: 0;
-  width: 116px;
-  height: 24px;
+  width: 110px;
+  height: 28px;
   display: block;
   cursor: pointer;
   text-indent: -9999px;
@@ -100,8 +100,8 @@ input[type="file"] {
   margin: 0;
   padding: 0;
   bottom: 20px;
-  left: 20px;
-  width: 98px;
+  left: 13px;
+  width: 108px;
   height: 24px;
   text-align: center;
   z-index: 555;

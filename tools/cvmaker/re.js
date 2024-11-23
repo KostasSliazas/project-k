@@ -142,7 +142,7 @@
   });
 
   // Create the fakebtn element and its children using the createHTMLElement function
-  const fakeButtonHtml = createHTMLElement('div', 'upload file', {
+  const fakeButtonHtml = createHTMLElement('div', 'Select File', {
     id: 'fakebtn',
     class: 'remove brdr'
   });
