@@ -424,7 +424,7 @@
       const copy = node.cloneNode(true);
 
       const num = increment();
-      copy.getElementsByTagName('h3')[5].textContent = num + ' ' + copy.getElementsByTagName('h3')[5].textContent.replace(/\d+/g, '').trim();
+      // copy.getElementsByTagName('h3')[5].textContent = num + ' ' + copy.getElementsByTagName('h3')[5].textContent.replace(/\d+/g, '').trim();
       node.before(copy);
 
     } else if (target.tagName === 'H3' || target.tagName === 'H2' || target.parentNode.id === "number" || target.parentNode.id === "email") {
