@@ -8,12 +8,10 @@
       this.container = document.querySelector(containerSelector);
       this.draggables = Array.from(this.container.querySelectorAll(draggableSelector));
       this.draggedElement = null;
-
-      this.setupDragListeners();
     }
 
-    setupDragListeners() {
-      this.draggables.forEach(draggable => {
+    initialize() {
+        this.draggables.forEach(draggable => {
         // draggable.setAttribute('draggable', 'true');
 
         draggable.addEventListener('dragstart', this.handleDragStart.bind(this));
@@ -21,6 +19,16 @@
         draggable.addEventListener('drop', this.handleDrop.bind(this));
       });
     }
+
+    // setupDragListeners() {
+    //   this.draggables.forEach(draggable => {
+    //     // draggable.setAttribute('draggable', 'true');
+    //
+    //     draggable.addEventListener('dragstart', this.handleDragStart.bind(this));
+    //     draggable.addEventListener('dragover', this.handleDragOver.bind(this));
+    //     draggable.addEventListener('drop', this.handleDrop.bind(this));
+    //   });
+    // }
 
     handleDragStart(event) {
       this.draggedElement = event.target;
@@ -49,15 +57,16 @@
 
   // Initialize DraggableManager
   const draggableManager = new DraggableManager('#cv', '.blokas');
+  draggableManager.initialize();
 
-  let iBytesUploaded = 0;
-  let iBytesTotal = 0;
-  let iPreviousBytesLoaded = 0;
+  //let iBytesUploaded = 0;
+  //let iBytesTotal = 0;
+  //let iPreviousBytesLoaded = 0;
   const iMaxFilesize = 1048576;
-  let oTimer = 0;
+ // let oTimer = 0;
   let sResultFileSize = '';
 
-  function secondsToTime(secs) {
+/*  function secondsToTime(secs) {
     let hr = Math.floor(secs / 3600);
     let min = Math.floor((secs - hr * 3600) / 60);
     let sec = Math.floor(secs - hr * 3600 - min * 60);
@@ -74,7 +83,7 @@
       hr = '00';
     }
     return hr + ':' + min + ':' + sec;
-  }
+  }*/
 
   function bytesToSize(bytes) {
     const sizes = ['Bytes', 'KB', 'MB'];
@@ -118,7 +127,7 @@
     oReader.readAsDataURL(oFile);
   }
 
-  function startUploading() {
+/*  function startUploading() {
     iPreviousBytesLoaded = 0;
     document.getElementById('upload_response').style.display = 'none';
     document.getElementById('error').style.display = 'none';
@@ -138,8 +147,8 @@
     oXHR.open('POST', 'upload.php');
     oXHR.send(vFD);
     oTimer = setInterval(doInnerUpdates, 300);
-  }
-
+  } */
+  /*
   function doInnerUpdates() {
     const iCB = iBytesUploaded;
     let iDiff = iCB - iPreviousBytesLoaded;
@@ -160,7 +169,7 @@
       '| ' + secondsToTime(secondsRemaining);
   }
 
-  function uploadProgress(e) {
+function uploadProgress(e) {
     if (e.lengthComputable) {
       iBytesUploaded = e.loaded;
       iBytesTotal = e.total;
@@ -181,7 +190,7 @@
     }
   }
 
-  function uploadFinish(e) {
+	function uploadFinish(e) {
     const oUploadResponse = document.getElementById('upload_response');
     oUploadResponse.innerHTML = e.target.responseText;
     oUploadResponse.style.display = 'block';
@@ -200,7 +209,7 @@
   function uploadAbort(e) {
     document.getElementById('abort').style.display = 'block';
     clearInterval(oTimer);
-  }
+  } */
 
   function download(fileName, html) {
     const pom = document.createElement('a');
@@ -241,17 +250,18 @@
 
   function htmls() {
     // set default name of file
-    let ceds = 'cv-europass'
-    const vardasNode = document.getElementById('name').childNodes[0];
+    let ceds = 'cv-europass';
+    const vardasNode = document.getElementById('name').textContent;
     // if test pass only letters use safely make name of file as person name
-    if (containsOnlyLetters(vardasNode.nodeValue))
-      ceds = vardasNode.nodeValue.replace(/\s/g, '-') + '(CV)'; //(-) can be a good choice for file names words seperations + add (CV)
-    const date = generateDate()
+    if (containsOnlyLetters(vardasNode) &&  vardasNode) {
+      ceds = vardasNode?.replace(/\s/g, '-') + '(CV)'; //(-) can be a good choice for file names words seperations + add (CV)
+    }
+    const date = generateDate();
     // Remove elements using pure JavaScript
     document.querySelectorAll('.remove').forEach(function (element) {
       element.parentNode.removeChild(element);
     });
-    document.querySelectorAll('[draggable="true"]').forEach(e => e.removeAttribute("draggable"))
+    document.querySelectorAll('[draggable="true"]').forEach(e => e.removeAttribute("draggable"));
     // Remove all script elements
     document.querySelectorAll('script').forEach(function (script) {
       script.parentNode.removeChild(script);
@@ -287,7 +297,7 @@
     exportToJson(jsonData, date + '_' + ceds + '.json');
   }
 
-  let ef;
+  //let ef;
   const cssId = 'styl';
   if (!document.getElementById(cssId)) {
     const head = document.getElementsByTagName('head')[0];
@@ -383,12 +393,10 @@
   fakeButtonHtml.appendChild(fileInput);
 
 
-  const uploadFormHtml = '<div id="dele" class="remove"><form action="" enctype="multipart/form-data" id="upload_form" method="post" name="upload_form"><div id="fileinfo"><div id="filename"></div><div id="filesize"></div><div id="filetype"></div><div id="filedim"></div></div><div id="error">Failas nepalaikomas! bmp, gif, jpeg, png, tiff</div><div id="error2">An error occurred while uploading the file</div><div id="abort">The upload has been canceled</div><div id="warnsize">Failas per didelis!</div><div id="progress_info"><div id="progress"></div><div id="progress_percent">&nbsp;</div><div class="clear_both"></div><div><div id="speed">&nbsp;</div><div id="remaining">&nbsp;</div><div id="b_transfered">&nbsp;</div><div class="clear_both"></div></div><div id="upload_response"></div></div></form></div>';
+  const uploadFormHtml = '<div id="dele" class="remove"><form action="" enctype="multipart/form-data" id="upload_form" method="post" name="upload_form"><div id="fileinfo"><div id="filename"></div><div id="filesize"></div><div id="filetype"></div><div id="filedim"></div></div><div id="error">Failas nepalaikomas! bmp, gif, jpeg, png, tiff</div><div id="error2">An error occurred while uploading the file</div><div id="abort">The upload has been canceled</div><div id="warnsize">The file is too large.</div><div id="progress_info"><div id="progress"></div><div id="progress_percent">&nbsp;</div><div class="clear_both"></div><div><div id="speed">&nbsp;</div><div id="remaining">&nbsp;</div><div id="b_transfered">&nbsp;</div><div class="clear_both"></div></div><div id="upload_response"></div></div></form></div>';
 
   document.getElementById('header').insertAdjacentHTML('afterbegin', uploadFormHtml);
-
   document.getElementById('photo').appendChild(fakeButtonHtml);
-
   document.querySelectorAll('#close, #infoc').forEach(function (element) {
     element.addEventListener('click', function (e) {
       e.preventDefault();
@@ -397,8 +405,8 @@
     });
   });
 
-  let count = 0; // Declare the initial value
-  const increment = () => ++count; // Increment the count variable
+  //let count = 0; // Declare the initial value
+  //const increment = () => ++count; // Increment the count variable
 
   document.body.addEventListener('click', function (e) {
     const target = e.target;
@@ -406,9 +414,9 @@
 
     if (target.classList.contains('rem')) {
       if (target.parentNode.classList.contains('toka')) {
-        const row = target.parentNode.getElementsByClassName('krow')
-        const last = row[row.length - 1]
-        return (row.length > 3) && last.remove()
+        const row = target.parentNode.getElementsByClassName('krow');
+        const last = row[row.length - 1];
+        return (row.length > 3) && last.remove();
       }
 
       target.parentNode.remove();
@@ -416,20 +424,20 @@
     } else if (target.classList.contains('add')) {
 
       if (target.parentNode.classList.contains('toka')) {
-        const row = target.parentNode.getElementsByClassName('krow')
-        const last = row[row.length - 1]
-        return last.parentNode.appendChild(last.cloneNode(true))
+        const row = target.parentNode.getElementsByClassName('krow');
+        const last = row[row.length - 1];
+        return last.parentNode.appendChild(last.cloneNode(true));
       }
       const node = target.parentNode;
       const copy = node.cloneNode(true);
 
-      const num = increment();
+      // const num = increment();
       // copy.getElementsByTagName('h3')[5].textContent = num + ' ' + copy.getElementsByTagName('h3')[5].textContent.replace(/\d+/g, '').trim();
       node.before(copy);
 
     } else if (target.tagName === 'H3' || target.tagName === 'H2' || target.parentNode.id === "number" || target.parentNode.id === "email") {
 
-      e.preventDefault()
+      e.preventDefault();
 
       const input = document.createElement('input');
       if (target.id) input.setAttribute('id', target.id);
@@ -465,9 +473,9 @@
     }
   });
 
-  const h = document.getElementById('header');
-  const s = document.querySelectorAll('.date, h3, .percent');
-  const btn = document.getElementById('karo');
+  //const h = document.getElementById('header');
+  //const s = document.querySelectorAll('.date, h3, .percent');
+  //const btn = document.getElementById('karo');
 
   function createLinkElement(className, href, textContent) {
     const link = document.createElement('a');
@@ -502,21 +510,20 @@
         replaceElementWithHeading(input, tagName);
       }
     });
+    document.title = document.getElementById('name').innerText;
   }
 
 
   document.addEventListener('mouseup', (e) => {
-    const target = e.target
+    const target = e.target;
     if (target.tagName === 'OPTION') {
       target.parentNode.parentNode.innerHTML = target.value;
     }
-  })
-  document.addEventListener('keyup', function (e) {
-    // const focusedInput = document.querySelector('input:focus');
+  });
 
+  document.addEventListener('keyup', function (e) {
     if (e.keyCode === 13) {
       outf();
-      document.title = document.getElementById('name').innerText;
     }
   });
 
