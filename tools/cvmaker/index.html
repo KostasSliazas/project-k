@@ -173,7 +173,6 @@
     #main {
       margin: 24px auto;
       padding-bottom: 1px;
-      font-variant-caps: all-small-caps;
     }
 
     #header .title {
@@ -558,35 +557,43 @@
         </section>
         <section>
           <h2 class="left hi">Profession Field</h2>
-          <h3 class="righ num">IT, Telecommunications, Programming, Other</h3>
+          <h3 id="label" class="righ num">Profession</h3>
         </section>
         <section>
           <h2 class="left hi">Name / Surname</h2>
-          <h3 id="vardas" class="righ num">Europass Maker</h3>
+          <h3 class="righ num" id="name">Name Surname</h3>
         </section>
         <section>
           <h2 class="left hi">Phone Number(s)</h2>
-          <h3 class="righ num" id="number"><a href="tel:0000000000000000000">0000000000000000000</a></h3>
+          <h3 class="righ num" id="number"><a href="tel:+X(XXX)XXX-XXXX">+X (XXX) XXX-XXXX</a></h3>
+        </section>
+        <section>
+          <h2 class="left hi">Homepage(s)</h2>
+          <h3 class="righ num"><a id="url" href="https://yourwebsite.com" rel="noopener noreferrer" target="_blank">https://yourwebsite.com</a></h3>
         </section>
         <section>
           <h2 class="left hi">Email Address(es)</h2>
-          <h3 class="righ" id="email"><a href="mailto:e-pastas@gmail.com?subject=WORK">e-pastas@gmail.com</a></h3>
+          <h3 class="righ" id="email"><a href="mailto:example@example.com?subject=WORK">example@example.com</a></h3>
         </section>
         <section>
-          <h2 class="left">Address(es)</h2>
-          <h3 class="righ">Address Address, Address Address (Address)</h3>
+          <h2 class="left hi">Summary</h2>
+          <h3 class="righ" id="summary">Enter a brief summary here...</h3>
         </section>
-        <section>
-          <h2 class="left">Nationality</h2>
-          <h3 class="righ">Nationality</h3>
-        </section>
-        <section>
-          <h2 class="left">Date of Birth</h2>
-          <h3 class="righ">Year Month Day</h3>
-        </section>
-        <section>
-          <h2 class="left">Gender</h2>
-          <h3 class="righ">Gender</h3>
+        <section class="same">
+          <h2 class="left">Address</h2>
+          <h3 id="address" class="righ">Street Address</h3>
+
+          <h2 class="left">Postal Code</h2>
+          <h3 id="postal-code" class="righ">ZIP Code</h3>
+
+          <h2 class="left">City</h2>
+          <h3 id="city" class="righ">City</h3>
+
+          <h2 class="left">Country Code</h2>
+          <h3 id="country-code" class="righ">Country Code (e.g., +1 for USA)</h3>
+
+          <h2 class="left">Region</h2>
+          <h3 id="region" class="righ">State</h3>
         </section>
       </div>
       <div class="blokas" draggable="true">
@@ -596,16 +603,16 @@
         <div class="darb">
           <section>
             <h2 class="left">Dates</h2>
-            <h3 class="righ fl">Start</h3>
-            <h3 class="righ fl">End</h3>
+            <h3 class="righ fl">Start: January 2023</h3>
+            <h3 class="righ fl">End: Present</h3>
           </section>
           <section>
             <h2 class="left">Profession or Position</h2>
-            <h3 class="righ">CV Template Creation</h3>
+            <h3 class="righ">CV Template Creation Specialist</h3>
           </section>
           <section>
             <h2 class="left">Main Activities and Responsibilities</h2>
-            <h3 class="righ">CV Template Creation</h3>
+            <h3 class="righ">Designing and creating customizable CV templates for various professions, ensuring compatibility with international standards and easy-to-use features.</h3>
           </section>
           <section>
             <h2 class="left">Employer Name and Address</h2>
@@ -613,13 +620,14 @@
           </section>
           <section>
             <h2 class="left">Employer's Field of Activity or Industry Sector</h2>
-            <h3 class="righ">Employer's Field of Activity or Industry Sector</h3>
+            <h3 class="righ">Human Resources, Recruitment, and Career Development</h3>
           </section>
-          <!--            <section>
-              <h2 class="left">Employer's homepage</h2>
-              <h3 class="righ">Employer's homepage</h3>
-            </section>-->
+          <section>
+            <h2 class="left">Employer's homepage</h2>
+            <h3 class="righ"><a href="https://www.companyname.com" rel="noopener noreferrer" target="_blank">https://www.companyname.com</a></h3>
+          </section>
         </div>
+
       </div>
       <div class="blokas" draggable="true">
         <section>
@@ -628,26 +636,32 @@
         <div id="prof" class="prof">
           <section>
             <h2 class="left">Dates</h2>
-            <h3 class="righ fl">Start</h3>
-            <h3 class="righ fl">End</h3>
+            <h3 class="righ fl">Start: September 2018</h3>
+            <h3 class="righ fl">End: June 2022</h3>
           </section>
           <section>
             <h2 class="left">Qualification</h2>
-            <h3 class="righ">Qualification</h3>
+            <h3 class="righ">Bachelor of Science in Computer Science</h3>
           </section>
           <section>
             <h2 class="left">Key Subjects / Professional Skills</h2>
-            <h3 class="righ">General Subjects - Computer Science, Foreign Language (English) Professional Subjects - Computer Hardware Setup, Maintenance, Servicing</h3>
+            <h3 class="righ">General Subjects - Computer Science, Foreign Language (English)
+              Professional Subjects - Computer Hardware Setup, Maintenance, Servicing, Network Administration, Cybersecurity</h3>
           </section>
           <section>
             <h2 class="left">Name and Type of Educational Provider</h2>
-            <h3 class="righ">School Address Address, Address (Country)</h3>
+            <h3 class="righ">University, Public Higher Education Institution</h3>
           </section>
           <section>
             <h2 class="left">Qualification Level According to National or International Classification</h2>
-            <h3 class="righ">ISCED7</h3>
+            <h3 class="righ">ISCED 6 (Bachelor's Degree)</h3>
+          </section>
+          <section>
+            <h2 class="left">Institution homepage</h2>
+            <h3 class="righ"><a href="#" rel="noopener noreferrer" target="_blank">Visit the Institution's Website</a></h3>
           </section>
         </div>
+
       </div>
       <div class="blokas" draggable="true">
         <section>

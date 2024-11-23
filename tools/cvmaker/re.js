@@ -242,7 +242,7 @@
   function htmls() {
     // set default name of file
     let ceds = 'cv-europass'
-    const vardasNode = document.getElementById('vardas').childNodes[0];
+    const vardasNode = document.getElementById('name').childNodes[0];
     // if test pass only letters use safely make name of file as person name
     if (containsOnlyLetters(vardasNode.nodeValue))
       ceds = vardasNode.nodeValue.replace(/\s/g, '-') + '(CV)'; //(-) can be a good choice for file names words seperations + add (CV)
@@ -275,16 +275,16 @@
     htmlString = `<!DOCTYPE html>\n${htmlString}`;
 
     // Trigger file download
-    download(date + '_'+ ceds, htmlString);
+    download(date + '_' + ceds, htmlString);
 
     // Call all extraction functions
     extractBasics();
     extractWorkExperience();
     extractEducation();
-    extractSkills();
-    extractLanguages();
-    extractPersonalSkills();
-    exportToJson(jsonData, date + '_'+ ceds + '.json');
+    // extractSkills();
+    // extractLanguages();
+    // extractPersonalSkills();
+    exportToJson(jsonData, date + '_' + ceds + '.json');
   }
 
   let ef;
@@ -516,7 +516,7 @@
 
     if (e.keyCode === 13) {
       outf();
-      document.title = document.getElementById('vardas').innerText;
+      document.title = document.getElementById('name').innerText;
     }
   });
 
@@ -537,24 +537,34 @@
 
   // Function to extract basic information (personal info)  >>>>>>>>>>>>>>>>>>>>>>>basics<<<<<<<<<<<<<<<<<<<<<<<
   function extractBasics() {
-    const name = document.querySelector('#vardas') ? document.querySelector('#vardas').textContent.trim() : null;
-    const email = document.querySelector('#email a') ? document.querySelector('#email a').textContent.trim() : null;
-    const phone = document.querySelector('#number a') ? document.querySelector('#number a').textContent.trim() : null;
-    const address = document.querySelector('section:nth-child(6) h3') ? document.querySelector('section:nth-child(6) h3').textContent.trim() : null;
-    const city = document.querySelector('section:nth-child(7) h3') ? document.querySelector('section:nth-child(7) h3').textContent.trim() : null;
-    const image = document.querySelector('#preview') ? document.querySelector('#preview').src : null;
-
+    const label = document?.getElementById('label')?.textContent.trim() || null;
+    const name = document?.getElementById('name')?.textContent.trim() || null;
+    const email = document?.getElementById('email')?.getElementsByTagName('a')[0]?.textContent.trim() || null;
+    const phone = document?.getElementById('number')?.getElementsByTagName('a')[0]?.textContent.trim() || null;
+    const address = document?.getElementById('address')?.textContent.trim() || null;
+    const image = document?.getElementById('preview')?.src || null;
+    const url = document?.getElementById('url')?.href || null;
+    const postalCode = document?.getElementById('postal-code')?.textContent.trim() || null;
+    const city = document?.getElementById('city')?.textContent.trim() || null;
+    const countryCode = document?.getElementById('country-code')?.textContent.trim() || null;
+    const region = document?.getElementById('region')?.textContent.trim() || null;
+    const summary = document?.getElementById('summary')?.textContent.trim() || null;
     // Only add the fields if they exist
     if (name) jsonData.basics.name = name;
+    if (label) jsonData.basics.label = label;
+    if (image) jsonData.basics.image = image;
     if (email) jsonData.basics.email = email;
     if (phone) jsonData.basics.phone = phone;
-    if (image) jsonData.basics.image = image;
+    if (url) jsonData.basics.url = url;
+    if (summary) jsonData.basics.summary = summary;
 
     if (address || city) {
       jsonData.basics.location = {};
       if (address) jsonData.basics.location.address = address;
+      if (postalCode) jsonData.basics.location.postalCode = postalCode;
       if (city) jsonData.basics.location.city = city;
-      jsonData.basics.location.countryCode = 'LT'; // Assuming Lithuania, adjust as needed
+      if (countryCode) jsonData.basics.location.countryCode = countryCode;
+      if (region) jsonData.basics.location.region = region;
     }
   }
   // Function to extract WORK experience  >>>>>>>>>>>>>>>>>>>>>>>work<<<<<<<<<<<<<<<<<<<<<<<
@@ -568,19 +578,20 @@
       const dateStart = work?.getElementsByTagName('h3')[0]?.textContent.trim() || null;
       const dateEnd = work?.getElementsByTagName('h3')[1]?.textContent.trim() || null;
       const position = work?.getElementsByTagName('h3')[2]?.textContent.trim() || null;
-      const name = work?.getElementsByTagName('h3')[5]?.textContent.trim() || null;
-      const highlights = work?.getElementsByTagName('h3')[4]?.textContent.trim() || null;
+      const name = work?.getElementsByTagName('h3')[4]?.textContent.trim() || null;
+      const highlights = work?.getElementsByTagName('h3')[5]?.textContent.trim() || null;
       const summary = work?.getElementsByTagName('h3')[3]?.textContent.trim() || null;
+      const url = work?.getElementsByTagName('h3')[6]?.getElementsByTagName('a')[0]?.href || null;
 
       // const url = workSections[5]?.getElementsByTagName('h3')[0]?.textContent.trim() || null;
       // Only add fields if they exist
+      if (name) workExperience.name = name;
+      if (position) workExperience.position = position;
+      if (url) workExperience.url = url;
       if (dateStart) workExperience.startDate = dateStart;
       if (dateEnd) workExperience.endDate = dateEnd;
-      if (position) workExperience.position = position;
       if (summary) workExperience.summary = summary;
       if (highlights) workExperience.highlights = [highlights];
-      if (name) workExperience.name = name;
-      // if (url) workExperience.url = url;
 
       if (Object.keys(workExperience).length > 0) {
         jsonData.work.push(workExperience);
@@ -601,13 +612,15 @@
       const area = eduSection?.getElementsByTagName('h3')[3]?.textContent.trim() || null;
       const institution = eduSection?.getElementsByTagName('h3')[4]?.textContent.trim() || null;
       const score = eduSection?.getElementsByTagName('h3')[5]?.textContent.trim() || null;
+      const url = eduSection?.getElementsByTagName('h3')[6]?.getElementsByTagName('a')[0]?.href || null;
 
       // Only add fields if they exist
+      if (institution) education.institution = institution;
+      if (url) education.url = url;
+      if (area) education.area = area;
+      if (studyType) education.studyType = studyType;
       if (dateStart) education.startDate = dateStart;
       if (dateEnd) education.endDate = dateEnd;
-      if (studyType) education.studyType = studyType;
-      if (area) education.area = area;
-      if (institution) education.institution = institution;
       if (score) education.score = score;
 
       if (Object.keys(education).length > 0) {
@@ -617,54 +630,54 @@
   }
 
   // Function to extract skills
-  function extractSkills() {
-    const skillsSections = document.querySelectorAll('.blokas .num');
+  // function extractSkills() {
+  //   const skillsSections = document.querySelectorAll('.blokas .num');
 
-    skillsSections.forEach((skillSection) => {
-      let skill = {};
+  //   skillsSections.forEach((skillSection) => {
+  //     let skill = {};
 
-      const name = skillSection.textContent.trim();
-      // Add skill only if it exists
-      if (name) {
-        skill.name = name;
-        skill.level = 'N/A'; // You can adjust if you have skill levels
-        skill.keywords = ['N/A']; // Adjust if you have specific keywords for skills
+  //     const name = skillSection.textContent.trim();
+  //     // Add skill only if it exists
+  //     if (name) {
+  //       skill.name = name;
+  //       // skill.level = 'N/A'; // You can adjust if you have skill levels
+  //       // skill.keywords = ['N/A']; // Adjust if you have specific keywords for skills
 
-        jsonData.skills.push(skill);
-      }
-    });
-  }
+  //       jsonData.skills.push(skill);
+  //     }
+  //   });
+  // }
 
   // Function to extract languages
-  function extractLanguages() {
-    const languageSections = document.querySelectorAll('.toka .kalbos .krow');
+  // function extractLanguages() {
+  //   const languageSections = document.querySelectorAll('.toka .kalbos .krow');
 
-    languageSections.forEach((langSection) => {
-      let language = {};
+  //   languageSections.forEach((langSection) => {
+  //     let language = {};
 
-      const languageName = langSection.querySelector('.langue') ? langSection.querySelector('.langue').textContent.trim() : null;
-      const fluency = 'N/A'; // Default value for fluency
+  //     const languageName = langSection?.querySelector('.langue')?.textContent.trim() || null;
+  //     const fluency = 'N/A'; // Default value for fluency
 
-      if (languageName) {
-        language.language = languageName;
-        language.fluency = fluency;
+  //     if (languageName) {
+  //       language.language = languageName;
+  //       language.fluency = fluency;
 
-        jsonData.languages.push(language);
-      }
-    });
-  }
+  //       jsonData.languages.push(language);
+  //     }
+  //   });
+  // }
 
   // Function to extract personal skills and competences
-  function extractPersonalSkills() {
-    const personalSkillSection = document.querySelector('.toka');
+  // function extractPersonalSkills() {
+  //   const personalSkillSection = document.querySelector('.toka');
 
-    // Extract specific personal skills or interests if needed
-    // For example, adding a random personal interest:
-    jsonData.interests.push({
-      "name": "Personal Skill Example",
-      "keywords": ["Skill 1", "Skill 2"]
-    });
-  }
+  //   // Extract specific personal skills or interests if needed
+  //   // For example, adding a random personal interest:
+  //   jsonData.interests.push({
+  //     "name": "Personal Skill Example",
+  //     "keywords": ["Skill 1", "Skill 2"]
+  //   });
+  // }
 
   function generateDate() {
     const date = new Date(); // Get the current date
@@ -677,7 +690,7 @@
 
   function exportToJson(data, fileName = 'data.json') {
     // Convert the data object to a JSON string
-    const jsonString = JSON.stringify(data, null, 2);
+    const jsonString = JSON.stringify(data, null, 4);
 
     // Create a Blob with the JSON data
     const blob = new Blob([jsonString], {
