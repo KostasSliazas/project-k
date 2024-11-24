@@ -168,7 +168,7 @@ input[type=file]:hover {
 #reda,
 .save {
     background: #6bb89d;
-    top: 0
+    top: 12px
 }
 
 #close,
@@ -196,7 +196,7 @@ input[type=file]:hover {
 .save {
     z-index: 999;
     text-transform: uppercase;
-    right: 0;
+    right: 12px;
     position: fixed
 }
 
