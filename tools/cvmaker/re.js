@@ -46,6 +46,7 @@
   const draggableManager = new DraggableManager('#cv', '.blokas');
   draggableManager.initialize();
 
+
   // helper to creat DOM element
   function createHTMLElement(tag, text, attributes) {
     const element = document.createElement(tag);
@@ -94,7 +95,6 @@
   const buttonIsaugoti = {
     class: 'save brdr shd remove',
     href: '#',
-    id: 'close'
   };
 
   const elems = createHTMLElement('button', issaugoti, buttonIsaugoti);
@@ -115,7 +115,7 @@
   });
   infocDiv.appendChild(spanElement);
 
-  const infoTextContent = `Please do not close this window until your work is saved, as no information is stored in the database. To save your text, simply press 'Enter'. You can change language levels by double-clicking with the mouse. For the best experience, please ensure your photo is sized at 100x128 pixels. To optimize loading times, reduce the file size of your photo as much as possible. You can rearrange blocks by dragging them.`;
+  const infoTextContent = `Please do not close this window until your work is saved, as no information is stored in the database. To save your text, simply press 'Enter' after editing. You can change the language level by double-clicking with your mouse. For the best experience, please ensure your photo is sized at 100x128 pixels in size. To optimize loading times, reduce the file size of your photo as much as possible. You can rearrange blocks by dragging them.`;
   const infoTextDiv = createHTMLElement('div', infoTextContent, {
     id: 'info-text'
   });
@@ -463,7 +463,7 @@ function uploadProgress(e) {
   // Function to extract WORK experience  >>>>>>>>>>>>>>>>>>>>>>>work<<<<<<<<<<<<<<<<<<<<<<<
   function extractWorkExperience() {
 
-    const workElements = [...document.getElementsByClassName('darb')];
+    const workElements = [...document.getElementsByClassName('experience')];
 
     workElements.forEach((work) => {
       let workExperience = {};
@@ -493,7 +493,7 @@ function uploadProgress(e) {
 
   // Function to extract education information >>>>>>>>>>>>>>>>>>>>>>>education<<<<<<<<<<<<<<<<<<<<<<<
   function extractEducation() {
-    const educationSections = [...document.getElementsByClassName('prof')];
+    const educationSections = [...document.getElementsByClassName('education')];
 
     educationSections.forEach((eduSection) => {
       let education = {};
@@ -520,6 +520,56 @@ function uploadProgress(e) {
       }
     });
   }
+
+  function extractSkills() {
+    const skillElements = [...document.getElementsByClassName('skills')];
+
+    skillElements.forEach((skill) => {
+      let skillData = {};
+
+      // Extracting level, keywords, and name based on your HTML structure
+      const level = skill?.getElementsByClassName('righ')[0]?.textContent.trim() || null;
+      const keywordsInput = skill?.getElementsByClassName('righ')[1]?.textContent.trim() || null;
+      const name = skill?.getElementsByClassName('left')[0]?.textContent.trim() || null;
+
+      // Convert keywords into an array (comma-separated values)
+      const keywordsArray = keywordsInput ? keywordsInput.split(',').map(keyword => keyword.trim()) : [];
+
+      // Only add fields if they exist
+      if (name) skillData.name = name;
+      if (level) skillData.level = level;
+      if (keywordsArray.length > 0) skillData.keywords = keywordsArray;
+
+      if (Object.keys(skillData).length > 0) {
+        // Push the extracted skill data into your JSON object or array
+        jsonData.skills.push(skillData);
+      }
+    });
+  }
+
+  function extractLanguages() {
+    const languageElements = [...document.querySelectorAll('.languages section')];
+
+    languageElements.forEach((lang) => {
+      let languageData = {};
+
+      // Extract language name (left side)
+      const language = lang.querySelector('.left')?.textContent.trim() || null;
+
+      // Extract fluency level (right side)
+      const fluency = lang.querySelector('.righ')?.textContent.trim() || null;
+
+      // Only add fields if they exist
+      if (language) languageData.language = language;
+      if (fluency) languageData.fluency = fluency;
+
+      // If valid data, push it to the languages array
+      if (Object.keys(languageData).length > 0) {
+        jsonData.languages.push(languageData);
+      }
+    });
+  }
+
 
   // helper functions
   // function createLinkElement(className, href, textContent) {
@@ -569,8 +619,9 @@ function uploadProgress(e) {
 
     // Call all extraction functions
     // extractSkills();
-    // extractLanguages();
+    extractLanguages();
     // extractPersonalSkills();
+    extractSkills()
     extractBasics();
     extractWorkExperience();
     extractEducation();
@@ -663,10 +714,13 @@ function uploadProgress(e) {
       if (target.parentNode.classList.contains('toka')) {
         const row = target.parentNode.getElementsByClassName('krow');
         const last = row[row.length - 1];
+        if (row.length === 3) target.parentNode.remove();
         return (row.length > 3) && last.remove();
       }
-
-      target.parentNode.remove();
+      if (target?.parentNode.getElementsByTagName('div').length === 1) {
+        target?.parentNode.remove();
+      }
+      target?.parentNode.getElementsByTagName('div')[0]?.remove();
 
     } else if (target.classList.contains('add')) {
 
@@ -675,7 +729,7 @@ function uploadProgress(e) {
         const last = row[row.length - 1];
         return last.parentNode.appendChild(last.cloneNode(true));
       }
-      const node = target.parentNode;
+      const node = target?.parentNode.getElementsByTagName('div')[0];
       const copy = node.cloneNode(true);
 
       // const num = increment();
