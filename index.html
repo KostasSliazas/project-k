@@ -58,9 +58,13 @@
         </div>
 
         <div class="movable tetris mw16 w16 links">
-          <h1>todo</h1>
-          <a href="tools/todo-app/index.html" target="_blank" rel="noopener noreferrer">To-Do App2</a>
-          <a href="tools/todo-app-1/index.html" target="_blank" rel="noopener noreferrer">To-Do App1</a>
+          <h1>Tools</h1>
+          <a href="tools/links/index.html" target="_blank" rel="noopener noreferrer">custom web links</a>
+          <a href="tools/grids-creator/index.html" target="_blank" rel="noopener noreferrer">grids creator</a>
+          <a href="tools/canvas-magic/index.html" target="_blank" rel="noopener noreferrer">canvas magic</a>
+          <a href="tools/dancing-text/index.html" target="_blank" rel="noopener noreferrer">dancing text</a>
+          <a href="tools/colorzebra/index.html" target="_blank" rel="noopener noreferrer">colorzebra</a>
+          <a href="tools/cvmaker/index.html" target="_blank" rel="noopener noreferrer">cv maker</a>
           <h1>CSS tools</h1>
           <a href="tools/gradients-two-colors/index.html" target="_blank" rel="noopener noreferrer">gradient 2 color</a>
           <a href="tools/gradient-generator/index.html" target="_blank" rel="noopener noreferrer">gradient stripes</a>
@@ -75,13 +79,9 @@
           <a href="tools/resistor-calculator/index.html" target="_blank" rel="noopener noreferrer">resistor 4-5 bands</a>
           <a href="tools/regex-extractor/index.html" target="_blank" rel="noopener noreferrer">regex extractor</a>
           <a href="tools/calculator/index.html" target="_blank" rel="noopener noreferrer">calculator</a>
-          <h1>Other tools</h1>
-          <a href="tools/links/index.html" target="_blank" rel="noopener noreferrer">custom web links</a>
-          <a href="tools/grids-creator/index.html" target="_blank" rel="noopener noreferrer">grids creator</a>
-          <a href="tools/canvas-magic/index.html" target="_blank" rel="noopener noreferrer">canvas magic</a>
-          <a href="tools/dancing-text/index.html" target="_blank" rel="noopener noreferrer">dancing text</a>
-          <a href="tools/colorzebra/index.html" target="_blank" rel="noopener noreferrer">colorzebra</a>
-          <a href="tools/cvmaker/index.html" target="_blank" rel="noopener noreferrer">cv maker</a>
+          <h1>todo</h1>
+          <a href="tools/todo-app/index.html" target="_blank" rel="noopener noreferrer">To-Do App2</a>
+          <a href="tools/todo-app-1/index.html" target="_blank" rel="noopener noreferrer">To-Do App1</a>
         </div>
 
         <div class="movable" id="vr" title="Just a brick holding all the stuff in place">
@@ -298,7 +298,51 @@
 
         <div class="movable scroll mw96" title="Right click to copy">
           <h1>linux commands</h1>
-          <div class="oxs"><p title="Create a video from a single image and audio">ffmpeg -loop 1 -i f.png -i f.mp3 -c:v libx264 -tune stillimage -c:a aac -b:a 192k -pix_fmt yuv420p -shortest out.mp4</p><p title="Convert PNG files to opaque images with white background">find . -name "*.png" -exec convert "{}" -fill white "{}" -opaque transparent "{}" -alpha off "{}" \;</p><p title="Download files from the internet">wget https://codeload.github.com/KostasSliazas/template-html.io/zip/refs/tags/1.0</p><p title="Create an animated GIF from resized images">convert -resize 50% -delay 10 -loop 0 image_{0..99}.jpg output.gif</p><p title="Recursively list files without folders">find . -type f ! -name 'file.txt' -exec basename {} \; &gt; file.txt</p><p title="Create a MPEG video from a single image and audio file">ffmpeg -loop 1 -i picture.png -i audio.ogg -shortest output.mpeg</p><p title="Recursively remove node_modules">find . -name "node_modules" -type d -prune -exec rm -rf '{}' +</p><p title="Resize images and create an animated GIF">convert -resize 768x576 -delay 20 -loop 0 `ls -v` myimage.gif</p><p title="Create an animated GIF from sequential PNG files">convert -delay 10 `ls -v` -loop 0 {0100..0255}.png output.gif</p><p title="Recursively remove copied folders (1)">sudo find -type d -name '*(1)*' -a -prune -exec rm -rf {} \; </p><p title="Recursively list only file names with a specific extension">find . -type f -name '*.jpg' -exec basename {} \; &gt; file.txt</p><p title="Batch convert PNG to JPG with white background">mogrify -background white -flatten -format jpg *.png</p><p title="Resample and resize JPG images in batch">mogrify -resample 72x72 -resize 256x256 *.JPG</p><p title="Recursively list files without including file.txt">find . -type f ! -name 'file.txt' &gt; file.txt</p><p title="Restart network">sudo systemctl restart NetworkManager</p><p title="Update &amp; Upgrade System">sudo apt update ; sudo apt upgrade -y</p><p title="-print/-delete ALL except with file extension 'txt'">find . -type f ! -name '*.txt' -print</p><p title="Regular expressions to search in files (find one of two things)">grep "(root|nobody)" /etc/passwd</p><p title="-print/-delete empty folders">find . -type d -empty -print</p><p title="Archive file list to file">less data.zip &gt; file.txt</p><p title="Write 'okay' to file">echo okay &gt; filename</p><p title="Strip image metadata (and other unnecessary data) from PNG files">mogrify -strip *.png</p><p title="Remove all metadata from PNG files">exiftool -all= *.png</p><p title="Show directories">find / -type d -ls</p><p title="Remove image metadata">exiv2 rm image.jpg</p><p title="List image metadata information">exiftool image.jpg</p><p title="View Hosts File with Line Numbers">cat -n /etc/hosts</p><p title="File list to file">ls -1a &gt; file.txt</p><p title="Remove multiple blank lines">less -s filename</p><p title="Force and recursively remove all files and subdirectories">rm -rf folder</p><p title="Make a directory">mkdir newdir</p><p title="Show processes">ps auxwww</p><p title="Amount of free and used memory">free -m</p><p title="List mounted devices">lsblk</p><p title="Get the details of the file system">df -h</p><p title="Change into the root directory of the Linux file system">cd /</p><p title="Show who is logged in">who</p><p title="Show working directory (print)">pwd</p><p title="Move or rename a file">mv</p><p title="List directory contents">ls</p><p title="Copy a file">cp</p><p title="Return to the home directory immediately (use cd ~ or cd)">cd</p></div>
+          <div class="oxs">
+            <p title="Create a video from a single image and audio">ffmpeg -loop 1 -i f.png -i f.mp3 -c:v libx264 -tune stillimage -c:a aac -b:a 192k -pix_fmt yuv420p -shortest out.mp4</p>
+            <p title="Convert PNG files to opaque images with white background">find . -name "*.png" -exec convert "{}" -fill white "{}" -opaque transparent "{}" -alpha off "{}" \;</p>
+            <p title="Download files from the internet">wget https://codeload.github.com/KostasSliazas/template-html.io/zip/refs/tags/1.0</p>
+            <p title="Create an animated GIF from resized images">convert -resize 50% -delay 10 -loop 0 image_{0..99}.jpg output.gif</p>
+            <p title="Recursively list files without folders">find . -type f ! -name 'file.txt' -exec basename {} \; &gt; file.txt</p>
+            <p title="Create a MPEG video from a single image and audio file">ffmpeg -loop 1 -i picture.png -i audio.ogg -shortest output.mpeg</p>
+            <p title="Recursively remove node_modules">find . -name "node_modules" -type d -prune -exec rm -rf '{}' +</p>
+            <p title="Resize images and create an animated GIF">convert -resize 768x576 -delay 20 -loop 0 `ls -v` myimage.gif</p>
+            <p title="Create an animated GIF from sequential PNG files">convert -delay 10 `ls -v` -loop 0 {0100..0255}.png output.gif</p>
+            <p title="Recursively remove copied folders (1)">sudo find -type d -name '*(1)*' -a -prune -exec rm -rf {} \; </p>
+            <p title="Recursively list only file names with a specific extension">find . -type f -name '*.jpg' -exec basename {} \; &gt; file.txt</p>
+            <p title="Recursively list files with folders">find . -type f ! -name 'file.txt' | sed 's|^\./||' &gt; file.txt</p>
+            <p title="Batch convert PNG to JPG with white background">mogrify -background white -flatten -format jpg *.png</p>
+            <p title="Resample and resize JPG images in batch">mogrify -resample 72x72 -resize 256x256 *.JPG</p>
+            <p title="Recursively list files without including file.txt">find . -type f ! -name 'file.txt' &gt; file.txt</p>
+            <p title="Restart network">sudo systemctl restart NetworkManager</p>
+            <p title="Update &amp; Upgrade System">sudo apt update ; sudo apt upgrade -y</p>
+            <p title="-print/-delete ALL except with file extension 'txt'">find . -type f ! -name '*.txt' -print</p>
+            <p title="Regular expressions to search in files (find one of two things)">grep "(root|nobody)" /etc/passwd</p>
+            <p title="-print/-delete empty folders">find . -type d -empty -print</p>
+            <p title="Archive file list to file">less data.zip &gt; file.txt</p>
+            <p title="Write 'okay' to file">echo okay &gt; filename</p>
+            <p title="Strip image metadata (and other unnecessary data) from PNG files">mogrify -strip *.png</p>
+            <p title="Remove all metadata from PNG files">exiftool -all= *.png</p>
+            <p title="Show directories">find / -type d -ls</p>
+            <p title="Remove image metadata">exiv2 rm image.jpg</p>
+            <p title="List image metadata information">exiftool image.jpg</p>
+            <p title="View Hosts File with Line Numbers">cat -n /etc/hosts</p>
+            <p title="File list to file">ls -1a &gt; file.txt</p>
+            <p title="Remove multiple blank lines">less -s filename</p>
+            <p title="Force and recursively remove all files and subdirectories">rm -rf folder</p>
+            <p title="Make a directory">mkdir newdir</p>
+            <p title="Show processes">ps auxwww</p>
+            <p title="Amount of free and used memory">free -ght</p>
+            <p title="List mounted devices">lsblk</p>
+            <p title="Get the details of the file system">df -h</p>
+            <p title="Change into the root directory of the Linux file system">cd /</p>
+            <p title="Show who is logged in">who</p>
+            <p title="Show working directory (print)">pwd</p>
+            <p title="Move or rename a file">mv</p>
+            <p title="List directory contents">ls</p>
+            <p title="Copy a file">cp</p>
+            <p title="Return to the home directory immediately (use cd ~ or cd)">cd</p>
+          </div>
         </div>
 
         <div class="movable">
@@ -448,7 +492,7 @@
               </div>
             </div>
             <div class="pa">
-                <button id="center-elements" class="em4">center elements</button>
+              <button id="center-elements" class="em4">center elements</button>
             </div>
             <div class="checkbox digit">
               <input type="radio" value="12" id="ten" name="move">
