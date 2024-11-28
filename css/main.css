@@ -1554,7 +1554,7 @@ button:active {
   border: 1px solid var(--color3);
   border-left: 0;
   border-right: 0;
-  width: 3ch;
+  min-width: 3ch;
   height: 24px;
   box-sizing: border-box;
   margin: 0;
