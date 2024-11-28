@@ -53,11 +53,11 @@ table {
 }
 
 :root {
-  --color0: #edf3fd;
-  --color1: #e4eded;
-  --color2: #d4dddd;
-  --color3: #c4cdcd;
-  --color4: #343d3d;
+  --color0: #1a1d20;
+  --color1: #35383b;
+  --color2: #222629;
+  --color3: #424b54;
+  --color4: #7fadde;
   --bg: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQIW2NgAAIAAAUAAR4f7BQAAAAASUVORK5CYII=);
   --repeat: no-repeat;
   --size: center/cover;
@@ -65,7 +65,7 @@ table {
 }
 
 html {
-  font: 16px/1.5 Calibri, Candara, Segoe, 'Segoe UI', Optima, Arial, sans-serif;
+  font: 16px/1.5 kitten-corner,Calibri, Candara, Segoe, 'Segoe UI', Optima, Arial, sans-serif;
   color: var(--color4);
   background: #ddd;
 }
@@ -318,11 +318,11 @@ html {
 }
 
 .p {
-  --color0: #1a1d20;
-  --color1: #35383b;
-  --color2: #222629;
-  --color3: #424b54;
-  --color4: #7fadde;
+  --color0: #edf3fd;
+  --color1: #e4eded;
+  --color2: #d4dddd;
+  --color3: #c4cdcd;
+  --color4: #343d3d;
 }
 
 .p.bg-image {
@@ -427,7 +427,7 @@ html {
 .s,
 .v,
 .g {
-  font-family: kitten-corner, Andale Mono, AndaleMono, monospace;
+  font-family: Andale Mono, AndaleMono, monospace;
 }
 
 .o,
