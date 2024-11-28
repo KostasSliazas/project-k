@@ -1,51 +1,71 @@
 /*jshint esversion: 11 */
 (function (document) {
   'use strict';
-
+  /**
+   * Manages drag-and-drop functionality for draggable elements within a container.
+   */
   class DraggableManager {
+    /**
+     * Creates a DraggableManager instance.
+     * @param {string} containerSelector - CSS selector for the container element.
+     * @param {string} draggableSelector - CSS selector for the draggable elements.
+     */
     constructor(containerSelector, draggableSelector) {
       this.container = document.querySelector(containerSelector);
       this.draggable = Array.from(this.container.querySelectorAll(draggableSelector));
-      this.draggedElement = null;
+      this.draggedElement = null; // The currently dragged element
     }
-
+    /**
+     * Initializes the drag-and-drop functionality by attaching event listeners.
+     */
     initialize() {
       this.draggable.forEach(draggable => {
-        // draggable.setAttribute('draggable', 'true');
+        // Enable drag-and-drop events on each draggable element
+        // draggable.setAttribute('draggable', 'true'); // Uncomment if elements aren't draggable by default
         draggable.addEventListener('dragstart', this.handleDragStart.bind(this));
         draggable.addEventListener('dragover', this.handleDragOver.bind(this));
         draggable.addEventListener('drop', this.handleDrop.bind(this));
       });
     }
-
+    /**
+     * Handles the drag start event.
+     * @param {DragEvent} event - The dragstart event.
+     */
     handleDragStart(event) {
-      this.draggedElement = event.target;
-      event.dataTransfer.setData('text/plain', ''); // required for Firefox
+      this.draggedElement = event.target; // Store reference to the element being dragged
+      event.dataTransfer.setData('text/plain', ''); // Required for Firefox compatibility
     }
-
+    /**
+     * Handles the drag over event.
+     * @param {DragEvent} event - The dragover event.
+     */
     handleDragOver(event) {
-      event.preventDefault(); // allow drop
+      event.preventDefault(); // Allow dropping by preventing the default behavior
     }
-
+    /**
+     * Handles the drop event, swaps elements, and updates the DOM.
+     * @param {DragEvent} event - The drop event.
+     */
     handleDrop(event) {
-      const targetElement = event.currentTarget;
-      if (this.draggedElement && this.draggedElement !== targetElement && this.draggedElement.tagName === 'DIV') {
-        const targetIndex = this.draggable.indexOf(targetElement);
-        const draggedIndex = this.draggable.indexOf(this.draggedElement);
+      const targetElement = event.currentTarget; // The element on which the drop occurred
 
-        // Swap elements in the array
+      // Ensure there's a valid dragged element and avoid dropping on itself
+      if (this.draggedElement && this.draggedElement !== targetElement && this.draggedElement.tagName === 'DIV') {
+        const targetIndex = this.draggable.indexOf(targetElement); // Get index of the drop target
+        const draggedIndex = this.draggable.indexOf(this.draggedElement); // Get index of the dragged element
+
+        // Swap elements in the array to maintain logical order
         [this.draggable[draggedIndex], this.draggable[targetIndex]] = [this.draggable[targetIndex], this.draggable[draggedIndex]];
 
-        // Update the visual order of draggable in the container
-        this.container.innerHTML = ''; // Clear container
-        this.draggable.forEach(draggable => this.container.appendChild(draggable));
+        // Update the visual order of the draggable elements in the container
+        this.container.innerHTML = ''; // Clear the container
+        this.draggable.forEach(draggable => this.container.appendChild(draggable)); // Re-append in new order
       }
     }
   }
   // Initialize DraggableManager
   const draggableManager = new DraggableManager('#cv', '.blokas');
   draggableManager.initialize();
-
 
   // helper to creat DOM element
   function createHTMLElement(tag, text, attributes) {
@@ -62,12 +82,11 @@
     return element;
   }
 
-  const cssId = 'styl';
-  if (!document.getElementById(cssId)) {
+  if (!document.getElementById('styl')) {
     const head = document.getElementsByTagName('head')[0];
     const link = document.createElement('link');
 
-    link.id = cssId;
+    link.id = 'styl';
     link.rel = 'stylesheet';
     link.type = 'text/css';
     link.href = 'style.css?v=2';
@@ -86,10 +105,10 @@
   const button = {
     class: 'shd brdr w24 remove',
     href: '#',
-    id: 'close'
+    id: 'close',
   };
 
-  block.forEach((e) => e.before(createHTMLElement('button', text, button)));
+  block.forEach(e => e.before(createHTMLElement('button', text, button)));
 
   const issaugoti = 'Save CV...';
   const buttonIsaugoti = {
@@ -98,26 +117,26 @@
   };
 
   const elems = createHTMLElement('button', issaugoti, buttonIsaugoti);
-  body.before(elems);
+  body.appendChild(elems);
   elems.onclick = htmls;
 
   // Create the info element and append to body
   const infoDiv = createHTMLElement('div', '', {
     id: 'info',
     class: 'remove',
-    style: 'display:none'
+    style: 'display:none',
   });
   const infocDiv = createHTMLElement('div', '', {
-    id: 'infoc'
+    id: 'infoc',
   });
   const spanElement = createHTMLElement('span', 'CLOSE', {
-    class: 'btn brdr shd'
+    class: 'btn brdr shd',
   });
   infocDiv.appendChild(spanElement);
 
   const infoTextContent = `Please do not close this window until your work is saved, as no information is stored in the database. To save your text, simply press 'Enter' after editing. You can change the language level by double-clicking with your mouse. For the best experience, please ensure your photo is sized at 100x128 pixels in size. To optimize loading times, reduce the file size of your photo as much as possible. You can rearrange blocks by dragging them.`;
   const infoTextDiv = createHTMLElement('div', infoTextContent, {
-    id: 'info-text'
+    id: 'info-text',
   });
 
   infoDiv.appendChild(infocDiv);
@@ -128,7 +147,7 @@
   const elem = document.querySelectorAll('.blokas');
   const buttonPlus = {
     href: '#',
-    id: 'dubl'
+    id: 'dubl',
   };
 
   elem.forEach((e, i) => {
@@ -144,17 +163,16 @@
   // Create the fakebtn element and its children using the createHTMLElement function
   const fakeButtonHtml = createHTMLElement('div', 'Select File', {
     id: 'fakebtn',
-    class: 'remove brdr'
+    class: 'remove brdr',
   });
 
   const fileInput = createHTMLElement('input', '', {
     id: 'image-file',
     name: 'image-file',
-    type: 'file'
+    type: 'file',
   });
   fileInput.onchange = fileSelected; // Assign fileSelected function to the 'change' event of the input element
   fakeButtonHtml.appendChild(fileInput);
-
 
   const uploadFormHtml = '<div id="dele" class="remove"><form action="" enctype="multipart/form-data" id="upload_form" method="post" name="upload_form"><div id="fileinfo"><div id="filename"></div><div id="filesize"></div><div id="filetype"></div><div id="filedim"></div></div><div id="error">Failas nepalaikomas! bmp, gif, jpeg, png, tiff</div><div id="error2">An error occurred while uploading the file</div><div id="abort">The upload has been canceled</div><div id="warnsize">The file is too large.</div><div id="progress_info"><div id="progress"></div><div id="progress_percent">&nbsp;</div><div class="clear_both"></div><div><div id="speed">&nbsp;</div><div id="remaining">&nbsp;</div><div id="b_transfered">&nbsp;</div><div class="clear_both"></div></div><div id="upload_response"></div></div></form></div>';
 
@@ -168,9 +186,8 @@
     });
   });
 
-
   // Helper function to create the link element
-  const createLink = (input) => {
+  const createLink = input => {
     let href = '';
 
     // Check if the input is an email, number, or URL and set the appropriate link
@@ -194,8 +211,8 @@
     const link = document.createElement('a');
     link.href = href;
     link.textContent = input.value; // Set link text to input value
-    link.target = "_blank"; // Open link in a new tab
-    link.rel = "noopener noreferrer nofollow"; // Add safe and nofollow attributes
+    link.target = '_blank'; // Open link in a new tab
+    link.rel = 'noopener noreferrer nofollow'; // Add safe and nofollow attributes
     return link; // Return the <a> tag without any class
   };
 
@@ -212,7 +229,7 @@
   function outf() {
     const cvInputs = document.querySelectorAll('select, input:not(#image-file)');
 
-    cvInputs.forEach((input) => {
+    cvInputs.forEach(input => {
       let tagName = input.classList.contains('left') ? 'h2' : 'h3';
 
       // Replace text input with an h2 or h3 based on the class
@@ -249,11 +266,7 @@
       // Convert the object to a string and save it to localStorage
       // localStorage.setItem(nameElement.innerText.replace(/\s+/g, ''), JSON.stringify(jsonData));
     }
-
   }
-
-
-
 
   // let oTimer = 0;
   //let iBytesUploaded = 0;
@@ -412,20 +425,35 @@ function uploadProgress(e) {
     clearInterval(oTimer);
   } */
 
-
   const jsonData = {
-    "basics": {},
-    "work": [],
-    "volunteer": [],
-    "education": [],
-    "awards": [],
-    "certificates": [],
-    "publications": [],
-    "skills": [],
-    "languages": [],
-    "interests": [],
-    "references": [],
-    "projects": []
+    basics: {
+      name: '',
+      label: '',
+      image: '',
+      email: '',
+      phone: '',
+      url: '',
+      summary: '',
+      location: {
+        address: '',
+        postalCode: '',
+        city: '',
+        countryCode: '',
+        region: '',
+      },
+      profiles: [],
+    },
+    work: [],
+    volunteer: [],
+    education: [],
+    awards: [],
+    certificates: [],
+    publications: [],
+    skills: [],
+    languages: [],
+    interests: [],
+    references: [],
+    projects: [],
   };
 
   // Function to extract basic information (personal info)  >>>>>>>>>>>>>>>>>>>>>>>basics<<<<<<<<<<<<<<<<<<<<<<<
@@ -462,10 +490,9 @@ function uploadProgress(e) {
   }
   // Function to extract WORK experience  >>>>>>>>>>>>>>>>>>>>>>>work<<<<<<<<<<<<<<<<<<<<<<<
   function extractWorkExperience() {
-
     const workElements = [...document.getElementsByClassName('experience')];
 
-    workElements.forEach((work) => {
+    workElements.forEach(work => {
       let workExperience = {};
 
       const dateStart = work?.getElementsByTagName('h3')[0]?.textContent.trim() || null;
@@ -480,8 +507,8 @@ function uploadProgress(e) {
       if (name) workExperience.name = name;
       if (position) workExperience.position = position;
       if (url) workExperience.url = url;
-      if (dateStart) workExperience.startDate = dateStart;
-      if (dateEnd) workExperience.endDate = dateEnd;
+      if (dateStart) workExperience.startDate = matchAndConvert(dateStart);
+      if (dateEnd) workExperience.endDate = matchAndConvert(dateEnd);
       if (summary) workExperience.summary = summary;
       if (highlights) workExperience.highlights = [highlights];
 
@@ -495,7 +522,7 @@ function uploadProgress(e) {
   function extractEducation() {
     const educationSections = [...document.getElementsByClassName('education')];
 
-    educationSections.forEach((eduSection) => {
+    educationSections.forEach(eduSection => {
       let education = {};
 
       const dateStart = eduSection?.getElementsByTagName('h3')[0]?.textContent.trim() || null;
@@ -511,8 +538,8 @@ function uploadProgress(e) {
       if (url) education.url = url;
       if (area) education.area = area;
       if (studyType) education.studyType = studyType;
-      if (dateStart) education.startDate = dateStart;
-      if (dateEnd) education.endDate = dateEnd;
+      if (dateStart) education.startDate = matchAndConvert(dateStart);
+      if (dateEnd) education.endDate = matchAndConvert(dateEnd);
       if (score) education.score = score;
 
       if (Object.keys(education).length > 0) {
@@ -524,7 +551,7 @@ function uploadProgress(e) {
   function extractSkills() {
     const skillElements = [...document.getElementsByClassName('skills')];
 
-    skillElements.forEach((skill) => {
+    skillElements.forEach(skill => {
       let skillData = {};
 
       // Extracting level, keywords, and name based on your HTML structure
@@ -550,7 +577,7 @@ function uploadProgress(e) {
   function extractLanguages() {
     const languageElements = [...document.querySelectorAll('.languages section')];
 
-    languageElements.forEach((lang) => {
+    languageElements.forEach(lang => {
       let languageData = {};
 
       // Extract language name (left side)
@@ -570,16 +597,6 @@ function uploadProgress(e) {
     });
   }
 
-
-  // helper functions
-  // function createLinkElement(className, href, textContent) {
-  //   const link = document.createElement('a');
-  //   link.setAttribute('class', className);
-  //   link.setAttribute('href', href);
-  //   link.textContent = textContent;
-  //   return link;
-  // }
-
   function generateDate() {
     const date = new Date(); // Get the current date
     const year = date.getFullYear(); // Get the full year (4 digits)
@@ -590,6 +607,30 @@ function uploadProgress(e) {
 
   function containsOnlyLetters(str) {
     return /^[a-zA-Z\s]+$/.test(str);
+  }
+
+  function matchAndConvert(dateString) {
+    const regex = /^([1-2][0-9]{3})(?:-([0-1][0-9])(?:-([0-3][0-9]))?)?$/;
+
+    const match = dateString.match(regex);
+    if (!match) return null;
+
+    const year = parseInt(match[1], 10);
+    const month = match[2] ? parseInt(match[2], 10) : 1; // Default to January
+    const day = match[3] ? parseInt(match[3], 10) : 1;   // Default to the 1st day
+
+    // Validate the date
+    const date = new Date(year, month - 1, day); // JavaScript months are 0-indexed
+    if (
+      date.getFullYear() === year &&
+      date.getMonth() + 1 === month &&
+      date.getDate() === day
+    ) {
+      // Return in YYYY-MM-DD format
+      return `${year.toString().padStart(4, '0')}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+    }
+
+    return null;
   }
 
   function htmls() {
@@ -605,7 +646,7 @@ function uploadProgress(e) {
     document.querySelectorAll('.remove').forEach(function (element) {
       element.parentNode.removeChild(element);
     });
-    document.querySelectorAll('[draggable="true"]').forEach(e => e.removeAttribute("draggable"));
+    document.querySelectorAll('[draggable="true"]').forEach(e => e.removeAttribute('draggable'));
 
     // Clone the HTML content
     const htmlElement = document.querySelector('html');
@@ -621,7 +662,7 @@ function uploadProgress(e) {
     // extractSkills();
     extractLanguages();
     // extractPersonalSkills();
-    extractSkills()
+    extractSkills();
     extractBasics();
     extractWorkExperience();
     extractEducation();
@@ -633,17 +674,14 @@ function uploadProgress(e) {
   function download(fileName, html) {
     const pom = document.createElement('a');
     document.body.appendChild(pom);
-    pom.setAttribute(
-      'href',
-      'data:text/plain;charset=utf-8,' + encodeURIComponent(html)
-    );
+    pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(html));
     pom.setAttribute('download', fileName + '.html');
     pom.target = '_blank';
     if (document.createEvent) {
       // Create a new click event
       const event = new MouseEvent('click', {
         bubbles: true, // Indicates that the event can bubble up through the DOM tree
-        cancelable: true // Indicates that the event can be canceled
+        cancelable: true, // Indicates that the event can be canceled
       });
       pom.dispatchEvent(event);
     } else {
@@ -653,11 +691,11 @@ function uploadProgress(e) {
 
   function exportToJson(data, fileName = 'data.json') {
     // Convert the data object to a JSON string
-    const jsonString = JSON.stringify(data, null, 4);
+    const jsonString = JSON.stringify(data, null, 2);
 
     // Create a Blob with the JSON data
     const blob = new Blob([jsonString], {
-      type: 'application/json'
+      type: 'application/json',
     });
 
     // Create a download link
@@ -674,7 +712,7 @@ function uploadProgress(e) {
 
   // events
 
-  document.addEventListener('mouseup', (e) => {
+  document.addEventListener('mouseup', e => {
     const target = e.target;
     if (target.tagName === 'OPTION') {
       target.parentNode.parentNode.innerHTML = target.value;
@@ -692,8 +730,7 @@ function uploadProgress(e) {
     if (e.target.classList.contains('edit')) {
       e.preventDefault();
 
-      const selectHtml =
-        `<select>
+      const selectHtml = `<select>
         <option value="A1 – Breakthrough">A1 – Breakthrough</option>
         <option value="A2 – Waystage">A2 – Waystage</option>
         <option value="B1 – Threshold">B1 – Threshold</option>
@@ -705,25 +742,22 @@ function uploadProgress(e) {
       e.target.insertAdjacentHTML('afterbegin', selectHtml);
     }
   });
-
+  // prettier-ignore
   document.body.addEventListener('click', function (e) {
     const target = e.target;
-
 
     if (target.classList.contains('rem')) {
       if (target.parentNode.classList.contains('toka')) {
         const row = target.parentNode.getElementsByClassName('krow');
         const last = row[row.length - 1];
         if (row.length === 3) target.parentNode.remove();
-        return (row.length > 3) && last.remove();
+        return row.length > 3 && last.remove();
       }
       if (target?.parentNode.getElementsByTagName('div').length === 1) {
         target?.parentNode.remove();
       }
       target?.parentNode.getElementsByTagName('div')[0]?.remove();
-
     } else if (target.classList.contains('add')) {
-
       if (target.parentNode.classList.contains('toka')) {
         const row = target.parentNode.getElementsByClassName('krow');
         const last = row[row.length - 1];
@@ -735,9 +769,7 @@ function uploadProgress(e) {
       // const num = increment();
       // copy.getElementsByTagName('h3')[5].textContent = num + ' ' + copy.getElementsByTagName('h3')[5].textContent.replace(/\d+/g, '').trim();
       node.before(copy);
-
-    } else if (target.tagName === 'H3' || target.tagName === 'H2' || target.parentNode.id === "number" || target.parentNode.id === "email") {
-
+    } else if (target.tagName === 'H3' || target.tagName === 'H2' || target.parentNode.id === 'number' || target.parentNode.id === 'email') {
       e.preventDefault();
 
       const input = document.createElement('input');
@@ -748,11 +780,9 @@ function uploadProgress(e) {
       target.replaceWith(input);
       input.select();
       input.focus();
-
     } else if (target.tagName !== 'SELECT' && target.tagName !== 'INPUT') {
       // run all to make text not inputs function
       outf();
     }
-  }, true);
-
+  },true);
 })(document);
