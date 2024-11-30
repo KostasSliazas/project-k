@@ -3,11 +3,12 @@
     cursor: pointer
 }
 
-.left:empty,
-.righ:empty {
+.left :empty,
+.righ :empty {
     min-block-size: 24px;
     min-width: 48px;
-    background: #eee
+    background: #eee;
+    display: block;
 }
 
 #upload_form {
@@ -165,12 +166,6 @@ input[type=file]:hover {
     background: linear-gradient(#bbb, #eee)
 }
 
-#reda,
-.save {
-    background: #6bb89d;
-    top: 12px
-}
-
 #close,
 #reda {
     position: absolute;
@@ -196,8 +191,22 @@ input[type=file]:hover {
 .save {
     z-index: 999;
     text-transform: uppercase;
+}
+
+.fixe {
+    position: fixed;
+    top: 12px;
+}
+
+#reda,
+.save {
+    background: #6bb89d;
     right: 12px;
-    position: fixed
+}
+
+.impo {
+    background: #6cc89d;
+    left: 12px;
 }
 
 .add {

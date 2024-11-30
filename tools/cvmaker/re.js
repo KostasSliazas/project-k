@@ -112,7 +112,7 @@
 
   const issaugoti = 'Save CV...';
   const buttonIsaugoti = {
-    class: 'save brdr shd remove',
+    class: 'save fixe brdr shd remove',
     href: '#',
   };
 
@@ -176,9 +176,16 @@
 
   const uploadFormHtml = '<div id="dele" class="remove"><form action="" enctype="multipart/form-data" id="upload_form" method="post" name="upload_form"><div id="fileinfo"><div id="filename"></div><div id="filesize"></div><div id="filetype"></div><div id="filedim"></div></div><div id="error">Failas nepalaikomas! bmp, gif, jpeg, png, tiff</div><div id="error2">An error occurred while uploading the file</div><div id="abort">The upload has been canceled</div><div id="warnsize">The file is too large.</div><div id="progress_info"><div id="progress"></div><div id="progress_percent">&nbsp;</div><div class="clear_both"></div><div><div id="speed">&nbsp;</div><div id="remaining">&nbsp;</div><div id="b_transfered">&nbsp;</div><div class="clear_both"></div></div><div id="upload_response"></div></div></form></div>';
 
+  // reusabe ID'S
   document.getElementById('header').insertAdjacentHTML('afterbegin', uploadFormHtml);
-  document.getElementById('photo').appendChild(fakeButtonHtml);
+  const nameElement = document.getElementById('name');
+  const heading = document.getElementById('he');
+  const preview = document.getElementById('preview');
+  const photo = document.getElementById('photo');
+  photo.appendChild(fakeButtonHtml);
+
   document.querySelectorAll('#close, #infoc').forEach(function (element) {
+
     element.addEventListener('click', function (e) {
       e.preventDefault();
       // const info = document.querySelector('#info');
@@ -253,10 +260,6 @@
         input.parentElement.innerText = input.options[input.selectedIndex].value;
       }
     });
-
-    // Update the document title based on the 'name' element
-    const nameElement = document.getElementById('name');
-    const heading = document.getElementById('he');
 
     if (nameElement) {
       const name = nameElement.innerText;
@@ -424,6 +427,273 @@ function uploadProgress(e) {
     document.getElementById('abort').style.display = 'block';
     clearInterval(oTimer);
   } */
+
+  function createStringChangeHelper() {
+    let lastString = null; // Keeps track of the last string
+
+    return function (currentString) {
+      const isSame = currentString === lastString;
+      lastString = currentString; // Update the last string
+      return isSame;
+    };
+  }
+
+  function stringifyWithoutQuotes(obj) {
+    return JSON.stringify(obj, (key, value) => value) // stringify the object normally
+      .replace(/^{|}$/g, '') // remove curly braces
+      .replace(/"([^"]+)":/g, '$1:') // remove quotes from keys
+      .replace(/"([^"]+)"/g, '$1'); // remove quotes from string values
+  }
+
+  const getDynamicTitle = (key, parent) => {
+    // Convert key or parent to lowercase for consistent handling
+    let text = (key || parent).toLowerCase();
+
+    // Handle titles for the "basics" section
+    if (parent === 'basics') {
+      if (key === 'name') text = 'Name / Surname';
+      if (key === 'label') text = 'Profession Field';
+      if (key === 'email') text = 'Email Address';
+      if (key === 'phone') text = 'Phone Number';
+      if (key === 'url') text = 'Homepage';
+      if (!key) text = 'Personal Details';
+    }
+
+    // Handle titles for the "education" section
+    if (parent === 'education') {
+      if (key === 'area') text = 'Key Subjects / Professional Skills';
+      if (key === 'studyType') text = 'Qualification';
+      if (key === 'institution') text = 'Institution Name';
+      if (key === 'score') text = 'Qualification Level';
+      if (key === 'url') text = 'Institution\'s Homepage';
+      if (!key) text = 'Education';
+    }
+
+    // Handle titles for the "work" section
+    if (parent === 'work') {
+      if (key === 'name') text = 'Employer Name and Address';
+      if (key === 'position') text = 'Profession or Position';
+      if (key === 'url') text = 'Employer\'s Homepage';
+      if (key === 'summary') text = 'Main Activities and Responsibilities';
+      if (key === 'highlights') text = 'Key Achievements';
+      if (!key) text = 'Work Experience';
+    }
+
+    // Handle titles for the "skills" section
+    if (parent === 'skills') {
+      if (key === 'name') text = 'Skill Name';
+      if (key === 'level') text = 'Skill Level';
+      if (key === 'keywords') text = 'Skill Keywords';
+      if (!key) text = 'Skills';
+    }
+
+    // Handle titles for the "languages" section
+    if (parent === 'languages') {
+      if (key === 'language') text = 'Language';
+      if (key === 'fluency') text = 'Fluency Level';
+      if (!key) text = 'Languages';
+    }
+
+    // Handle titles for the "projects" section
+    if (parent === 'projects') {
+      if (key === 'name') text = 'Project Name';
+      if (key === 'description') text = 'Project Description';
+      if (key === 'startDate') text = 'Start Date';
+      if (key === 'endDate') text = 'End Date';
+      if (key === 'highlights') text = 'Key Highlights';
+      if (key === 'url') text = 'Project URL';
+      if (!key) text = 'Projects';
+    }
+
+    // Handle titles for other sections like "awards" and "certificates"
+    if (parent === 'awards') {
+      if (key === 'title') text = 'Award Title';
+      if (key === 'date') text = 'Award Date';
+      if (key === 'awarder') text = 'Awarder';
+      if (key === 'summary') text = 'Award Summary';
+      if (!key) text = 'Awards';
+    }
+
+    if (parent === 'certificates') {
+      if (key === 'name') text = 'Certificate Name';
+      if (key === 'date') text = 'Date Issued';
+      if (key === 'issuer') text = 'Issued By';
+      if (key === 'url') text = 'Certificate URL';
+      if (!key) text = 'Certificates';
+    }
+
+    // Capitalize the first letter of the resulting text
+    return text.charAt(0).toUpperCase() + text.slice(1);
+  };
+
+  // Function to loop through the top-level keys of an object
+  function getTopLevelKeys(obj, handlers) {
+    const result = []; // Initialize an array to store the key-value pairs
+
+    if (typeof obj !== 'object' || obj === null) {
+      return result; // Return an empty array if it's not an object
+    }
+
+    // Loop through the top-level keys of the object
+    for (const key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        const data = handlers(key, obj[key]); // Call handler and collect the result
+        result.push(data); // Add the result to the collection
+      }
+    }
+    return result; // Return the accumulated key-value pairs
+  }
+
+  // Looping handler to create HTML dynamically
+  const handlers = (key, value) => {
+    const blockDiv = createHTMLElement('div', '', {
+      class: 'blokas',
+      draggable: 'true'
+    });
+    const section = createHTMLElement('section');
+
+    section.appendChild(createHTMLElement('h2', getDynamicTitle('', key), {
+      class: 'left num hm bold'
+    }));
+    blockDiv.appendChild(section);
+
+    const dateTracker = createDateTracker(); // Create once for the whole object
+
+    // Recursive function to loop through objects or arrays
+    const loopObjectOrArray = (value, parentKey) => {
+      if (Array.isArray(value)) {
+        // Handle arrays
+        value.forEach(item => loopObjectOrArray(item, parentKey));
+        return;
+      }
+
+      if (typeof value === 'object' && value !== null) {
+        // Create a container for nested structures
+        const inner = createHTMLElement('div');
+
+        // Iterate through object keys
+        for (const subKey in value) {
+          if (!value.hasOwnProperty(subKey)) continue; // Skip inherited properties
+          if (subKey === 'image') {
+            preview.src = String(subKey);
+            continue; // Skip 'image' key
+          }
+
+          const subValue = value[subKey];
+
+          if (typeof subValue === 'object' && subValue !== null) {
+            // Recursive call for nested structures
+            loopObjectOrArray(subValue, subKey);
+          } else {
+            // Handle primitive values
+            if (subKey === 'startDate' || subKey === 'endDate') {
+              const date = dateTracker(String(subValue), subKey);
+              if (date) {
+                const dateSection = createHTMLElement('section');
+                dateSection.appendChild(createHTMLElement('h2', 'Dates', {
+                  class: 'left'
+                }));
+                dateSection.appendChild(createHTMLElement('h3', date, {
+                  class: 'right'
+                }));
+                inner.appendChild(dateSection);
+              }
+              continue;
+            }
+
+            const object = {
+              class: 'right'
+            }
+            // working with custom top values
+            if (parentKey === "basics") {
+              document.getElementById
+              object.id = String(subKey);
+
+              if (String(subKey) === 'name') {
+                he.firstElementChild.textContent = String(subValue);
+                document.title = String(subValue);
+              }
+            }
+            // Handle non-date key-value pairs
+            const title = getDynamicTitle(String(subKey), parentKey);
+            const pairSection = createHTMLElement('section');
+            pairSection.appendChild(createHTMLElement('h2', title, {
+              class: 'left'
+            }));
+            pairSection.appendChild(createHTMLElement('h3', String(subValue), object));
+            inner.appendChild(pairSection);
+            blockDiv.appendChild(inner); // Append inner block to main block
+          }
+        }
+
+      }
+    };
+
+    // Start recursive processing
+    loopObjectOrArray(value, key);
+
+    // Append the completed block to the container
+    const container = document.getElementById('cv');
+    container.appendChild(blockDiv);
+  };
+
+  // Main function to generate the HTML content from JSON data
+  function generateHTMLFromJson(data) {
+    const container = document.getElementById('cv');
+    container.innerHTML = ''; // Clear existing content
+    getTopLevelKeys(data, handlers); // Generate HTML based on the data
+  }
+
+
+  let dateRanges = []; // Global array to store start-end date pairs
+
+  function createDateTracker() {
+    return function (date, type) {
+      // We are tracking pairs of start and end dates
+      if (type === "startDate") {
+        // If it's a new start date, create a new range in the array
+        dateRanges.push({
+          startDate: date,
+          endDate: null
+        });
+        return null; // Just set the start, nothing to output yet
+      }
+
+      if (type === "endDate" && dateRanges.length > 0) {
+        // If there is a start date to pair with, update the last startDate with the endDate
+        let lastRange = dateRanges[dateRanges.length - 1];
+        if (lastRange.startDate !== null) {
+          lastRange.endDate = date; // Set the end date for the last range
+          return `${lastRange.startDate} — ${lastRange.endDate}`; // Return the pair as a string
+        }
+      }
+
+      return null; // If no start date, or if no end date is given for the last range
+    };
+  }
+
+
+
+  document.getElementById('importButton').addEventListener('click', () => {
+    document.getElementById('fileInput').click(); // Trigger file input on button click
+  });
+
+  document.getElementById('fileInput').addEventListener('change', function (event) {
+    const file = event.target.files[0]; // Get the selected file
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        try {
+          const jsonData = JSON.parse(e.target.result); // Parse the JSON file content
+          generateHTMLFromJson(jsonData); // Generate HTML from JSON
+        } catch (err) {
+          alert('Invalid JSON file');
+          console.error('Error parsing JSON:', err);
+        }
+      };
+      reader.readAsText(file); // Read the file content
+    }
+  });
 
   const jsonData = {
     basics: {
@@ -617,7 +887,7 @@ function uploadProgress(e) {
 
     const year = parseInt(match[1], 10);
     const month = match[2] ? parseInt(match[2], 10) : 1; // Default to January
-    const day = match[3] ? parseInt(match[3], 10) : 1;   // Default to the 1st day
+    const day = match[3] ? parseInt(match[3], 10) : 1; // Default to the 1st day
 
     // Validate the date
     const date = new Date(year, month - 1, day); // JavaScript months are 0-indexed
@@ -784,5 +1054,5 @@ function uploadProgress(e) {
       // run all to make text not inputs function
       outf();
     }
-  },true);
+  }, true);
 })(document);
