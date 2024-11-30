@@ -174,6 +174,32 @@
   fileInput.onchange = fileSelected; // Assign fileSelected function to the 'change' event of the input element
   fakeButtonHtml.appendChild(fileInput);
 
+  // Define the button text and configuration
+  const importButtonText = 'Import JSON';
+  const importButtonConfig = {
+    class: 'impo fixe brdr shd remove', // Apply the classes
+    id: 'importButton', // Set the id
+  };
+
+  // Define the file input configuration
+  const fileInputConfig = {
+    type: 'file',
+    id: 'fileInput',
+    accept: '.json',
+    style: 'display: none;', // Hidden file input
+    class: 'remove', // Apply the class
+  };
+
+  // Create the "Import JSON" button dynamically
+  const importButton = createHTMLElement('button', importButtonText, importButtonConfig);
+
+  // Create the hidden file input dynamically
+  const fileJSONInput = createHTMLElement('input', '', fileInputConfig);
+
+  // Append the button and file input to the body (or any other container)
+  document.body.appendChild(importButton);
+  document.body.appendChild(fileJSONInput);
+
   const uploadFormHtml = '<div id="dele" class="remove"><form action="" enctype="multipart/form-data" id="upload_form" method="post" name="upload_form"><div id="fileinfo"><div id="filename"></div><div id="filesize"></div><div id="filetype"></div><div id="filedim"></div></div><div id="error">Failas nepalaikomas! bmp, gif, jpeg, png, tiff</div><div id="error2">An error occurred while uploading the file</div><div id="abort">The upload has been canceled</div><div id="warnsize">The file is too large.</div><div id="progress_info"><div id="progress"></div><div id="progress_percent">&nbsp;</div><div class="clear_both"></div><div><div id="speed">&nbsp;</div><div id="remaining">&nbsp;</div><div id="b_transfered">&nbsp;</div><div class="clear_both"></div></div><div id="upload_response"></div></div></form></div>';
 
   // reusabe ID'S
@@ -185,7 +211,6 @@
   photo.appendChild(fakeButtonHtml);
 
   document.querySelectorAll('#close, #infoc').forEach(function (element) {
-
     element.addEventListener('click', function (e) {
       e.preventDefault();
       // const info = document.querySelector('#info');
@@ -447,83 +472,81 @@ function uploadProgress(e) {
 
   const getDynamicTitle = (key, parent) => {
     // Convert key or parent to lowercase for consistent handling
-    let text = (key || parent).toLowerCase();
+    const text = key || parent;
 
-    // Handle titles for the "basics" section
-    if (parent === 'basics') {
-      if (key === 'name') text = 'Name / Surname';
-      if (key === 'label') text = 'Profession Field';
-      if (key === 'email') text = 'Email Address';
-      if (key === 'phone') text = 'Phone Number';
-      if (key === 'url') text = 'Homepage';
-      if (!key) text = 'Personal Details';
-    }
+    // Mappings for specific sections
+    const sections = {
+      basics: {
+        name: 'Name / Surname',
+        label: 'Profession Field',
+        email: 'Email Address',
+        phone: 'Phone Number',
+        url: 'Homepage',
+        default: 'Personal Details',
+      },
+      education: {
+        area: 'Key Subjects / Professional Skills',
+        studyType: 'Qualification',
+        institution: 'Institution Name',
+        score: 'Qualification Level',
+        url: "Institution's Homepage",
+        default: 'Education',
+      },
+      work: {
+        name: 'Employer Name and Address',
+        position: 'Profession or Position',
+        url: "Employer's Homepage",
+        summary: 'Main Activities and Responsibilities',
+        highlights: 'Key Achievements',
+        default: 'Work Experience',
+      },
+      skills: {
+        name: 'Skill Name',
+        level: 'Skill Level',
+        keywords: 'Skill Keywords',
+        default: 'Skills',
+      },
+      languages: {
+        language: 'Language',
+        fluency: 'Fluency Level',
+        default: 'Languages',
+      },
+      projects: {
+        name: 'Project Name',
+        description: 'Project Description',
+        startDate: 'Start Date',
+        endDate: 'End Date',
+        highlights: 'Key Highlights',
+        url: 'Project URL',
+        default: 'Projects',
+      },
+      awards: {
+        title: 'Award Title',
+        date: 'Award Date',
+        awarder: 'Awarder',
+        summary: 'Award Summary',
+        default: 'Awards',
+      },
+      certificates: {
+        name: 'Certificate Name',
+        date: 'Date Issued',
+        issuer: 'Issued By',
+        url: 'Certificate URL',
+        default: 'Certificates',
+      },
+    };
 
-    // Handle titles for the "education" section
-    if (parent === 'education') {
-      if (key === 'area') text = 'Key Subjects / Professional Skills';
-      if (key === 'studyType') text = 'Qualification';
-      if (key === 'institution') text = 'Institution Name';
-      if (key === 'score') text = 'Qualification Level';
-      if (key === 'url') text = 'Institution\'s Homepage';
-      if (!key) text = 'Education';
-    }
+    const defaults = {
+      url: 'Webpage',
+      network: 'Online Presence',
+    };
 
-    // Handle titles for the "work" section
-    if (parent === 'work') {
-      if (key === 'name') text = 'Employer Name and Address';
-      if (key === 'position') text = 'Profession or Position';
-      if (key === 'url') text = 'Employer\'s Homepage';
-      if (key === 'summary') text = 'Main Activities and Responsibilities';
-      if (key === 'highlights') text = 'Key Achievements';
-      if (!key) text = 'Work Experience';
-    }
-
-    // Handle titles for the "skills" section
-    if (parent === 'skills') {
-      if (key === 'name') text = 'Skill Name';
-      if (key === 'level') text = 'Skill Level';
-      if (key === 'keywords') text = 'Skill Keywords';
-      if (!key) text = 'Skills';
-    }
-
-    // Handle titles for the "languages" section
-    if (parent === 'languages') {
-      if (key === 'language') text = 'Language';
-      if (key === 'fluency') text = 'Fluency Level';
-      if (!key) text = 'Languages';
-    }
-
-    // Handle titles for the "projects" section
-    if (parent === 'projects') {
-      if (key === 'name') text = 'Project Name';
-      if (key === 'description') text = 'Project Description';
-      if (key === 'startDate') text = 'Start Date';
-      if (key === 'endDate') text = 'End Date';
-      if (key === 'highlights') text = 'Key Highlights';
-      if (key === 'url') text = 'Project URL';
-      if (!key) text = 'Projects';
-    }
-
-    // Handle titles for other sections like "awards" and "certificates"
-    if (parent === 'awards') {
-      if (key === 'title') text = 'Award Title';
-      if (key === 'date') text = 'Award Date';
-      if (key === 'awarder') text = 'Awarder';
-      if (key === 'summary') text = 'Award Summary';
-      if (!key) text = 'Awards';
-    }
-
-    if (parent === 'certificates') {
-      if (key === 'name') text = 'Certificate Name';
-      if (key === 'date') text = 'Date Issued';
-      if (key === 'issuer') text = 'Issued By';
-      if (key === 'url') text = 'Certificate URL';
-      if (!key) text = 'Certificates';
-    }
+    // Retrieve the title based on the section and key
+    const sectionTitles = sections[parent];
+    const result = sectionTitles ? sectionTitles[key] || sectionTitles.default : defaults[text] || text;
 
     // Capitalize the first letter of the resulting text
-    return text.charAt(0).toUpperCase() + text.slice(1);
+    return result.charAt(0).toUpperCase() + result.slice(1);
   };
 
   // Function to loop through the top-level keys of an object
@@ -548,13 +571,15 @@ function uploadProgress(e) {
   const handlers = (key, value) => {
     const blockDiv = createHTMLElement('div', '', {
       class: 'blokas',
-      draggable: 'true'
+      draggable: 'true',
     });
     const section = createHTMLElement('section');
 
-    section.appendChild(createHTMLElement('h2', getDynamicTitle('', key), {
-      class: 'left num hm bold'
-    }));
+    section.appendChild(
+      createHTMLElement('h2', getDynamicTitle('', key), {
+        class: 'left num hm bold',
+      })
+    );
     blockDiv.appendChild(section);
 
     const dateTracker = createDateTracker(); // Create once for the whole object
@@ -590,23 +615,33 @@ function uploadProgress(e) {
               const date = dateTracker(String(subValue), subKey);
               if (date) {
                 const dateSection = createHTMLElement('section');
-                dateSection.appendChild(createHTMLElement('h2', 'Dates', {
-                  class: 'left'
-                }));
-                dateSection.appendChild(createHTMLElement('h3', date, {
-                  class: 'right'
-                }));
+                dateSection.appendChild(
+                  createHTMLElement('h2', 'Dates', {
+                    class: 'left',
+                  })
+                );
+                dateSection.appendChild(
+                  createHTMLElement('h3', date, {
+                    class: 'right',
+                  })
+                );
                 inner.appendChild(dateSection);
               }
               continue;
             }
+            const boldFields = ['name', 'email', 'phone']; // These fields should be bolded
 
             const object = {
-              class: 'right'
+              class: 'right',
+            };
+            if (boldFields.includes(subKey)) {
+              object.class += ' bold'; // Add 'bold' to the existing class string if in boldFields
+            } else {
+              object.class = object.class.replace(' bold', ''); // Remove 'bold' class if not in boldFields
             }
             // working with custom top values
-            if (parentKey === "basics") {
-              document.getElementById
+            if (parentKey === 'basics') {
+              document.getElementById;
               object.id = String(subKey);
 
               if (String(subKey) === 'name') {
@@ -614,18 +649,20 @@ function uploadProgress(e) {
                 document.title = String(subValue);
               }
             }
+
             // Handle non-date key-value pairs
             const title = getDynamicTitle(String(subKey), parentKey);
             const pairSection = createHTMLElement('section');
-            pairSection.appendChild(createHTMLElement('h2', title, {
-              class: 'left'
-            }));
+            pairSection.appendChild(
+              createHTMLElement('h2', title, {
+                class: 'left',
+              })
+            );
             pairSection.appendChild(createHTMLElement('h3', String(subValue), object));
             inner.appendChild(pairSection);
             blockDiv.appendChild(inner); // Append inner block to main block
           }
         }
-
       }
     };
 
@@ -644,22 +681,21 @@ function uploadProgress(e) {
     getTopLevelKeys(data, handlers); // Generate HTML based on the data
   }
 
-
   let dateRanges = []; // Global array to store start-end date pairs
 
   function createDateTracker() {
     return function (date, type) {
       // We are tracking pairs of start and end dates
-      if (type === "startDate") {
+      if (type === 'startDate') {
         // If it's a new start date, create a new range in the array
         dateRanges.push({
           startDate: date,
-          endDate: null
+          endDate: null,
         });
         return null; // Just set the start, nothing to output yet
       }
 
-      if (type === "endDate" && dateRanges.length > 0) {
+      if (type === 'endDate' && dateRanges.length > 0) {
         // If there is a start date to pair with, update the last startDate with the endDate
         let lastRange = dateRanges[dateRanges.length - 1];
         if (lastRange.startDate !== null) {
@@ -671,8 +707,6 @@ function uploadProgress(e) {
       return null; // If no start date, or if no end date is given for the last range
     };
   }
-
-
 
   document.getElementById('importButton').addEventListener('click', () => {
     document.getElementById('fileInput').click(); // Trigger file input on button click
@@ -891,11 +925,7 @@ function uploadProgress(e) {
 
     // Validate the date
     const date = new Date(year, month - 1, day); // JavaScript months are 0-indexed
-    if (
-      date.getFullYear() === year &&
-      date.getMonth() + 1 === month &&
-      date.getDate() === day
-    ) {
+    if (date.getFullYear() === year && date.getMonth() + 1 === month && date.getDate() === day) {
       // Return in YYYY-MM-DD format
       return `${year.toString().padStart(4, '0')}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
     }

@@ -1,122 +1,122 @@
 .edit,
 .langue {
-    cursor: pointer
+  cursor: pointer;
 }
 
 .left :empty,
 .righ :empty {
-    min-block-size: 24px;
-    min-width: 48px;
-    background: #eee;
-    display: block;
+  min-block-size: 24px;
+  min-width: 48px;
+  background: #eee;
+  display: block;
 }
 
 #upload_form {
-    position: absolute;
-    display: block;
-    width: 432px;
-    height: 144px;
-    overflow: hidden;
-    top: 24px;
-    right: 144px;
-    padding-right: 12px
+  position: absolute;
+  display: block;
+  width: 432px;
+  height: 144px;
+  overflow: hidden;
+  top: 24px;
+  right: 144px;
+  padding-right: 12px;
 }
 
 .upload_form_cont {
-    background: linear-gradient(#fff, #f2f2f2);
-    color: #000;
-    overflow: hidden
+  background: linear-gradient(#fff, #f2f2f2);
+  color: #000;
+  overflow: hidden;
 }
 
 #main a {
-    pointer-events: none
+  pointer-events: none;
 }
 
 #number a {
-    font-variant: all-petite-caps
+  font-variant: all-petite-caps;
 }
 
 #remaining,
 #speed {
-    float: left;
-    width: 100px
+  float: left;
+  width: 100px;
 }
 
 #b_transfered {
-    float: right;
-    text-align: right
+  float: right;
+  text-align: right;
 }
 
 .clear_both {
-    clear: both
+  clear: both;
 }
 
 #upload_form input {
-    border-radius: 3px;
-    border: 0
+  border-radius: 3px;
+  border: 0;
 }
 
 .brdr {
-    border: #eee solid 1px;
+  border: #eee solid 1px;
 }
 
 .btn,
 button {
-    border: 0;
-    outline: 0;
-    cursor: pointer;
-    box-sizing: border-box;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-    line-height: 24px;
-    border-radius: 3px;
-    color: #eee;
-    display: block;
-    height: 24px;
-    padding: 0 6px;
-    font-weight: 900;
-    text-align: center;
-    z-index: 1
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  line-height: 24px;
+  border-radius: 3px;
+  color: #eee;
+  display: block;
+  height: 24px;
+  padding: 0 6px;
+  font-weight: 900;
+  text-align: center;
+  z-index: 1;
 }
 
 .shd {
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, .2)
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2);
 }
 
 #fakebtn,
-input[type=file] {
-    display: block;
-    position: absolute;
-    margin: 0;
-    padding: 0;
-    cursor: pointer
+input[type='file'] {
+  display: block;
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
 }
 
-input[type=file] {
-    top: -1px;
-    left: -1px;
-    opacity: 0;
-    width: 110px;
-    height: 28px;
-    text-indent: -9999px
+input[type='file'] {
+  top: -1px;
+  left: -1px;
+  opacity: 0;
+  width: 110px;
+  height: 28px;
+  text-indent: -9999px;
 }
 
 #fakebtn {
-    bottom: 21px;
-    left: 15px;
-    width: 108px;
-    height: 24px;
-    text-align: center;
-    z-index: 555;
-    background: #6e91b4;
-    color: #eee;
-    box-sizing: content-box
+  bottom: 21px;
+  left: 15px;
+  width: 108px;
+  height: 24px;
+  text-align: center;
+  z-index: 555;
+  background: #6e91b4;
+  color: #eee;
+  box-sizing: content-box;
 }
 
 #fakebtn:hover,
 .btn:hover,
 button:hover,
-input[type=file]:hover {
-    color: #333
+input[type='file']:hover {
+  color: #333;
 }
 
 #abort,
@@ -124,187 +124,187 @@ input[type=file]:hover {
 #error2,
 #fileinfo,
 #warnsize {
-    display: none;
-    font-size: .625em;
-    line-height: 2.4em;
-    text-align: right;
-    font-family: "Sarpanch", Arial, sans-serif
+  display: none;
+  font-size: 0.625em;
+  line-height: 2.4em;
+  text-align: right;
+  font-family: 'Sarpanch', Arial, sans-serif;
 }
 
 #progress {
-    border: #ccc solid 1px;
-    display: none;
-    float: left;
-    height: 14px;
-    border-radius: 10px;
-    background: linear-gradient(#6c0, #4b9500)
+  border: #ccc solid 1px;
+  display: none;
+  float: left;
+  height: 14px;
+  border-radius: 10px;
+  background: linear-gradient(#6c0, #4b9500);
 }
 
 #progress_percent {
-    float: right
+  float: right;
 }
 
 .progress,
 .righ {
-    cursor: pointer
+  cursor: pointer;
 }
 
 #progress_info {
-    position: relative;
-    top: 48px;
-    right: 0
+  position: relative;
+  top: 48px;
+  right: 0;
 }
 
 #upload_response {
-    margin-top: 10px;
-    padding: 20px;
-    overflow: hidden;
-    display: none;
-    border: #ccc solid 1px;
-    border-radius: 10px;
-    box-shadow: 0 0 5px #ccc;
-    background: linear-gradient(#bbb, #eee)
+  margin-top: 10px;
+  padding: 20px;
+  overflow: hidden;
+  display: none;
+  border: #ccc solid 1px;
+  border-radius: 10px;
+  box-shadow: 0 0 5px #ccc;
+  background: linear-gradient(#bbb, #eee);
 }
 
 #close,
 #reda {
-    position: absolute;
-    display: block
+  position: absolute;
+  display: block;
 }
 
 #reda {
-    right: 24px;
-    margin: 0 0 0 24px
+  right: 24px;
+  margin: 0 0 0 24px;
 }
 
 #info::after {
-    clear: both;
-    display: block;
-    content: " "
+  clear: both;
+  display: block;
+  content: ' ';
 }
 
 #close {
-    background: #6e91b4;
-    top: 0;
+  background: #6e91b4;
+  top: 0;
 }
 
 .save {
-    z-index: 999;
-    text-transform: uppercase;
+  z-index: 999;
+  text-transform: uppercase;
 }
 
 .fixe {
-    position: fixed;
-    top: 12px;
+  position: fixed;
+  top: 12px;
 }
 
 #reda,
 .save {
-    background: #6bb89d;
-    right: 12px;
+  background: #6bb89d;
+  right: 12px;
 }
 
 .impo {
-    background: #6cc89d;
-    left: 12px;
+  background: #6cc89d;
+  left: 12px;
 }
 
 .add {
-    top: 0;
-    background-position: 1px 1px
+  top: 0;
+  background-position: 1px 1px;
 }
 
 .add:hover {
-    background-color: #35ffb8
+  background-color: #35ffb8;
 }
 
 .rem {
-    top: 24px;
-    background-position: 1px -20px
+  top: 24px;
+  background-position: 1px -20px;
 }
 
 .rem:hover {
-    background-color: #ff3568
+  background-color: #ff3568;
 }
 
 .w24 {
-    width: 24px;
-    right: 0;
-    height: 24px
+  width: 24px;
+  right: 0;
+  height: 24px;
 }
 
 .wbg {
-    display: block;
-    position: absolute;
-    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAiCAMAAABodAmPAAAAM1BMVEUAAABAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQED////daNdfAAAAD3RSTlMAVWJyeYSlrL3GytPf6OstfOOKAAAARUlEQVR42t3RJQKAUAwA0O8yvf9pcQpOQl6ZpImZJdVkJm9s5joSVZnSbEhXaLvp4whVcUr9m3cPpQTzX8ArcOOb1q3YFtQWCZFg+shnAAAAAElFTkSuQmCC);
-    background-repeat: no-repeat;
-    background-color: #6bb89d;
-    z-index: 1;
-    font-size: 0
+  display: block;
+  position: absolute;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAiCAMAAABodAmPAAAAM1BMVEUAAABAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQED////daNdfAAAAD3RSTlMAVWJyeYSlrL3GytPf6OstfOOKAAAARUlEQVR42t3RJQKAUAwA0O8yvf9pcQpOQl6ZpImZJdVkJm9s5joSVZnSbEhXaLvp4whVcUr9m3cPpQTzX8ArcOOb1q3YFtQWCZFg+shnAAAAAElFTkSuQmCC);
+  background-repeat: no-repeat;
+  background-color: #6bb89d;
+  z-index: 1;
+  font-size: 0;
 }
 
 button::-moz-focus-inner {
-    border: 0
+  border: 0;
 }
 
 :focus {
-    outline: 0
+  outline: 0;
 }
 
 #info-text {
-    padding: 0 24px 24px
+  padding: 0 24px 24px;
 }
 
 #infoc {
-    width: 100%;
-    height: 24px;
-    background: #6e91b4;
-    cursor: pointer
+  width: 100%;
+  height: 24px;
+  background: #6e91b4;
+  cursor: pointer;
 }
 
 #info span {
-    text-align: right;
-    padding: 0 24px
+  text-align: right;
+  padding: 0 24px;
 }
 
 #info {
-    background: #fff;
-    border-radius: 3px;
-    z-index: 777;
-    font-size: .75em;
-    line-height: 2;
-    text-align: center;
-    font-family: "Sarpanch", Arial, sans-serif;
-    display: block;
-    position: fixed;
-    top: 48px;
-    max-width: 500px;
-    left: 0;
-    right: 0;
-    margin: 0 auto;
-    border-left: 1px solid #eee;
-    box-sizing: border-box;
-    box-shadow: 0 0 6px 0 rgba(0, 0, 0, .75)
+  background: #fff;
+  border-radius: 3px;
+  z-index: 777;
+  font-size: 0.75em;
+  line-height: 2;
+  text-align: center;
+  font-family: 'Sarpanch', Arial, sans-serif;
+  display: block;
+  position: fixed;
+  top: 48px;
+  max-width: 500px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  border-left: 1px solid #eee;
+  box-sizing: border-box;
+  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.75);
 }
 
 .kCell select {
-    width: 100%;
-    border: 0
+  width: 100%;
+  border: 0;
 }
 
-@media only screen and (max-width:960px) {
-    #upload_form {
-        display: none
-    }
+@media only screen and (max-width: 960px) {
+  #upload_form {
+    display: none;
+  }
 
-    .select {
-        text-indent: .01px;
-        text-overflow: "";
-        background: 0 0;
-        border: 0;
-        font-size: 14px;
-        height: 20px;
-        padding: 2px;
-        appearance: none
-    }
+  .select {
+    text-indent: 0.01px;
+    text-overflow: '';
+    background: 0 0;
+    border: 0;
+    font-size: 14px;
+    height: 20px;
+    padding: 2px;
+    appearance: none;
+  }
 }
