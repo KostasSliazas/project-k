@@ -204,7 +204,6 @@
 
   // reusabe ID'S
   document.getElementById('header').insertAdjacentHTML('afterbegin', uploadFormHtml);
-  const nameElement = document.getElementById('name');
   const heading = document.getElementById('he');
   const preview = document.getElementById('preview');
   const photo = document.getElementById('photo');
@@ -260,6 +259,15 @@
 
   function outf() {
     const cvInputs = document.querySelectorAll('select, input:not(#image-file)');
+    const nameElement = document.querySelector('#name');
+
+    if (nameElement) {
+      const name = nameElement.value || nameElement.textContent;
+      document.title = name;
+      heading.children[0].textContent = name;
+      // Convert the object to a string and save it to localStorage
+      // localStorage.setItem(nameElement.innerText.replace(/\s+/g, ''), JSON.stringify(jsonData));
+    }
 
     cvInputs.forEach(input => {
       let tagName = input.classList.contains('left') ? 'h2' : 'h3';
@@ -285,15 +293,6 @@
         input.parentElement.innerText = input.options[input.selectedIndex].value;
       }
     });
-
-    if (nameElement) {
-      const name = nameElement.innerText;
-
-      document.title = name;
-      heading.children[0].textContent = name;
-      // Convert the object to a string and save it to localStorage
-      // localStorage.setItem(nameElement.innerText.replace(/\s+/g, ''), JSON.stringify(jsonData));
-    }
   }
 
   // let oTimer = 0;
@@ -453,23 +452,6 @@ function uploadProgress(e) {
     clearInterval(oTimer);
   } */
 
-  function createStringChangeHelper() {
-    let lastString = null; // Keeps track of the last string
-
-    return function (currentString) {
-      const isSame = currentString === lastString;
-      lastString = currentString; // Update the last string
-      return isSame;
-    };
-  }
-
-  function stringifyWithoutQuotes(obj) {
-    return JSON.stringify(obj, (key, value) => value) // stringify the object normally
-      .replace(/^{|}$/g, '') // remove curly braces
-      .replace(/"([^"]+)":/g, '$1:') // remove quotes from keys
-      .replace(/"([^"]+)"/g, '$1'); // remove quotes from string values
-  }
-
   const getDynamicTitle = (key, parent) => {
     // Convert key or parent to lowercase for consistent handling
     const text = key || parent;
@@ -482,6 +464,8 @@ function uploadProgress(e) {
         email: 'Email Address',
         phone: 'Phone Number',
         url: 'Homepage',
+        website: 'Website',
+        summary: 'Summary',
         default: 'Personal Details',
       },
       education: {
@@ -493,7 +477,9 @@ function uploadProgress(e) {
         default: 'Education',
       },
       work: {
-        name: 'Employer Name and Address',
+        website: "Employer's Homepage",
+        location: 'Employer Address',
+        name: 'Employer Name',
         position: 'Profession or Position',
         url: "Employer's Homepage",
         summary: 'Main Activities and Responsibilities',
@@ -567,25 +553,46 @@ function uploadProgress(e) {
     return result; // Return the accumulated key-value pairs
   }
 
+  function joinData(input) {
+    if (Array.isArray(input)) {
+      // If it's an array, join elements into a single string
+      return input.map(item => joinData(item)).join(', ');
+    } else if (typeof input === 'object' && input !== null) {
+      // If it's an object, join key-value pairs into a string
+      return Object.entries(input)
+        .map(([key, value]) => `${key}: ${joinData(value)}`)
+        .join(', ');
+    } else {
+      // For primitive values, return them as they are
+      return String(input);
+    }
+  }
+
   // Looping handler to create HTML dynamically
   const handlers = (key, value) => {
+    if (value.length === 0 || key === 'meta') {
+      return; // Skip 'meta' key or emty array (all block)
+    }
+
     const blockDiv = createHTMLElement('div', '', {
       class: 'blokas',
       draggable: 'true',
     });
     const section = createHTMLElement('section');
-
     section.appendChild(
       createHTMLElement('h2', getDynamicTitle('', key), {
         class: 'left num hm bold',
       })
     );
     blockDiv.appendChild(section);
-
     const dateTracker = createDateTracker(); // Create once for the whole object
 
     // Recursive function to loop through objects or arrays
     const loopObjectOrArray = (value, parentKey) => {
+      // Create a container for nested structures
+
+      const inner = createHTMLElement('div');
+
       if (Array.isArray(value)) {
         // Handle arrays
         value.forEach(item => loopObjectOrArray(item, parentKey));
@@ -593,74 +600,88 @@ function uploadProgress(e) {
       }
 
       if (typeof value === 'object' && value !== null) {
-        // Create a container for nested structures
-        const inner = createHTMLElement('div');
-
         // Iterate through object keys
         for (const subKey in value) {
-          if (!value.hasOwnProperty(subKey)) continue; // Skip inherited properties
-          if (subKey === 'image') {
-            preview.src = String(subKey);
-            continue; // Skip 'image' key
-          }
+          if (value.hasOwnProperty(subKey)) {
+            const subValue = value[subKey];
 
-          const subValue = value[subKey];
-
-          if (typeof subValue === 'object' && subValue !== null) {
-            // Recursive call for nested structures
-            loopObjectOrArray(subValue, subKey);
-          } else {
-            // Handle primitive values
-            if (subKey === 'startDate' || subKey === 'endDate') {
-              const date = dateTracker(String(subValue), subKey);
-              if (date) {
-                const dateSection = createHTMLElement('section');
-                dateSection.appendChild(
-                  createHTMLElement('h2', 'Dates', {
-                    class: 'left',
-                  })
-                );
-                dateSection.appendChild(
-                  createHTMLElement('h3', date, {
-                    class: 'right',
-                  })
-                );
-                inner.appendChild(dateSection);
-              }
-              continue;
-            }
-            const boldFields = ['name', 'email', 'phone']; // These fields should be bolded
-
-            const object = {
-              class: 'right',
-            };
-            if (boldFields.includes(subKey)) {
-              object.class += ' bold'; // Add 'bold' to the existing class string if in boldFields
-            } else {
-              object.class = object.class.replace(' bold', ''); // Remove 'bold' class if not in boldFields
-            }
-            // working with custom top values
-            if (parentKey === 'basics') {
-              document.getElementById;
-              object.id = String(subKey);
-
-              if (String(subKey) === 'name') {
-                he.firstElementChild.textContent = String(subValue);
-                document.title = String(subValue);
-              }
+            if (subKey === 'image') {
+              preview.src = String(subKey);
+              continue; // Skip 'image' key
             }
 
             // Handle non-date key-value pairs
-            const title = getDynamicTitle(String(subKey), parentKey);
+            const title = getDynamicTitle(subKey, parentKey);
             const pairSection = createHTMLElement('section');
-            pairSection.appendChild(
-              createHTMLElement('h2', title, {
-                class: 'left',
-              })
-            );
-            pairSection.appendChild(createHTMLElement('h3', String(subValue), object));
-            inner.appendChild(pairSection);
-            blockDiv.appendChild(inner); // Append inner block to main block
+
+            if (typeof subValue === 'object' && subValue !== null) {
+              if (subValue.length && subKey !== 'profiles') {
+                let combinedData = joinData(JSON.parse(JSON.stringify(subValue)));
+                pairSection.appendChild(
+                  createHTMLElement('h2', subKey, {
+                    class: 'left',
+                  })
+                );
+                pairSection.appendChild(
+                  createHTMLElement('h3', combinedData, {
+                    class: 'righ',
+                  })
+                );
+                inner.appendChild(pairSection);
+                blockDiv.appendChild(inner);
+                continue;
+              }
+              // Recursive call for nested structures
+              loopObjectOrArray(subValue, subKey);
+            } else {
+              // Handle primitive values
+              if (subKey === 'startDate' || subKey === 'endDate') {
+                const date = dateTracker(String(subValue), subKey);
+                if (date) {
+                  const dateSection = createHTMLElement('section');
+                  dateSection.appendChild(
+                    createHTMLElement('h2', 'Dates', {
+                      class: 'left',
+                    })
+                  );
+                  dateSection.appendChild(
+                    createHTMLElement('h3', date, {
+                      class: 'right',
+                    })
+                  );
+                  inner.appendChild(dateSection);
+                }
+                continue;
+              }
+
+              const boldFields = ['name', 'email', 'phone']; // These fields should be bolded
+
+              const object = {
+                class: 'righ',
+              };
+              if (boldFields.includes(subKey)) {
+                object.class += ' bold'; // Add 'bold' to the existing class string if in boldFields
+              } else {
+                object.class = object.class.replace(' bold', ''); // Remove 'bold' class if not in boldFields
+              }
+              // working with custom top values
+              if (parentKey === 'basics') {
+                object.id = subKey;
+
+                if (subKey === 'name') {
+                  document.title = subValue;
+                }
+              }
+
+              pairSection.appendChild(
+                createHTMLElement('h2', title, {
+                  class: 'left',
+                })
+              );
+              pairSection.appendChild(createHTMLElement('h3', subValue, object));
+              inner.appendChild(pairSection);
+              blockDiv.appendChild(inner); // Append inner block to main block
+            }
           }
         }
       }
@@ -681,30 +702,48 @@ function uploadProgress(e) {
     getTopLevelKeys(data, handlers); // Generate HTML based on the data
   }
 
-  let dateRanges = []; // Global array to store start-end date pairs
-
   function createDateTracker() {
+    let pendingEndDate = null; // To hold an endDate if given before a startDate
+    const dateRanges = []; // To track complete start and end date pairs
+
     return function (date, type) {
-      // We are tracking pairs of start and end dates
       if (type === 'startDate') {
-        // If it's a new start date, create a new range in the array
+        // If there's a pending endDate, create a pair immediately
+        if (pendingEndDate) {
+          const range = {
+            startDate: date,
+            endDate: pendingEndDate,
+          };
+          dateRanges.push(range);
+          pendingEndDate = null; // Clear pending endDate
+          return `${range.startDate} — ${range.endDate}`; // Return the pair
+        }
+
+        // Otherwise, start a new range
         dateRanges.push({
           startDate: date,
           endDate: null,
         });
-        return null; // Just set the start, nothing to output yet
+        return null; // No complete pair to return yet
       }
 
-      if (type === 'endDate' && dateRanges.length > 0) {
-        // If there is a start date to pair with, update the last startDate with the endDate
-        let lastRange = dateRanges[dateRanges.length - 1];
-        if (lastRange.startDate !== null) {
-          lastRange.endDate = date; // Set the end date for the last range
-          return `${lastRange.startDate} — ${lastRange.endDate}`; // Return the pair as a string
+      if (type === 'endDate') {
+        // Find the last unpaired range with a startDate
+        const lastRange = dateRanges.find(range => range.startDate && !range.endDate);
+
+        if (lastRange) {
+          // Pair this endDate with the unpaired startDate
+          lastRange.endDate = date;
+          return `${lastRange.startDate} — ${lastRange.endDate}`; // Return the pair
+        } else {
+          // No unpaired startDate, store the endDate temporarily
+          pendingEndDate = date;
+          return null; // Wait for a matching startDate
         }
       }
 
-      return null; // If no start date, or if no end date is given for the last range
+      // If input is invalid, return null
+      return null;
     };
   }
 
