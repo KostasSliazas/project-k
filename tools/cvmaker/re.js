@@ -606,7 +606,7 @@ function uploadProgress(e) {
             const subValue = value[subKey];
 
             if (subKey === 'image') {
-              preview.src = String(subKey);
+              preview.src = subValue;
               continue; // Skip 'image' key
             }
 
@@ -644,9 +644,10 @@ function uploadProgress(e) {
                       class: 'left',
                     })
                   );
+
                   dateSection.appendChild(
                     createHTMLElement('h3', date, {
-                      class: 'right',
+                      class: 'righ',
                     })
                   );
                   inner.appendChild(dateSection);
