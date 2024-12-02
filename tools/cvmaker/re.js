@@ -67,83 +67,109 @@
   const draggableManager = new DraggableManager('#cv', '.blokas');
   draggableManager.initialize();
 
-  // helper to creat DOM element
-  function createHTMLElement(tag, text, attributes) {
+  /**
+   * Helper function to create an HTML element with optional text and attributes.
+   * @param {string} tag - The tag name of the HTML element (e.g., 'div', 'span').
+   * @param {string} [text=''] - The text content to be set for the element (optional).
+   * @param {Object} [attributes={}] - An optional object of key-value pairs for setting element attributes.
+   * @returns {HTMLElement} The created HTML element.
+   */
+  function createHTMLElement(tag, text = '', attributes = {}) {
+    // Create the HTML element using the provided tag name
     const element = document.createElement(tag);
-    element.textContent = text || '';
 
-    if (attributes) {
-      for (const key in attributes) {
-        if (attributes.hasOwnProperty(key)) {
-          element.setAttribute(key, attributes[key]);
-        }
-      }
+    // If text is provided, set the text content of the element
+    if (text) {
+      element.textContent = text;
     }
+
+    // If attributes are provided and is an object, loop through and set them
+    if (attributes && typeof attributes === 'object') {
+      Object.entries(attributes).forEach(([key, value]) => {
+        // Set each attribute on the element
+        element.setAttribute(key, value);
+      });
+    }
+
+    // Return the created element
     return element;
   }
 
+  // Initialize elements if the stylesheet is not already added
   if (!document.getElementById('styl')) {
+    // Get the <head> element of the document
     const head = document.getElementsByTagName('head')[0];
+
+    // Create a <link> element for the stylesheet
     const link = document.createElement('link');
 
-    link.id = 'styl';
-    link.rel = 'stylesheet';
-    link.type = 'text/css';
-    link.href = 'style.css?v=2';
-    link.media = 'all';
-    link.className = 'remove';
+    // Set attributes for the <link> element
+    link.id = 'styl'; // Unique ID for the link element
+    link.rel = 'stylesheet'; // Set the relation to 'stylesheet'
+    link.type = 'text/css'; // Specify the type of the linked file
+    link.href = 'style.css?v=2'; // Path to the CSS file (with versioning query parameter)
+    link.media = 'all'; // The stylesheet applies to all media types
+    link.className = 'remove'; // Class name for possible future removal/styling
+
+    // Append the <link> element to the <head> of the document
     head.appendChild(link);
 
+    // Disable the context menu (right-click) on the document
     document.oncontextmenu = function () {
-      return false;
+      return false; // Prevent default context menu
     };
   }
 
+  // Initialize the body and select the first '.blokas' element
   const body = document.body;
   const block = document.querySelectorAll('.blokas:first-child');
-  const text = 'i';
+
+  // Button configuration for 'close' button in blocks
   const button = {
     class: 'shd brdr w24 remove',
     href: '#',
     id: 'close',
   };
 
-  block.forEach(e => e.before(createHTMLElement('button', text, button)));
+  // Prepend 'close' button to the first block
+  block.forEach(e => e.before(createHTMLElement('button', 'i', button)));
 
+  // Create and configure the 'Save CV' button
   const issaugoti = 'Save CV...';
   const buttonIsaugoti = {
     class: 'save fixe brdr shd remove',
     href: '#',
   };
 
+  // Create 'Save CV' button and append to the body
   const elems = createHTMLElement('button', issaugoti, buttonIsaugoti);
   body.appendChild(elems);
-  elems.onclick = htmls;
+  elems.onclick = htmls; // Attach click event for saving
 
-  // Create the info element and append to body
+  // Create 'info' div and its children for additional information display
   const infoDiv = createHTMLElement('div', '', {
     id: 'info',
     class: 'remove',
-    style: 'display:none',
+    style: 'display:none', // Initially hidden
   });
-  const infocDiv = createHTMLElement('div', '', {
-    id: 'infoc',
-  });
+  const infocDiv = createHTMLElement('div', '', { id: 'infoc' });
   const spanElement = createHTMLElement('span', 'CLOSE', {
     class: 'btn brdr shd',
   });
   infocDiv.appendChild(spanElement);
 
-  const infoTextContent = `Please do not close this window until your work is saved, as no information is stored in the database. To save your text, simply press 'Enter' after editing. You can change the language level by double-clicking with your mouse. For the best experience, please ensure your photo is sized at 100x128 pixels in size. To optimize loading times, reduce the file size of your photo as much as possible. You can rearrange blocks by dragging them.`;
+  // Info text content explaining user instructions
+  const infoTextContent = `Please do not close this window until your work is saved, as no information is stored in the database. To save your text, simply press 'Enter' after editing. You can change the language level by double-clicking with your mouse. For the best experience, please ensure your photo is sized at 100x128 pixels. To optimize loading times, reduce the file size of your photo as much as possible. You can rearrange blocks by dragging.`;
   const infoTextDiv = createHTMLElement('div', infoTextContent, {
     id: 'info-text',
   });
 
+  // Append the info content to the infoDiv and insert at the beginning of the body
   infoDiv.appendChild(infocDiv);
   infoDiv.appendChild(infoTextDiv);
-
   document.body.insertBefore(infoDiv, document.body.firstChild);
 
+  // Add 'minus' and 'plus' buttons to other blocks for manipulation
   const elem = document.querySelectorAll('.blokas');
   const buttonPlus = {
     href: '#',
@@ -152,145 +178,216 @@
 
   elem.forEach((e, i) => {
     if (i > 0) {
+      // 'minus' button
       buttonPlus.class = 'remove shd brdr wbg w24 rem';
       e.appendChild(createHTMLElement('button', '-', buttonPlus));
 
+      // 'plus' button
       buttonPlus.class += 'remove shd brdr wbg w24 add';
       e.appendChild(createHTMLElement('button', '+', buttonPlus));
     }
   });
 
-  // Create the fakebtn element and its children using the createHTMLElement function
+  // Create the fake file input button for file selection
   const fakeButtonHtml = createHTMLElement('div', 'Select File', {
     id: 'fakebtn',
     class: 'remove brdr',
   });
-
   const fileInput = createHTMLElement('input', '', {
     id: 'image-file',
     name: 'image-file',
     type: 'file',
   });
-  fileInput.onchange = fileSelected; // Assign fileSelected function to the 'change' event of the input element
+  fileInput.onchange = fileSelected; // Handle file change event
   fakeButtonHtml.appendChild(fileInput);
 
-  // Define the button text and configuration
+  // Create and configure the 'Import JSON' button
   const importButtonText = 'Import JSON';
   const importButtonConfig = {
-    class: 'impo fixe brdr shd remove', // Apply the classes
-    id: 'importButton', // Set the id
+    class: 'impo fixe brdr shd remove',
+    id: 'importButton',
   };
 
-  // Define the file input configuration
+  // Create the hidden file input for JSON files
   const fileInputConfig = {
     type: 'file',
     id: 'fileInput',
     accept: '.json',
-    style: 'display: none;', // Hidden file input
-    class: 'remove', // Apply the class
+    style: 'display: none;', // Hidden input field
+    class: 'remove',
   };
 
-  // Create the "Import JSON" button dynamically
+  // Create the "Import JSON" button and hidden file input
   const importButton = createHTMLElement('button', importButtonText, importButtonConfig);
-
-  // Create the hidden file input dynamically
   const fileJSONInput = createHTMLElement('input', '', fileInputConfig);
 
-  // Append the button and file input to the body (or any other container)
+  // Append both the import button and file input to the body
   document.body.appendChild(importButton);
   document.body.appendChild(fileJSONInput);
 
-  const uploadFormHtml = '<div id="dele" class="remove"><form action="" enctype="multipart/form-data" id="upload_form" method="post" name="upload_form"><div id="fileinfo"><div id="filename"></div><div id="filesize"></div><div id="filetype"></div><div id="filedim"></div></div><div id="error">Failas nepalaikomas! bmp, gif, jpeg, png, tiff</div><div id="error2">An error occurred while uploading the file</div><div id="abort">The upload has been canceled</div><div id="warnsize">The file is too large.</div><div id="progress_info"><div id="progress"></div><div id="progress_percent">&nbsp;</div><div class="clear_both"></div><div><div id="speed">&nbsp;</div><div id="remaining">&nbsp;</div><div id="b_transfered">&nbsp;</div><div class="clear_both"></div></div><div id="upload_response"></div></div></form></div>';
+  // HTML structure for the upload form with several hidden fields and progress info
+  const uploadFormHtml = `
+  <div id="dele" class="remove">
+    <form action="" enctype="multipart/form-data" id="upload_form" method="post" name="upload_form">
+      <div id="fileinfo">
+        <div id="filename"></div>
+        <div id="filesize"></div>
+        <div id="filetype"></div>
+        <div id="filedim"></div>
+      </div>
+      <div id="error">Failas nepalaikomas! bmp, gif, jpeg, png, tiff</div>
+      <div id="error2">An error occurred while uploading the file</div>
+      <div id="abort">The upload has been canceled</div>
+      <div id="warnsize">The file is too large.</div>
+      <div id="progress_info">
+        <div id="progress"></div>
+        <div id="progress_percent">&nbsp;</div>
+        <div class="clear_both"></div>
+        <div>
+          <div id="speed">&nbsp;</div>
+          <div id="remaining">&nbsp;</div>
+          <div id="b_transfered">&nbsp;</div>
+          <div class="clear_both"></div>
+        </div>
+        <div id="upload_response"></div>
+      </div>
+    </form>
+  </div>
+`;
 
-  // reusabe ID'S
+  // Insert the upload form HTML in the header
   document.getElementById('header').insertAdjacentHTML('afterbegin', uploadFormHtml);
+
+  // Add the file selection button to the photo section
   const heading = document.getElementById('he');
   const preview = document.getElementById('preview');
   const photo = document.getElementById('photo');
   photo.appendChild(fakeButtonHtml);
 
+  // Add click event listener to toggle the visibility of the 'info' div
   document.querySelectorAll('#close, #infoc').forEach(function (element) {
     element.addEventListener('click', function (e) {
       e.preventDefault();
-      // const info = document.querySelector('#info');
+      // Toggle the display of the info div
       infoDiv.style.display = infoDiv.style.display === 'none' ? '' : 'none';
     });
   });
 
-  // Helper function to create the link element
+  /**
+   * Helper function to create a link element based on input value and its id.
+   * @param {HTMLInputElement} input - The input element containing the value to be used for the link.
+   * @returns {HTMLAnchorElement} The created <a> tag with the appropriate href and text.
+   */
   const createLink = input => {
     let href = '';
 
-    // Check if the input is an email, number, or URL and set the appropriate link
+    // Check the input's id to determine the type of link to create
     if (input.id === 'email') {
+      // For email input, create a 'mailto' link
       href = `mailto:${input.value.replace(/\s+/g, '')}`;
     } else if (input.id === 'number') {
+      // For phone number input, create a 'tel' link
       href = `tel:${input.value.replace(/\s+/g, '')}`;
     } else if (input.id === 'url') {
-      // For URL input, check if it starts with http:// or https://
+      // For URL input, check if the value starts with 'http://' or 'https://'
       if (/^https?:\/\//.test(input.value)) {
-        href = input.value; // If it already has http:// or https://, use it
+        // If the input already contains a valid URL with 'http://' or 'https://', use it as is
+        href = input.value;
       } else {
-        href = `http://${input.value}`; // Otherwise, prepend http://
+        // Otherwise, prepend 'http://' to the value
+        href = `http://${input.value}`;
       }
     } else if (input.value && /https?:\/\//.test(input.value)) {
-      // For simple URLs (http/https)
+      // For any input value that matches a simple URL pattern (http/https)
       href = input.value;
     }
 
-    // Create a simple <a> tag with the appropriate href
+    // Create the <a> tag with the constructed href
     const link = document.createElement('a');
-    link.href = href;
-    link.textContent = input.value; // Set link text to input value
-    link.target = '_blank'; // Open link in a new tab
-    link.rel = 'noopener noreferrer nofollow'; // Add safe and nofollow attributes
-    return link; // Return the <a> tag without any class
+    link.href = href; // Set the href attribute of the <a> tag
+    link.textContent = input.value; // Set the visible text of the link to the input value
+    link.target = '_blank'; // Ensure the link opens in a new tab
+    link.rel = 'noopener noreferrer nofollow'; // Apply safe and nofollow attributes for security
+
+    // Return the created <a> element
+    return link;
   };
 
-  // Function to replace input with h2 or h3 and preserve class and id
+  /**
+   * Function to replace an input element with a heading (h2 or h3) and preserve its class, id, and value.
+   * @param {HTMLInputElement} input - The input element to be replaced.
+   * @param {string} tagName - The tag name of the heading (either 'h2' or 'h3').
+   * @returns {HTMLElement} The newly created heading element (h2 or h3).
+   */
   function replaceElementWithHeading(input, tagName) {
+    // Create a new heading element (either h2 or h3)
     const heading = document.createElement(tagName);
+
+    // Preserve the class and id attributes from the input element (if they exist)
     if (input.className) heading.setAttribute('class', input.className); // Preserve class on the heading
     if (input.id) heading.setAttribute('id', input.id); // Preserve id on the heading
-    if (input.value) heading.textContent = input.value.trim(); // Set text content from input value
-    input.parentNode.replaceChild(heading, input); // Replace the input with the heading
-    return heading; // Return the newly created heading
+
+    // Set the text content of the heading from the input value (trim any surrounding whitespace)
+    if (input.value) heading.textContent = input.value.trim();
+
+    // Replace the input element with the newly created heading
+    input.parentNode.replaceChild(heading, input);
+
+    // Return the newly created heading element
+    return heading;
   }
 
+  /**
+   * Function to process form inputs and replace certain elements with headings or links.
+   * It updates the document title with the name value and replaces text inputs with h2 or h3 headings.
+   * It also handles the creation of links for email, phone number, and URLs.
+   */
   function outf() {
+    // Select all 'select' elements and 'input' elements excluding the file input
     const cvInputs = document.querySelectorAll('select, input:not(#image-file)');
+
+    // Select the element with the ID 'name' for title and heading updates
     const nameElement = document.querySelector('#name');
 
+    // If the name element exists, update the document title and heading
     if (nameElement) {
+      // Get the name from the input's value or text content
       const name = nameElement.value || nameElement.textContent;
+
+      // Update the document's title to the name
       document.title = name;
+
+      // Update the heading element's text content with the name
       heading.children[0].textContent = name;
-      // Convert the object to a string and save it to localStorage
+
+      // Optionally, you can save the data to localStorage (commented out)
       // localStorage.setItem(nameElement.innerText.replace(/\s+/g, ''), JSON.stringify(jsonData));
     }
 
+    // Iterate over each input or select element
     cvInputs.forEach(input => {
-      let tagName = input.classList.contains('left') ? 'h2' : 'h3';
+      let tagName = input.classList.contains('left') ? 'h2' : 'h3'; // Decide whether to use h2 or h3 based on class
 
-      // Replace text input with an h2 or h3 based on the class
+      // Handle text input elements
       if (input.tagName === 'INPUT' && input.type === 'text') {
+        // Replace the text input with a heading (h2 or h3)
         const newElement = replaceElementWithHeading(input, tagName);
 
-        // If it's an email or number input, replace it with a link
+        // If the input is an email or number, replace it with a link
         if (input.id === 'email' || input.id === 'number') {
-          newElement.innerHTML = ''; // Clear the text content of the new heading
-          newElement.appendChild(createLink(input)); // Append the link inside the heading
+          newElement.innerHTML = ''; // Clear any existing content in the heading
+          newElement.appendChild(createLink(input)); // Add a link inside the heading
         }
-        // If it's a URL (http/https), create a regular link
+        // If the input is a URL (http/https), create a regular link
         else if (input.id === 'url' || (input.value && /https?:\/\//.test(input.value))) {
-          newElement.innerHTML = ''; // Clear the heading content
-          newElement.appendChild(createLink(input)); // Append the URL link
+          newElement.innerHTML = ''; // Clear existing content
+          newElement.appendChild(createLink(input)); // Append the link inside the heading
         }
       }
 
-      // Replace select element with the selected option's value
+      // Handle select elements by replacing them with the selected option's value
       else if (input.tagName === 'SELECT') {
-        input.parentElement.innerText = input.options[input.selectedIndex].value;
+        input.parentElement.innerText = input.options[input.selectedIndex].value; // Set parent element's text to selected option
       }
     });
   }
@@ -452,11 +549,19 @@ function uploadProgress(e) {
     clearInterval(oTimer);
   } */
 
+  /**
+   * Function to dynamically generate a title based on the given key and parent section.
+   * It uses a set of mappings for different sections (e.g., basics, education, work) and returns a capitalized title.
+   *
+   * @param {string} key - The specific key for the item (e.g., 'name', 'email').
+   * @param {string} parent - The section that the key belongs to (e.g., 'basics', 'education').
+   * @returns {string} The dynamic title based on the key and parent.
+   */
   const getDynamicTitle = (key, parent) => {
-    // Convert key or parent to lowercase for consistent handling
+    // Convert key or parent to lowercase for consistent handling (if either is undefined, use the other)
     const text = key || parent;
 
-    // Mappings for specific sections
+    // Mappings for specific sections with titles for keys
     const sections = {
       basics: {
         name: 'Name / Surname',
@@ -522,6 +627,7 @@ function uploadProgress(e) {
       },
     };
 
+    // Defaults for sections outside the main ones
     const defaults = {
       url: 'Webpage',
       network: 'Online Presence',
@@ -531,47 +637,77 @@ function uploadProgress(e) {
     const sectionTitles = sections[parent];
     const result = sectionTitles ? sectionTitles[key] || sectionTitles.default : defaults[text] || text;
 
-    // Capitalize the first letter of the resulting text
+    // Capitalize the first letter of the resulting text and return it
     return result.charAt(0).toUpperCase() + result.slice(1);
   };
 
-  // Function to loop through the top-level keys of an object
+  /**
+   * Function to loop through the top-level keys of an object and apply a handler to each key-value pair.
+   *
+   * @param {Object} obj - The object whose top-level keys and values will be processed.
+   * @param {Function} handlers - A function to process each key-value pair. It should accept the key and value as parameters and return a result.
+   * @returns {Array} An array containing the results of applying the handler to each key-value pair.
+   */
   function getTopLevelKeys(obj, handlers) {
-    const result = []; // Initialize an array to store the key-value pairs
+    const result = []; // Initialize an empty array to store the processed data
 
+    // Return an empty array if the provided object is not a valid object
     if (typeof obj !== 'object' || obj === null) {
-      return result; // Return an empty array if it's not an object
+      return result;
     }
 
-    // Loop through the top-level keys of the object
+    // Loop through all top-level keys of the object
     for (const key in obj) {
       if (obj.hasOwnProperty(key)) {
-        const data = handlers(key, obj[key]); // Call handler and collect the result
-        result.push(data); // Add the result to the collection
+        // Ensure the key belongs to the object, not its prototype
+        const data = handlers(key, obj[key]); // Call the handler function with key and value
+        result.push(data); // Add the result of the handler to the result array
       }
     }
-    return result; // Return the accumulated key-value pairs
+
+    return result; // Return the array of processed key-value pairs
   }
 
+  /**
+   * Function to join nested arrays and objects into a single string.
+   *
+   * @param {any} input - The input can be a primitive value, an array, or an object.
+   * @returns {string} A string representing the joined data, with nested structures flattened into a single string.
+   */
   function joinData(input) {
     if (Array.isArray(input)) {
-      // If it's an array, join elements into a single string
+      // If it's an array, recursively join each element and then join the array elements with a comma
       return input.map(item => joinData(item)).join(', ');
     } else if (typeof input === 'object' && input !== null) {
-      // If it's an object, join key-value pairs into a string
+      // If it's an object, recursively join each key-value pair with "key: value" format
       return Object.entries(input)
-        .map(([key, value]) => `${key}: ${joinData(value)}`)
-        .join(', ');
+        .map(([key, value]) => `${key}: ${joinData(value)}`) // Join key-value pairs
+        .join(', '); // Join all pairs with a comma
     } else {
-      // For primitive values, return them as they are
+      // For primitive values (e.g., string, number, boolean), convert them to a string
       return String(input);
     }
   }
 
-  // Looping handler to create HTML dynamically
-  const handlers = (key, value) => {
+  /**
+   * Handles dynamic creation of HTML elements based on data passed.
+   * It processes each top-level key-value pair, skipping certain keys (e.g., 'meta'),
+   * and recursively processes nested structures like arrays or objects.
+   *
+   * @param {string} key - The key of the current section being processed (e.g., 'basics', 'education').
+   * @param {Object|Array|string|number|boolean} value - The value associated with the key. Can be an object, array, or primitive value.
+   *
+   * @returns {void}
+   * This function does not return a value. It directly modifies the DOM by appending generated HTML elements.
+   *
+   * @example
+   * const data = { basics: { name: 'John Doe', email: 'johndoe@example.com' } };
+   * handlers('basics', data.basics);
+   * // This will create and append HTML elements like <div class="blokas">...</div> to the DOM.
+   */
+  function handlers(key, value) {
     if (value.length === 0 || key === 'meta') {
-      return; // Skip 'meta' key or emty array (all block)
+      return; // Skip 'meta' key or empty array (all block)
     }
 
     const blockDiv = createHTMLElement('div', '', {
@@ -694,15 +830,66 @@ function uploadProgress(e) {
     // Append the completed block to the container
     const container = document.getElementById('cv');
     container.appendChild(blockDiv);
-  };
+  }
 
-  // Main function to generate the HTML content from JSON data
+  /**
+   * Generates and appends HTML content to the DOM based on the provided JSON data.
+   * This function clears the current content inside the container and then processes the data
+   * to generate dynamic HTML elements according to the structure of the JSON object.
+   * It relies on the `getTopLevelKeys` function and the `handlers` function for processing the data.
+   *
+   * @param {Object} data - The JSON object containing the data to generate HTML from.
+   * The structure of the data is expected to have top-level keys representing different sections
+   * (e.g., "basics", "education", "work", etc.), each containing nested data.
+   *
+   * @returns {void}
+   * This function does not return a value. It directly modifies the DOM by clearing the
+   * existing content and appending the newly generated HTML elements.
+   *
+   * @example
+   * const jsonData = {
+   *   basics: {
+   *     name: 'John Doe',
+   *     email: 'johndoe@example.com',
+   *     phone: '123-456-7890',
+   *   },
+   *   education: {
+   *     institution: 'University of Example',
+   *     qualification: 'Bachelor of Example Studies',
+   *   },
+   * };
+   * generateHTMLFromJson(jsonData);
+   * // This will clear the current content and generate HTML from the provided `jsonData`.
+   */
   function generateHTMLFromJson(data) {
     const container = document.getElementById('cv');
     container.innerHTML = ''; // Clear existing content
     getTopLevelKeys(data, handlers); // Generate HTML based on the data
   }
 
+  /**
+   * Creates a date tracker that can track date ranges (start and end dates).
+   * This function returns a closure that can be used to record start and end dates,
+   * pairing them together when appropriate, and handling cases where an end date
+   * is provided before the start date.
+   *
+   * It stores unpaired start dates until an end date is provided, then pairs them together.
+   * If an end date is provided without a matching start date, it temporarily holds the end date
+   * until the corresponding start date is given.
+   *
+   * @returns {function} The date tracker function. This function takes two parameters:
+   *   `date` (the date to be recorded) and `type` (either 'startDate' or 'endDate').
+   *   It returns the formatted date range if both start and end dates are paired,
+   *   or null if a complete date range is not yet formed.
+   *
+   * @example
+   * const dateTracker = createDateTracker();
+   * const startDate = dateTracker('2024-01-01', 'startDate'); // No pair, returns null
+   * const endDate = dateTracker('2024-12-31', 'endDate'); // Pairs with startDate, returns "2024-01-01 — 2024-12-31"
+   *
+   * const startDate2 = dateTracker('2025-01-01', 'startDate'); // No pair, returns null
+   * const endDate2 = dateTracker('2025-12-31', 'endDate'); // Pairs with startDate2, returns "2025-01-01 — 2025-12-31"
+   */
   function createDateTracker() {
     let pendingEndDate = null; // To hold an endDate if given before a startDate
     const dateRanges = []; // To track complete start and end date pairs
@@ -748,27 +935,80 @@ function uploadProgress(e) {
     };
   }
 
+  /**
+   * Event listener for the "Import" button. Triggers the file input's click event
+   * when the "Import" button is clicked, allowing the user to select a file.
+   */
   document.getElementById('importButton').addEventListener('click', () => {
     document.getElementById('fileInput').click(); // Trigger file input on button click
   });
 
+  /**
+   * Event listener for the file input change event. This function is triggered
+   * when a user selects a file. It reads the file content, attempts to parse it as JSON,
+   * and then generates HTML from the parsed JSON data.
+   *
+   * @param {Event} event - The change event from the file input.
+   */
   document.getElementById('fileInput').addEventListener('change', function (event) {
     const file = event.target.files[0]; // Get the selected file
     if (file) {
-      const reader = new FileReader();
+      const reader = new FileReader(); // Create a new FileReader to read the file
       reader.onload = function (e) {
         try {
           const jsonData = JSON.parse(e.target.result); // Parse the JSON file content
           generateHTMLFromJson(jsonData); // Generate HTML from JSON
         } catch (err) {
-          alert('Invalid JSON file');
-          console.error('Error parsing JSON:', err);
+          alert('Invalid JSON file'); // Notify user if the JSON is invalid
+          console.error('Error parsing JSON:', err); // Log the error for debugging
         }
       };
-      reader.readAsText(file); // Read the file content
+      reader.readAsText(file); // Read the file content as text
     }
   });
 
+  /**
+   * The main data structure representing a user's profile, including their personal
+   * details, work experience, education, skills, and more. This structure is intended
+   * to be populated with specific data and used to generate HTML content dynamically.
+   *
+   * @typedef {Object} JsonData
+   * @property {Object} basics - Contains the basic information of the user.
+   * @property {string} basics.name - The user's name.
+   * @property {string} basics.label - The user's professional title or role.
+   * @property {string} basics.image - The URL of the user's profile image.
+   * @property {string} basics.email - The user's email address.
+   * @property {string} basics.phone - The user's phone number.
+   * @property {string} basics.url - The user's personal or professional website URL.
+   * @property {string} basics.summary - A brief summary or description of the user.
+   * @property {Object} basics.location - The user's location details.
+   * @property {string} basics.location.address - The user's address.
+   * @property {string} basics.location.postalCode - The postal code of the user's location.
+   * @property {string} basics.location.city - The city of the user's location.
+   * @property {string} basics.location.countryCode - The country code of the user's location.
+   * @property {string} basics.location.region - The region or state of the user's location.
+   * @property {Array} basics.profiles - A list of the user's social or professional profiles (e.g., LinkedIn, GitHub).
+   * @property {Array} work - An array of the user's work experience.
+   * @property {Array} volunteer - An array of the user's volunteer experiences.
+   * @property {Array} education - An array of the user's educational history.
+   * @property {Array} awards - An array of the user's awards and recognitions.
+   * @property {Array} certificates - An array of certificates earned by the user.
+   * @property {Array} publications - An array of the user's publications or articles.
+   * @property {Array} skills - An array of the user's professional skills.
+   * @property {Array} languages - An array of languages spoken by the user.
+   * @property {Array} interests - An array of the user's personal interests.
+   * @property {Array} references - An array of references or recommendations.
+   * @property {Array} projects - An array of the user's projects.
+   */
+
+  /**
+   * Example of the `jsonData` object containing the user's personal information.
+   * It includes categories such as basics, work, education, skills, and more.
+   * The values for each field are initially set as empty strings or empty arrays.
+   * This object is used as a template for populating and generating HTML content.
+   *
+   * @type {JsonData}
+   */
   const jsonData = {
     basics: {
       name: '',
@@ -800,7 +1040,10 @@ function uploadProgress(e) {
     projects: [],
   };
 
-  // Function to extract basic information (personal info)  >>>>>>>>>>>>>>>>>>>>>>>basics<<<<<<<<<<<<<<<<<<<<<<<
+  /**
+   * Extracts the basic personal information (name, email, phone, etc.)
+   * from the HTML document and populates the `jsonData.basics` object.
+   */
   function extractBasics() {
     const label = document?.getElementById('label')?.textContent.trim() || null;
     const name = document?.getElementById('name')?.textContent.trim() || null;
@@ -814,6 +1057,7 @@ function uploadProgress(e) {
     const countryCode = document?.getElementById('country-code')?.textContent.trim() || null;
     const region = document?.getElementById('region')?.textContent.trim() || null;
     const summary = document?.getElementById('summary')?.textContent.trim() || null;
+
     // Only add the fields if they exist
     if (name) jsonData.basics.name = name;
     if (label) jsonData.basics.label = label;
@@ -823,6 +1067,7 @@ function uploadProgress(e) {
     if (url) jsonData.basics.url = url;
     if (summary) jsonData.basics.summary = summary;
 
+    // Handling location
     if (address || city) {
       jsonData.basics.location = {};
       if (address) jsonData.basics.location.address = address;
@@ -832,7 +1077,10 @@ function uploadProgress(e) {
       if (region) jsonData.basics.location.region = region;
     }
   }
-  // Function to extract WORK experience  >>>>>>>>>>>>>>>>>>>>>>>work<<<<<<<<<<<<<<<<<<<<<<<
+
+  /**
+   * Extracts work experience data from the document and populates the `jsonData.work` array.
+   */
   function extractWorkExperience() {
     const workElements = [...document.getElementsByClassName('experience')];
 
@@ -862,7 +1110,9 @@ function uploadProgress(e) {
     });
   }
 
-  // Function to extract education information >>>>>>>>>>>>>>>>>>>>>>>education<<<<<<<<<<<<<<<<<<<<<<<
+  /**
+   * Extracts education information from the document and populates the `jsonData.education` array.
+   */
   function extractEducation() {
     const educationSections = [...document.getElementsByClassName('education')];
 
@@ -892,13 +1142,15 @@ function uploadProgress(e) {
     });
   }
 
+  /**
+   * Extracts skills information from the document and populates the `jsonData.skills` array.
+   */
   function extractSkills() {
     const skillElements = [...document.getElementsByClassName('skills')];
 
     skillElements.forEach(skill => {
       let skillData = {};
 
-      // Extracting level, keywords, and name based on your HTML structure
       const level = skill?.getElementsByClassName('righ')[0]?.textContent.trim() || null;
       const keywordsInput = skill?.getElementsByClassName('righ')[1]?.textContent.trim() || null;
       const name = skill?.getElementsByClassName('left')[0]?.textContent.trim() || null;
@@ -906,56 +1158,68 @@ function uploadProgress(e) {
       // Convert keywords into an array (comma-separated values)
       const keywordsArray = keywordsInput ? keywordsInput.split(',').map(keyword => keyword.trim()) : [];
 
-      // Only add fields if they exist
       if (name) skillData.name = name;
       if (level) skillData.level = level;
       if (keywordsArray.length > 0) skillData.keywords = keywordsArray;
 
       if (Object.keys(skillData).length > 0) {
-        // Push the extracted skill data into your JSON object or array
         jsonData.skills.push(skillData);
       }
     });
   }
 
+  /**
+   * Extracts languages information from the document and populates the `jsonData.languages` array.
+   */
   function extractLanguages() {
     const languageElements = [...document.querySelectorAll('.languages section')];
 
     languageElements.forEach(lang => {
       let languageData = {};
 
-      // Extract language name (left side)
       const language = lang.querySelector('.left')?.textContent.trim() || null;
-
-      // Extract fluency level (right side)
       const fluency = lang.querySelector('.righ')?.textContent.trim() || null;
 
-      // Only add fields if they exist
       if (language) languageData.language = language;
       if (fluency) languageData.fluency = fluency;
 
-      // If valid data, push it to the languages array
       if (Object.keys(languageData).length > 0) {
         jsonData.languages.push(languageData);
       }
     });
   }
 
+  /**
+   * Generates the current date in the format YYYY-MM-DD.
+   *
+   * @returns {string} The current date in YYYY-MM-DD format.
+   */
   function generateDate() {
-    const date = new Date(); // Get the current date
-    const year = date.getFullYear(); // Get the full year (4 digits)
-    const month = String(date.getMonth() + 1).padStart(2, '0'); // Get the month (0-based, so add 1 and pad to 2 digits)
-    const day = String(date.getDate()).padStart(2, '0'); // Get the day of the month and pad to 2 digits
-    return `${year}-${month}-${day}`; // Return the formatted date
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
   }
 
+  /**
+   * Checks if a string contains only alphabetic characters and spaces.
+   *
+   * @param {string} str - The string to check.
+   * @returns {boolean} True if the string contains only letters and spaces, false otherwise.
+   */
   function containsOnlyLetters(str) {
     return /^[a-zA-Z\s]+$/.test(str);
   }
 
+  /**
+   * Matches and converts a date string in the format YYYY-MM-DD or YYYY-MM to the standard date format (YYYY-MM-DD).
+   *
+   * @param {string} dateString - The date string to be matched and converted.
+   * @returns {string|null} The formatted date in YYYY-MM-DD or null if the date format is invalid.
+   */
   function matchAndConvert(dateString) {
     const regex = /^([1-2][0-9]{3})(?:-([0-1][0-9])(?:-([0-3][0-9]))?)?$/;
-
     const match = dateString.match(regex);
     if (!match) return null;
 
@@ -963,65 +1227,77 @@ function uploadProgress(e) {
     const month = match[2] ? parseInt(match[2], 10) : 1; // Default to January
     const day = match[3] ? parseInt(match[3], 10) : 1; // Default to the 1st day
 
-    // Validate the date
     const date = new Date(year, month - 1, day); // JavaScript months are 0-indexed
     if (date.getFullYear() === year && date.getMonth() + 1 === month && date.getDate() === day) {
-      // Return in YYYY-MM-DD format
       return `${year.toString().padStart(4, '0')}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
     }
-
     return null;
   }
 
+  /**
+   * Generates and downloads an HTML and JSON file based on user data.
+   * - Sets a default file name or generates one based on user input.
+   * - Cleans up unnecessary HTML elements.
+   * - Exports relevant data in both HTML and JSON formats.
+   */
   function htmls() {
-    // set default name of file
+    // Set default file name
     let ceds = 'cv-europass';
     const vardasNode = document.getElementById('name').textContent;
-    // if test pass only letters use safely make name of file as person name
+
+    // If name consists only of letters, use it as the file name
     if (containsOnlyLetters(vardasNode) && vardasNode) {
-      ceds = vardasNode?.replace(/\s/g, '-') + '-CV'; //(-) can be a good choice for file names words seperations + add (CV)
+      ceds = vardasNode?.replace(/\s/g, '-') + '-CV'; // Replace spaces with hyphens and add '-CV'
     }
+
     const date = generateDate();
-    // Remove elements using pure JavaScript
+
+    // Remove elements with the 'remove' class and draggable attribute
     document.querySelectorAll('.remove').forEach(function (element) {
       element.parentNode.removeChild(element);
     });
+
     document.querySelectorAll('[draggable="true"]').forEach(e => e.removeAttribute('draggable'));
 
     // Clone the HTML content
     const htmlElement = document.querySelector('html');
     const clonedHtml = htmlElement.cloneNode(true);
 
-    // Get the HTML string of the cloned document
+    // Get the outer HTML of the cloned document
     let htmlString = clonedHtml.outerHTML;
-
-    // Generate the complete HTML document string
     htmlString = `<!DOCTYPE html>\n${htmlString}`;
 
-    // Call all extraction functions
-    // extractSkills();
+    // Extract data from the page
     extractLanguages();
-    // extractPersonalSkills();
     extractSkills();
     extractBasics();
     extractWorkExperience();
     extractEducation();
-    exportToJson(jsonData, ceds + '-' + date + '.json');
-    // Trigger file download
-    download(ceds + '-' + date, htmlString);
+
+    // Export the data as JSON
+    exportToJson(jsonData, `${ceds}-${date}.json`);
+
+    // Trigger the download of the HTML file
+    download(`${ceds}-${date}`, htmlString);
   }
 
+  /**
+   * Triggers the download of an HTML file.
+   *
+   * @param {string} fileName - The name of the file to be downloaded.
+   * @param {string} html - The HTML content to be saved in the file.
+   */
   function download(fileName, html) {
     const pom = document.createElement('a');
     document.body.appendChild(pom);
     pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(html));
-    pom.setAttribute('download', fileName + '.html');
+    pom.setAttribute('download', `${fileName}.html`);
     pom.target = '_blank';
+
     if (document.createEvent) {
-      // Create a new click event
       const event = new MouseEvent('click', {
-        bubbles: true, // Indicates that the event can bubble up through the DOM tree
-        cancelable: true, // Indicates that the event can be canceled
+        bubbles: true,
+        cancelable: true,
       });
       pom.dispatchEvent(event);
     } else {
@@ -1029,29 +1305,26 @@ function uploadProgress(e) {
     }
   }
 
+  /**
+   * Exports the provided data as a downloadable JSON file.
+   *
+   * @param {Object} data - The data to be exported as JSON.
+   * @param {string} [fileName='data.json'] - The name of the JSON file.
+   */
   function exportToJson(data, fileName = 'data.json') {
-    // Convert the data object to a JSON string
     const jsonString = JSON.stringify(data, null, 2);
-
-    // Create a Blob with the JSON data
-    const blob = new Blob([jsonString], {
-      type: 'application/json',
-    });
-
-    // Create a download link
+    const blob = new Blob([jsonString], { type: 'application/json' });
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
     link.download = fileName;
 
-    // Trigger the download
     link.click();
-
-    // Clean up
     URL.revokeObjectURL(link.href);
   }
 
-  // events
-
+  /**
+   * Event listener for mouseup event to update the content of options.
+   */
   document.addEventListener('mouseup', e => {
     const target = e.target;
     if (target.tagName === 'OPTION') {
@@ -1059,70 +1332,110 @@ function uploadProgress(e) {
     }
   });
 
+  /**
+   * Event listener for keyup event to trigger a function when Enter is pressed.
+   */
   document.addEventListener('keyup', function (e) {
     if (e.key === 'Enter') {
       outf();
-      // localStorage.setItem(document.getElementById('name').textContent.replace(/\s+/g, ""), JSON.stringify(jsonData));
     }
   });
 
+  /**
+   * Event listener for double click on editable fields to insert a select dropdown.
+   */
   document.body.addEventListener('dblclick', function (e) {
     if (e.target.classList.contains('edit')) {
       e.preventDefault();
 
-      const selectHtml = `<select>
+      const selectHtml = `
+      <select>
         <option value="A1 – Breakthrough">A1 – Breakthrough</option>
         <option value="A2 – Waystage">A2 – Waystage</option>
         <option value="B1 – Threshold">B1 – Threshold</option>
         <option value="B2 – Vantage">B2 – Vantage</option>
         <option value="C1 – Effective Operational Proficiency">C1 – Effective Operational Proficiency</option>
         <option value="C2 – Mastery">C2 – Mastery</option>
-      </select>`;
+      </select>
+    `;
 
       e.target.insertAdjacentHTML('afterbegin', selectHtml);
     }
   });
-  // prettier-ignore
-  document.body.addEventListener('click', function (e) {
-    const target = e.target;
 
-    if (target.classList.contains('rem')) {
-      if (target.parentNode.classList.contains('toka')) {
-        const row = target.parentNode.getElementsByClassName('krow');
-        const last = row[row.length - 1];
-        if (row.length === 3) target.parentNode.remove();
-        return row.length > 3 && last.remove();
-      }
-      if (target?.parentNode.getElementsByTagName('div').length === 1) {
-        target?.parentNode.remove();
-      }
-      target?.parentNode.getElementsByTagName('div')[0]?.remove();
-    } else if (target.classList.contains('add')) {
-      if (target.parentNode.classList.contains('toka')) {
-        const row = target.parentNode.getElementsByClassName('krow');
-        const last = row[row.length - 1];
-        return last.parentNode.appendChild(last.cloneNode(true));
-      }
-      const node = target?.parentNode.getElementsByTagName('div')[0];
-      const copy = node.cloneNode(true);
+  /**
+   * Event listener for click events on the document to handle adding/removing elements
+   * and editing content.
+   */
+  document.body.addEventListener(
+    'click',
+    function (e) {
+      const target = e.target;
 
-      // const num = increment();
-      // copy.getElementsByTagName('h3')[5].textContent = num + ' ' + copy.getElementsByTagName('h3')[5].textContent.replace(/\d+/g, '').trim();
-      node.before(copy);
-    } else if (target.tagName === 'H3' || target.tagName === 'H2' || target.parentNode.id === 'number' || target.parentNode.id === 'email') {
-      e.preventDefault();
+      if (target.classList.contains('rem')) {
+        // Remove elements based on their class and conditions
+        handleRemove(target);
+      } else if (target.classList.contains('add')) {
+        // Add new elements based on their class and conditions
+        handleAdd(target);
+      } else if (target.tagName === 'H3' || target.tagName === 'H2' || target.parentNode.id === 'number' || target.parentNode.id === 'email') {
+        // Replace text content with an input field for editing
+        handleEdit(target);
+      } else if (target.tagName !== 'SELECT' && target.tagName !== 'INPUT') {
+        // Run all to make text not inputs function
+        outf();
+      }
+    },
+    true
+  );
 
-      const input = document.createElement('input');
-      if (target.id) input.setAttribute('id', target.id);
-      if (target.className) input.setAttribute('class', target.className);
-      input.setAttribute('type', 'text');
-      input.value = target.textContent;
-      target.replaceWith(input);
-      input.select();
-      input.focus();
-    } else if (target.tagName !== 'SELECT' && target.tagName !== 'INPUT') {
-      // run all to make text not inputs function
-      outf();
+  /**
+   * Handles the removal of elements from the DOM.
+   *
+   * @param {Element} target - The element that was clicked.
+   */
+  function handleRemove(target) {
+    if (target.parentNode.classList.contains('toka')) {
+      const row = target.parentNode.getElementsByClassName('krow');
+      const last = row[row.length - 1];
+      if (row.length === 3) target.parentNode.remove();
+      return row.length > 3 && last.remove();
     }
-  }, true);
+    if (target?.parentNode.getElementsByTagName('div').length === 1) {
+      target?.parentNode.remove();
+    }
+    target?.parentNode.getElementsByTagName('div')[0]?.remove();
+  }
+
+  /**
+   * Handles the addition of new elements to the DOM.
+   *
+   * @param {Element} target - The element that was clicked.
+   */
+  function handleAdd(target) {
+    if (target.parentNode.classList.contains('toka')) {
+      const row = target.parentNode.getElementsByClassName('krow');
+      const last = row[row.length - 1];
+      return last.parentNode.appendChild(last.cloneNode(true));
+    }
+    const node = target?.parentNode.getElementsByTagName('div')[0];
+    const copy = node.cloneNode(true);
+    node.before(copy);
+  }
+
+  /**
+   * Handles editing text elements by replacing them with input fields.
+   *
+   * @param {Element} target - The element that was clicked.
+   */
+  function handleEdit(target) {
+    const input = document.createElement('input');
+    if (target.id) input.setAttribute('id', target.id);
+    if (target.className) input.setAttribute('class', target.className);
+    input.setAttribute('type', 'text');
+    input.value = target.textContent;
+    target.replaceWith(input);
+    input.select();
+    input.focus();
+  }
 })(document);
