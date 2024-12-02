@@ -54,7 +54,7 @@
         <div class="movable" id="text-area">
           <h1>Notes</h1>
           <label for="notes" class="visually-hidden">Notes</label>
-          <textarea id="notes" name="notes" placeholder="Empty"></textarea>
+          <textarea class="small" id="notes" name="notes" placeholder="Empty"></textarea>
         </div>
 
         <div class="movable tetris mw16 w16 links">
@@ -126,7 +126,7 @@
           </div>
         </div>
 
-        <div class="movable mw16">
+        <div class="movable mw11">
           <h1>Games</h1>
           <a href="games/questionnaire/index.html" target="_blank" rel="noopener noreferrer">Questionnaire</a>
           <a href="games/memory-game/index.html" target="_blank" rel="noopener noreferrer">Memory Game</a>
@@ -137,28 +137,40 @@
           <h1>Appearance</h1>
           <div class="w16">
             <fieldset class="forms spaceb">
-              <legend>Theme control</legend>
+              <legend>Theme:<span class="small" id="theme-name"></span></legend>
               <div class="em4">
                 <input type="reset" id="reset-all" value="Reset" title="Clear all localStorage! (Reset to Defaults)">
                 <input type="button" id="lt" value="<" title="Prev">
                 <input type="button" id="gt" value=">" title="Next">
               </div>
-              <div class="small">Theme:&nbsp;<span id="theme-name"></span></div>
+            </fieldset>
+
+            <fieldset id="modes" class="forms">
+              <legend>Modes:</legend>
+              <div class="checkbox">
+                <input type="checkbox" id="numbering-mode">
+                <label for="numbering-mode" title="Add numbering to the links">Numbering</label>
+              </div>
+
+              <div class="checkbox">
+                <input type="checkbox" id="day-night">
+                <label for="day-night" title="Automatically change to a random night theme after 19:00">Day/Night</label>
+              </div>
 
               <div class="checkbox">
                 <input type="checkbox" id="popup-mode">
-                <label for="popup-mode" title="Show only the clicked element when its title is clicked, add numbering to the links, and automatically change to a random night theme after 19:00">Popup mode</label>
+                <label for="popup-mode" title="Show only the clicked element when its title is clicked">Popup</label>
               </div>
 
               <div class="checkbox">
                 <input type="checkbox" id="cute-mode">
-                <label for="cute-mode" title="Display a cute custom cursor and make the corners rounded">Cute mode</label>
+                <label for="cute-mode" title="Display a cute custom cursor and make the corners rounded">Cute</label>
               </div>
 
             </fieldset>
 
             <fieldset id="colors" class="forms">
-              <legend>Custom colors</legend>
+              <legend>Custom colors:</legend>
 
               <div class="spaceb colors small">
                 <div>
@@ -195,7 +207,7 @@
             </fieldset>
 
             <fieldset id="background" class="forms spaceb">
-              <legend>Background</legend>
+              <legend>Background:</legend>
               <div class="small pa">
                 <input type="reset" id="bg-theme" value="Reset">
                 <label for="bg-file" class="visually-hidden">Upload image</label>
@@ -388,31 +400,31 @@
           <span class="small">standard-grade electrolytes at room temperature.</span>
         </div>
 
-        <div class="movable mw14 w14 links">
+        <div class="movable mw16 w16 links">
           <h1 title="External links 1">EXT. LINKS</h1>
-          <a href="https://pinetools.com" target="_blank" rel="noopener noreferrer" title="Online tools for various tasks">pinetools.com</a>
-          <a href="https://gtmetrix.com" rel="noopener noreferrer" target="_blank" title="Website performance testing">gtmetrix.com</a>
-          <a href="https://caniuse.com" rel="noopener noreferrer" target="_blank" title="Browser compatibility checker">caniuse.com</a>
-          <a href="https://getbem.com" rel="noopener noreferrer" target="_blank" title="BEM CSS methodology">getbem.com</a>
-          <a href="https://developer.mozilla.org/en-US/docs/Web" target="_blank" rel="noopener noreferrer" title="Web development documentation">mozilla.org</a>
-          <a href="https://github.com" rel="noopener noreferrer" target="_blank" title="Open source code hosting">github.com</a>
-          <a href="https://ninite.com" target="_blank" rel="noopener noreferrer" title="Bulk software installer">ninite.com</a>
-          <a href="https://coolors.co" rel="noopener noreferrer" target="_blank" title="Color scheme generator">coolors.co</a>
-          <a href="https://vectr.com" rel="noopener noreferrer" target="_blank" title="Free vector graphics editor">vectr.com</a>
-          <h1>JS Tools</h1>
-          <a href="https://minify-js.com" rel="noopener noreferrer" target="_blank" title="Minify JavaScript code">minify-js.com</a>
-          <a href="https://playcode.io/javascript" target="_blank" rel="noopener noreferrer" title="JavaScript playground">playcode.io</a>
-          <a href="https://jsfiddle.net" target="_blank" rel="noopener noreferrer" title="Online JS code editor">jsfiddle.net</a>
-          <a href="https://jshint.com" rel="noopener noreferrer" target="_blank" title="JavaScript code linter">jshint.com</a>
-          <a href="https://eslint.org/play" rel="noopener noreferrer" target="_blank" title="JavaScript code linter">eslint.org</a>
+          <a href="tools/links-webpage/index.html" target="_blank" rel="noopener noreferrer" title="Popular apps and tools">Software and tools</a>
+          <a href="https://jsonformatter.org" rel="noopener noreferrer" target="_blank" title="Format JSON">jsonformatter.org</a>
+          <a href="https://www.boredpanda.com" rel="noopener noreferrer" target="_blank" title="Creative stories">boredpanda.com</a>
+          <a href="https://jpillora.com/base64-encoder" rel="noopener noreferrer" target="_blank" title="Encode to Base64">base64-encoder</a>
+          <a href="https://squoosh.app/editor" target="_blank" rel="noopener noreferrer" title="Image optimizer">squoosh.app</a>
+          <a href="https://www.tinkercad.com" rel="noopener noreferrer" target="_blank" title="3D design tools">tinkercad.com</a>
+          <a href="http://radio.garden" rel="noopener noreferrer" target="_blank" title="Explore global radio stations">radio.garden</a>
+          <h1>Typography Tools</h1>
+          <a href="https://fonts.google.com" target="_blank" rel="noopener noreferrer" title="Browse Google fonts">fonts.google.com</a>
+          <a href="http://topfunky.com/baseline-rhythm-calculator" target="_blank" rel="noopener noreferrer" title="Calculate baseline rhythm">baseline-rhythm</a>
+          <a href="https://drewish.com/tools/vertical-rhythm" rel="noopener noreferrer" target="_blank" title="Calculate vertical rhythm">vertical-rhythm</a>
+          <a href="https://transfonter.org" rel="noopener noreferrer" target="_blank" title="Convert fonts to web formats">transfonter.org</a>
+          <a href="https://www.gridlover.net/try" rel="noopener noreferrer" target="_blank" title="Typography generator">gridlover.net</a>
+          <a href="http://fontello.com" target="_blank" rel="noopener noreferrer" title="Icon font generator">fontello.com</a>
           <h1>CSS Tools</h1>
-          <a href="https://cssgradient.io" rel="noopener noreferrer" target="_blank" title="Create CSS gradients">cssgradient.io</a>
-          <a href="https://www.cssmatic.com" target="_blank" rel="noopener noreferrer" title="Free CSS tools">cssmatic.com</a>
-          <a href="https://www.cleancss.com" target="_blank" rel="noopener noreferrer" title="Minify and format CSS">cleancss.com</a>
-          <a href="http://www.cssdrive.com" target="_blank" rel="noopener noreferrer" title="CSS resources and tutorials">cssdrive.com</a>
-          <a href="https://css.github.io/csso/csso.html" target="_blank" rel="noopener noreferrer" title="CSS optimizer">css.github.io</a>
-          <a href="https://base64.guru/converter/encode/css" rel="noopener noreferrer" target="_blank" title="Convert CSS to Base64">base64.guru</a>
-          <a href="http://netpresent.net/css-inverter.php" target="_blank" rel="noopener noreferrer" title="Invert CSS colors">css-inverter</a>
+          <a href="http://shrthnd.volume7.io" target="_blank" rel="noopener noreferrer" title="Generate CSS shorthand">shrthnd.volume7.io</a>
+          <a href="http://css3generator.com" target="_blank" rel="noopener noreferrer" title="Generate CSS3 code">css3generator.com</a>
+          <a href="http://bennettfeely.com/clippy" rel="noopener noreferrer" target="_blank" title="Create CSS clip paths">bennettfeely.com</a>
+          <a href="https://www.cssfontstack.com" rel="noopener noreferrer" target="_blank" title="CSS font stacks">cssfontstack.com</a>
+          <h1>URL Tools</h1>
+          <a href="https://www.deadlinkchecker.com" target="_blank" rel="noopener noreferrer" title="Check dead links">deadlinkchecker.com</a>
+          <a href="https://pagespeed.web.dev" rel="noopener noreferrer" target="_blank" title="Check page speed">pagespeed.web.dev</a>
+          <a href="https://unshorten.it/" rel="noopener noreferrer" target="_blank" title="Check short URLs">unshorten.it</a>
         </div>
 
         <div class="movable mw15 w15 links">
@@ -438,31 +450,31 @@
           <a href="https://mail.google.com/mail/u/0/#inbox" target="_blank" rel="noopener noreferrer" title="Access your Gmail inbox">mail.google.com</a>
         </div>
 
-        <div class="movable mw16 w16 links">
+        <div class="movable mw14 w14 links">
           <h1 title="External links 3">EXT. LINKS</h1>
-          <a href="tools/links-webpage/index.html" target="_blank" rel="noopener noreferrer" title="Popular apps and tools">Software and tools</a>
-          <a href="https://jsonformatter.org" rel="noopener noreferrer" target="_blank" title="Format JSON">jsonformatter.org</a>
-          <a href="https://www.boredpanda.com" rel="noopener noreferrer" target="_blank" title="Creative stories">boredpanda.com</a>
-          <a href="https://jpillora.com/base64-encoder" rel="noopener noreferrer" target="_blank" title="Encode to Base64">base64-encoder</a>
-          <a href="https://squoosh.app/editor" target="_blank" rel="noopener noreferrer" title="Image optimizer">squoosh.app</a>
-          <a href="https://www.tinkercad.com" rel="noopener noreferrer" target="_blank" title="3D design tools">tinkercad.com</a>
-          <a href="http://radio.garden" rel="noopener noreferrer" target="_blank" title="Explore global radio stations">radio.garden</a>
-          <h1>Typography Tools</h1>
-          <a href="https://fonts.google.com" target="_blank" rel="noopener noreferrer" title="Browse Google fonts">fonts.google.com</a>
-          <a href="http://topfunky.com/baseline-rhythm-calculator" target="_blank" rel="noopener noreferrer" title="Calculate baseline rhythm">baseline-rhythm</a>
-          <a href="https://drewish.com/tools/vertical-rhythm" rel="noopener noreferrer" target="_blank" title="Calculate vertical rhythm">vertical-rhythm</a>
-          <a href="https://transfonter.org" rel="noopener noreferrer" target="_blank" title="Convert fonts to web formats">transfonter.org</a>
-          <a href="https://www.gridlover.net/try" rel="noopener noreferrer" target="_blank" title="Typography generator">gridlover.net</a>
-          <a href="http://fontello.com" target="_blank" rel="noopener noreferrer" title="Icon font generator">fontello.com</a>
+          <a href="https://pinetools.com" target="_blank" rel="noopener noreferrer" title="Online tools for various tasks">pinetools.com</a>
+          <a href="https://gtmetrix.com" rel="noopener noreferrer" target="_blank" title="Website performance testing">gtmetrix.com</a>
+          <a href="https://caniuse.com" rel="noopener noreferrer" target="_blank" title="Browser compatibility checker">caniuse.com</a>
+          <a href="https://getbem.com" rel="noopener noreferrer" target="_blank" title="BEM CSS methodology">getbem.com</a>
+          <a href="https://developer.mozilla.org/en-US/docs/Web" target="_blank" rel="noopener noreferrer" title="Web development documentation">mozilla.org</a>
+          <a href="https://github.com" rel="noopener noreferrer" target="_blank" title="Open source code hosting">github.com</a>
+          <a href="https://ninite.com" target="_blank" rel="noopener noreferrer" title="Bulk software installer">ninite.com</a>
+          <a href="https://coolors.co" rel="noopener noreferrer" target="_blank" title="Color scheme generator">coolors.co</a>
+          <a href="https://vectr.com" rel="noopener noreferrer" target="_blank" title="Free vector graphics editor">vectr.com</a>
+          <h1>JS Tools</h1>
+          <a href="https://minify-js.com" rel="noopener noreferrer" target="_blank" title="Minify JavaScript code">minify-js.com</a>
+          <a href="https://playcode.io/javascript" target="_blank" rel="noopener noreferrer" title="JavaScript playground">playcode.io</a>
+          <a href="https://jsfiddle.net" target="_blank" rel="noopener noreferrer" title="Online JS code editor">jsfiddle.net</a>
+          <a href="https://jshint.com" rel="noopener noreferrer" target="_blank" title="JavaScript code linter">jshint.com</a>
+          <a href="https://eslint.org/play" rel="noopener noreferrer" target="_blank" title="JavaScript code linter">eslint.org</a>
           <h1>CSS Tools</h1>
-          <a href="http://shrthnd.volume7.io" target="_blank" rel="noopener noreferrer" title="Generate CSS shorthand">shrthnd.volume7.io</a>
-          <a href="http://css3generator.com" target="_blank" rel="noopener noreferrer" title="Generate CSS3 code">css3generator.com</a>
-          <a href="http://bennettfeely.com/clippy" rel="noopener noreferrer" target="_blank" title="Create CSS clip paths">bennettfeely.com</a>
-          <a href="https://www.cssfontstack.com" rel="noopener noreferrer" target="_blank" title="CSS font stacks">cssfontstack.com</a>
-          <h1>URL Tools</h1>
-          <a href="https://www.deadlinkchecker.com" target="_blank" rel="noopener noreferrer" title="Check dead links">deadlinkchecker.com</a>
-          <a href="https://pagespeed.web.dev" rel="noopener noreferrer" target="_blank" title="Check page speed">pagespeed.web.dev</a>
-          <a href="https://unshorten.it/" rel="noopener noreferrer" target="_blank" title="Check short URLs">unshorten.it</a>
+          <a href="https://cssgradient.io" rel="noopener noreferrer" target="_blank" title="Create CSS gradients">cssgradient.io</a>
+          <a href="https://www.cssmatic.com" target="_blank" rel="noopener noreferrer" title="Free CSS tools">cssmatic.com</a>
+          <a href="https://www.cleancss.com" target="_blank" rel="noopener noreferrer" title="Minify and format CSS">cleancss.com</a>
+          <a href="http://www.cssdrive.com" target="_blank" rel="noopener noreferrer" title="CSS resources and tutorials">cssdrive.com</a>
+          <a href="https://css.github.io/csso/csso.html" target="_blank" rel="noopener noreferrer" title="CSS optimizer">css.github.io</a>
+          <a href="https://base64.guru/converter/encode/css" rel="noopener noreferrer" target="_blank" title="Convert CSS to Base64">base64.guru</a>
+          <a href="http://netpresent.net/css-inverter.php" target="_blank" rel="noopener noreferrer" title="Invert CSS colors">css-inverter</a>
         </div>
 
         <p class="bottom" title="CAUTION: If you use this, please do so at your own risk.">&copy;2023 by Kostas Šliažas</p>
@@ -491,9 +503,6 @@
                 <button id="right" class="em4">→</button>
               </div>
             </div>
-            <div class="pa">
-              <button id="center-elements" class="em4">center elements</button>
-            </div>
             <div class="checkbox digit">
               <input type="radio" value="12" id="ten" name="move">
               <label for="ten">12px</label>
@@ -505,13 +514,16 @@
           </fieldset>
           <fieldset class="forms flex">
             <legend>Rotated mode</legend>
-            <div>
+            <div class="w100">
               <input type="button" value="Toggle Rotate" name="move" id="rotate90">
               <label for="rotate90" class="dspn">PRO laziness</label>
             </div>
           </fieldset>
-          <div class="forms flex em4">
-            <button id="controls-hide">Hide this window</button>
+          <div class="forms flex em4 w100 pa">
+            <button class="w100" id="center-elements">center elements</button>
+          </div>
+          <div class="forms flex w100 pa">
+            <button class="w100" id="controls-hide">Hide this window</button>
           </div>
         </div>
       </div>
