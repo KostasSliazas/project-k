@@ -65,7 +65,7 @@ table {
 }
 
 html {
-  font: 16px/1.5 kitten-corner,Calibri, Candara, Segoe, 'Segoe UI', Optima, Arial, sans-serif;
+  font: 16px/1.5 kitten-corner, Calibri, Candara, Segoe, 'Segoe UI', Optima, Arial, sans-serif;
   color: var(--color4);
   background: #ddd;
 }
@@ -106,7 +106,7 @@ html {
 
 .lines ~ #overlay,
 .lines.main::before {
-  background: repeating-linear-gradient(transparent 0, transparent 11px, transparent 11px, var(--color3) 12px) 0 0 fixed, repeating-linear-gradient(90deg, transparent 0, transparent 11px, transparent 11px, var(--color3) 12px) 0 0 fixed, var(--bg) var(--size) var(--repeat), var(--color2);
+  background: var(--bg) var(--size) var(--repeat), repeating-linear-gradient(transparent 0, transparent 11px, transparent 11px, var(--color3) 12px) 0 0 fixed, repeating-linear-gradient(90deg, transparent 0, transparent 11px, transparent 11px, var(--color3) 12px) 0 0 fixed, var(--color2);
 }
 
 .bg-image {
@@ -442,6 +442,7 @@ html {
 .e .movable:nth-child(3),
 .e .movable:nth-child(4),
 .e .movable:nth-child(7),
+.e .movable:nth-child(9),
 .e .movable:nth-child(11),
 .e .movable:nth-child(12),
 .e .movable:nth-child(13),
@@ -588,24 +589,22 @@ a {
   color: var(--color4);
 }
 
-.popup-mode .main {
+.numbering-mode .main {
   counter-reset: section;
 }
 
-.popup-mode .links a::before {
+.numbering-mode .links a::before {
   counter-increment: section;
-  /* Increment the counter */
   content: counter(section, decimal-leading-zero) '. ';
   color: var(--color3);
-  /* Add numbering */
+}
+
+.numbering-mode .links a {
+  padding: 0 4px;
 }
 
 .popup-mode h1 {
   cursor: pointer;
-}
-
-.popup-mode a {
-  padding: 0 4px;
 }
 
 a {
@@ -926,7 +925,9 @@ a {
 .mw96 {
   min-width: 960px;
 }
-
+.w100 {
+  min-width: 100%;
+}
 .oxs i:nth-child(even),
 .oxs p {
   user-select: all !important;
@@ -1029,6 +1030,7 @@ textarea {
   overflow: hidden;
   width: 100%;
   font-family: inherit;
+  font-size: inherit;
 }
 
 input[type='text'] {
@@ -1219,7 +1221,7 @@ fieldset {
 }
 
 .forms {
-  border-top: 1px solid var(--color2);
+  border-top: 1px solid var(--color3);
   display: flex;
   flex-direction: column;
   place-items: stretch;
@@ -1239,7 +1241,7 @@ fieldset {
 }
 
 .forms legend {
-  margin: 0 auto;
+  margin: 0;
   padding: 0;
   min-block-size: 24px;
   line-height: 24px;

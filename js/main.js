@@ -86,14 +86,14 @@
   const textArea = d.getElementsByTagName('TEXTAREA')[0];
   const bg = d.querySelector('#bg-file');
   const styles = ['width', 'height', 'left', 'top'];
-  const blockDefaults = 'width:960px;height:36px;left:240px;top:0px;,width:84px;height:36px;left:672px;top:72px;,width:120px;height:48px;left:1080px;top:48px;,width:108px;height:48px;left:864px;top:48px;,width:168px;height:48px;left:240px;top:96px;,width:168px;height:576px;left:564px;top:96px;,width:36px;height:144px;left:708px;top:528px;,width:156px;height:252px;left:408px;top:96px;,width:168px;height:36px;left:240px;top:144px;,width:168px;height:504px;left:240px;top:168px;,width:108px;height:48px;left:756px;top:48px;,width:108px;height:48px;left:972px;top:48px;,width:120px;height:36px;left:408px;top:72px;,width:144px;height:36px;left:528px;top:72px;,width:156px;height:324px;left:408px;top:348px;,width:960px;height:36px;left:240px;top:24px;,width:168px;height:36px;left:240px;top:72px;,width:168px;height:36px;left:240px;top:48px;,width:156px;height:96px;left:876px;top:96px;,width:348px;height:36px;left:408px;top:48px;,width:144px;height:576px;left:732px;top:96px;,width:156px;height:480px;left:876px;top:192px;,width:168px;height:576px;left:1032px;top:96px;';
+  const blockDefaults = 'width:960px;height:36px;left:120px;top:0px;,width:84px;height:36px;left:552px;top:72px;,width:120px;height:48px;left:960px;top:48px;,width:108px;height:48px;left:744px;top:48px;,width:120px;height:576px;left:0px;top:96px;,width:168px;height:576px;left:444px;top:96px;,width:36px;height:144px;left:588px;top:528px;,width:156px;height:252px;left:288px;top:96px;,width:120px;height:96px;left:0px;top:0px;,width:168px;height:576px;left:120px;top:96px;,width:108px;height:48px;left:636px;top:48px;,width:108px;height:48px;left:852px;top:48px;,width:120px;height:36px;left:288px;top:72px;,width:144px;height:36px;left:408px;top:72px;,width:156px;height:324px;left:288px;top:348px;,width:960px;height:36px;left:120px;top:24px;,width:168px;height:36px;left:120px;top:72px;,width:168px;height:36px;left:120px;top:48px;,width:156px;height:96px;left:780px;top:96px;,width:348px;height:36px;left:288px;top:48px;,width:168px;height:576px;left:612px;top:96px;,width:156px;height:480px;left:780px;top:192px;,width:144px;height:576px;left:936px;top:96px;';
   const textAreaDefaults = 'Good day. You have the ability to reposition these blocks by clicking (□ or ▭) and holding (the left) corner or by pressing the ` key on your keyboard. ([ctrl]+[`]=Reset to Defaults) Alternatively, double-click (▭) to maximize them or minimize (□). You can also change the theme by right-clicking (context menu) and customize the colors and background image through the user interface. If locked, you can unlock it by clicking a few times on the background and then entering the default PIN: 520. Alternatively, you can clear the localStorage (since this project stores data such as PIN(password) and other settings in localStorage).';
   const counts = {
     allMouseClicks: 0,
     clicks: 0,
   };
   let saved = getLocalStorageItems('mustashed') || [5, 2, 0];
-  let minimized = [16, 8, 6, 17, 15, 0, 19, 12, 1, 13];
+  let minimized = [16, 6, 17, 15, 0, 19, 12, 1, 13];
   let mousedown = false;
   let scalingTarget = null;
   let isEnterPass = false;
@@ -816,7 +816,17 @@
     const popupMode = getLocalStorageItems('popup-mode');
     setCheckboxChecked('popup-mode', popupMode);
     d.body.classList.toggle('popup-mode', popupMode);
-    if (popupMode) {
+
+    // numbering mode
+    const numberingMode = getLocalStorageItems('numbering-mode');
+    setCheckboxChecked('numbering-mode', numberingMode);
+    d.body.classList.toggle('numbering-mode', numberingMode);
+
+    // day night mode
+    const dayNight = getLocalStorageItems('day-night');
+    setCheckboxChecked('day-night', dayNight);
+    d.body.classList.toggle('day-night', dayNight);
+    if (dayNight) {
       doAfter19h(performNightThemeChange);
     }
 
@@ -1019,27 +1029,51 @@
     }
 
     // set cuteMode  theme lines class and item of localStorage
-    if (target === 'cute-mode') {
-      if (!main.classList.contains('cute-mode') && e.target.checked) {
-        setLocalStorageItems('cute-mode', true);
-        d.body.classList.add('cute-mode');
+    const cuteMode = 'cute-mode';
+    if (target === cuteMode) {
+      if (!main.classList.contains(cuteMode) && e.target.checked) {
+        setLocalStorageItems(cuteMode, true);
+        d.body.classList.add(cuteMode);
       } else {
-        setLocalStorageItems('cute-mode', false);
-        d.body.classList.remove('cute-mode');
+        setLocalStorageItems(cuteMode, false);
+        d.body.classList.remove(cuteMode);
       }
     }
 
-    // set cuteMode  theme lines class and item of localStorage
-    if (target === 'popup-mode') {
-      if (!main.classList.contains('popup-mode') && e.target.checked) {
-        setLocalStorageItems('popup-mode', true);
-        d.body.classList.add('popup-mode');
+    // set popup-mode
+    const popupMode = 'popup-mode';
+    if (target === popupMode) {
+      if (!main.classList.contains(popupMode) && e.target.checked) {
+        setLocalStorageItems(popupMode, true);
+        d.body.classList.add(popupMode);
+      } else {
+        setLocalStorageItems(popupMode, false);
+        d.body.classList.remove(popupMode);
+      }
+    }
 
-        // start timer to change theme
+    // set day-night mode
+    const numberingMode = 'numbering-mode';
+    if (target === numberingMode) {
+      if (!main.classList.contains(numberingMode) && e.target.checked) {
+        setLocalStorageItems(numberingMode, true);
+        d.body.classList.add(numberingMode);
+      } else {
+        setLocalStorageItems(numberingMode, false);
+        d.body.classList.remove(numberingMode);
+      }
+    }
+
+    // set day-night mode
+    const dayNight = 'day-night';
+    if (target === dayNight) {
+      if (!main.classList.contains(dayNight) && e.target.checked) {
+        setLocalStorageItems(dayNight, true);
+        // d.body.classList.add(dayNight);
         doAfter19h(performNightThemeChange);
       } else {
-        setLocalStorageItems('popup-mode', false);
-        d.body.classList.remove('popup-mode');
+        setLocalStorageItems(dayNight, false);
+        // d.body.classList.remove(dayNight);
       }
     }
 
@@ -1459,7 +1493,7 @@
   if ('serviceWorker' in navigator) {
     try {
       navigator.serviceWorker
-        .register('/project-k/sw.js?v=1')
+        .register('/project-k/sw.js?v=7')
         .then(registration => {
           console.log('Service Worker registered with scope:', registration.scope);
         })
