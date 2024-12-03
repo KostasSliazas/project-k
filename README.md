@@ -4,9 +4,6 @@ This repository contains a collection of web-based tools and applications and li
 [Screenshots](#screenshots) | [Getting Started](#getting-started) | [License](#license)
 
 ## Screenshots
-
-Here are some quick screenshots of the tools:
-
 ![Project K Screenshot](screenshots1.png)
 
 ![Project K Screenshot](screenshots.png)
