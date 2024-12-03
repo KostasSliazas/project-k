@@ -1,5 +1,5 @@
-# Project K
-This repository contains a collection of web-based tools and applications designed to simplify various tasks and enhance productivity for developers and designers. Each tool serves a unique purpose, from generating CSS styles to managing tasks efficiently.[https://kostassliazas.github.io/project-k/]
+# Project Kitten
+This repository contains a collection of web-based tools and applications and links.
 
 [Screenshots](#screenshots) | [Getting Started](#getting-started) | [License](#license)
 
