@@ -1,134 +1,151 @@
-;
 (function () {
-  'use strict'
-  const ul = document.getElementsByTagName('ul')[0]
-  const inputs = Array.from(document.getElementsByTagName('input'))
-  const textInput = document.getElementById('text-input')
+  'use strict';
 
-  let begin = 0
-  computeRadius()
+  // Cached DOM references
+  const ul = document.querySelector('ul'); // Reference to the first <ul> element
+  const inputs = Array.from(document.querySelectorAll('input')); // Convert all <input> elements to an array
+  const textInput = document.getElementById('text-input'); // Reference to the text input element
 
-  function reset(e) {
-    // Get reference to the text-wrap element
-    const textWrap = document.getElementById('text-wrap');
+  let begin = 0; // Tracks the starting rotation angle for the spinner
 
-    // Handle 'ok' button click
-    if (e.target.id === 'ok') {
-      textWrap.classList.add('hide'); // Hide the text-wrap element
-      ul.innerHTML = ''; // Clear the content of the ul element
-      getInputs(); // Fetch and set inputs
-      computeRadius(); // Compute and set radius for the circular arrangement
-    }
+  // Initialize the circular arrangement of list items
+  computeRadius();
 
-    // Handle 'close' button click
-    if (e.target.id === 'close') {
-      textWrap.classList.add('hide'); // Hide the text-wrap element
-    }
+  // Add a single event listener for the entire document to handle clicks
+  document.addEventListener('click', handleDocumentClick);
 
-    // Handle 'toggle' button click
-    if (e.target.id === 'toggle') {
-      setTimeout(() => textInput.select(), 50); // Delayed focus on text input
-      textWrap.classList.remove('hide'); // Remove the 'hide' class to display the text-wrap element
-    }
+  /**
+   * Handles all click events on the document.
+   * Delegates actions based on the clicked element's ID.
+   */
+  function handleDocumentClick(event) {
+    const { target } = event; // Extract the event's target element
 
-    // Check if the clicked element has an id other than 'labels' and return if not
-    if (e.target.id !== 'labels') return;
+    if (target.id === 'ok') handleOkClick();
+    else if (target.id === 'close') toggleVisibility('text-wrap', false);
+    else if (target.id === 'toggle') handleToggleClick();
+    else if (target.id === 'labels') handleLabelClick(target);
+  }
 
-    // Generate a random time value between 3000 and 7777
-    const randomTime = rand(3000, 7777);
+  /**
+   * Handles the click event for the "OK" button.
+   * Hides the text-wrap container, resets the list, and recomputes radius.
+   */
+  function handleOkClick() {
+    const textWrap = document.getElementById('text-wrap'); // Reference to the text-wrap element
+    toggleVisibility(textWrap, false); // Hide the text-wrap container
+    ul.innerHTML = ''; // Clear all <li> elements in the <ul>
+    updateInputs(); // Generate new <li> elements based on input
+    computeRadius(); // Recalculate circular positions
+  }
 
-    // Check if the button is not disabled
-    if (!e.target.previousElementSibling.disabled) {
-      e.target.previousElementSibling.disabled = true; // Disable the button
-      e.target.innerText = 'Please wait...'; // Set button text to 'Please wait...'
+  /**
+   * Handles the click event for the "Toggle" button.
+   * Displays the text-wrap container and sets focus on the input field.
+   */
+  function handleToggleClick() {
+    const textWrap = document.getElementById('text-wrap'); // Reference to the text-wrap element
+    toggleVisibility(textWrap, true); // Show the text-wrap container
+    setTimeout(() => textInput.focus(), 50); // Focus on the input field with a slight delay
+  }
 
-      // Generate a random rotation angle
-      const rotationAngle = begin + rand(720, 9999);
-      begin = rotationAngle;
+  /**
+   * Handles the click event for the "Labels" button.
+   * Spins the <ul> element and selects a random winner.
+   */
+  function handleLabelClick(label) {
+    // Check if the previous element (input) is already disabled
+    if (label.previousElementSibling.disabled) return;
 
-      // Apply rotation to the 'ul' element with a transition
-      ul.style.transform = `rotate3d(0,0,1,${rotationAngle}deg)`;
-      ul.style.transitionDuration = `${randomTime / 1000}s`;
+    // Disable the input and update the button text
+    label.previousElementSibling.disabled = true;
+    label.innerText = 'Please wait...';
 
-      // Set a timeout to simulate a delay
-      const timeoutId = setTimeout(() => {
-        // Enable inputs and reset button text
-        inputs.forEach((input) => {
-          input.checked = false;
-          input.disabled = false;
-        });
+    const randomTime = rand(3000, 7777); // Random spin duration in milliseconds
+    const rotationAngle = begin + rand(720, 9999); // Calculate new rotation angle
+    begin = rotationAngle; // Update the start angle for the next spin
 
-        // Clear the timeout
-        clearTimeout(timeoutId);
+    // Apply the rotation to the <ul> element
+    ul.style.transform = `rotate3d(0, 0, 1, ${rotationAngle}deg)`;
+    ul.style.transitionDuration = `${randomTime / 1000}s`; // Set the transition duration in seconds
 
-        // Update button text with winners or 'No winners' message
-        e.target.innerText = typeof computeElementPositions() !== 'undefined' ?
-          computeElementPositions().innerText :
-          'No winners';
-      }, randomTime);
+    // Wait for the spin to complete before enabling inputs and updating the label
+    setTimeout(() => {
+      // Re-enable all inputs and reset their state
+      inputs.forEach(input => {
+        input.checked = false;
+        input.disabled = false;
+      });
+
+      // Find and display the winner
+      const winner = computeElementPositions();
+      label.innerText = winner ? winner.innerText : 'No winners';
+    }, randomTime);
+  }
+
+  /**
+   * Toggles the visibility of an element by adding or removing the "hide" class.
+   * @param {string|Element} elementIdOrElement - The ID or DOM element to show/hide.
+   * @param {boolean} isVisible - Whether to show or hide the element.
+   */
+  function toggleVisibility(elementIdOrElement, isVisible) {
+    const element = typeof elementIdOrElement === 'string'
+      ? document.getElementById(elementIdOrElement)
+      : elementIdOrElement;
+
+    if (element) {
+      element.classList.toggle('hide', !isVisible); // Add/remove "hide" class
     }
   }
 
-
+  /**
+   * Arranges the <li> elements in a circular pattern.
+   */
   function computeRadius() {
-    // Get all <li> elements within the <ul>
-    const listItems = Array.from(ul.getElementsByTagName('li'));
+    const listItems = Array.from(ul.querySelectorAll('li')); // Get all <li> elements in the <ul>
+    const rotationAngle = 360 / listItems.length; // Calculate rotation angle for each item
 
-    // Calculate the rotation angle for each <li> based on the number of items
-    const rotationAngle = 360 / listItems.length;
-
-    // Initialize the rotation angle
-    let currentRotation = 0;
-
-    // Iterate through each <li> and set the rotation using template literals
-    listItems.forEach(listItem => {
-      listItem.style.transform = `rotate3d(0, 0, 1, ${currentRotation}deg)`;
-      // Update the rotation angle for the next <li>
-      currentRotation += rotationAngle;
+    listItems.forEach((item, index) => {
+      item.style.transform = `rotate3d(0, 0, 1, ${rotationAngle * index}deg)`; // Apply rotation
     });
   }
 
+  /**
+   * Finds the <span> element with the highest vertical position.
+   * @returns {Element|null} - The winning <span> element or null if none.
+   */
   function computeElementPositions() {
-    // Convert the HTMLCollection of <span> elements to an array
-    const allList = Array.from(ul.getElementsByTagName('span'));
-
-    // Find the element with the maximum top position using reduce
-    const max = allList.reduce((acc, shot) =>
-      (acc = acc.getBoundingClientRect().top > shot.getBoundingClientRect().top ? acc : shot), allList[0]);
-
-    // Return the element with the maximum top position
-    return max;
+    const spans = Array.from(ul.querySelectorAll('span')); // Get all <span> elements in the <ul>
+    return spans.reduce((maxSpan, currentSpan) =>
+      maxSpan.getBoundingClientRect().top > currentSpan.getBoundingClientRect().top
+        ? maxSpan
+        : currentSpan
+    , spans[0]);
   }
 
-
+  /**
+   * Generates a random integer between min (inclusive) and max (exclusive).
+   * @param {number} min - Minimum value (inclusive).
+   * @param {number} max - Maximum value (exclusive).
+   * @returns {number} - Random integer in the range.
+   */
   function rand(min, max) {
-    // Use Math.ceil to round up the minimum value
-    min = Math.ceil(min);
-
-    // Use Math.floor to round down the maximum value
-    max = Math.floor(max);
-
-    // Generate a random number between the adjusted min and max (exclusive),
-    // and then add the adjusted min to ensure the result is within the specified range
-    return Math.floor(Math.random() * (max - min)) + min;
+    return Math.floor(Math.random() * (max - min)) + Math.ceil(min);
   }
 
-  function getInputs() {
-    // Get the value from the text input
-    const text = textInput.value;
+  /**
+   * Creates <li> elements based on the input text and appends them to the <ul>.
+   */
+  function updateInputs() {
+    const text = textInput.value.trim(); // Get trimmed input value
+    const filters = text.split(/\s+/).filter(word => word.length > 1); // Split into words and filter valid ones
 
-    // Trim and split the input into an array of filtered words
-    const filters = text.trim().replace(/\s/g, ' ').split(' ').filter(e => (e.length > 1) && e.replace(/\s+/, ''));
-
-    // Create a list item for each filtered word and append it to the ul element
-    filters.forEach(n => {
-      const li = document.createElement('li');
-      const span = document.createElement('span');
-      span.innerText = n;
-      li.appendChild(span);
-      ul.appendChild(li);
+    filters.forEach(word => {
+      const li = document.createElement('li'); // Create new <li> element
+      const span = document.createElement('span'); // Create new <span> element
+      span.innerText = word; // Set the word as span's text
+      li.appendChild(span); // Append <span> to <li>
+      ul.appendChild(li); // Append <li> to <ul>
     });
   }
-
-  document.addEventListener('click', reset)
-})()
+})();
