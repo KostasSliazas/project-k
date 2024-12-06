@@ -62,22 +62,32 @@ body {
 
 #copy-links,#open,.close {
     position: absolute;
-    right: .75em;
-    top: .75em;
     border: 0;
     border-radius: var(--radius);
     color: #fff;
     text-align: center;
-    background: var(--color-4)
+    background: var(--color-4);
+    display: none
+}
+
+#copy-links,#open {
+    right: .75em;
+    top: .75em
 }
 
 .close {
     top: 0;
     right: 0;
-    line-height: 1;
     font-size: 2em;
     color: var(--color-1);
-    padding: 0
+    padding: 0;
+    line-height: .75;
+    height: .75em;
+    width: .75em
+}
+
+.checks #copy-links,.checks #open,.checks .close {
+    display: block
 }
 
 #copy-links {
@@ -93,8 +103,7 @@ body {
 }
 
 #select,.close {
-    cursor: pointer;
-    display: block
+    cursor: pointer
 }
 
 #select {
@@ -162,18 +171,22 @@ body {
     padding: 0 4px
 }
 
+#wrap,button:hover {
+    background: var(--color-2)
+}
+
 #wrap {
     min-height: calc(100vh - 48px);
     max-width: 1072px;
-    margin: .75em auto;
-    background: var(--color-2)
+    margin: .75em auto
 }
 
 #output {
     display: grid;
     gap: .5em;
     padding: .5em;
-    grid-template-columns: repeat(auto-fit,minmax(144px,1fr))
+    grid-template-columns: repeat(auto-fit,minmax(144px,1fr));
+    border-radius: var(--radius)
 }
 
 #output a img {
@@ -190,14 +203,14 @@ body {
     overflow: hidden
 }
 
-#output,a.link {
-    border-radius: var(--radius)
+.export-import,a.link {
+    display: flex;
+    flex-direction: column
 }
 
 a.link {
-    display: flex;
+    border-radius: var(--radius);
     align-items: center;
-    flex-direction: column;
     text-decoration: none;
     word-break: break-word;
     max-width: 144px;
@@ -228,17 +241,6 @@ a.link {
 #export {
     margin: 2em 0;
     box-sizing: border-box
-}
-
-#output span:last-of-type {
-    display: none
-}
-
-#output.checks .close {
-    display: block;
-    line-height: .75;
-    height: .75em;
-    width: .75em
 }
 
 #additions,#create-link,#export,#site-search,#urls {
@@ -272,13 +274,10 @@ button,input[type=checkbox],input[type=file] {
 }
 
 button:hover {
-    background: var(--color-2);
     color: var(--color-4)
 }
 
 .export-import {
-    display: flex;
-    flex-direction: column;
     gap: 1em;
     white-space: nowrap;
     padding: 3em 1em
@@ -319,12 +318,7 @@ h1 {
 
 #founded {
     transform: translateX(100%);
-    right: calc(50% - 160px);
-    display: flex;
-    flex-direction: column-reverse;
-    place-content: center;
-    cursor: pointer;
-    height: 24px
+    right: calc(50% - 160px)
 }
 
 #founded,#search input,.toggle label {
@@ -343,12 +337,15 @@ h1 {
     block-size: 1.5em
 }
 
-.toggle label {
+#founded,.toggle label {
     display: flex;
     flex-direction: column-reverse;
     place-content: center;
     cursor: pointer;
-    height: 24px;
+    height: 24px
+}
+
+.toggle label {
     overflow: hidden
 }
 
