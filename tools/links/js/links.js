@@ -11,115 +11,115 @@
  * @param {Document} d - The document object.
  */
 (function (w, d) {
-/**
- * Utility for managing localStorage with namespacing.
- */
-const StorageNamespace = {
   /**
-   * The current namespace for all storage operations.
-   * @type {string}
+   * Utility for managing localStorage with namespacing.
    */
-  namespace: 'localStorageManager',
+  const StorageNamespace = {
+    /**
+     * The current namespace for all storage operations.
+     * @type {string}
+     */
+    namespace: 'localStorageManager',
 
-  /**
-   * Sets the namespace for localStorage keys.
-   * @param {string} ns - The namespace to use.
-   */
-  setNamespace(ns) {
-    this.namespace = ns;
-  },
+    /**
+     * Sets the namespace for localStorage keys.
+     * @param {string} ns - The namespace to use.
+     */
+    setNamespace(ns) {
+      this.namespace = ns;
+    },
 
-  /**
-   * Constructs the full key by prefixing it with the namespace.
-   * @private
-   * @param {string} key - The key to namespace.
-   * @returns {string} - The namespaced key.
-   */
-  _getKey(key) {
-    return `${this.namespace}:${key}`;
-  },
+    /**
+     * Constructs the full key by prefixing it with the namespace.
+     * @private
+     * @param {string} key - The key to namespace.
+     * @returns {string} - The namespaced key.
+     */
+    _getKey(key) {
+      return `${this.namespace}:${key}`;
+    },
 
-  /**
-   * Saves a value to localStorage under the namespaced key.
-   * @param {string} key - The key to store the value under.
-   * @param {*} value - The value to store. It will be serialized to JSON.
-   */
-  setItem(key, value) {
-    localStorage.setItem(this._getKey(key), JSON.stringify(value));
-  },
-  // removeItem(key) {
-  //   localStorage.removeItem(this._getKey(key));
-  // },
-  /**
-   * Retrieves a value from localStorage.
-   * @param {string} key - The key to retrieve the value for.
-   * @returns {*} - The deserialized value, or `null` if the key doesn't exist or deserialization fails.
-   */
-  getItem(key) {
-    const item = localStorage.getItem(this._getKey(key));
-    try {
-      return JSON.parse(item);
-    } catch (e) {
-      console.error(`Error parsing JSON for key "${key}":`, e);
-      return null;
-    }
-  },
-  /**
-   * Clears all values under the current namespace from localStorage.
-   */
-  clear() {
-    Object.keys(localStorage).forEach((key) => {
-      if (key.startsWith(`${this.namespace}:`)) {
-        localStorage.removeItem(key);
+    /**
+     * Saves a value to localStorage under the namespaced key.
+     * @param {string} key - The key to store the value under.
+     * @param {*} value - The value to store. It will be serialized to JSON.
+     */
+    setItem(key, value) {
+      localStorage.setItem(this._getKey(key), JSON.stringify(value));
+    },
+    // removeItem(key) {
+    //   localStorage.removeItem(this._getKey(key));
+    // },
+    /**
+     * Retrieves a value from localStorage.
+     * @param {string} key - The key to retrieve the value for.
+     * @returns {*} - The deserialized value, or `null` if the key doesn't exist or deserialization fails.
+     */
+    getItem(key) {
+      const item = localStorage.getItem(this._getKey(key));
+      try {
+        return JSON.parse(item);
+      } catch (e) {
+        console.error(`Error parsing JSON for key "${key}":`, e);
+        return null;
       }
-    });
-  },
+    },
+    /**
+     * Clears all values under the current namespace from localStorage.
+     */
+    clear() {
+      Object.keys(localStorage).forEach(key => {
+        if (key.startsWith(`${this.namespace}:`)) {
+          localStorage.removeItem(key);
+        }
+      });
+    },
 
-  /**
-   * Retrieves all keys under the current namespace.
-   * @returns {string[]} - An array of keys within the namespace.
-   */
-  keys() {
-    return Object.keys(localStorage)
-      .filter((key) => key.startsWith(`${this.namespace}:`))
-      .map((key) => key.replace(`${this.namespace}:`, ''));
-  },
- /**
-   * Appends a value to an array or updates an object stored under the given key.
-   * @param {string} key - The key of the stored value.
-   * @param {*} value - The value to append or merge.
-   */
-  appendItem(key, value) {
-    const existingValue = this.getItem(key);
+    /**
+     * Retrieves all keys under the current namespace.
+     * @returns {string[]} - An array of keys within the namespace.
+     */
+    keys() {
+      return Object.keys(localStorage)
+        .filter(key => key.startsWith(`${this.namespace}:url`))
+        .map(key => key.replace(`${this.namespace}:url`, ''));
+    },
+    /**
+     * Appends a value to an array or updates an object stored under the given key.
+     * @param {string} key - The key of the stored value.
+     * @param {*} value - The value to append or merge.
+     */
+    appendItem(key, value) {
+      const existingValue = this.getItem(key);
 
-    if (Array.isArray(existingValue)) {
-      // Append to array
-      existingValue.push(value);
-      this.setItem(key, existingValue);
-    } else if (existingValue && typeof existingValue === 'object') {
-      // Merge into object
-      this.setItem(key, { ...existingValue, ...value });
-    } else {
-      // Create a new array or object
-      const newValue = Array.isArray(value) ? value : [value];
-      this.setItem(key, newValue);
-    }
-  },
-/**
-   * Removes an item from an array stored under the given key by index.
-   * @param {string} key - The key of the stored array.
-   * @param {number} index - The index of the item to remove.
-   */
-  removeItem(key, index) {
-    const array = this.getItem(key);
-    if (Array.isArray(array) && array.length > index) {
-      array.splice(index, 1); // Remove the item at the specified index
-      this.setItem(key, array); // Save the updated array back to localStorage
-    }
-  }
-};
-
- const fileInput = d.getElementById('file-input');
+      if (Array.isArray(existingValue)) {
+        // Append to array
+        existingValue.push(value);
+        this.setItem(key, existingValue);
+      } else if (existingValue && typeof existingValue === 'object') {
+        // Merge into object
+        this.setItem(key, { ...existingValue, ...value });
+      } else {
+        // Create a new array or object
+        const newValue = Array.isArray(value) ? value : [value];
+        this.setItem(key, newValue);
+      }
+    },
+    /**
+     * Removes an item from an array stored under the given key by index.
+     * @param {string} key - The key of the stored array.
+     * @param {number} index - The index of the item to remove.
+     */
+    removeItem(key, index) {
+      const array = this.getItem(key);
+      if (Array.isArray(array) && array.length > index) {
+        array.splice(index, 1); // Remove the item at the specified index
+        this.setItem(key, array); // Save the updated array back to localStorage
+      }
+    },
+  };
+  const body = document.body;
+  const fileInput = d.getElementById('file-input');
   const checkboxes = d.getElementById('check-boxes');
   const selection = d.getElementById('select');
   const choice = d.getElementById('choices');
@@ -135,11 +135,30 @@ const StorageNamespace = {
   const showExport = d.getElementById('export-div');
   const links = d.getElementById('links');
   const found = d.getElementById('founded');
-  const checked = d.getElementsByName('check')[0];
+  const checkedBoxElement = d.getElementsByName('check')[0];
   const filteredExport = d.getElementById('filter');
-  const classSwitch = () => checked.checked ? outputs.classList.add('checks') : outputs.classList.remove('checks');
+  /**
+   * Returns true if the checkbox (or other input element) is checked, false otherwise.
+   * @param {HTMLElement} elem - The checkbox or input element.
+   * @returns {boolean} - The checked state of the element.
+   */
+  // Check if the checkbox is checked
+  const isChecked = (elem) => elem.checked;
 
-  checked.checked = false;
+  // Get the stored state once
+  const state = StorageNamespace.getItem('admin-mode'); // 'true' or 'false' as a string
+
+  // Set the checkbox state and toggle class based on the stored value
+  checkedBoxElement.checked = state;
+  body.classList.toggle('checks', state);
+
+  // Class switching function to update state and UI
+  const classSwitch = () => {
+    const state = isChecked(checkedBoxElement); // Get the current state of the checkbox
+    body.classList.toggle('checks', state); // Toggle the class
+    StorageNamespace.setItem('admin-mode', state); // Save the state back to storage
+  };
+
   filteredExport.checked = false;
 
   /** @type {HTMLElement|null} */
@@ -147,7 +166,7 @@ const StorageNamespace = {
   /** @type {boolean} */
   let active = false;
 
-  const hide = (element) => {
+  const hide = element => {
     if (lastElem && lastElem !== element) {
       lastElem.style.display = 'none';
       active = false;
@@ -160,8 +179,8 @@ const StorageNamespace = {
 
   /** @type {{counter: number, array: Array}} */
   const counterObject = {
-    counter: w.localStorage.length,
-    array: []
+    counter: StorageNamespace.keys().length,
+    array: [],
   };
 
   /**
@@ -169,8 +188,9 @@ const StorageNamespace = {
    * @function
    */
   const showStats = () => {
-    found.innerHTML = `${counterObject.counter}/${counterObject.array.length}`;
+    found.innerHTML = Array.from(outputs.querySelectorAll('a:not(.hidden)')).length + `/${counterObject.array.length}`;
   };
+
   /**
    * Add text of checked items.
    * @function
@@ -184,9 +204,12 @@ const StorageNamespace = {
    * @function
    * @returns {Array} - Array of checked values.
    */
-  const loopOverInputs = () => [...checkboxes.getElementsByTagName('INPUT')].map(e => {
-    if (e.checked) return e.value;
-  }).filter(Boolean);
+  const loopOverInputs = () =>
+    [...checkboxes.getElementsByTagName('INPUT')]
+      .map(e => {
+        if (e.checked) return e.value;
+      })
+      .filter(Boolean);
 
   /**
    * Loop through storage items.
@@ -197,10 +220,10 @@ const StorageNamespace = {
     const data = [];
     const urls = StorageNamespace.getItem('url');
     if (urls && typeof urls === 'object') {
-  Object.values(urls).forEach((value) => {
-    data.push(value); // Push values into the data array
-  });
-}
+      Object.values(urls).forEach(value => {
+        data.push(value); // Push values into the data array
+      });
+    }
     return data;
   }
   /**
@@ -273,13 +296,12 @@ const StorageNamespace = {
     const links = this['links'];
 
     if (links && links.full) {
-      StorageNamespace.removeItem('url',index);
+      StorageNamespace.removeItem('url', index);
     }
 
     counterObject.counter = StorageNamespace.keys().length;
     showStats();
   };
-
 
   /**
    * Show or hide checkboxes based on user interaction.
@@ -333,7 +355,7 @@ const StorageNamespace = {
       text: addition.value,
       url: fav,
       full: url,
-      type: loopOverInputs()
+      type: loopOverInputs(),
     };
 
     const element = createElem(createLinkObject);
@@ -348,7 +370,6 @@ const StorageNamespace = {
 
     return false;
   }
-
 
   // /**
   //  * Add an object to localStorage.
@@ -408,7 +429,6 @@ const StorageNamespace = {
     }
   }
 
-
   DOMElements.prototype.switcherTag = {
     span: function () {
       this.element.textContent = this.element.links;
@@ -430,12 +450,12 @@ const StorageNamespace = {
           e.target.src = './favicon.ico';
         };
       }
-    }
+    },
   };
 
   /** @type {Object} */
   const adder = {
-    counter: 0
+    counter: 0,
   };
 
   /**
@@ -450,14 +470,7 @@ const StorageNamespace = {
     // Create the main 'a' element
     const /** @type {DOMElements} */ aElement = new DOMElements('a', 'link', elms, null);
     // Create an array of child elements
-    const elements = [
-      elms && new DOMElements('img', 'img', elms, null),
-      elms?.url && new DOMElements('span', 'urls', elms.url, null),
-      elms?.text && new DOMElements('span', 'texts', elms.text, null),
-      elms?.type && new DOMElements('span', 'types', elms.type, null),
-      aElement && new DOMElements('span', 'close', '×', aElement),
-    ].filter(Boolean); // Removes any `null` or `undefined` values from the array
-
+    const elements = [elms && new DOMElements('img', 'img', elms, null), elms?.url && new DOMElements('span', 'urls', elms.url, null), elms?.text && new DOMElements('span', 'texts', elms.text, null), elms?.type && new DOMElements('span', 'types', elms.type, null), aElement && new DOMElements('span', 'close', '×', aElement)].filter(Boolean); // Removes any `null` or `undefined` values from the array
 
     // Append child elements to the 'a' element
     elements.forEach(childElement => aElement.appendChild(childElement));
@@ -466,7 +479,6 @@ const StorageNamespace = {
     outputs.appendChild(aElement);
     return aElement;
   }
-
 
   /**
    * Loop through local storage.
@@ -478,6 +490,7 @@ const StorageNamespace = {
     counterObject.array = loopStorageItems().map(e => createElem(e)); //Object.entries(w.localStorage).map(e => createElem(JSON.parse(e[1])))
     showStats();
   }
+  
   /**
    * Check if a value is a non-empty string.
    * @function
@@ -487,6 +500,7 @@ const StorageNamespace = {
   function isStringAndNotEmpty(value) {
     return typeof value === 'string' && value.trim() !== '';
   }
+
   /**
    * Loop through local storage items and perform a search.
    * @function
@@ -495,31 +509,18 @@ const StorageNamespace = {
     counterObject.counter = 0;
 
     counterObject.array.forEach(entry => {
-      const {
-        type,
-        url,
-        full,
-        text
-      } = entry.links;
-
+      const { type, url, full, text } = entry.links;
       // Check if full is a non-empty string
       if (isStringAndNotEmpty(full)) {
-        const values = [
-          ...(type.length ? type.join().split() : []),
-          ...(isStringAndNotEmpty(text) ? text.split() : []),
-          ...(isStringAndNotEmpty(url) ? url.split() : []),
-          ...(full.split())
-        ];
+        const values = [...(type.length ? type.join().split() : []), ...(isStringAndNotEmpty(text) ? text.split() : []), ...(isStringAndNotEmpty(url) ? url.split() : []), ...full.split()];
 
-        const isInArray = values.some(value =>
-          value.toLowerCase().includes(search.value.toLowerCase())
-        );
+        const isInArray = values.some(value => value.toLowerCase().includes(search.value.toLowerCase()));
 
         if (isInArray) {
           counterObject.counter++;
-          entry.className = "link";
+          entry.className = 'link';
         } else {
-          entry.className = "link hidden";
+          entry.className = 'link hidden';
         }
       }
     });
@@ -544,7 +545,7 @@ const StorageNamespace = {
     return (data, fileName) => {
       const json = JSON.stringify(data, null, 2);
       const blob = new Blob([json], {
-        type: 'application/json'
+        type: 'application/json',
       });
       const url = URL.createObjectURL(blob);
 
@@ -556,8 +557,6 @@ const StorageNamespace = {
     };
   })();
 
-
-
   function readSingleFile(event) {
     const file = event.target.files[0];
 
@@ -567,14 +566,13 @@ const StorageNamespace = {
 
     const reader = new FileReader();
 
-    reader.onload = (event) => {
+    reader.onload = event => {
       const contents = event.target.result;
       displayContents(contents);
     };
 
     reader.readAsText(file);
   }
-
 
   /**
    * @param {string} data
@@ -599,39 +597,34 @@ const StorageNamespace = {
       counterObject.counter = StorageNamespace.keys().length;
       showStats();
     } catch (error) {
-      console.error("Error parsing JSON:", error);
+      console.error('Error parsing JSON:', error);
       // Handle the error as needed, such as displaying a user-friendly message.
     }
   }
 
-function keyDownEvents(event) {
-  const { key, target } = event;
-  const inputValue = target.value.trim();
+  function keyDownEvents(event) {
+    const { key, target } = event;
+    const inputValue = target.value.trim();
 
-  // Trigger actions when Backspace is pressed and input is empty
-  if (key === 'Backspace' && inputValue.length === 0) {
-    loopLocalStorageSearch();
-    showStats();
-  }
+    // Trigger actions when Backspace is pressed and input is empty
+    if (key === 'Backspace' && inputValue.length === 0) {
+      loopLocalStorageSearch();
+    }
 
-  // Trigger actions when Enter is pressed and input has a value
-  if (key === 'Enter' && inputValue.length > 0) {
-    event.preventDefault();
-    loopLocalStorageSearch();
+    // Trigger actions when Enter is pressed and input has a value
+    if (key === 'Enter' && inputValue.length > 0) {
+      event.preventDefault();
+      loopLocalStorageSearch();
 
-    // Ensure outputs exists and focus on the first child
-    if (outputs?.children.length) {
-      outputs.firstElementChild.focus();
+      // Ensure outputs exists and focus on the first child
+      if (outputs?.children.length) {
+        outputs.firstElementChild.focus();
+      }
     }
   }
-}
-
-
 
   function keyDownEventsDoc(event) {
-    const {
-      key
-    } = event;
+    const { key } = event;
 
     if (key !== 'Enter' && !active) {
       search.focus();
@@ -639,7 +632,6 @@ function keyDownEvents(event) {
 
     return false;
   }
-
 
   function searchEvents(event) {
     const searchTerm = event.target.value.trim();
@@ -650,7 +642,7 @@ function keyDownEvents(event) {
   }
 
   exportJson.addEventListener('click', () => exporter());
-  checked.addEventListener('input', () => classSwitch());
+  checkedBoxElement.addEventListener('input', () => classSwitch());
   search.addEventListener('input', e => searchEvents(e));
   closeEx.addEventListener('click', () => hide(showExport));
   closeBtn.addEventListener('click', () => hide(links));
@@ -662,10 +654,9 @@ function keyDownEvents(event) {
   d.addEventListener('keydown', e => keyDownEventsDoc(e), true);
   d.addEventListener('click', e => showCheckboxes(e));
   search.addEventListener('dblclick', function () {
-    this.value = "";
+    this.value = '';
     loopLocalStorageSearch();
   });
 
   loopLocalStorage();
-
 })(window, document);
