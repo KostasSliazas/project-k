@@ -45,45 +45,53 @@
      * @param {*} value - The value to store. It will be serialized to JSON.
      */
     setItem(key, value) {
-      localStorage.setItem(this._getKey(key), JSON.stringify(value));
+      w.localStorage.setItem(this._getKey(key), JSON.stringify(value));
     },
     // removeItem(key) {
-    //   localStorage.removeItem(this._getKey(key));
+    //   w.localStorage.removeItem(this._getKey(key));
     // },
     /**
      * Retrieves a value from localStorage.
      * @param {string} key - The key to retrieve the value for.
-     * @returns {*} - The deserialized value, or `null` if the key doesn't exist or deserialization fails.
+     * @return {Object|null} - The deserialized value (an object or array) if successful, or `null` if the key doesn't exist or deserialization fails.
      */
     getItem(key) {
-      const item = localStorage.getItem(this._getKey(key));
+      const item = w.localStorage.getItem(this._getKey(key));
+      if (item === null) {
+        return null; // No item found, return null
+      }
+
       try {
-        return JSON.parse(item);
+        // Safely parse the item (it is now guaranteed to be a string)
+        const parsedItem = /** @type {Object|null} */ (JSON.parse(item));
+        return parsedItem;
       } catch (e) {
         console.error(`Error parsing JSON for key "${key}":`, e);
         return null;
       }
     },
+
     /**
-     * Clears all values under the current namespace from localStorage.
+     * Clears all values under the current namespace from w.localStorage.
      */
     clear() {
-      Object.keys(localStorage).forEach(key => {
+      Object.keys(w.localStorage).forEach(key => {
         if (key.startsWith(`${this.namespace}:`)) {
-          localStorage.removeItem(key);
+          w.localStorage.removeItem(key);
         }
       });
     },
 
     /**
      * Retrieves all keys under the current namespace.
-     * @returns {string[]} - An array of keys within the namespace.
+     * @returns {Array<string>} - An array of keys within the namespace, with the namespace prefix removed.
      */
     keys() {
-      return Object.keys(localStorage)
+      return Object.keys(w.localStorage) // Object.keys should return an array of strings
         .filter(key => key.startsWith(`${this.namespace}:url`))
         .map(key => key.replace(`${this.namespace}:url`, ''));
     },
+
     /**
      * Appends a value to an array or updates an object stored under the given key.
      * @param {string} key - The key of the stored value.
@@ -118,7 +126,7 @@
       }
     },
   };
-  const body = document.body;
+  const body = d.body;
   const fileInput = d.getElementById('file-input');
   const checkboxes = d.getElementById('check-boxes');
   const selection = d.getElementById('select');
@@ -137,26 +145,36 @@
   const found = d.getElementById('founded');
   const checkedBoxElement = d.getElementsByName('check')[0];
   const filteredExport = d.getElementById('filter');
+
   /**
-   * Returns true if the checkbox (or other input element) is checked, false otherwise.
-   * @param {HTMLElement} elem - The checkbox or input element.
-   * @returns {boolean} - The checked state of the element.
+   * Checks if the checkbox is checked.
+   * @param {HTMLInputElement} elem - The checkbox element to check.
+   * @returns {boolean} - Returns `true` if the checkbox is checked, otherwise `false`.
    */
-  // Check if the checkbox is checked
-  const isChecked = (elem) => elem.checked;
+  const isChecked = elem => elem.checked;
 
-  // Get the stored state once
-  const state = StorageNamespace.getItem('admin-mode'); // 'true' or 'false' as a string
-
-  // Set the checkbox state and toggle class based on the stored value
+  /**
+   * Retrieves the stored state from the storage.
+   * @type {boolean} - The stored state, could be boolean or null if not set.
+   */
+  const state = !!StorageNamespace.getItem('admin-mode');
   checkedBoxElement.checked = state;
   body.classList.toggle('checks', state);
 
-  // Class switching function to update state and UI
+  /**
+   * Class switching function to update the checkbox state, toggle the UI class, and store the state.
+   * @function
+   * @returns {void} This function does not return anything.
+   */
   const classSwitch = () => {
-    const state = isChecked(checkedBoxElement); // Get the current state of the checkbox
-    body.classList.toggle('checks', state); // Toggle the class
-    StorageNamespace.setItem('admin-mode', state); // Save the state back to storage
+    // Ensure `isChecked` returns a boolean value, convert to boolean if necessary
+    const state = Boolean(isChecked(checkedBoxElement)); // Ensure state is a boolean value
+
+    // Toggle the class based on the state of the checkbox
+    body.classList.toggle('checks', state); // state should be a boolean
+
+    // Save the updated state back to local storage
+    StorageNamespace.setItem('admin-mode', state); // state is a boolean
   };
 
   filteredExport.checked = false;
@@ -179,7 +197,7 @@
 
   /** @type {{counter: number, array: Array}} */
   const counterObject = {
-    counter: StorageNamespace.keys().length,
+    counter: StorageNamespace.getItem('url').length,
     array: [],
   };
 
@@ -188,7 +206,7 @@
    * @function
    */
   const showStats = () => {
-    found.innerHTML = Array.from(outputs.querySelectorAll('a:not(.hidden)')).length + `/${counterObject.array.length}`;
+    found.innerHTML = counterObject.array.filter(elem => elem.className !== 'hidden').length + '/' + StorageNamespace.getItem('url').length;
   };
 
   /**
@@ -282,24 +300,18 @@
    */
   const remover = function (e) {
     e.preventDefault();
+    const elem = this.element;
+    const index = counterObject.array.indexOf(elem);
 
-    const index = counterObject.array.indexOf(this);
+    if (e.target.parentElement) {
+      elem.remove();
+    }
 
-    if (index !== -1) {
+    if (index >= 0) {
       counterObject.array.splice(index, 1);
-    }
-
-    if (this.parentElement) {
-      this.parentElement.removeChild(this);
-    }
-
-    const links = this['links'];
-
-    if (links && links.full) {
       StorageNamespace.removeItem('url', index);
     }
 
-    counterObject.counter = StorageNamespace.keys().length;
     showStats();
   };
 
@@ -362,7 +374,7 @@
     outputs.appendChild(element);
     StorageNamespace.appendItem('url', createLinkObject);
     counterObject.array.push(element);
-    counterObject.counter = StorageNamespace.keys().length;
+    // counterObject.counter = StorageNamespace.keys().length;
     showStats();
 
     // Clear the input field
@@ -371,87 +383,90 @@
     return false;
   }
 
-  // /**
-  //  * Add an object to localStorage.
-  //  * @function
-  //  * @param {Object} obj - The object to be stored.
-  //  */
-  // function addStorage(obj) {
-  //   try {
-  //     if ('localStorage' in w) {
-  //       if (obj) {
-  //         const key = JSON.stringify(obj['full']).slice(1, -1);
-  //         // const data = JSON.stringify(obj);
-  //         StorageNamespace.setItem(key, key);
-  //       }
-  //     } else {
-  //       w.alert('localStorage is not supported in this window.');
-  //     }
-  //   } catch (error) {
-  //     console.error("localStorage error:", error);
-  //     return null;
-  //   }
-  // }
-
   class DOMElements {
     /**
      * @param {string} elementTag - The HTML tag of the element.
      * @param {string|null} className - The class name for the element.
-     * @param {Object|null} item - The item to associate with the element.
+     * @param {Object|string|null} item - The item to associate with the element.
      * @param {Object|null} functions - The functions to bind to the element's onclick event.
-     * @return {Node|null}
      */
-    constructor(elementTag, className, item, functions) {
-      this.element = document.createElement(elementTag);
+    constructor(/* @export @type {string} */ elementTag, className, item, functions) {
+      this.element = d.createElement(elementTag);
       this.element.links = item;
+      // Calling switcher if an item is provided
+      if (typeof elementTag === 'string') {
+        this.switcher(elementTag);
+      }
+
       // Applying attributes only if they are defined
-      if (className) {
+      if (typeof className === 'string') {
         this.element.className = className;
       }
-
-      if (functions) {
+      // Binding functions to the element's onclick event if provided
+      if (functions && typeof functions === 'object' && className === 'close') {
         this.element.onclick = remover.bind(functions);
       }
-
-      if (item) {
-        this.switcher(elementTag).call(this);
-      }
-      /** @suppress {checkTypes} */
-      return this.element;
     }
 
-    /**
-     * @param {string} element - The HTML tag of the element.
-     * @return {Function}
-     */
     switcher(element) {
-      return this.switcherTag[element];
+      // if (element == 'span')return this.span();
+      // if (element == 'a') return this.a();
+      // if (element == 'img')return  this.img();
+      return this[element]();
     }
-  }
-
-  DOMElements.prototype.switcherTag = {
-    span: function () {
+    span() {
       this.element.textContent = this.element.links;
-    },
-    a: function () {
+    }
+
+    a() {
       const links = this.element.links;
       if (links && links.full) {
         this.element.setAttribute('target', '_blank');
         this.element.setAttribute('href', links.full);
       }
-    },
-    img: function () {
+    }
+
+    img() {
       const links = this.element.links;
+      const image = new Image();
       if (links && links.url) {
-        this.element.setAttribute('alt', `${links.url}-${adder.counter++}`);
-        this.element.src = `https://${links.url}/favicon.ico`;
-        this.element.onerror = function (e) {
+        image.setAttribute('alt', `${links.url}-${adder.counter++}`);
+        image.setAttribute('loading', 'lazy');
+        image.src = `https://${links.url}/favicon.ico`;
+        image.width = 16;
+        image.height = 16;
+        image.onerror = function (e) {
           e.target.onerror = null;
           e.target.src = './favicon.ico';
         };
       }
-    },
-  };
+      this.element = image;
+    }
+  }
+
+  // DOMElements.prototype.switcherTag = {
+  //   span: function () {
+  //     this.element.textContent = this.element.links;
+  //   },
+  //   a: function () {
+  //     const links = this.element.links;
+  //     if (links && links.full) {
+  //       this.element.setAttribute('target', '_blank');
+  //       this.element.setAttribute('href', links.full);
+  //     }
+  //   },
+  //   img: function () {
+  //     const links = this.element.links;
+  //     if (links && links.url) {
+  //       this.element.setAttribute('alt', `${links.url}-${adder.counter++}`);
+  //       this.element.src = `https://${links.url}/favicon.ico`;
+  //       this.element.onerror = function (e) {
+  //         e.target.onerror = null;
+  //         e.target.src = './favicon.ico';
+  //       };
+  //     }
+  //   },
+  // };
 
   /** @type {Object} */
   const adder = {
@@ -461,23 +476,30 @@
   /**
    * Create a new DOM element and append child elements.
    * @param {Object} elms - An object containing properties for the element.
-   * @param {string} elms.url - The URL for the image element.
-   * @param {string} elms.text - The text content for the text element.
-   * @param {string} elms.type - The text content for the type element.
-   * @returns {HTMLElement} - The created DOM element.
+   * @returns {HTMLElement|null} - The created DOM element.
    */
   function createElem(elms) {
-    // Create the main 'a' element
-    const /** @type {DOMElements} */ aElement = new DOMElements('a', 'link', elms, null);
-    // Create an array of child elements
-    const elements = [elms && new DOMElements('img', 'img', elms, null), elms?.url && new DOMElements('span', 'urls', elms.url, null), elms?.text && new DOMElements('span', 'texts', elms.text, null), elms?.type && new DOMElements('span', 'types', elms.type, null), aElement && new DOMElements('span', 'close', '×', aElement)].filter(Boolean); // Removes any `null` or `undefined` values from the array
+    if (!elms) return;
+    /** @type {DOMElements} */
+    const aElement = new DOMElements('a', 'link', elms, null); // Create the main 'a' element
 
-    // Append child elements to the 'a' element
-    elements.forEach(childElement => aElement.appendChild(childElement));
+    // Create an array of child elements, filtering out any null or undefined values
+    const elements = [
+      elms && new DOMElements('img', 'img', elms, null), // img element (optional)
+      elms?.url && new DOMElements('span', 'urls', elms.url, null), // span element for URL (optional)
+      elms?.text && new DOMElements('span', 'texts', elms.text, null), // span element for text (optional)
+      elms?.type && new DOMElements('span', 'types', elms.type, null), // span element for type (optional)
+      aElement && new DOMElements('span', 'close', '×', aElement), // close button span (always present)
+    ].filter(Boolean); // Filters out any null or undefined values from the array
 
-    // Append the 'a' element to the outputs container
-    outputs.appendChild(aElement);
-    return aElement;
+    // Append child elements to the 'a' element (use `this.element` to access the real DOM element)
+    elements.forEach(childElement => aElement.element.appendChild(childElement.element));
+
+    // Append the 'a' element (which is now a real DOM element) to the outputs container
+    outputs.appendChild(aElement.element);
+
+    // Explicitly cast aElement.element to HTMLElement
+    return /** @type {HTMLElement} */ aElement.element; // Return the actual DOM node (HTMLElement)
   }
 
   /**
@@ -490,7 +512,7 @@
     counterObject.array = loopStorageItems().map(e => createElem(e)); //Object.entries(w.localStorage).map(e => createElem(JSON.parse(e[1])))
     showStats();
   }
-  
+
   /**
    * Check if a value is a non-empty string.
    * @function
@@ -506,30 +528,22 @@
    * @function
    */
   function loopLocalStorageSearch() {
+    const searchValue = search.value.toLowerCase().trim();
     counterObject.counter = 0;
 
     counterObject.array.forEach(entry => {
       const { type, url, full, text } = entry.links;
-      // Check if full is a non-empty string
+
       if (isStringAndNotEmpty(full)) {
-        const values = [...(type.length ? type.join().split() : []), ...(isStringAndNotEmpty(text) ? text.split() : []), ...(isStringAndNotEmpty(url) ? url.split() : []), ...full.split()];
+        const values = [...type, ...(isStringAndNotEmpty(text) ? [text] : []), ...(isStringAndNotEmpty(url) ? [url] : []), full];
 
-        const isInArray = values.some(value => value.toLowerCase().includes(search.value.toLowerCase()));
+        const isInArray = values.some(value => value.toLowerCase().includes(searchValue));
 
-        if (isInArray) {
-          counterObject.counter++;
-          entry.className = 'link';
-        } else {
-          entry.className = 'link hidden';
-        }
+        entry.className = isInArray ? 'link' : 'hidden';
+
+        if (isInArray) counterObject.counter++;
       }
     });
-
-    // add auto load when one item found (feeling lucky) (pro mode)
-    // if (counterObject.counter === 1) {
-    //   outputs.lastChild.click();
-    // }
-
     showStats();
   }
 
@@ -575,15 +589,23 @@
   }
 
   /**
-   * @param {string} data
+   * Displays contents by parsing the provided JSON data and updating the local storage and UI.
+   * @param {string} data - The JSON string containing data to be parsed and stored.
+   * @returns {void} - This function does not return a value.
    */
   function displayContents(data) {
     try {
       const json = JSON.parse(data);
 
-      const currentItems = StorageNamespace.getItem('url') || []; // Get existing items or initialize an empty array
-      currentItems.push(...json); // Append the new items to the existing ones
-      StorageNamespace.setItem('url', currentItems); // Store each item with a unique key
+      // Ensure that json is an array before using the spread operator
+      if (Array.isArray(json)) {
+        const currentItems = StorageNamespace.getItem('url') || []; // Get existing items or initialize an empty array
+        currentItems.push(...json); // Append the new items to the existing ones
+        StorageNamespace.setItem('url', currentItems); // Store each item with a unique key
+      } else {
+        console.warn('Parsed JSON is not an array:', json);
+        // Handle the case when json is not an array, if needed.
+      }
 
       hide(showExport);
 
@@ -593,8 +615,7 @@
       }
 
       loopLocalStorage();
-
-      counterObject.counter = StorageNamespace.keys().length;
+      // counterObject.counter = StorageNamespace.keys().length;
       showStats();
     } catch (error) {
       console.error('Error parsing JSON:', error);
@@ -633,27 +654,36 @@
     return false;
   }
 
-  function searchEvents(event) {
-    const searchTerm = event.target.value.trim();
+  let debounceTimeout;
 
-    if (searchTerm.length > 0) {
-      loopLocalStorageSearch();
-    }
-  }
+  const debounce = (callback, delay) => {
+    return (...args) => {
+      clearTimeout(debounceTimeout);
+      debounceTimeout = setTimeout(() => {
+        callback(...args); // Forward all arguments (e.g., event) to the callback
+      }, delay);
+    };
+  };
 
   exportJson.addEventListener('click', () => exporter());
   checkedBoxElement.addEventListener('input', () => classSwitch());
-  search.addEventListener('input', e => searchEvents(e));
   closeEx.addEventListener('click', () => hide(showExport));
   closeBtn.addEventListener('click', () => hide(links));
   opensBtn.addEventListener('click', () => hide(links));
   createLink.addEventListener('click', () => setLinks());
   copyAll.addEventListener('click', e => hide(showExport));
   fileInput.addEventListener('change', e => readSingleFile(e), false);
-  search.addEventListener('keyup', e => keyDownEvents(e), true);
+
   d.addEventListener('keydown', e => keyDownEventsDoc(e), true);
   d.addEventListener('click', e => showCheckboxes(e));
+
+  search.addEventListener('change', e => keyDownEvents(e));
+  search.addEventListener(
+    'keyup',
+    debounce(() => loopLocalStorageSearch(), 200)
+  );
   search.addEventListener('dblclick', function () {
+    if (this.value.length === 0) return;
     this.value = '';
     loopLocalStorageSearch();
   });
