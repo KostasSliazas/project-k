@@ -97,7 +97,7 @@
         overflow: hidden
       }
 
-      .kcell,
+      .cell,
       .percent {
         text-indent: 4px
       }
@@ -139,7 +139,7 @@
       }
 
       .left,
-      .righ,
+      .right,
       section {
         margin: 0 auto;
         position: relative
@@ -166,7 +166,7 @@
         padding: 0 24px
       }
 
-      .righ {
+      .right {
         float: right;
         width: 576px;
         margin-right: 12px
@@ -182,11 +182,11 @@
       }
 
       #header,
-      .blokas {
+      .section {
         box-shadow: 0 0 0 1px #d7d8de, 0 0 0 1px #fff inset
       }
 
-      .blokas {
+      .section {
         display: block;
         position: relative;
         overflow: hidden
@@ -235,8 +235,8 @@
         margin: 0 0 1em
       }
 
-      .kcell,
-      .kcelli {
+      .cell,
+      .heading-cell {
         box-sizing: border-box;
         float: left;
         height: 24px;
@@ -244,7 +244,7 @@
         line-height: 24px
       }
 
-      .kcell {
+      .cell {
         text-align: left;
         box-shadow: 0 0 0 1px #ddd;
         background: #fff;
@@ -252,7 +252,7 @@
         font-size: .75em
       }
 
-      .kcelli {
+      .heading-cell {
         width: 361px;
         box-shadow: -1px 0 0 0#d7d8de inset
       }
@@ -284,11 +284,11 @@
         overflow: hidden
       }
 
-      .blokas>section:first-of-type {
+      .section>section:first-of-type {
         background: #fff
       }
 
-      .blokas section:last-child {
+      .section section:last-child {
         border-bottom: 1px solid #d7d8de
       }
 
@@ -302,7 +302,7 @@
       @media only screen and (max-width:960px) {
 
         .left,
-        .righ {
+        .right {
           clear: both;
           width: auto;
           height: auto !important;
@@ -311,7 +311,7 @@
           float: none
         }
 
-        .righ {
+        .right {
           padding: 0 24px
         }
 
@@ -331,13 +331,13 @@
         }
 
         .kbody,
-        .krow {
+        .row {
           width: 100%;
           margin: 0
         }
 
-        .blokas>section:first-of-type .left,
-        .kcell {
+        .section>section:first-of-type .left,
+        .cell {
           padding: 0;
           margin: 0
         }
@@ -356,7 +356,7 @@
           width: 15%
         }
 
-        .kcell {
+        .cell {
           width: 17%;
           word-break: break-all;
           hyphens: auto
@@ -422,7 +422,7 @@
           border: 0
         }
 
-        .kcell {
+        .cell {
           border: #eee solid 1px;
           box-sizing: border-box
         }
@@ -439,7 +439,7 @@
         #header,
         #main,
         .left,
-        .righ,
+        .right,
         body,
         html {
           padding: 0;
@@ -456,13 +456,13 @@
           width: 23%
         }
 
-        .righ {
+        .right {
           width: 75%;
           margin: 0 0 0 2%
         }
 
         .hm,
-        .kcelli {
+        .heading-cell {
           box-shadow: none
         }
 
@@ -477,21 +477,21 @@
         }
 
         .kbody,
-        .kcell,
-        .krow,
+        .cell,
+        .row,
         .ktable {
           display: block;
           overflow: hidden;
           background: 0 0
         }
 
-        .krow,
+        .row,
         .ktable {
           width: 100%
         }
 
-        .kcell,
-        .kcelli {
+        .cell,
+        .heading-cell {
           width: 15%;
           word-break: break-all;
           hyphens: auto
@@ -501,7 +501,7 @@
           width: 30%
         }
 
-        .blokas {
+        .section {
           box-shadow: 0 0 0 1px #eee
         }
       }
@@ -518,119 +518,119 @@
         <div id="photo"><img src="person.png" id="preview" alt=""></div>
       </div>
       <div id="cv">
-        <div class="blokas" draggable="true">
+        <div class="section" draggable="true">
           <section>
             <h2 class="left num hm bold">Personal Details</h2>
           </section>
           <section>
             <h2 class="left hi">Profession Field</h2>
-            <h3 class="righ" id="label">Profession</h3>
+            <h3 class="right" id="label">Profession</h3>
           </section>
           <section>
             <h2 class="left hi">Name / Surname</h2>
-            <h3 class="righ capitalize" id="name">Name Surname</h3>
+            <h3 class="right capitalize" id="name">Name Surname</h3>
           </section>
           <section>
             <h2 class="left hi">Phone Number</h2>
-            <h3 class="righ" id="number"><a href="tel:+X(XXX)XXX-XXXX">+X (XXX) XXX-XXXX</a></h3>
+            <h3 class="right" id="number"><a href="tel:+X(XXX)XXX-XXXX">+X (XXX) XXX-XXXX</a></h3>
           </section>
           <section>
             <h2 class="left hi">Homepage</h2>
-            <h3 class="righ lowercase" id="url"><a href="https://kostassliazas.github.io/" rel="noopener noreferrer" target="_blank">https://yourwebsite.com</a></h3>
+            <h3 class="right lowercase" id="url"><a href="https://kostassliazas.github.io/" rel="noopener noreferrer" target="_blank">https://yourwebsite.com</a></h3>
           </section>
           <section>
             <h2 class="left hi">Email Address</h2>
-            <h3 class="righ lowercase" id="email"><a href="mailto:example@example.com?subject=WORK">example@example.com</a></h3>
+            <h3 class="right lowercase" id="email"><a href="mailto:example@example.com?subject=WORK">example@example.com</a></h3>
           </section>
           <section>
             <h2 class="left hi">Summary</h2>
-            <h3 class="righ" id="summary">Enter a brief summary here...</h3>
+            <h3 class="right" id="summary">Enter a brief summary here...</h3>
           </section>
           <section>
             <h2 class="left">Address</h2>
-            <h3 class="righ" id="address">Street Address</h3>
+            <h3 class="right" id="address">Street Address</h3>
 
             <h2 class="left">Postal Code</h2>
-            <h3 class="righ" id="postal-code">ZIP Code</h3>
+            <h3 class="right" id="postal-code">ZIP Code</h3>
 
             <h2 class="left">City</h2>
-            <h3 class="righ" id="city">City</h3>
+            <h3 class="right" id="city">City</h3>
 
             <h2 class="left">Country Code</h2>
-            <h3 class="righ" id="country-code">Country Code (e.g., +1 for USA)</h3>
+            <h3 class="right" id="country-code">Country Code (e.g., +1 for USA)</h3>
 
             <h2 class="left">Region</h2>
-            <h3 class="righ" id="region">State</h3>
+            <h3 class="right" id="region">State</h3>
           </section>
         </div>
-        <div class="blokas" draggable="true">
+        <div class="section" draggable="true">
           <section>
             <h2 class="left num hm bold">Work Experience</h2>
           </section>
           <div class="work">
             <section>
               <h2 class="left">Dates</h2>
-              <h3 class="righ fl">2020-07-07</h3>
-              <h3 class="righ fl">2023-07-07</h3>
+              <h3 class="right fl">2020-07-07</h3>
+              <h3 class="right fl">2023-07-07</h3>
             </section>
             <section>
               <h2 class="left">Profession or Position</h2>
-              <h3 class="righ bold">CV Template Creation Specialist</h3>
+              <h3 class="right bold">CV Template Creation Specialist</h3>
             </section>
             <section>
               <h2 class="left">Main Activities and Responsibilities</h2>
-              <h3 class="righ">Designing and creating customizable CV templates for various professions, ensuring compatibility with international standards and easy-to-use features.</h3>
+              <h3 class="right">Designing and creating customizable CV templates for various professions, ensuring compatibility with international standards and easy-to-use features.</h3>
             </section>
             <section>
               <h2 class="left">Employer Name and Address</h2>
-              <h3 class="righ">CV Maker, Europe, Lithuania</h3>
+              <h3 class="right">CV Maker, Europe, Lithuania</h3>
             </section>
             <section>
               <h2 class="left">Employer's Field of Activity or Industry Sector</h2>
-              <h3 class="righ">Human Resources, Recruitment, and Career Development</h3>
+              <h3 class="right">Human Resources, Recruitment, and Career Development</h3>
             </section>
             <section>
               <h2 class="left">Employer's homepage</h2>
-              <h3 class="righ lowercase"><a href="https://vectors-images.myportfolio.com" rel="noopener noreferrer" target="_blank">daug.eu</a></h3>
+              <h3 class="right lowercase"><a href="https://vectors-images.myportfolio.com" rel="noopener noreferrer" target="_blank">daug.eu</a></h3>
             </section>
           </div>
 
         </div>
-        <div class="blokas" draggable="true">
+        <div class="section" draggable="true">
           <section>
             <h2 class="left num hm bold">Education</h2>
           </section>
           <div class="education">
             <section>
               <h2 class="left">Dates</h2>
-              <h3 class="righ fl">2018-07-07</h3>
-              <h3 class="righ fl">2022-07-07</h3>
+              <h3 class="right fl">2018-07-07</h3>
+              <h3 class="right fl">2022-07-07</h3>
             </section>
             <section>
               <h2 class="left">Qualification</h2>
-              <h3 class="righ bold">Bachelor of Science in Computer Science</h3>
+              <h3 class="right bold">Bachelor of Science in Computer Science</h3>
             </section>
             <section>
               <h2 class="left">Key Subjects / Professional Skills</h2>
-              <h3 class="righ">General Subjects - Computer Science, Foreign Language (English)
+              <h3 class="right">General Subjects - Computer Science, Foreign Language (English)
                 Professional Subjects - Computer Hardware Setup, Maintenance, Servicing, Network Administration, Cybersecurity</h3>
             </section>
             <section>
               <h2 class="left">Name and Type of Educational Provider</h2>
-              <h3 class="righ">University, Public Higher Education Institution</h3>
+              <h3 class="right">University, Public Higher Education Institution</h3>
             </section>
             <section>
               <h2 class="left">Qualification Level According to National or International Classification</h2>
-              <h3 class="righ">ISCED 6 (Bachelor's Degree)</h3>
+              <h3 class="right">ISCED 6 (Bachelor's Degree)</h3>
             </section>
             <section>
               <h2 class="left">Institution homepage</h2>
-              <h3 class="righ lowercase"><a href="#" rel="noopener noreferrer" target="_blank">Visit the Institution's Website</a></h3>
+              <h3 class="right lowercase"><a href="#" rel="noopener noreferrer" target="_blank">Visit the Institution's Website</a></h3>
             </section>
           </div>
         </div>
 
-        <div class="blokas" draggable="true">
+        <div class="section" draggable="true">
           <section>
             <h2 class="left num hm bold">Skills</h2>
           </section>
@@ -640,68 +640,68 @@
             </section>
             <section>
               <h2 class="left">Level</h2>
-              <h3 class="righ">Advanced</h3>
+              <h3 class="right">Advanced</h3>
               <h3 class="left">Keywords:</h3>
-              <h3 class="righ">Communication, Teamwork, Problem-Solving, Leadership</h3>
+              <h3 class="right">Communication, Teamwork, Problem-Solving, Leadership</h3>
             </section>
           </div>
         </div>
 
-        <div class="blokas" draggable="true">
+        <div class="section" draggable="true">
           <section>
             <h2 class="left num hm bold">Languages</h2>
           </section>
           <div class="languages">
             <section>
               <h2 class="left">Lithuanian</h2>
-              <h3 class="righ">Native</h3>
+              <h3 class="right">Native</h3>
             </section>
           </div>
         </div>
 
-        <div class="blokas toka" draggable="true">
+        <div class="section tables" draggable="true">
           <div class="table">
             <div class="ktable">
               <div class="kbody kalbos">
-                <div class="krow">
-                  <div class="kcelli hauto kal"></div>
-                  <div class="kcell titlelentbig hauto capitalize">
+                <div class="row">
+                  <div class="heading-cell hauto kal"></div>
+                  <div class="cell titlelentbig hauto capitalize">
                     <h2>understanding</h2>
                   </div>
-                  <div class="kcell titlelentbig hauto capitalize">
+                  <div class="cell titlelentbig hauto capitalize">
                     <h2>speaking</h2>
                   </div>
-                  <div class="kcell lent hauto capitalize">
+                  <div class="cell lent hauto capitalize">
                     <h2>writing</h2>
                   </div>
                 </div>
-                <div class="krow capitalize">
-                  <div class="kcelli titlelent hauto kal"></div>
-                  <div class="kcell lent titlelent hauto">listening</div>
-                  <div class="kcell lent titlelent hauto">reading</div>
-                  <div class="kcell lent titlelent hauto">spoken interaction</div>
-                  <div class="kcell lent titlelent hauto">spoken production</div>
-                  <div class="kcell lent titlelent hauto"></div>
+                <div class="row capitalize">
+                  <div class="heading-cell titlelent hauto kal"></div>
+                  <div class="cell lent titlelent hauto">listening</div>
+                  <div class="cell lent titlelent hauto">reading</div>
+                  <div class="cell lent titlelent hauto">spoken interaction</div>
+                  <div class="cell lent titlelent hauto">spoken production</div>
+                  <div class="cell lent titlelent hauto"></div>
                 </div>
-                <div class="krow">
-                  <div class="kcelli kal">
+                <div class="row">
+                  <div class="heading-cell kal">
                     <h3 class="left langue">Language</h3>
                   </div>
-                  <div class="kcell edit lent">Double Click</div>
-                  <div class="kcell edit lent">Double Click</div>
-                  <div class="kcell edit lent">Double Click</div>
-                  <div class="kcell edit lent">Double Click</div>
-                  <div class="kcell edit lent">Double Click</div>
+                  <div class="cell edit lent">Double Click</div>
+                  <div class="cell edit lent">Double Click</div>
+                  <div class="cell edit lent">Double Click</div>
+                  <div class="cell edit lent">Double Click</div>
+                  <div class="cell edit lent">Double Click</div>
                 </div>
-                <div class="krow">
-                  <div class="kcelli kal">
+                <div class="row">
+                  <div class="heading-cell kal">
                     <h3 class="left langue">Other Language</h3>
                   </div>
-                  <div class="kcell edit lent">Double Click</div>
-                  <div class="kcell edit lent">Double Click</div>
-                  <div class="kcell edit lent">Double Click</div>
-                  <div class="kcell edit lent">Double Click</div>
-                  <div class="kcell edit lent">Double Click</div>
+                  <div class="cell edit lent">Double Click</div>
+                  <div class="cell edit lent">Double Click</div>
+                  <div class="cell edit lent">Double Click</div>
+                  <div class="cell edit lent">Double Click</div>
+                  <div class="cell edit lent">Double Click</div>
                 </div>
               </div>
             </div>

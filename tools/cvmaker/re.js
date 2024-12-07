@@ -1,4 +1,5 @@
 /*jshint esversion: 11 */
+/* ECMASCRIPT_2020 */
 (function (document) {
   'use strict';
   /**
@@ -64,7 +65,7 @@
     }
   }
   // Initialize DraggableManager
-  const draggableManager = new DraggableManager('#cv', '.blokas');
+  const draggableManager = new DraggableManager('#cv', '.section');
   draggableManager.initialize();
 
   /**
@@ -96,7 +97,7 @@
   }
 
   // Initialize elements if the stylesheet is not already added
-  if (!document.getElementById('styl')) {
+  if (!document.getElementById('style')) {
     // Get the <head> element of the document
     const head = document.getElementsByTagName('head')[0];
 
@@ -104,7 +105,7 @@
     const link = document.createElement('link');
 
     // Set attributes for the <link> element
-    link.id = 'styl'; // Unique ID for the link element
+    link.id = 'style'; // Unique ID for the link element
     link.rel = 'stylesheet'; // Set the relation to 'stylesheet'
     link.type = 'text/css'; // Specify the type of the linked file
     link.href = 'style.css?v=2'; // Path to the CSS file (with versioning query parameter)
@@ -120,13 +121,13 @@
     };
   }
 
-  // Initialize the body and select the first '.blokas' element
+  // Initialize the body and select the first '.section' element
   const body = document.body;
-  const block = document.querySelectorAll('.blokas:first-child');
+  const block = document.querySelectorAll('.section:first-child');
 
   // Button configuration for 'close' button in blocks
   const button = {
-    class: 'shd brdr w24 remove',
+    class: 'shd border-solid w24 remove',
     href: '#',
     id: 'close',
   };
@@ -135,16 +136,16 @@
   block.forEach(e => e.before(createHTMLElement('button', 'i', button)));
 
   // Create and configure the 'Save CV' button
-  const issaugoti = 'Save CV...';
-  const buttonIsaugoti = {
-    class: 'save fixe brdr shd remove',
+  const saveCV = 'Save CV...';
+  const buttonSave = {
+    class: 'save fixe border-solid shd remove',
     href: '#',
   };
 
   // Create 'Save CV' button and append to the body
-  const elems = createHTMLElement('button', issaugoti, buttonIsaugoti);
-  body.appendChild(elems);
-  elems.onclick = htmls; // Attach click event for saving
+  const elms = createHTMLElement('button', saveCV, buttonSave);
+  body.appendChild(elms);
+  elms.onclick = html; // Attach click event for saving
 
   // Create 'info' div and its children for additional information display
   const infoDiv = createHTMLElement('div', '', {
@@ -152,11 +153,11 @@
     class: 'remove',
     style: 'display:none', // Initially hidden
   });
-  const infocDiv = createHTMLElement('div', '', { id: 'infoc' });
+  const infoContent = createHTMLElement('div', '', { id: 'info-content' });
   const spanElement = createHTMLElement('span', 'CLOSE', {
-    class: 'btn brdr shd',
+    class: 'btn border-solid shd',
   });
-  infocDiv.appendChild(spanElement);
+  infoContent.appendChild(spanElement);
 
   // Info text content explaining user instructions
   const infoTextContent = `Please do not close this window until your work is saved, as no information is stored in the database. To save your text, simply press 'Enter' after editing. You can change the language level by double-clicking with your mouse. For the best experience, please ensure your photo is sized at 100x128 pixels. To optimize loading times, reduce the file size of your photo as much as possible. You can rearrange blocks by dragging.`;
@@ -165,33 +166,32 @@
   });
 
   // Append the info content to the infoDiv and insert at the beginning of the body
-  infoDiv.appendChild(infocDiv);
+  infoDiv.appendChild(infoContent);
   infoDiv.appendChild(infoTextDiv);
   document.body.insertBefore(infoDiv, document.body.firstChild);
 
   // Add 'minus' and 'plus' buttons to other blocks for manipulation
-  const elem = document.querySelectorAll('.blokas');
+  const elem = document.querySelectorAll('.section');
   const buttonPlus = {
     href: '#',
-    id: 'dubl',
   };
 
   elem.forEach((e, i) => {
     if (i > 0) {
       // 'minus' button
-      buttonPlus.class = 'remove shd brdr wbg w24 rem';
+      buttonPlus.class = 'remove shd border-solid wbg w24 rem';
       e.appendChild(createHTMLElement('button', '-', buttonPlus));
 
       // 'plus' button
-      buttonPlus.class += 'remove shd brdr wbg w24 add';
+      buttonPlus.class += 'remove shd border-solid wbg w24 add';
       e.appendChild(createHTMLElement('button', '+', buttonPlus));
     }
   });
 
   // Create the fake file input button for file selection
   const fakeButtonHtml = createHTMLElement('div', 'Select File', {
-    id: 'fakebtn',
-    class: 'remove brdr',
+    id: 'fake-button',
+    class: 'remove border-solid',
   });
   const fileInput = createHTMLElement('input', '', {
     id: 'image-file',
@@ -204,7 +204,7 @@
   // Create and configure the 'Import JSON' button
   const importButtonText = 'Import JSON';
   const importButtonConfig = {
-    class: 'impo fixe brdr shd remove',
+    class: 'import fixe border-solid shd remove',
     id: 'importButton',
   };
 
@@ -230,15 +230,15 @@
   <div id="dele" class="remove">
     <form action="" enctype="multipart/form-data" id="upload_form" method="post" name="upload_form">
       <div id="fileinfo">
-        <div id="filename"></div>
-        <div id="filesize"></div>
-        <div id="filetype"></div>
-        <div id="filedim"></div>
+        <div id="file-name"></div>
+        <div id="file-size"></div>
+        <div id="file-type"></div>
+        <div id="file-dimensions"></div>
       </div>
-      <div id="error">Failas nepalaikomas! bmp, gif, jpeg, png, tiff</div>
+      <div id="error">File not supported! bmp, gif, jpeg, png, tiff</div>
       <div id="error2">An error occurred while uploading the file</div>
       <div id="abort">The upload has been canceled</div>
-      <div id="warnsize">The file is too large.</div>
+      <div id="warn-size">The file is too large.</div>
       <div id="progress_info">
         <div id="progress"></div>
         <div id="progress_percent">&nbsp;</div>
@@ -246,7 +246,7 @@
         <div>
           <div id="speed">&nbsp;</div>
           <div id="remaining">&nbsp;</div>
-          <div id="b_transfered">&nbsp;</div>
+          <div id="b_transferred">&nbsp;</div>
           <div class="clear_both"></div>
         </div>
         <div id="upload_response"></div>
@@ -265,7 +265,7 @@
   photo.appendChild(fakeButtonHtml);
 
   // Add click event listener to toggle the visibility of the 'info' div
-  document.querySelectorAll('#close, #infoc').forEach(function (element) {
+  document.querySelectorAll('#close, #info-content').forEach(function (element) {
     element.addEventListener('click', function (e) {
       e.preventDefault();
       // Toggle the display of the info div
@@ -342,7 +342,7 @@
    * It updates the document title with the name value and replaces text inputs with h2 or h3 headings.
    * It also handles the creation of links for email, phone number, and URLs.
    */
-  function outf() {
+  function outs() {
     // Select all 'select' elements and 'input' elements excluding the file input
     const cvInputs = document.querySelectorAll('select, input:not(#image-file)');
 
@@ -423,7 +423,7 @@
   const error = document.getElementById('error');
   const error2 = document.getElementById('error2');
   const abort = document.getElementById('abort');
-  const warnsize = document.getElementById('warnsize');
+  const warnSize = document.getElementById('warn-size');
 
   function bytesToSize(bytes) {
     const sizes = ['Bytes', 'KB', 'MB'];
@@ -438,7 +438,7 @@
     error.style.display = 'none';
     error2.style.display = 'none';
     abort.style.display = 'none';
-    warnsize.style.display = 'none';
+    warnSize.style.display = 'none';
     const oFile = document.getElementById('image-file').files[0];
     const rFilter = /^(image\/bmp|image\/gif|image\/jpeg|image\/png|image\/tiff)$/i;
     if (!rFilter.test(oFile.type)) {
@@ -446,7 +446,7 @@
       return;
     }
     if (oFile.size > iMaxFilesize) {
-      warnsize.style.display = 'block';
+      warnSize.style.display = 'block';
       return;
     }
     const oImage = document.getElementById('preview');
@@ -456,10 +456,10 @@
       oImage.onload = function () {
         sResultFileSize = bytesToSize(oFile.size);
         fileinfo.style.display = 'block';
-        document.getElementById('filename').innerHTML = 'Name: ' + oFile.name;
-        document.getElementById('filesize').innerHTML = 'Size: ' + sResultFileSize;
-        document.getElementById('filetype').innerHTML = 'Type: ' + oFile.type;
-        document.getElementById('filedim').innerHTML = 'Dimension: ' + oImage.naturalWidth + ' x ' + oImage.naturalHeight;
+        document.getElementById('file-name').innerHTML = 'Name: ' + oFile.name;
+        document.getElementById('file-size').innerHTML = 'Size: ' + sResultFileSize;
+        document.getElementById('file-type').innerHTML = 'Type: ' + oFile.type;
+        document.getElementById('file-dimensions').innerHTML = 'Dimension: ' + oImage.naturalWidth + ' x ' + oImage.naturalHeight;
       };
     };
     oReader.readAsDataURL(oFile);
@@ -471,7 +471,7 @@
       document.getElementById('error').style.display = 'none';
       document.getElementById('error2').style.display = 'none';
       document.getElementById('abort').style.display = 'none';
-      document.getElementById('warnsize').style.display = 'none';
+      document.getElementById('warn-size').style.display = 'none';
       document.getElementById('progress_percent').innerHTML = '';
       const oProgress = document.getElementById('progress');
       oProgress.style.display = 'block';
@@ -512,12 +512,12 @@ function uploadProgress(e) {
       iBytesUploaded = e.loaded;
       iBytesTotal = e.total;
       const iPercentComplete = Math.round((e.loaded * 100) / e.total);
-      const iBytesTransfered = bytesToSize(iBytesUploaded);
+      const iBytesTransferred = bytesToSize(iBytesUploaded);
       document.getElementById('progress_percent').innerHTML =
         iPercentComplete.toString() + '%';
       document.getElementById('progress').style.width =
         (iPercentComplete * 4).toString() + 'px';
-      document.getElementById('b_transfered').innerHTML = iBytesTransfered;
+      document.getElementById('b_transferred').innerHTML = iBytesTransferred;
       if (iPercentComplete === 100) {
         const oUploadResponse = document.getElementById('upload_response');
         oUploadResponse.innerHTML = '<h1>Please wait...processing</h1>';
@@ -534,7 +534,7 @@ function uploadProgress(e) {
     oUploadResponse.style.display = 'block';
     document.getElementById('progress_percent').innerHTML = '100%';
     document.getElementById('progress').style.width = '400px';
-    document.getElementById('filesize').innerHTML = sResultFileSize;
+    document.getElementById('file-size').innerHTML = sResultFileSize;
     document.getElementById('remaining').innerHTML = '| 00:00:00';
     clearInterval(oTimer);
   }
@@ -703,7 +703,7 @@ function uploadProgress(e) {
    * @example
    * const data = { basics: { name: 'John Doe', email: 'johndoe@example.com' } };
    * handlers('basics', data.basics);
-   * // This will create and append HTML elements like <div class="blokas">...</div> to the DOM.
+   * // This will create and append HTML elements like <div class="section">...</div> to the DOM.
    */
   function handlers(key, value) {
     if (value.length === 0 || key === 'meta') {
@@ -711,7 +711,7 @@ function uploadProgress(e) {
     }
 
     const blockDiv = createHTMLElement('div', '', {
-      class: 'blokas',
+      class: 'section',
       draggable: 'true',
     });
     const section = createHTMLElement('section');
@@ -727,7 +727,7 @@ function uploadProgress(e) {
     const loopObjectOrArray = (value, parentKey) => {
       // Create a container for nested structures
 
-      const inner = createHTMLElement('div');
+      const inner = createHTMLElement('div', '', { class: key });
 
       if (Array.isArray(value)) {
         // Handle arrays
@@ -760,7 +760,7 @@ function uploadProgress(e) {
                 );
                 pairSection.appendChild(
                   createHTMLElement('h3', combinedData, {
-                    class: 'righ',
+                    class: 'right',
                   })
                 );
                 inner.appendChild(pairSection);
@@ -783,7 +783,7 @@ function uploadProgress(e) {
 
                   dateSection.appendChild(
                     createHTMLElement('h3', date, {
-                      class: 'righ',
+                      class: 'right',
                     })
                   );
                   inner.appendChild(dateSection);
@@ -794,7 +794,7 @@ function uploadProgress(e) {
               const boldFields = ['name', 'email', 'phone']; // These fields should be bolded
 
               const object = {
-                class: 'righ',
+                class: 'right',
               };
               if (boldFields.includes(subKey)) {
                 object.class += ' bold'; // Add 'bold' to the existing class string if in boldFields
@@ -1082,11 +1082,10 @@ function uploadProgress(e) {
    * Extracts work experience data from the document and populates the `jsonData.work` array.
    */
   function extractWorkExperience() {
-    const workElements = [...document.getElementsByClassName('experience')];
+    const workElements = [...document.getElementsByClassName('work')];
 
     workElements.forEach(work => {
       let workExperience = {};
-
       const dateStart = work?.getElementsByTagName('h3')[0]?.textContent.trim() || null;
       const dateEnd = work?.getElementsByTagName('h3')[1]?.textContent.trim() || null;
       const position = work?.getElementsByTagName('h3')[2]?.textContent.trim() || null;
@@ -1118,7 +1117,6 @@ function uploadProgress(e) {
 
     educationSections.forEach(eduSection => {
       let education = {};
-
       const dateStart = eduSection?.getElementsByTagName('h3')[0]?.textContent.trim() || null;
       const dateEnd = eduSection?.getElementsByTagName('h3')[1]?.textContent.trim() || null;
       const studyType = eduSection?.getElementsByTagName('h3')[2]?.textContent.trim() || null;
@@ -1151,8 +1149,8 @@ function uploadProgress(e) {
     skillElements.forEach(skill => {
       let skillData = {};
 
-      const level = skill?.getElementsByClassName('righ')[0]?.textContent.trim() || null;
-      const keywordsInput = skill?.getElementsByClassName('righ')[1]?.textContent.trim() || null;
+      const level = skill?.getElementsByClassName('right')[0]?.textContent.trim() || null;
+      const keywordsInput = skill?.getElementsByClassName('right')[1]?.textContent.trim() || null;
       const name = skill?.getElementsByClassName('left')[0]?.textContent.trim() || null;
 
       // Convert keywords into an array (comma-separated values)
@@ -1178,7 +1176,7 @@ function uploadProgress(e) {
       let languageData = {};
 
       const language = lang.querySelector('.left')?.textContent.trim() || null;
-      const fluency = lang.querySelector('.righ')?.textContent.trim() || null;
+      const fluency = lang.querySelector('.right')?.textContent.trim() || null;
 
       if (language) languageData.language = language;
       if (fluency) languageData.fluency = fluency;
@@ -1200,16 +1198,6 @@ function uploadProgress(e) {
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
-  }
-
-  /**
-   * Checks if a string contains only alphabetic characters and spaces.
-   *
-   * @param {string} str - The string to check.
-   * @returns {boolean} True if the string contains only letters and spaces, false otherwise.
-   */
-  function containsOnlyLetters(str) {
-    return /^[a-zA-Z\s]+$/.test(str);
   }
 
   /**
@@ -1235,21 +1223,53 @@ function uploadProgress(e) {
   }
 
   /**
-   * Generates and downloads an HTML and JSON file based on user data.
-   * - Sets a default file name or generates one based on user input.
-   * - Cleans up unnecessary HTML elements.
-   * - Exports relevant data in both HTML and JSON formats.
+   * Checks if the given string contains only letters and spaces, and removes any accents or diacritical marks.
+   * If the string is valid (after removing accents), it returns the string with spaces replaced by hyphens and appends '-CV'.
+   * If the string contains any invalid characters, returns `null`.
+   *
+   * @param {string} str - The string to check and process.
+   * @returns {string|null} The transformed string with spaces replaced by hyphens and '-CV' appended, or `null` if the input is invalid.
    */
-  function htmls() {
-    // Set default file name
-    let ceds = 'cv-europass';
-    const vardasNode = document.getElementById('name').textContent;
-
-    // If name consists only of letters, use it as the file name
-    if (containsOnlyLetters(vardasNode) && vardasNode) {
-      ceds = vardasNode?.replace(/\s/g, '-') + '-CV'; // Replace spaces with hyphens and add '-CV'
+  function containsOnlyLetters(str) {
+    const normalizedStr = removeAccents(str); // Remove accents from the input string
+    if (/^[a-zA-Z\s]+$/.test(normalizedStr)) {
+      // Check if the string contains only English letters and spaces
+      return normalizedStr?.replace(/\s/g, '-') + '-CV'; // Replace spaces with hyphens and append '-CV'
+    } else {
+      return null; // Return null if the string contains invalid characters
     }
+  }
 
+  /**
+   * Removes accents and diacritical marks from the given string.
+   * This function normalizes the string to a decomposed form and removes any diacritical marks.
+   *
+   * @param {string} str - The string from which accents will be removed.
+   * @returns {string} The string without accents or diacritical marks.
+   */
+  function removeAccents(str) {
+    return str
+      .normalize('NFD') // Normalize the string to decomposed form
+      .replace(/[\u0300-\u036f]/g, ''); // Remove all diacritical marks
+  }
+
+  /**
+   * Generates and downloads an HTML and JSON file based on user data.
+   * This function:
+   * - Sets a default file name or generates one based on user input.
+   * - Cleans up unnecessary HTML elements (removes elements with the 'remove' class and disables draggable elements).
+   * - Extracts relevant data from the page (languages, skills, basics, work experience, and education).
+   * - Exports the data in both HTML and JSON formats.
+   *
+   * @function
+   * @returns {void} This function does not return any value. It triggers the download of an HTML file and a JSON file.
+   */
+  function html() {
+    // Set default file name
+    const nameElement = document.querySelector('#name');
+    const defaultTextNode = 'cv-';
+
+    const name = containsOnlyLetters(nameElement.textContent) || defaultTextNode;
     const date = generateDate();
 
     // Remove elements with the 'remove' class and draggable attribute
@@ -1274,11 +1294,11 @@ function uploadProgress(e) {
     extractWorkExperience();
     extractEducation();
 
-    // Export the data as JSON
-    exportToJson(jsonData, `${ceds}-${date}.json`);
-
     // Trigger the download of the HTML file
-    download(`${ceds}-${date}`, htmlString);
+    download(`${name}-${date}`, htmlString);
+
+    // Export the data as JSON
+    exportToJson(jsonData, `${name}-${date}.json`);
   }
 
   /**
@@ -1337,7 +1357,7 @@ function uploadProgress(e) {
    */
   document.addEventListener('keyup', function (e) {
     if (e.key === 'Enter') {
-      outf();
+      outs();
     }
   });
 
@@ -1351,7 +1371,7 @@ function uploadProgress(e) {
       const selectHtml = `
       <select>
         <option value="A1 – Breakthrough">A1 – Breakthrough</option>
-        <option value="A2 – Waystage">A2 – Waystage</option>
+        <option value="A2 – Elementary">A2 – Elementary</option>
         <option value="B1 – Threshold">B1 – Threshold</option>
         <option value="B2 – Vantage">B2 – Vantage</option>
         <option value="C1 – Effective Operational Proficiency">C1 – Effective Operational Proficiency</option>
@@ -1383,7 +1403,7 @@ function uploadProgress(e) {
         handleEdit(target);
       } else if (target.tagName !== 'SELECT' && target.tagName !== 'INPUT') {
         // Run all to make text not inputs function
-        outf();
+        outs();
       }
     },
     true
@@ -1395,8 +1415,8 @@ function uploadProgress(e) {
    * @param {Element} target - The element that was clicked.
    */
   function handleRemove(target) {
-    if (target.parentNode.classList.contains('toka')) {
-      const row = target.parentNode.getElementsByClassName('krow');
+    if (target.parentNode.classList.contains('tables')) {
+      const row = target.parentNode.getElementsByClassName('row');
       const last = row[row.length - 1];
       if (row.length === 3) target.parentNode.remove();
       return row.length > 3 && last.remove();
@@ -1413,8 +1433,8 @@ function uploadProgress(e) {
    * @param {Element} target - The element that was clicked.
    */
   function handleAdd(target) {
-    if (target.parentNode.classList.contains('toka')) {
-      const row = target.parentNode.getElementsByClassName('krow');
+    if (target.parentNode.classList.contains('tables')) {
+      const row = target.parentNode.getElementsByClassName('row');
       const last = row[row.length - 1];
       return last.parentNode.appendChild(last.cloneNode(true));
     }
