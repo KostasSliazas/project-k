@@ -58,7 +58,7 @@
     getItem(key) {
       const item = w.localStorage.getItem(this._getKey(key));
       if (item === null) {
-        return null; // No item found, return null
+        return []; // No item found, return null
       }
 
       try {
