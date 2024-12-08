@@ -623,32 +623,36 @@
     }
   }
 
-  function keyDownEvents(event) {
-    const { key, target } = event;
-    const inputValue = target.value.trim();
-
-    // Trigger actions when Backspace is pressed and input is empty
-    if (key === 'Backspace' && inputValue.length === 0) {
-      loopLocalStorageSearch();
-    }
-
-    // Trigger actions when Enter is pressed and input has a value
-    if (key === 'Enter' && inputValue.length > 0) {
-      event.preventDefault();
-      loopLocalStorageSearch();
-
-      // Ensure outputs exists and focus on the first child
-      if (outputs?.children.length) {
-        outputs.firstElementChild.focus();
-      }
-    }
-  }
+  // function keyDownEvents(event) {
+  //   const { key, target } = event;
+  //   const inputValue = target.value.trim();
+  //
+  //   // Trigger actions when Backspace is pressed and input is empty
+  //   if (key === 'Backspace' && inputValue.length === 0) {
+  //     loopLocalStorageSearch();
+  //   }
+  //
+  //   // Trigger actions when Enter is pressed and input has a value
+  //   if (key === 'Enter' && inputValue.length > 0) {
+  //     event.preventDefault();
+  //     loopLocalStorageSearch();
+  //     // Ensure outputs exists and focus on the first child
+  //     if (counterObject.counter === 1) {
+  //       outputs.querySelector('a:not(.hidden)').focus();
+  //     }
+  //   }
+  // }
 
   function keyDownEventsDoc(event) {
+    if (!event) return;
     const { key } = event;
 
     if (key !== 'Enter' && !active) {
       search.focus();
+    }
+
+    if (event?.target.value.trim().length > 1 && counterObject.counter === 1) {
+      outputs.querySelector('a:not(.hidden)').focus();
     }
 
     return false;
@@ -677,7 +681,7 @@
   d.addEventListener('keydown', e => keyDownEventsDoc(e), true);
   d.addEventListener('click', e => showCheckboxes(e));
 
-  search.addEventListener('change', e => keyDownEvents(e));
+  // search.addEventListener('change', e => keyDownEvents(e));
   search.addEventListener(
     'keyup',
     debounce(() => loopLocalStorageSearch(), 200)
