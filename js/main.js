@@ -6,41 +6,41 @@
 /*jshint esversion: 11 */
 (function (w, d) {
   'use strict';
-/**
- * Global error handler for uncaught runtime errors.
- *
- * @param {string | Event} message - The error message or event object.
- * @param {string} [source] - The URL of the script where the error occurred (if applicable).
- * @param {number} [lineno] - The line number in the script where the error occurred (if applicable).
- * @param {number} [colno] - The column number in the script where the error occurred (if applicable).
- * @param {Error} [error] - The actual Error object associated with the error (if available).
- */
-window.onerror = (message, source, lineno, colno, error) => {
-  console.error('Critical error detected:', message);
-  console.error('Source:', source, 'Line:', lineno, 'Column:', colno, 'Error object:', error);
+  /**
+   * Global error handler for uncaught runtime errors.
+   *
+   * @param {string | Event} message - The error message or event object.
+   * @param {string} [source] - The URL of the script where the error occurred (if applicable).
+   * @param {number} [lineno] - The line number in the script where the error occurred (if applicable).
+   * @param {number} [colno] - The column number in the script where the error occurred (if applicable).
+   * @param {Error} [error] - The actual Error object associated with the error (if available).
+   */
+  window.onerror = (message, source, lineno, colno, error) => {
+    console.error('Critical error detected:', message);
+    console.error('Source:', source, 'Line:', lineno, 'Column:', colno, 'Error object:', error);
 
-  alert('A critical error occurred. The page will stop working.');
+    alert('A critical error occurred. The page will stop working.');
 
-  // Prevent further execution by throwing a critical error
-  throw new Error('Stopping execution due to critical failure.');
-};
+    // Prevent further execution by throwing a critical error
+    throw new Error('Stopping execution due to critical failure.');
+  };
 
-/**
- * Document-level error handler for resource loading errors.
- *
- * Listens for errors on resource elements like <img>, <script>, and <link>.
- *
- * @param {Event} event - The error event object associated with the failed resource loading.
- */
-document.addEventListener(
-  "error",
-  (event) => {
-    console.error('Resource error detected:', event);
-    alert('A resource failed to load.');
-  },
-  true // Use capture phase to catch resource errors at the document level
-);
-/**
+  /**
+   * Document-level error handler for resource loading errors.
+   *
+   * Listens for errors on resource elements like <img>, <script>, and <link>.
+   *
+   * @param {Event} event - The error event object associated with the failed resource loading.
+   */
+  document.addEventListener(
+    'error',
+    event => {
+      console.error('Resource error detected:', event);
+      alert('A resource failed to load.');
+    },
+    true // Use capture phase to catch resource errors at the document level
+  );
+  /**
    * Utility for managing localStorage with namespacing.
    */
   const StorageNamespace = {
@@ -154,24 +154,22 @@ document.addEventListener(
     //   }
     // },
   };
-/**
- * Retrieves and parses an item from localStorage.
- *
- * @param {string} item - The key of the localStorage item to retrieve.
- * @returns {*} The parsed value of the localStorage item, or `null` if parsing fails or the item does not exist.
- */
+  /**
+   * Retrieves and parses an item from localStorage.
+   *
+   * @param {string} item - The key of the localStorage item to retrieve.
+   * @returns {*} The parsed value of the localStorage item, or `null` if parsing fails or the item does not exist.
+   */
 
-const version = 7;
-const storageVersion = StorageNamespace.getItem('version');
+  const version = 7;
+  const storageVersion = StorageNamespace.getItem('version');
 
-if (version !== storageVersion) {
-  StorageNamespace.clear();
-  StorageNamespace.setItem('version', version);
-  //reload versions
-  w.location.reload(); // This reloads the page after your actions
-}
-
-
+  if (version !== storageVersion) {
+    StorageNamespace.clear();
+    StorageNamespace.setItem('version', version);
+    //reload versions
+    w.location.reload(); // This reloads the page after your actions
+  }
 
   const negativeOrPositive = number => (number > 0 ? `+${number}` : `${number}`);
   const main = d.getElementById('main');
@@ -803,7 +801,9 @@ if (version !== storageVersion) {
   // Retrieve input values from localStorage
   const values =
     StorageNamespace.getItem('K-InputValues') &&
-    StorageNamespace.getItem('K-InputValues').split(',').map(Number => addLeadingZero(Number));
+    StorageNamespace.getItem('K-InputValues')
+      .split(',')
+      .map(Number => addLeadingZero(Number));
   // console.time()
 
   // Initialize counters with values and event listeners
