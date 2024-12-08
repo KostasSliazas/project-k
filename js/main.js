@@ -6,22 +6,179 @@
 /*jshint esversion: 11 */
 (function (w, d) {
   'use strict';
-  const getLocalStorageItems = item => {
-    try {
-      return JSON.parse(w.localStorage.getItem(item));
-    } catch (error) {
-      w.console.error('Error parsing JSON:', error.message);
-      return null; // or any other default value
-    }
-  };
+/**
+ * Global error handler for uncaught runtime errors.
+ *
+ * @param {string | Event} message - The error message or event object.
+ * @param {string} [source] - The URL of the script where the error occurred (if applicable).
+ * @param {number} [lineno] - The line number in the script where the error occurred (if applicable).
+ * @param {number} [colno] - The column number in the script where the error occurred (if applicable).
+ * @param {Error} [error] - The actual Error object associated with the error (if available).
+ */
+window.onerror = (message, source, lineno, colno, error) => {
+  console.error('Critical error detected:', message);
+  console.error('Source:', source, 'Line:', lineno, 'Column:', colno, 'Error object:', error);
 
-  const setLocalStorageItems = (item, value) => w.localStorage.setItem(item, JSON.stringify(value));
+  alert('A critical error occurred. The page will stop working.');
+
+  // Prevent further execution by throwing a critical error
+  throw new Error('Stopping execution due to critical failure.');
+};
+
+/**
+ * Document-level error handler for resource loading errors.
+ *
+ * Listens for errors on resource elements like <img>, <script>, and <link>.
+ *
+ * @param {Event} event - The error event object associated with the failed resource loading.
+ */
+document.addEventListener(
+  "error",
+  (event) => {
+    console.error('Resource error detected:', event);
+    alert('A resource failed to load.');
+  },
+  true // Use capture phase to catch resource errors at the document level
+);
+/**
+   * Utility for managing localStorage with namespacing.
+   */
+  const StorageNamespace = {
+    /**
+     * The current namespace for all storage operations.
+     * @type {string}
+     */
+    namespace: 'project-kitten',
+    // /**
+    //  * Sets the namespace for localStorage keys.
+    //  * @param {string} ns - The namespace to use.
+    //  */
+    // setNamespace(ns) {
+    //   this.namespace = ns;
+    // },
+
+    /**
+     * Constructs the full key by prefixing it with the namespace.
+     * @private
+     * @param {string} key - The key to namespace.
+     * @returns {string} - The namespaced key.
+     */
+    _getKey(key) {
+      return `${this.namespace}:${key}`;
+    },
+
+    /**
+     * Saves a value to localStorage under the namespaced key.
+     * @param {string} key - The key to store the value under.
+     * @param {*} value - The value to store. It will be serialized to JSON.
+     */
+    setItem(key, value) {
+      w.localStorage.setItem(this._getKey(key), JSON.stringify(value));
+    },
+    removeItem(key) {
+      w.localStorage.removeItem(this._getKey(key));
+    },
+    /**
+     * Retrieves a value from localStorage.
+     * @param {string} key - The key to retrieve the value for.
+     * @return {Object|null} - The deserialized value (an object or array) if successful, or `null` if the key doesn't exist or deserialization fails.
+     */
+    getItem(key) {
+      const item = w.localStorage.getItem(this._getKey(key));
+      if (item === null) {
+        return null; // No item found, return null
+      }
+
+      try {
+        // Safely parse the item (it is now guaranteed to be a string)
+        const parsedItem = /** @type {Object|null} */ (JSON.parse(item));
+        return parsedItem;
+      } catch (e) {
+        console.error(`Error parsing JSON for key "${key}":`, e);
+        return null;
+      }
+    },
+
+    /**
+     * Clears all values under the current namespace from w.localStorage.
+     */
+    clear() {
+      Object.keys(w.localStorage).forEach(key => {
+        if (key.startsWith(`${this.namespace}:`)) {
+          w.localStorage.removeItem(key);
+        }
+      });
+    },
+
+    /**
+     * Retrieves all keys under the current namespace.
+     * @returns {Array<string>} - An array of keys within the namespace, with the namespace prefix removed.
+     */
+    keys() {
+      return Object.keys(w.localStorage) // Object.keys should return an array of strings
+        .filter(key => key.startsWith(`${this.namespace}:url`))
+        .map(key => key.replace(`${this.namespace}:url`, ''));
+    },
+
+    /**
+     * Appends a value to an array or updates an object stored under the given key.
+     * @param {string} key - The key of the stored value.
+     * @param {*} value - The value to append or merge.
+     */
+    appendItem(key, value) {
+      const existingValue = this.getItem(key);
+
+      if (Array.isArray(existingValue)) {
+        // Append to array
+        existingValue.push(value);
+        this.setItem(key, existingValue);
+      } else if (existingValue && typeof existingValue === 'object') {
+        // Merge into object
+        this.setItem(key, { ...existingValue, ...value });
+      } else {
+        // Create a new array or object
+        const newValue = Array.isArray(value) ? value : [value];
+        this.setItem(key, newValue);
+      }
+    },
+    /**
+     * Removes an item from an array stored under the given key by index.
+     * @param {string} key - The key of the stored array.
+     * @param {number} index - The index of the item to remove.
+     */
+    // removeItem(key, index) {
+    //   const array = this.getItem(key);
+    //   if (Array.isArray(array) && array.length > index) {
+    //     array.splice(index, 1); // Remove the item at the specified index
+    //     this.setItem(key, array); // Save the updated array back to localStorage
+    //   }
+    // },
+  };
+/**
+ * Retrieves and parses an item from localStorage.
+ *
+ * @param {string} item - The key of the localStorage item to retrieve.
+ * @returns {*} The parsed value of the localStorage item, or `null` if parsing fails or the item does not exist.
+ */
+
+const version = 7;
+const storageVersion = StorageNamespace.getItem('version');
+
+if (version !== storageVersion) {
+  StorageNamespace.clear();
+  StorageNamespace.setItem('version', version);
+  //reload versions
+  w.location.reload(); // This reloads the page after your actions
+}
+
+
+
   const negativeOrPositive = number => (number > 0 ? `+${number}` : `${number}`);
   const main = d.getElementById('main');
   const overlay = d.getElementById('overlay');
   const hide = elem => elem.classList.add('hide');
   const show = elem => elem.classList.remove('hide');
-  let isLocked = getLocalStorageItems('isLocked');
+  let isLocked = StorageNamespace.getItem('isLocked');
 
   // Generate a random integer between min (inclusive) and max (exclusive)
   const getRandomInRange = (min, max) => Math.floor(Math.random() * (max - min)) + min;
@@ -92,7 +249,7 @@
     allMouseClicks: 0,
     clicks: 0,
   };
-  let saved = getLocalStorageItems('mustashed') || [5, 2, 0];
+  let saved = StorageNamespace.getItem('mustashed') || [5, 2, 0];
   let minimized = [16, 6, 17, 15, 0, 19, 12, 1, 13];
   let mousedown = false;
   let scalingTarget = null;
@@ -104,7 +261,7 @@
   // add all movable class eventlistener mousedown
   textArea.addEventListener('input', async e => {
     await delay(3000);
-    setLocalStorageItems('textArea', e.target.value.trim());
+    StorageNamespace.setItem('textArea', e.target.value.trim());
   });
 
   // https://stackoverflow.com/questions/45071353/copy-text-string-on-click/53977796#53977796
@@ -208,7 +365,7 @@
 
           if (e.target.classList.contains('movable')) {
             const index = movable.indexOf(e.target);
-            let arrayOfMinimized = [...(getLocalStorageItems('elementClass') || minimized)];
+            let arrayOfMinimized = [...(StorageNamespace.getItem('elementClass') || minimized)];
             if (e.target.classList.contains('minimized')) {
               arrayOfMinimized = arrayOfMinimized.filter(c => c !== index);
               await e.target.classList.remove('minimized');
@@ -226,8 +383,8 @@
               e.target.classList.add('minimized');
               arrayOfMinimized.push(index);
             }
-            setLocalStorageItems('elementStyles', getStyles());
-            setLocalStorageItems('elementClass', arrayOfMinimized);
+            StorageNamespace.setItem('elementStyles', getStyles());
+            StorageNamespace.setItem('elementClass', arrayOfMinimized);
           }
         });
         e.addEventListener('mousedown', function (e) {
@@ -330,7 +487,7 @@
     // no data? return
     if (!response || !data) return false;
     // set data to storage
-    return setLocalStorageItems('statsData', data.hourly.temperature_2m);
+    return StorageNamespace.setItem('statsData', data.hourly.temperature_2m);
   }
 
   // round values replace for better showing stats
@@ -416,8 +573,8 @@
   }
 
   function applyStyles(defaults) {
-    const styles = getLocalStorageItems('elementStyles') || blockDefaults;
-    const minimizedElements = getLocalStorageItems('elementClass') || minimized;
+    const styles = StorageNamespace.getItem('elementStyles') || blockDefaults;
+    const minimizedElements = StorageNamespace.getItem('elementClass') || minimized;
 
     const getStyle = styles.split(',');
 
@@ -451,7 +608,7 @@
     const currentDate = Math.floor(new Date().getTime() / 1000);
 
     // Retrieve previous timestamp from localStorage
-    const previousTimeStamp = parseInt(w.localStorage.getItem('timeStamp'));
+    const previousTimeStamp = parseInt(StorageNamespace.getItem('timeStamp'));
 
     // If timestamp exists and interval has not passed, return false
     if (!isNaN(previousTimeStamp) && currentDate - previousTimeStamp < interval) {
@@ -459,7 +616,7 @@
     }
 
     // Set new timestamp in localStorage
-    w.localStorage.setItem('timeStamp', currentDate.toString());
+    StorageNamespace.setItem('timeStamp', currentDate.toString());
 
     // Return true to indicate that interval has passed
     return true;
@@ -517,7 +674,7 @@
     }
     // console.timeEnd();
     await delay(300);
-    setLocalStorageItems('elementStyles', getStyles());
+    StorageNamespace.setItem('elementStyles', getStyles());
   };
 
   const moves = d.getElementById('moves');
@@ -532,7 +689,7 @@
       // Prevent the default reload
       e.preventDefault();
       // clear local storage
-      w.localStorage.clear();
+      StorageNamespace.clear();
       w.location.reload(); // This reloads the page after your actions
       // check if it's [`] symbol and inputs not focused then toggle class
     } else if (keyCode === '`' && !d.querySelector('input:focus')) {
@@ -583,7 +740,7 @@
   // Function to save all input values to localStorage
   const saveAllInputs = () => {
     const values = Array.from(counters, counter => getElem(counter).value);
-    w.localStorage.setItem('K-InputValues', values.join(','));
+    StorageNamespace.setItem('K-InputValues', values.join(','));
   };
 
   // Flag to prevent multiple saves during a short time
@@ -645,11 +802,8 @@
 
   // Retrieve input values from localStorage
   const values =
-    w.localStorage.getItem('K-InputValues') &&
-    w.localStorage
-      .getItem('K-InputValues')
-      .split(',')
-      .map(Number => addLeadingZero(Number));
+    StorageNamespace.getItem('K-InputValues') &&
+    StorageNamespace.getItem('K-InputValues').split(',').map(Number => addLeadingZero(Number));
   // console.time()
 
   // Initialize counters with values and event listeners
@@ -792,9 +946,9 @@
 
   async function init() {
     // d.addEventListener('mousemove', handleMousemove);
-    const isCheckedLines = getLocalStorageItems('theme-lines');
-    const isCheckedBg = getLocalStorageItems('theme-bg');
-    const isRepeatingBg = getLocalStorageItems('bg-repeat');
+    const isCheckedLines = StorageNamespace.getItem('theme-lines');
+    const isCheckedBg = StorageNamespace.getItem('theme-bg');
+    const isRepeatingBg = StorageNamespace.getItem('bg-repeat');
     // remove lines if set to false in local storage by default show them
     setCheckboxChecked('bg-toggle', isCheckedLines);
     main.classList.toggle('lines', isCheckedLines);
@@ -808,22 +962,22 @@
     main.classList.toggle('bg-repeat', isRepeatingBg);
 
     // cute mode
-    const cuteMode = getLocalStorageItems('cute-mode');
+    const cuteMode = StorageNamespace.getItem('cute-mode');
     setCheckboxChecked('cute-mode', cuteMode);
     d.body.classList.toggle('cute-mode', cuteMode);
 
     // popup mode
-    const popupMode = getLocalStorageItems('popup-mode');
+    const popupMode = StorageNamespace.getItem('popup-mode');
     setCheckboxChecked('popup-mode', popupMode);
     d.body.classList.toggle('popup-mode', popupMode);
 
     // numbering mode
-    const numberingMode = getLocalStorageItems('numbering-mode');
+    const numberingMode = StorageNamespace.getItem('numbering-mode');
     setCheckboxChecked('numbering-mode', numberingMode);
     d.body.classList.toggle('numbering-mode', numberingMode);
 
     // day night mode
-    const dayNight = getLocalStorageItems('day-night');
+    const dayNight = StorageNamespace.getItem('day-night');
     setCheckboxChecked('day-night', dayNight);
     d.body.classList.toggle('day-night', dayNight);
     if (dayNight) {
@@ -837,13 +991,13 @@
     d.getElementById('is-online').textContent = online ? 'connected' : 'disconnected';
     d.getElementById('day-of-week').textContent = showWeekDay();
     const documentTitle = d.title;
-    textArea.value = getLocalStorageItems('textArea') || textAreaDefaults;
+    textArea.value = StorageNamespace.getItem('textArea') || textAreaDefaults;
 
     await hide(codeDiv);
     await applyStyles(false);
     await loopElem();
     //try to center element for first time load
-    if (w.localStorage.length === 0) {
+    if (StorageNamespace.keys().length === 0) {
       centerElements();
     }
     const locking = isLockig();
@@ -855,7 +1009,7 @@
           e.stopPropagation(); //prevent from parent clicks
           typed.push(codeDivElms.indexOf(e.target));
           if (isEnterPass === false && typed.length === saved.length && typed.every((v, i) => v === saved[i])) {
-            setLocalStorageItems('isLocked', (isLocked = false));
+            StorageNamespace.setItem('isLocked', (isLocked = false));
 
             d.title = documentTitle;
             hide(codeDiv);
@@ -868,7 +1022,7 @@
     }
     // });
 
-    const NUM = parseInt(getLocalStorageItems('theme')) || 0;
+    const NUM = parseInt(StorageNamespace.getItem('theme')) || 0;
     THEME_CHANGE.value = NUM;
     changerClass(NUM);
     styleRoot();
@@ -890,7 +1044,7 @@
       await getAll(api_url);
     }
     // show the data to user
-    stats(getLocalStorageItems('statsData'));
+    stats(StorageNamespace.getItem('statsData'));
   }
 
   // const concat = (...arrays) => [].concat(...arrays.filter(Array.isArray));
@@ -916,7 +1070,7 @@
         label.innerText = target.value.toUpperCase();
         const index = Array.from(colors).indexOf(target);
         arrayColors[index] = `--color${index}:${target.value.toUpperCase()}`;
-        setLocalStorageItems('custom-theme', arrayColors.filter(Boolean));
+        StorageNamespace.setItem('custom-theme', arrayColors.filter(Boolean));
         rootStyle();
       });
     }
@@ -925,7 +1079,7 @@
   function styleRoot() {
     const styleItems = ['bg-theme', 'custom-theme'];
     const arrayOfItems = styleItems
-      .map(item => getLocalStorageItems(item))
+      .map(item => StorageNamespace.getItem(item))
       .filter(Boolean)
       .flat();
     d.documentElement.style.cssText = arrayOfItems.join(';');
@@ -939,7 +1093,7 @@
       THEME_CHANGE.decrement();
       changerClass(THEME_CHANGE.value);
       //set local storage only when user click
-      setLocalStorageItems('theme', THEME_CHANGE.value);
+      StorageNamespace.setItem('theme', THEME_CHANGE.value);
       setColors();
     }
 
@@ -986,7 +1140,7 @@
 
     if (target === 'lt' || target === 'gt') {
       changerClass(THEME_CHANGE.value);
-      setLocalStorageItems('theme', THEME_CHANGE.value);
+      StorageNamespace.setItem('theme', THEME_CHANGE.value);
       setColors();
     }
     if (target === 'center-elements') {
@@ -1004,12 +1158,12 @@
 
     if (target === 'custom-theme' || target === 'bg-toggle' || target === 'reset-all' || target === 'bg-theme') {
       e.target.removeAttribute('style');
-      w.localStorage.removeItem(target);
+      StorageNamespace.removeItem(target);
       styleRoot();
     }
 
     if (target === 'reset-all') {
-      w.localStorage.clear();
+      StorageNamespace.clear();
       root.removeAttribute('class');
       root.removeAttribute('style');
       textArea.removeAttribute('style');
@@ -1020,10 +1174,10 @@
     // set att once theme lines class and item of localStorage
     if (target === 'bg-toggle') {
       if (!main.classList.contains('lines') && e.target.checked) {
-        setLocalStorageItems('theme-lines', true);
+        StorageNamespace.setItem('theme-lines', true);
         main.classList.add('lines');
       } else {
-        setLocalStorageItems('theme-lines', false);
+        StorageNamespace.setItem('theme-lines', false);
         main.classList.remove('lines');
       }
     }
@@ -1032,10 +1186,10 @@
     const cuteMode = 'cute-mode';
     if (target === cuteMode) {
       if (!main.classList.contains(cuteMode) && e.target.checked) {
-        setLocalStorageItems(cuteMode, true);
+        StorageNamespace.setItem(cuteMode, true);
         d.body.classList.add(cuteMode);
       } else {
-        setLocalStorageItems(cuteMode, false);
+        StorageNamespace.setItem(cuteMode, false);
         d.body.classList.remove(cuteMode);
       }
     }
@@ -1044,10 +1198,10 @@
     const popupMode = 'popup-mode';
     if (target === popupMode) {
       if (!main.classList.contains(popupMode) && e.target.checked) {
-        setLocalStorageItems(popupMode, true);
+        StorageNamespace.setItem(popupMode, true);
         d.body.classList.add(popupMode);
       } else {
-        setLocalStorageItems(popupMode, false);
+        StorageNamespace.setItem(popupMode, false);
         d.body.classList.remove(popupMode);
       }
     }
@@ -1056,10 +1210,10 @@
     const numberingMode = 'numbering-mode';
     if (target === numberingMode) {
       if (!main.classList.contains(numberingMode) && e.target.checked) {
-        setLocalStorageItems(numberingMode, true);
+        StorageNamespace.setItem(numberingMode, true);
         d.body.classList.add(numberingMode);
       } else {
-        setLocalStorageItems(numberingMode, false);
+        StorageNamespace.setItem(numberingMode, false);
         d.body.classList.remove(numberingMode);
       }
     }
@@ -1068,11 +1222,11 @@
     const dayNight = 'day-night';
     if (target === dayNight) {
       if (!main.classList.contains(dayNight) && e.target.checked) {
-        setLocalStorageItems(dayNight, true);
+        StorageNamespace.setItem(dayNight, true);
         // d.body.classList.add(dayNight);
         doAfter19h(performNightThemeChange);
       } else {
-        setLocalStorageItems(dayNight, false);
+        StorageNamespace.setItem(dayNight, false);
         // d.body.classList.remove(dayNight);
       }
     }
@@ -1080,31 +1234,31 @@
     if (target === 'enabled-bg') {
       const repeatBg = d.getElementById('repeat-toggle');
       if (!root.classList.contains('bg-image') && e.target.checked) {
-        setLocalStorageItems('theme-bg', true);
+        StorageNamespace.setItem('theme-bg', true);
         root.classList.add('bg-image');
       } else {
         repeatBg.checked = false;
         main.classList.remove('bg-repeat');
-        setLocalStorageItems('bg-repeat', false);
+        StorageNamespace.setItem('bg-repeat', false);
 
         root.classList.remove('bg-image');
-        setLocalStorageItems('theme-bg', false);
+        StorageNamespace.setItem('theme-bg', false);
       }
     }
     if (target === 'repeat-toggle') {
       const bg = d.getElementById('enabled-bg');
       if (!main.classList.contains('bg-repeat') && e.target.checked) {
         bg.checked = true;
-        setLocalStorageItems('bg-repeat', true);
+        StorageNamespace.setItem('bg-repeat', true);
         main.classList.add('bg-repeat');
-        setLocalStorageItems('theme-bg', true);
+        StorageNamespace.setItem('theme-bg', true);
         root.classList.add('bg-image');
       } else {
         // bg.checked = false
         main.classList.remove('bg-repeat');
-        setLocalStorageItems('bg-repeat', false);
+        StorageNamespace.setItem('bg-repeat', false);
         // root.classList.remove('bg-image');
-        // setLocalStorageItems('theme-bg', false);
+        // StorageNamespace.setItem('theme-bg', false);
       }
     }
     if (target === 'custom-theme') setColors();
@@ -1112,7 +1266,7 @@
 
     // only for locking system
     if (target === 'lock') {
-      setLocalStorageItems('isLocked', (isLocked = true));
+      StorageNamespace.setItem('isLocked', (isLocked = true));
       hide(main);
       d.title = 'New Tab';
       counts.clicks = 0;
@@ -1126,16 +1280,16 @@
     }
 
     if (target === 'pinsave' && typed.length) {
-      setLocalStorageItems('mustashed', typed);
+      StorageNamespace.setItem('mustashed', typed);
       isEnterPass = false;
-      saved = getLocalStorageItems('mustashed');
+      saved = StorageNamespace.getItem('mustashed');
       defaultPin.title = saved;
       hide(codeDiv);
     }
     if (target === 'pindiscard') {
       hide(codeDiv);
     }
-    const isLockedScreen = getLocalStorageItems('isLocked');
+    const isLockedScreen = StorageNamespace.getItem('isLocked');
     // count clicked
     counts.clicks++;
     if (e.target.className !== 'container' && counts.clicks > 2 && isLockedScreen) {
@@ -1180,7 +1334,7 @@
       async () => {
         const fileString = `--bg:url(${reader.result})`;
         await delay(200);
-        setLocalStorageItems('bg-theme', fileString);
+        StorageNamespace.setItem('bg-theme', fileString);
         styleRoot();
       },
       false
@@ -1226,7 +1380,7 @@
       state.target.classList.remove('mousedown');
       root.classList.remove('hmove');
       if (!d.getElementById('bg-toggle').checked) main.classList.remove('lines');
-      setLocalStorageItems('elementStyles', getStyles());
+      StorageNamespace.setItem('elementStyles', getStyles());
     }
 
     try {
@@ -1234,7 +1388,7 @@
         const peScalingTarget = getPE(scalingTarget);
         scalingTarget.style.height = peScalingTarget.style.height = roundToTen(peScalingTarget.offsetHeight) + 'px';
         peScalingTarget.style.width = roundToTen(peScalingTarget.offsetWidth) + 'px';
-        setLocalStorageItems('elementStyles', getStyles());
+        StorageNamespace.setItem('elementStyles', getStyles());
       }
     } catch (error) {
       w.console.log({
@@ -1303,7 +1457,7 @@
       const newLeft = currentLeft - leftmost + centerPosition;
       el.style.left = `${Math.floor(newLeft / 12) * 12}px`; // round more to left
     });
-    setLocalStorageItems('elementStyles', getStyles());
+    StorageNamespace.setItem('elementStyles', getStyles());
   }
 
   function throttle(func, delay) {
@@ -1509,13 +1663,6 @@
   } else {
     console.log('Service Workers are not supported in this browser.');
   }
-
-  w.onerror = function (message, source, lineno, colno, error) {
-    console.error('Critical error detected:', message);
-    alert('A critical error occurred. The page will stop working.');
-    // Prevent further execution by throwing a critical error
-    throw new Error('Stopping execution due to critical failure.');
-  };
 
   console.log('%c🐾Welcome to the Cuddle Zone of Coding!🐾\n%cKeep your coding paws steady and have fun!', 'font-size: 20px; background-color: #f7f7f7; color: #000000; padding: 0 4px; border-radius: 5px;', 'font-size: 16px; background-color: #e0e6ed; color: #000000; padding: 0 4px; border-radius: 5px;');
 })(window, document);
