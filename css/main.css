@@ -104,8 +104,8 @@ html {
   z-index: 1;
 }
 
-.lines ~ #overlay,
-.lines.main::before {
+.bg-lines ~ #overlay,
+.bg-lines.main::before {
   background: var(--bg) var(--size) var(--repeat), repeating-linear-gradient(transparent 0, transparent 11px, transparent 11px, var(--color3) 12px) 0 0 fixed, repeating-linear-gradient(90deg, transparent 0, transparent 11px, transparent 11px, var(--color3) 12px) 0 0 fixed, var(--color2);
 }
 
@@ -436,7 +436,7 @@ html {
   font-family: system-ui, -apple-system, 'Segoe UI', 'Noto Sans', Roboto, 'Helvetica Neue', 'Liberation Sans', Arial, sans-serif;
 }
 
-.cute-mode .cute img,
+.mode-cute .cute img,
 .e .movable:nth-child(1),
 .e .movable:nth-child(2),
 .e .movable:nth-child(3),
@@ -458,36 +458,36 @@ html {
   clip-path: none;
 }
 
-.cute-mode {
+.mode-cute {
   cursor: url(dcursor.cur?v=1), auto;
 }
 
-.cute-mode h1,
-.cute-mode #content button,
-.cute-mode input[type='button'],
-.cute-mode input[type='reset'],
-.cute-mode input[type='file']::file-selector-button,
-.cute-mode #esound {
+.mode-cute h1,
+.mode-cute #content button,
+.mode-cute input[type='button'],
+.mode-cute input[type='reset'],
+.mode-cute input[type='file']::file-selector-button,
+.mode-cute #esound {
   background-image: linear-gradient(45deg, #7771 0, #7771 50%, #fff1 50%) !important;
   box-shadow: 0 0 1px 1px var(--color2) inset;
 }
 
-.cute-mode #content button,
-.cute-mode input,
-.cute-mode input[type='file']::file-selector-button,
-.cute-mode label::before,
-.cute-mode input[type='checkbox'] {
+.mode-cute #content button,
+.mode-cute input,
+.mode-cute input[type='file']::file-selector-button,
+.mode-cute label::before,
+.mode-cute input[type='checkbox'] {
   border-radius: 7px !important;
 }
 
-.cute-mode h1,
-.cute-mode label,
-.cute-mode img,
-.cute-mode ::before,
-.cute-mode .svg-holder,
-.cute-mode a,
-.cute-mode button,
-.cute-mode input,
+.mode-cute h1,
+.mode-cute label,
+.mode-cute img,
+.mode-cute ::before,
+.mode-cute .svg-holder,
+.mode-cute a,
+.mode-cute button,
+.mode-cute input,
 input[type='file']::file-selector-button {
   cursor: url(cursor.cur?v=1), pointer !important;
 }
@@ -589,21 +589,21 @@ a {
   color: var(--color4);
 }
 
-.numbering-mode .main {
+.mode-numbering-mode .main {
   counter-reset: section;
 }
 
-.numbering-mode .links a::before {
+.mode-numbering-mode .links a::before {
   counter-increment: section;
   content: counter(section, decimal-leading-zero) '. ';
   color: var(--color3);
 }
 
-.numbering-mode .links a {
+.mode-numbering-mode .links a {
   padding: 0 4px;
 }
 
-.popup-mode h1 {
+.mode-popup h1 {
   cursor: pointer;
 }
 

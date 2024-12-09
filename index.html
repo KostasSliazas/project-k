@@ -24,7 +24,7 @@
   <body>
     <div id="loader">Loading...</div>
     <div id="content" style="visibility: hidden">
-      <main class="main lines" id="main">
+      <main class="main bg-lines" id="main">
 
         <div class="movable scroll mw96 pop">
           <h1>Programming</h1>
@@ -148,23 +148,23 @@
             <fieldset id="modes" class="forms">
               <legend>Modes:</legend>
               <div class="checkbox">
-                <input type="checkbox" id="numbering-mode">
-                <label for="numbering-mode" title="Add numbering to the links">Numbering</label>
+                <input type="checkbox" id="mode-numbering">
+                <label for="mode-numbering" title="Add numbering to the links">Numbering</label>
               </div>
 
               <div class="checkbox">
-                <input type="checkbox" id="day-night">
-                <label for="day-night" title="Automatically change to a random night theme after 19:00">Day/Night</label>
+                <input type="checkbox" id="mode-night">
+                <label for="mode-night" title="Automatically change to a random night theme after 19:00">Day/Night</label>
               </div>
 
               <div class="checkbox">
-                <input type="checkbox" id="popup-mode">
-                <label for="popup-mode" title="Show only the clicked element when its title is clicked">Popup</label>
+                <input type="checkbox" id="mode-popup">
+                <label for="mode-popup" title="Show only the clicked element when its title is clicked">Popup</label>
               </div>
 
               <div class="checkbox">
-                <input type="checkbox" id="cute-mode">
-                <label for="cute-mode" title="Display a cute custom cursor and make the corners rounded">Cute</label>
+                <input type="checkbox" id="mode-cute">
+                <label for="mode-cute" title="Display a cute custom cursor and make the corners rounded">Cute</label>
               </div>
 
             </fieldset>
@@ -215,18 +215,18 @@
               </div>
 
               <div class="checkbox">
-                <input type="checkbox" id="repeat-toggle">
-                <label for="repeat-toggle">Repeated</label>
+                <input id="bg-repeat" type="checkbox">
+                <label for="bg-repeat">Repeated</label>
               </div>
 
               <div class="checkbox">
-                <input id="enabled-bg" type="checkbox">
-                <label for="enabled-bg">Default</label>
+                <input id="bg-image" type="checkbox">
+                <label for="bg-image">Default</label>
               </div>
 
               <div class="checkbox">
-                <input id="bg-toggle" type="checkbox">
-                <label for="bg-toggle">Lines</label>
+                <input id="bg-lines" type="checkbox">
+                <label for="bg-lines">Lines</label>
               </div>
 
             </fieldset>

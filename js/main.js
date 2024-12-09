@@ -116,8 +116,8 @@
      */
     keys() {
       return Object.keys(w.localStorage) // Object.keys should return an array of strings
-        .filter(key => key.startsWith(`${this.namespace}:url`))
-        .map(key => key.replace(`${this.namespace}:url`, ''));
+        .filter(key => key.startsWith(`${this.namespace}`))
+        .map(key => key.replace(`${this.namespace}`, ''));
     },
 
     /**
@@ -125,22 +125,22 @@
      * @param {string} key - The key of the stored value.
      * @param {*} value - The value to append or merge.
      */
-    appendItem(key, value) {
-      const existingValue = this.getItem(key);
-
-      if (Array.isArray(existingValue)) {
-        // Append to array
-        existingValue.push(value);
-        this.setItem(key, existingValue);
-      } else if (existingValue && typeof existingValue === 'object') {
-        // Merge into object
-        this.setItem(key, { ...existingValue, ...value });
-      } else {
-        // Create a new array or object
-        const newValue = Array.isArray(value) ? value : [value];
-        this.setItem(key, newValue);
-      }
-    },
+    // appendItem(key, value) {
+    //   const existingValue = this.getItem(key);
+    //
+    //   if (Array.isArray(existingValue)) {
+    //     // Append to array
+    //     existingValue.push(value);
+    //     this.setItem(key, existingValue);
+    //   } else if (existingValue && typeof existingValue === 'object') {
+    //     // Merge into object
+    //     this.setItem(key, { ...existingValue, ...value });
+    //   } else {
+    //     // Create a new array or object
+    //     const newValue = Array.isArray(value) ? value : [value];
+    //     this.setItem(key, newValue);
+    //   }
+    // },
     /**
      * Removes an item from an array stored under the given key by index.
      * @param {string} key - The key of the stored array.
@@ -162,15 +162,6 @@
    */
 
   const version = 7;
-  const storageVersion = StorageNamespace.getItem('version');
-
-  if (version !== storageVersion) {
-    StorageNamespace.clear();
-    StorageNamespace.setItem('version', version);
-    //reload versions
-    w.location.reload(); // This reloads the page after your actions
-  }
-
   const negativeOrPositive = number => (number > 0 ? `+${number}` : `${number}`);
   const main = d.getElementById('main');
   const overlay = d.getElementById('overlay');
@@ -654,7 +645,7 @@
     if (index) root.className = classNameVariables[index];
     else root.className = 'default';
 
-    if (d.getElementById('enabled-bg').checked === true) {
+    if (d.getElementById('bg-image').checked === true) {
       root.classList.add('bg-image');
     } else {
       root.classList.remove('bg-image');
@@ -944,45 +935,22 @@
   // set Counter global variable
   const timers = new Counter();
 
+function toggleClassFromStorage(storageKey, element) {
+    const isChecked = StorageNamespace.getItem(storageKey);
+    setCheckboxChecked(storageKey, isChecked);
+    element.classList.toggle(storageKey, isChecked);
+    return isChecked;  // Return the value of the storage key
+}
+
   async function init() {
-    // d.addEventListener('mousemove', handleMousemove);
-    const isCheckedLines = StorageNamespace.getItem('theme-lines');
-    const isCheckedBg = StorageNamespace.getItem('theme-bg');
-    const isRepeatingBg = StorageNamespace.getItem('bg-repeat');
-    // remove lines if set to false in local storage by default show them
-    setCheckboxChecked('bg-toggle', isCheckedLines);
-    main.classList.toggle('lines', isCheckedLines);
-
-    // remove default bg by default true
-    setCheckboxChecked('enabled-bg', isCheckedBg);
-    root.classList.toggle('bg-image', isCheckedBg);
-
-    // remove default repeating
-    setCheckboxChecked('repeat-toggle', isRepeatingBg);
-    main.classList.toggle('bg-repeat', isRepeatingBg);
-
-    // cute mode
-    const cuteMode = StorageNamespace.getItem('cute-mode');
-    setCheckboxChecked('cute-mode', cuteMode);
-    d.body.classList.toggle('cute-mode', cuteMode);
-
-    // popup mode
-    const popupMode = StorageNamespace.getItem('popup-mode');
-    setCheckboxChecked('popup-mode', popupMode);
-    d.body.classList.toggle('popup-mode', popupMode);
-
-    // numbering mode
-    const numberingMode = StorageNamespace.getItem('numbering-mode');
-    setCheckboxChecked('numbering-mode', numberingMode);
-    d.body.classList.toggle('numbering-mode', numberingMode);
-
-    // day night mode
-    const dayNight = StorageNamespace.getItem('day-night');
-    setCheckboxChecked('day-night', dayNight);
-    d.body.classList.toggle('day-night', dayNight);
-    if (dayNight) {
-      doAfter19h(performNightThemeChange);
-    }
+// lines background
+toggleClassFromStorage('bg-lines', main);
+toggleClassFromStorage('bg-image', root);
+toggleClassFromStorage('bg-repeat', main);
+toggleClassFromStorage('mode-cute', d.body);
+toggleClassFromStorage('mode-popup', d.body);
+toggleClassFromStorage('mode-numbering', d.body);
+if(toggleClassFromStorage('mode-night', d.body))doAfter19h(performNightThemeChange);
 
     // set remembered last counter seconds
     timers.counterTime.textContent = addLeadingZero(timers.totalSeconds());
@@ -997,9 +965,17 @@
     await applyStyles(false);
     await loopElem();
     //try to center element for first time load
-    if (StorageNamespace.keys().length === 0) {
-      centerElements();
-    }
+    //console.log(StorageNamespace.keys());
+
+  const storageVersion = StorageNamespace.getItem('version');
+  if (version !== storageVersion) {
+    StorageNamespace.clear();
+    StorageNamespace.setItem('version', version);
+    centerElements();
+    //reload versions
+    w.location.reload(); // This reloads the page after your actions
+  }
+
     const locking = isLockig();
     // codeDivElms.forEach(e => {
     const codeDivElmsLength = codeDivElms.length;
@@ -1077,7 +1053,7 @@
   }
 
   function styleRoot() {
-    const styleItems = ['bg-theme', 'custom-theme'];
+    const styleItems = ['bg-image', 'custom-theme'];
     const arrayOfItems = styleItems
       .map(item => StorageNamespace.getItem(item))
       .filter(Boolean)
@@ -1108,7 +1084,7 @@
     const clickedElement = e.target;
     const target = clickedElement.id;
 
-    if (clickedElement.tagName == 'H1' && d.body.classList.contains('popup-mode')) {
+    if (clickedElement.tagName == 'H1' && d.body.classList.contains('mode-popup')) {
       overlay.classList.toggle('hide', !overlay.classList.contains('hide'));
     }
 
@@ -1156,7 +1132,7 @@
     }
     if (target === 'controls-hide') moves.classList.add('hide');
 
-    if (target === 'custom-theme' || target === 'bg-toggle' || target === 'reset-all' || target === 'bg-theme') {
+    if (target === 'custom-theme' || target === 'bg-toggle' || target === 'reset-all' || target === 'bg-image') {
       e.target.removeAttribute('style');
       StorageNamespace.removeItem(target);
       styleRoot();
@@ -1172,18 +1148,19 @@
       applyStyles(true);
     }
     // set att once theme lines class and item of localStorage
-    if (target === 'bg-toggle') {
-      if (!main.classList.contains('lines') && e.target.checked) {
-        StorageNamespace.setItem('theme-lines', true);
-        main.classList.add('lines');
+    const bgLines = 'bg-lines';
+    if (target === bgLines) {
+      if (!main.classList.contains('bgLines') && e.target.checked) {
+        StorageNamespace.setItem(bgLines, true);
+        main.classList.add(bgLines);
       } else {
-        StorageNamespace.setItem('theme-lines', false);
-        main.classList.remove('lines');
+        StorageNamespace.setItem(bgLines, false);
+        main.classList.remove(bgLines);
       }
     }
 
     // set cuteMode  theme lines class and item of localStorage
-    const cuteMode = 'cute-mode';
+    const cuteMode = 'mode-cute';
     if (target === cuteMode) {
       if (!main.classList.contains(cuteMode) && e.target.checked) {
         StorageNamespace.setItem(cuteMode, true);
@@ -1194,8 +1171,8 @@
       }
     }
 
-    // set popup-mode
-    const popupMode = 'popup-mode';
+    // set mode-popup
+    const popupMode = 'mode-popup';
     if (target === popupMode) {
       if (!main.classList.contains(popupMode) && e.target.checked) {
         StorageNamespace.setItem(popupMode, true);
@@ -1206,8 +1183,8 @@
       }
     }
 
-    // set day-night mode
-    const numberingMode = 'numbering-mode';
+    // set mode-night mode
+    const numberingMode = 'mode-numbering';
     if (target === numberingMode) {
       if (!main.classList.contains(numberingMode) && e.target.checked) {
         StorageNamespace.setItem(numberingMode, true);
@@ -1218,8 +1195,8 @@
       }
     }
 
-    // set day-night mode
-    const dayNight = 'day-night';
+    // set mode-night mode
+    const dayNight = 'mode-night';
     if (target === dayNight) {
       if (!main.classList.contains(dayNight) && e.target.checked) {
         StorageNamespace.setItem(dayNight, true);
@@ -1231,8 +1208,8 @@
       }
     }
 
-    if (target === 'enabled-bg') {
-      const repeatBg = d.getElementById('repeat-toggle');
+    if (target === 'bg-image') {
+      const repeatBg = d.getElementById('bg-repeat');
       if (!root.classList.contains('bg-image') && e.target.checked) {
         StorageNamespace.setItem('theme-bg', true);
         root.classList.add('bg-image');
@@ -1245,8 +1222,8 @@
         StorageNamespace.setItem('theme-bg', false);
       }
     }
-    if (target === 'repeat-toggle') {
-      const bg = d.getElementById('enabled-bg');
+    if (target === 'bg-repeat') {
+      const bg = d.getElementById('bg-image');
       if (!main.classList.contains('bg-repeat') && e.target.checked) {
         bg.checked = true;
         StorageNamespace.setItem('bg-repeat', true);
@@ -1262,7 +1239,7 @@
       }
     }
     if (target === 'custom-theme') setColors();
-    if (target === 'bg-theme') bg.value = '';
+    if (target === 'bg-image') bg.value = '';
 
     // only for locking system
     if (target === 'lock') {
@@ -1334,7 +1311,7 @@
       async () => {
         const fileString = `--bg:url(${reader.result})`;
         await delay(200);
-        StorageNamespace.setItem('bg-theme', fileString);
+        StorageNamespace.setItem('bg-image', fileString);
         styleRoot();
       },
       false
@@ -1379,7 +1356,7 @@
     if (targetClass) {
       state.target.classList.remove('mousedown');
       root.classList.remove('hmove');
-      if (!d.getElementById('bg-toggle').checked) main.classList.remove('lines');
+      //if (!d.getElementById('bg-toggle').checked) main.classList.remove('lines');
       StorageNamespace.setItem('elementStyles', getStyles());
     }
 
