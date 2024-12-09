@@ -1211,7 +1211,7 @@ if(toggleClassFromStorage('mode-night', d.body))doAfter19h(performNightThemeChan
     if (target === 'bg-image') {
       const repeatBg = d.getElementById('bg-repeat');
       if (!root.classList.contains('bg-image') && e.target.checked) {
-        StorageNamespace.setItem('theme-bg', true);
+        StorageNamespace.setItem('bg-image', true);
         root.classList.add('bg-image');
       } else {
         repeatBg.checked = false;
@@ -1219,7 +1219,7 @@ if(toggleClassFromStorage('mode-night', d.body))doAfter19h(performNightThemeChan
         StorageNamespace.setItem('bg-repeat', false);
 
         root.classList.remove('bg-image');
-        StorageNamespace.setItem('theme-bg', false);
+        StorageNamespace.setItem('bg-image', false);
       }
     }
     if (target === 'bg-repeat') {
@@ -1228,7 +1228,7 @@ if(toggleClassFromStorage('mode-night', d.body))doAfter19h(performNightThemeChan
         bg.checked = true;
         StorageNamespace.setItem('bg-repeat', true);
         main.classList.add('bg-repeat');
-        StorageNamespace.setItem('theme-bg', true);
+        StorageNamespace.setItem('bg-image', true);
         root.classList.add('bg-image');
       } else {
         // bg.checked = false
