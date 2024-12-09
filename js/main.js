@@ -397,7 +397,7 @@
               if (state.moving) {
                 state.target.classList.add('mousedown');
                 root.classList.add('hmove'); //higlight moving
-                main.classList.add('lines'); //higlight moving
+                main.classList.add('bg-lines'); //higlight moving
               }
 
               clickTimeout = null;
@@ -1356,7 +1356,7 @@ if(toggleClassFromStorage('mode-night', d.body))doAfter19h(performNightThemeChan
     if (targetClass) {
       state.target.classList.remove('mousedown');
       root.classList.remove('hmove');
-      //if (!d.getElementById('bg-toggle').checked) main.classList.remove('lines');
+      if (!d.getElementById('bg-lines').checked) main.classList.remove('bg-lines');
       StorageNamespace.setItem('elementStyles', getStyles());
     }
 
