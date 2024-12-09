@@ -589,17 +589,17 @@ a {
   color: var(--color4);
 }
 
-.mode-numbering-mode .main {
+.mode-numbering .main {
   counter-reset: section;
 }
 
-.mode-numbering-mode .links a::before {
+.mode-numbering .links a::before {
   counter-increment: section;
   content: counter(section, decimal-leading-zero) '. ';
   color: var(--color3);
 }
 
-.mode-numbering-mode .links a {
+.mode-numbering .links a {
   padding: 0 4px;
 }
 
