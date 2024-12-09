@@ -11,6 +11,7 @@
  * @param {Document} d - The document object.
  */
 (function (w, d) {
+  'use strict';
   /**
    * Utility for managing localStorage with namespacing.
    */
@@ -600,8 +601,15 @@
       // Ensure that json is an array before using the spread operator
       if (Array.isArray(json)) {
         const currentItems = StorageNamespace.getItem('url') || []; // Get existing items or initialize an empty array
-        currentItems.push(...json); // Append the new items to the existing ones
-        StorageNamespace.setItem('url', currentItems); // Store each item with a unique key
+                // Push items if the 'full' URL is not already in the currentItems array
+        json.forEach(item => {
+          const exists = currentItems.some(existingItem => existingItem.full === item.full);
+          if (!exists) {
+            currentItems.push(item); // Append the new unique item
+          }
+        });
+        StorageNamespace.setItem('url', currentItems); // Store the updated list
+        counterObject.array = currentItems;
       } else {
         console.warn('Parsed JSON is not an array:', json);
         // Handle the case when json is not an array, if needed.
