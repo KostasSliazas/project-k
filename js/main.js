@@ -7,6 +7,40 @@
 (function (w, d) {
   'use strict';
   /**
+   * Global error handler for uncaught runtime errors.
+   *
+   * @param {string | Event} message - The error message or event object.
+   * @param {string} [source] - The URL of the script where the error occurred (if applicable).
+   * @param {number} [lineno] - The line number in the script where the error occurred (if applicable).
+   * @param {number} [colno] - The column number in the script where the error occurred (if applicable).
+   * @param {Error} [error] - The actual Error object associated with the error (if available).
+   */
+  w.onerror = (message, source, lineno, colno, error) => {
+    console.error('Critical error detected:', message);
+    console.error('Source:', source, 'Line:', lineno, 'Column:', colno, 'Error object:', error);
+
+    alert('A critical error occurred. The page will stop working.');
+
+    // Prevent further execution by throwing a critical error
+    throw new Error('Stopping execution due to critical failure.');
+  };
+
+  /**
+   * Document-level error handler for resource loading errors.
+   *
+   * Listens for errors on resource elements like <img>, <script>, and <link>.
+   *
+   * @param {Event} event - The error event object associated with the failed resource loading.
+   */
+  // d.addEventListener(
+  //   'error',
+  //   event => {
+  //     console.error('Resource error detected:', event);
+  //     alert('A resource failed to load.');
+  //   },
+  //   true // Use capture phase to catch resource errors at the document level
+  // );
+  /**
    * Utility for managing localStorage with namespacing.
    */
   const StorageNamespace = {
@@ -1608,39 +1642,4 @@ if(toggleClassFromStorage('mode-night', d.body))doAfter19h(performNightThemeChan
   }
 
   console.log('%c🐾Welcome to the Cuddle Zone of Coding!🐾\n%cKeep your coding paws steady and have fun!', 'font-size: 20px; background-color: #f7f7f7; color: #000000; padding: 0 4px; border-radius: 5px;', 'font-size: 16px; background-color: #e0e6ed; color: #000000; padding: 0 4px; border-radius: 5px;');
-
-    /**
-   * Global error handler for uncaught runtime errors.
-   *
-   * @param {string | Event} message - The error message or event object.
-   * @param {string} [source] - The URL of the script where the error occurred (if applicable).
-   * @param {number} [lineno] - The line number in the script where the error occurred (if applicable).
-   * @param {number} [colno] - The column number in the script where the error occurred (if applicable).
-   * @param {Error} [error] - The actual Error object associated with the error (if available).
-   */
-  w.onerror = (message, source, lineno, colno, error) => {
-    console.error('Critical error detected:', message);
-    console.error('Source:', source, 'Line:', lineno, 'Column:', colno, 'Error object:', error);
-
-    alert('A critical error occurred. The page will stop working.');
-
-    // Prevent further execution by throwing a critical error
-    throw new Error('Stopping execution due to critical failure.');
-  };
-
-  /**
-   * Document-level error handler for resource loading errors.
-   *
-   * Listens for errors on resource elements like <img>, <script>, and <link>.
-   *
-   * @param {Event} event - The error event object associated with the failed resource loading.
-   */
-  // d.addEventListener(
-  //   'error',
-  //   event => {
-  //     console.error('Resource error detected:', event);
-  //     alert('A resource failed to load.');
-  //   },
-  //   true // Use capture phase to catch resource errors at the document level
-  // );
 })(window, document);
