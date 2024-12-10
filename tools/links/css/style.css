@@ -228,24 +228,24 @@ button:hover {
   grid-template-columns: repeat(auto-fit, minmax(144px, 1fr));
 }
 
-#output a img {
-  height: 100%;
+.link img {
+  height: 90px;
   position: absolute;
-  top: 0;
+  bottom: 0;
   left: 0;
   object-fit: scale-down;
   object-position: bottom;
 }
 
 #output .urls,
-#output a img,
-a.link {
+.link img,
+.link {
   width: 100%;
   overflow: hidden;
 }
 
 .export-import,
-a.link {
+.link {
   flex-direction: column;
   display: flex;
 }
@@ -256,21 +256,21 @@ a.link {
   padding: 3em 1em;
 }
 
-a.link {
+.link {
+  display: flex;
   border-radius: var(--radius);
   align-items: center;
   text-decoration: none;
   word-break: break-word;
   max-width: 256px;
-  height: 6em;
+  height: 96px;
   margin: auto;
-  place-content: space-between;
   position: relative;
-  border: 1px solid var(--color-3);
+  box-shadow: 0 0 0 1px var(--color-3);
 }
 
 #output a:hover {
-  border: 1px solid var(--color-4);
+  box-shadow: 0 0 0 1px var(--color-4);
 }
 #output a:hover .types,
 #output a:hover .texts {
@@ -283,9 +283,9 @@ a.link {
   font-weight: 700;
   border-bottom: 1px solid var(--color-3);
   height: 2em;
-  box-sizing: border-box;
   line-height: 2;
   font-size: 0.75em;
+  background: var(--color-1);
 }
 
 #export {
