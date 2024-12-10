@@ -24,18 +24,15 @@
       <label for="site-search">search:</label>
       <input type="search" id="site-search" aria-label="Search through site content" placeholder="Search...">
     </div>
-
     <button id="copy-links">Export/Import links</button>
     <div id="export-div" style="display: none;" class="bg">
       <h1>Import/Export LocalStorage</h1>
       <button class="close" id="exit">×</button>
       <div class="export-import">
-
         <div>Import
           <label for="file-input">links</label>
-          <input type="file" id="file-input" />
+          <input type="file" id="file-input">
         </div>
-
         <div>Export links
           <button id="export-json">JSON file</button>
           <label for="filter">with search filter</label>
@@ -43,7 +40,6 @@
         </div>
       </div>
     </div>
-
     <button id="open">Add links +</button>
     <div id="links" style="display: none;" class="bg">
       <h1>Add links to LocalStorage</h1>
@@ -79,6 +75,10 @@
           </div>
           <div id="choices"></div>
         </div>
+        <div id="image" title="Small image">
+          <input id="images" type="file">
+          <label for="images">Image</label>
+        </div>
         <label for="urls">URL
           <input id="urls" type="text" placeholder="URL" value="" required></label>
         <label for="additions">Text
@@ -89,7 +89,7 @@
     <main id="wrap" class="bg">
       <div id="output"></div>
     </main>
-    <script src="./js/links.min.js"></script>
+    <script src="js/links.min.js"></script>
   </body>
 
 </html>
