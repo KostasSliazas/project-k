@@ -237,8 +237,8 @@ button:hover {
   object-position: bottom;
 }
 
-#output .urls,
 .link img,
+.urls,
 .link {
   width: 100%;
   overflow: hidden;
@@ -252,6 +252,7 @@ button:hover {
 
 .export-import {
   gap: 1em;
+  color: var(--color-4);
   white-space: nowrap;
   padding: 3em 1em;
 }
