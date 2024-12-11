@@ -54,7 +54,7 @@
       type: ['optimizing', 'devtools'],
     },
     {
-      text: 'rresistor-calculator',
+      text: 'resistor-calculator',
       url: 'kostassliazas.github.io',
       full: 'https://kostassliazas.github.io/project-k/tools/resistor-calculator/index.html',
       image:
