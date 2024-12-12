@@ -53,11 +53,11 @@ table {
 }
 
 :root {
-  --color0: #1a1d20;
-  --color1: #35383b;
-  --color2: #222629;
-  --color3: #424b54;
-  --color4: #7fadde;
+  --color0: #fffff7;
+  --color1: #f7fafc;
+  --color2: #dee7ee;
+  --color3: #809cb2;
+  --color4: #3d464d;
   --bg: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQIW2NgAAIAAAUAAR4f7BQAAAAASUVORK5CYII=);
   --repeat: no-repeat;
   --size: center/cover;
