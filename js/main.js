@@ -167,7 +167,6 @@
   const overlay = d.getElementById('overlay');
   const hide = elem => elem.classList.add('hide');
   const show = elem => elem.classList.remove('hide');
-  let isLocked = StorageNamespace.getItem('isLocked');
 
   // Generate a random integer between min (inclusive) and max (exclusive)
   const getRandomInRange = (min, max) => Math.floor(Math.random() * (max - min)) + min;
@@ -194,7 +193,7 @@
     link.rel = 'icon';
     link.type = 'image/x-icon';
 
-    if (isLocked) {
+    if (StorageNamespace.getItem('isLocked')) {
       d.title = 'New Tab'; // change title (document)
       d.getElementById('loader').style.display = 'none'; // Hide the loader
       link.href = emtyIcon;
@@ -935,22 +934,22 @@
   // set Counter global variable
   const timers = new Counter();
 
-function toggleClassFromStorage(storageKey, element) {
+  function toggleClassFromStorage(storageKey, element) {
     const isChecked = StorageNamespace.getItem(storageKey);
     setCheckboxChecked(storageKey, isChecked);
     element.classList.toggle(storageKey, isChecked);
-    return isChecked;  // Return the value of the storage key
-}
+    return isChecked; // Return the value of the storage key
+  }
 
   async function init() {
-// lines background
-toggleClassFromStorage('bg-lines', main);
-toggleClassFromStorage('bg-image', root);
-toggleClassFromStorage('bg-repeat', main);
-toggleClassFromStorage('mode-cute', d.body);
-toggleClassFromStorage('mode-popup', d.body);
-toggleClassFromStorage('mode-numbering', d.body);
-if(toggleClassFromStorage('mode-night', d.body))doAfter19h(performNightThemeChange);
+    // lines background
+    toggleClassFromStorage('bg-lines', main);
+    toggleClassFromStorage('bg-image', root);
+    toggleClassFromStorage('bg-repeat', main);
+    toggleClassFromStorage('mode-cute', d.body);
+    toggleClassFromStorage('mode-popup', d.body);
+    toggleClassFromStorage('mode-numbering', d.body);
+    if (toggleClassFromStorage('mode-night', d.body)) doAfter19h(performNightThemeChange);
 
     // set remembered last counter seconds
     timers.counterTime.textContent = addLeadingZero(timers.totalSeconds());
@@ -967,16 +966,16 @@ if(toggleClassFromStorage('mode-night', d.body))doAfter19h(performNightThemeChan
     //try to center element for first time load
     //console.log(StorageNamespace.keys());
 
-  const storageVersion = StorageNamespace.getItem('version');
-  if (version !== storageVersion) {
-    StorageNamespace.clear();
-    StorageNamespace.setItem('version', version);
-    centerElements();
-    //reload versions
-    w.location.reload(); // This reloads the page after your actions
-  }
+    const storageVersion = StorageNamespace.getItem('version');
+    if (version !== storageVersion) {
+      StorageNamespace.clear();
+      StorageNamespace.setItem('version', version);
+      centerElements();
+      //reload versions
+      w.location.reload(); // This reloads the page after your actions
+    }
 
-    const locking = isLockig();
+    const isLocked = StorageNamespace.getItem('isLocked');
     // codeDivElms.forEach(e => {
     const codeDivElmsLength = codeDivElms.length;
     for (let i = 0; i < codeDivElmsLength; i++) {
@@ -985,12 +984,12 @@ if(toggleClassFromStorage('mode-night', d.body))doAfter19h(performNightThemeChan
           e.stopPropagation(); //prevent from parent clicks
           typed.push(codeDivElms.indexOf(e.target));
           if (isEnterPass === false && typed.length === saved.length && typed.every((v, i) => v === saved[i])) {
-            StorageNamespace.setItem('isLocked', (isLocked = false));
+            StorageNamespace.setItem('isLocked', false);
 
             d.title = documentTitle;
             hide(codeDiv);
             show(main);
-            locking();
+            isLockig();
             // d.removeEventListener('mousemove', lockerMouseMovments);
           }
         };
@@ -1243,7 +1242,7 @@ if(toggleClassFromStorage('mode-night', d.body))doAfter19h(performNightThemeChan
 
     // only for locking system
     if (target === 'lock') {
-      StorageNamespace.setItem('isLocked', (isLocked = true));
+      StorageNamespace.setItem('isLocked', true);
       hide(main);
       d.title = 'New Tab';
       counts.clicks = 0;
