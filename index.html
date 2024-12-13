@@ -17,14 +17,14 @@
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico?">
     <link rel="mask-icon" href="safari-pinned-tab.svg?v=7" color="#5bbad5">
     <link rel="manifest" href="site.webmanifest?v=7">
-    <script defer src="js/main.min.v7.js?v=7"></script>
     <script defer src="js/gall7.min.v7.js?v=7"></script>
+    <script defer src="js/main.min.v7.js?v=7"></script>
   </head>
 
   <body>
     <div id="loader">Loading...</div>
     <div id="content" style="visibility: hidden">
-      <main class="main bg-lines" id="main">
+      <main class="main" id="main">
 
         <div class="movable scroll mw96 pop">
           <h1>Programming</h1>
@@ -302,7 +302,7 @@
               <div class="counter timers">
                 <label for="seconds" title="Set seconds">Seconds</label>
                 <button>—</button><button>+</button>
-                <input type="number" id="seconds" min="00" max="60" value="57">
+                <input type="number" id="seconds" min="00" max="60" value="01">
               </div>
             </fieldset>
           </div>
@@ -311,6 +311,7 @@
         <div class="movable scroll mw96" title="Right click to copy">
           <h1>linux commands</h1>
           <div class="oxs">
+            <p title="Image list command to generate HTML tags with alt attributes">find . -type f \( -iname &quot;*.jpg&quot; -o -iname &quot;*.png&quot; -o -iname &quot;*.gif&quot; -o -iname &quot;*.jpeg&quot; -o -iname &quot;*.webp&quot; -o -iname &quot;*.svg&quot; \) | sed 's|^\./|./photos/|' | awk -F'/' '{filename=$NF; gsub(/\.[^\.]+$/, &quot;&quot;, filename); print &quot;&lt;img src=\&quot;&quot; $0 &quot;\&quot; alt=\&quot;&quot; filename &quot;\&quot;&gt;&quot;}' &gt; file.txt</p>
             <p title="Create a video from a single image and audio">ffmpeg -loop 1 -i f.png -i f.mp3 -c:v libx264 -tune stillimage -c:a aac -b:a 192k -pix_fmt yuv420p -shortest out.mp4</p>
             <p title="Convert PNG files to opaque images with white background">find . -name "*.png" -exec convert "{}" -fill white "{}" -opaque transparent "{}" -alpha off "{}" \;</p>
             <p title="Download files from the internet">wget https://codeload.github.com/KostasSliazas/template-html.io/zip/refs/tags/1.0</p>
