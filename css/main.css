@@ -548,8 +548,23 @@ p {
 p {
   padding: 0 4px;
   place-self: start;
+  position: relative;
 }
 
+p::after {
+  content: attr(title);
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: var(--color3);
+  display: inline-block;
+  color: var(--color0);
+  visibility: hidden;
+  transition: 0.2s 0.2s;
+}
+p:hover::after {
+  visibility: visible;
+}
 h1,
 h2,
 h3 {
@@ -927,6 +942,9 @@ a {
 }
 .w100 {
   min-width: 100%;
+}
+.oxs {
+  max-width: 960px;
 }
 .oxs i:nth-child(even),
 .oxs p {
