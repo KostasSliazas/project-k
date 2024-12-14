@@ -565,6 +565,9 @@ p::after {
 p:hover::after {
   visibility: visible;
 }
+p:hover {
+  background: var(--color2);
+}
 h1,
 h2,
 h3 {
