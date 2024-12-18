@@ -95,7 +95,7 @@ html {
 }
 
 #overlay {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
@@ -106,7 +106,7 @@ html {
 
 .bg-lines ~ #overlay,
 .bg-lines.main::before {
-  background: var(--bg) var(--size) var(--repeat), repeating-linear-gradient(transparent 0, transparent 11px, transparent 11px, var(--color3) 12px) 0 0 fixed, repeating-linear-gradient(90deg, transparent 0, transparent 11px, transparent 11px, var(--color3) 12px) 0 0 fixed, var(--color2);
+  background: var(--bg) var(--size) var(--repeat), repeating-linear-gradient(transparent 0, transparent 11px, transparent 11px, var(--color3) 12px) 0 0 scroll, repeating-linear-gradient(90deg, transparent 0, transparent 11px, transparent 11px, var(--color3) 12px) 0 0 fixed, var(--color2);
 }
 
 .bg-image {
@@ -132,7 +132,7 @@ html {
   left: 0;
   height: 100%;
   width: 100%;
-  position: fixed;
+  position: absolute;
   display: block;
   background: var(--bg) var(--size) var(--repeat), var(--color2);
   background-blend-mode: var(--blend);
