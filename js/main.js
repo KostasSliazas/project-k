@@ -193,7 +193,7 @@
     link.rel = 'icon';
     link.type = 'image/x-icon';
 
-    if (StorageNamespace.getItem('isLocked')) {
+    if (StorageNamespace.getItem('is-locked')) {
       d.title = 'New Tab'; // change title (document)
       d.getElementById('loader').style.display = 'none'; // Hide the loader
       link.href = emtyIcon;
@@ -353,7 +353,7 @@
 
           if (e.target.classList.contains('movable')) {
             const index = movable.indexOf(e.target);
-            let arrayOfMinimized = [...(StorageNamespace.getItem('elementClass') || minimized)];
+            let arrayOfMinimized = [...(StorageNamespace.getItem('element-class') || minimized)];
             if (e.target.classList.contains('minimized')) {
               arrayOfMinimized = arrayOfMinimized.filter(c => c !== index);
               await e.target.classList.remove('minimized');
@@ -371,8 +371,8 @@
               e.target.classList.add('minimized');
               arrayOfMinimized.push(index);
             }
-            StorageNamespace.setItem('elementStyles', getStyles());
-            StorageNamespace.setItem('elementClass', arrayOfMinimized);
+            StorageNamespace.setItem('element-styles', getStyles());
+            StorageNamespace.setItem('element-class', arrayOfMinimized);
           }
         });
         e.addEventListener('mousedown', function (e) {
@@ -475,7 +475,7 @@
     // no data? return
     if (!response || !data) return false;
     // set data to storage
-    return StorageNamespace.setItem('statsData', data.hourly.temperature_2m);
+    return StorageNamespace.setItem('temperature', data.hourly.temperature_2m);
   }
 
   // round values replace for better showing stats
@@ -561,8 +561,8 @@
   }
 
   function applyStyles(defaults) {
-    const styles = StorageNamespace.getItem('elementStyles') || blockDefaults;
-    const minimizedElements = StorageNamespace.getItem('elementClass') || minimized;
+    const styles = StorageNamespace.getItem('element-styles') || blockDefaults;
+    const minimizedElements = StorageNamespace.getItem('element-class') || minimized;
 
     const getStyle = styles.split(',');
 
@@ -596,7 +596,7 @@
     const currentDate = Math.floor(new Date().getTime() / 1000);
 
     // Retrieve previous timestamp from localStorage
-    const previousTimeStamp = parseInt(StorageNamespace.getItem('timeStamp'));
+    const previousTimeStamp = parseInt(StorageNamespace.getItem('time-stamp'));
 
     // If timestamp exists and interval has not passed, return false
     if (!isNaN(previousTimeStamp) && currentDate - previousTimeStamp < interval) {
@@ -604,7 +604,7 @@
     }
 
     // Set new timestamp in localStorage
-    StorageNamespace.setItem('timeStamp', currentDate.toString());
+    StorageNamespace.setItem('time-stamp', currentDate.toString());
 
     // Return true to indicate that interval has passed
     return true;
@@ -662,7 +662,7 @@
     }
     // console.timeEnd();
     await delay(300);
-    StorageNamespace.setItem('elementStyles', getStyles());
+    StorageNamespace.setItem('element-styles', getStyles());
   };
 
   const moves = d.getElementById('moves');
@@ -728,7 +728,7 @@
   // Function to save all input values to localStorage
   const saveAllInputs = () => {
     const values = Array.from(counters, counter => getElem(counter).value);
-    StorageNamespace.setItem('K-InputValues', values.join(','));
+    StorageNamespace.setItem('input-values', values.join(','));
   };
 
   // Flag to prevent multiple saves during a short time
@@ -790,8 +790,8 @@
 
   // Retrieve input values from localStorage
   const values =
-    StorageNamespace.getItem('K-InputValues') &&
-    StorageNamespace.getItem('K-InputValues')
+    StorageNamespace.getItem('input-values') &&
+    StorageNamespace.getItem('input-values')
       .split(',')
       .map(Number => addLeadingZero(Number));
   // console.time()
@@ -960,22 +960,29 @@
     const documentTitle = d.title;
     textArea.value = StorageNamespace.getItem('textArea') || textAreaDefaults;
 
-    await hide(codeDiv);
-    await applyStyles(false);
-    await loopElem();
-    //try to center element for first time load
-    //console.log(StorageNamespace.keys());
-
     const storageVersion = StorageNamespace.getItem('version');
     if (version !== storageVersion) {
-      StorageNamespace.clear();
-      StorageNamespace.setItem('version', version);
-      centerElements();
+      await StorageNamespace.clear();
+      await StorageNamespace.setItem('version', version);
+
+      await root.removeAttribute('class');
+      await root.removeAttribute('style');
+      await textArea.removeAttribute('style');
+      await setColors();
+      await changerClass(0);
+      await applyStyles(true);
+      await loopElem();
+      await centerElements();
       //reload versions
-      w.location.reload(); // This reloads the page after your actions
+      // w.location.reload(); // This reloads the page after your actions
+    } else {
+      await applyStyles(false);
+      await loopElem();
     }
 
-    const isLocked = StorageNamespace.getItem('isLocked');
+    await hide(codeDiv);
+
+    const isLocked = StorageNamespace.getItem('is-locked');
     // codeDivElms.forEach(e => {
     const codeDivElmsLength = codeDivElms.length;
     for (let i = 0; i < codeDivElmsLength; i++) {
@@ -984,7 +991,7 @@
           e.stopPropagation(); //prevent from parent clicks
           typed.push(codeDivElms.indexOf(e.target));
           if (isEnterPass === false && typed.length === saved.length && typed.every((v, i) => v === saved[i])) {
-            StorageNamespace.setItem('isLocked', false);
+            StorageNamespace.setItem('is-locked', false);
 
             d.title = documentTitle;
             hide(codeDiv);
@@ -1019,7 +1026,8 @@
       await getAll(api_url);
     }
     // show the data to user
-    stats(StorageNamespace.getItem('statsData'));
+    stats(StorageNamespace.getItem('temperature'));
+    resizeElementToFullSize();
   }
 
   // const concat = (...arrays) => [].concat(...arrays.filter(Array.isArray));
@@ -1057,7 +1065,7 @@
       .map(item => StorageNamespace.getItem(item))
       .filter(Boolean)
       .flat();
-    d.documentElement.style.cssText = arrayOfItems.join(';');
+    root.style.cssText = arrayOfItems.join(';');
   }
 
   function contextMenuFun(e) {
@@ -1103,7 +1111,11 @@
     } else if (target === 'shutup' || (target === 'start' && timers.isCounting)) {
       timers.stop();
     }
-    if (target === 'reset') timers.reset();
+    if (target === 'reset') {
+      //remove from localStorage values (input-values)
+      StorageNamespace.removeItem('input-values');
+      timers.reset();
+    }
 
     if (e.target.tagName === 'BUTTON' && e.target.parentElement.classList.contains('counter')) {
       if (timers.isCounting) {
@@ -1145,6 +1157,8 @@
       setColors();
       changerClass(0);
       applyStyles(true);
+      // loopElem();
+      // centerElements();
     }
     // set att once theme lines class and item of localStorage
     const bgLines = 'bg-lines';
@@ -1242,7 +1256,7 @@
 
     // only for locking system
     if (target === 'lock') {
-      StorageNamespace.setItem('isLocked', true);
+      StorageNamespace.setItem('is-locked', true);
       hide(main);
       d.title = 'New Tab';
       counts.clicks = 0;
@@ -1265,7 +1279,7 @@
     if (target === 'pindiscard') {
       hide(codeDiv);
     }
-    const isLockedScreen = StorageNamespace.getItem('isLocked');
+    const isLockedScreen = StorageNamespace.getItem('is-locked');
     // count clicked
     counts.clicks++;
     if (e.target.className !== 'container' && counts.clicks > 2 && isLockedScreen) {
@@ -1342,6 +1356,7 @@
   }
 
   function mouseUpEvents(e) {
+    resizeElementToFullSize();
     state.moving = false;
 
     const eventTarget = e.target;
@@ -1356,7 +1371,7 @@
       state.target.classList.remove('mousedown');
       root.classList.remove('hmove');
       if (!d.getElementById('bg-lines').checked) main.classList.remove('bg-lines');
-      StorageNamespace.setItem('elementStyles', getStyles());
+      StorageNamespace.setItem('element-styles', getStyles());
     }
 
     try {
@@ -1364,7 +1379,7 @@
         const peScalingTarget = getPE(scalingTarget);
         scalingTarget.style.height = peScalingTarget.style.height = roundToTen(peScalingTarget.offsetHeight) + 'px';
         peScalingTarget.style.width = roundToTen(peScalingTarget.offsetWidth) + 'px';
-        StorageNamespace.setItem('elementStyles', getStyles());
+        StorageNamespace.setItem('element-styles', getStyles());
       }
     } catch (error) {
       w.console.log({
@@ -1433,7 +1448,7 @@
       const newLeft = currentLeft - leftmost + centerPosition;
       el.style.left = `${Math.floor(newLeft / 12) * 12}px`; // round more to left
     });
-    StorageNamespace.setItem('elementStyles', getStyles());
+    StorageNamespace.setItem('element-styles', getStyles());
   }
 
   function throttle(func, delay) {
@@ -1618,6 +1633,15 @@
       const timeUntil19h = new Date(now.setHours(19, 0, 0, 0)) - new Date();
       setTimeout(action, timeUntil19h); // Schedule the action for 19:00
     }
+  }
+
+  // Function to resize the element to match the full document size (including scrolled size)
+  function resizeElementToFullSize() {
+    // Get the full size of the viewport and document
+    const fullHeight = Math.max(w.innerHeight, root.scrollHeight);
+
+    // Set the element's height
+    main.style.height = `${fullHeight}px`;
   }
 
   if ('serviceWorker' in navigator) {

@@ -130,7 +130,8 @@ html {
   content: '';
   top: 0;
   left: 0;
-  height: 100%;
+  min-height: 100%;
+  height: inherit;
   width: 100%;
   position: absolute;
   display: block;
