@@ -561,6 +561,7 @@ p::after {
   color: var(--color0);
   visibility: hidden;
   transition: 0.2s 0.2s;
+  white-space: nowrap;
 }
 p:hover::after {
   visibility: visible;
