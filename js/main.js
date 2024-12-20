@@ -1335,7 +1335,7 @@
 
   const mouseMoves = e => {
     e.style.left = roundToTen(cursorPositions.x) + 'px';
-    e.style.top = roundToTen(cursorPositions.y) + 'px';
+    e.style.top = roundToTen(cursorPositions.y + root.scrollTop) + 'px';
   };
 
   const cursorPositions = {
@@ -1343,20 +1343,27 @@
     x: 0,
   };
 
-  function mouseMoveEvents(z) {
-    if (!state.moving || state.target === null || !state.target.classList.contains('movable')) return;
-    cursorPositions.x = z.clientX - 12;
-    cursorPositions.y = z.clientY - 12;
-    // check if height exceeded of main when moving element
-    if (main.offsetHeight < z.clientY + state.target.offsetHeight) {
-      w.scrollTo(0, cursorPositions.y);
-    }
+  function mouseMoveEvents(event) {
+    const { moving, target } = state;
+    const { x, y } = cursorPositions;
 
-    mouseMoves(state.target);
+    // Exit early if not moving or target is invalid or not 'movable'
+    if (!moving || !target || !target.classList.contains('movable')) return;
+
+    // Calculate the cursor position with an offset
+    cursorPositions.x = event.clientX - 12;
+    cursorPositions.y = event.clientY - 12;
+
+    // Update scroll position to keep the target element visible while moving
+    const targetBottom = cursorPositions.y;
+    root.scrollTo(cursorPositions.x, targetBottom);
+
+    // Trigger the actions related to moving the target and resizing
+    mouseMoves(target);
+    resizeElementToFullSize();
   }
 
   function mouseUpEvents(e) {
-    resizeElementToFullSize();
     state.moving = false;
 
     const eventTarget = e.target;
@@ -1637,6 +1644,9 @@
 
   // Function to resize the element to match the full document size (including scrolled size)
   function resizeElementToFullSize() {
+    // reset main style remove all styles
+    main.removeAttribute('style');
+
     // Get the full size of the viewport and document
     const fullHeight = Math.max(w.innerHeight, root.scrollHeight);
 
