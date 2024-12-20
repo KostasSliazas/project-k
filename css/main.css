@@ -67,7 +67,7 @@ table {
 html {
   font: 16px/1.5 kitten-corner, Calibri, Candara, Segoe, 'Segoe UI', Optima, Arial, sans-serif;
   color: var(--color4);
-  background: #ddd;
+  background: repeating-linear-gradient(-45deg, rgb(76, 76, 76) 0px, rgb(76, 76, 76) 9px, rgb(97, 97, 97) 9px, rgb(97, 97, 97) 18px) fixed;
 }
 
 #loader {
