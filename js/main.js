@@ -1310,9 +1310,13 @@
     }
   }
 
-  function dblclickFun(e) {
+  async function dblclickFun(e) {
     if (e.target === copy) e.target.textContent = '';
     //if (e.target.tagName === "TEXTAREA") e.target.value = "";
+    if (e.target.classList.contains('movable')) {
+      await delay(250);
+      resizeElementToFullSize();
+    }
   }
 
   function bgChange(e) {
@@ -1323,7 +1327,7 @@
       'load',
       async () => {
         const fileString = `--bg:url(${reader.result})`;
-        await delay(200);
+        await delay(250);
         StorageNamespace.setItem('bg-image', fileString);
         styleRoot();
       },
@@ -1349,14 +1353,12 @@
 
     // Exit early if not moving or target is invalid or not 'movable'
     if (!moving || !target || !target.classList.contains('movable')) return;
-
     // Calculate the cursor position with an offset
     cursorPositions.x = event.clientX - 12;
     cursorPositions.y = event.clientY - 12;
 
     // Update scroll position to keep the target element visible while moving
-    const targetBottom = cursorPositions.y;
-    root.scrollTo(cursorPositions.x, targetBottom);
+    root.scrollTo(cursorPositions.x, cursorPositions.y);
 
     // Trigger the actions related to moving the target and resizing
     mouseMoves(target);
@@ -1645,7 +1647,7 @@
   // Function to resize the element to match the full document size (including scrolled size)
   function resizeElementToFullSize() {
     // reset main style remove all styles
-    main.removeAttribute('style');
+    main.style.height = 'auto';
 
     // Get the full size of the viewport and document
     const fullHeight = Math.max(w.innerHeight, root.scrollHeight);
