@@ -1027,6 +1027,7 @@
     }
     // show the data to user
     stats(StorageNamespace.getItem('temperature'));
+    await delay(250);
     resizeElementToFullSize();
   }
 
