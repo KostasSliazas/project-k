@@ -710,9 +710,8 @@ a {
 }
 
 .movable > div {
-  margin: auto;
   overflow: hidden;
-  padding-right: 1px;
+  margin-right: 1px;
 }
 
 .pad {
