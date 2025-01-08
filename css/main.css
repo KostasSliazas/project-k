@@ -731,7 +731,7 @@ a {
 }
 
 .movable:not(.minimized) {
-  min-height: 2em;
+  min-height: 3em;
 }
 
 .minimized::before {
