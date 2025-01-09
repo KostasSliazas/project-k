@@ -160,7 +160,7 @@
    * @param {string} item - The key of the localStorage item to retrieve.
    * @returns {*} The parsed value of the localStorage item, or `null` if parsing fails or the item does not exist.
    */
-
+  const root = d.documentElement;
   const version = 7;
   const negativeOrPositive = number => (number > 0 ? `+${number}` : `${number}`);
   const main = d.getElementById('main');
@@ -197,10 +197,12 @@
       d.title = 'New Tab'; // change title (document)
       d.getElementById('loader').style.display = 'none'; // Hide the loader
       link.href = emtyIcon;
+      root.style.background = 'none';
       hide(main);
     } else {
       d.title = 'Project-K'; // change title (document)
       link.href = icon;
+      root.style.background = '';
       show(main);
     }
     d.head.appendChild(link);
@@ -221,7 +223,6 @@
   const addLeadingZero = time => (time.toString().length < 2 ? '0' + time : time);
   const online = w.navigator.onLine;
   const getPE = elem => elem.parentElement;
-  const root = d.documentElement;
   const typed = [];
   const codeDiv = d.querySelector('.wrp-container');
   const defaultPin = d.querySelector('#code');
