@@ -1,6 +1,5 @@
 # Project Kitten
-This repository contains a collection of web-based tools and applications and links.
-
+This repository contains a collection of web-based tools, and links. Sometimes, you may need to refresh the page (Ctrl + `) due to UI updates.
 [Screenshots](#screenshots) | [Getting Started](#getting-started) | [License](#license)
 
 ## Screenshots
