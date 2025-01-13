@@ -26,21 +26,6 @@
   };
 
   /**
-   * Document-level error handler for resource loading errors.
-   *
-   * Listens for errors on resource elements like <img>, <script>, and <link>.
-   *
-   * @param {Event} event - The error event object associated with the failed resource loading.
-   */
-  // d.addEventListener(
-  //   'error',
-  //   event => {
-  //     console.error('Resource error detected:', event);
-  //     alert('A resource failed to load.');
-  //   },
-  //   true // Use capture phase to catch resource errors at the document level
-  // );
-  /**
    * Utility for managing localStorage with namespacing.
    */
   const StorageNamespace = {
@@ -49,13 +34,6 @@
      * @type {string}
      */
     namespace: 'project-kitten',
-    // /**
-    //  * Sets the namespace for localStorage keys.
-    //  * @param {string} ns - The namespace to use.
-    //  */
-    // setNamespace(ns) {
-    //   this.namespace = ns;
-    // },
 
     /**
      * Constructs the full key by prefixing it with the namespace.
@@ -118,48 +96,8 @@
       return Object.keys(w.localStorage) // Object.keys should return an array of strings
         .filter(key => key.startsWith(`${this.namespace}`))
         .map(key => key.replace(`${this.namespace}`, ''));
-    },
-
-    /**
-     * Appends a value to an array or updates an object stored under the given key.
-     * @param {string} key - The key of the stored value.
-     * @param {*} value - The value to append or merge.
-     */
-    // appendItem(key, value) {
-    //   const existingValue = this.getItem(key);
-    //
-    //   if (Array.isArray(existingValue)) {
-    //     // Append to array
-    //     existingValue.push(value);
-    //     this.setItem(key, existingValue);
-    //   } else if (existingValue && typeof existingValue === 'object') {
-    //     // Merge into object
-    //     this.setItem(key, { ...existingValue, ...value });
-    //   } else {
-    //     // Create a new array or object
-    //     const newValue = Array.isArray(value) ? value : [value];
-    //     this.setItem(key, newValue);
-    //   }
-    // },
-    /**
-     * Removes an item from an array stored under the given key by index.
-     * @param {string} key - The key of the stored array.
-     * @param {number} index - The index of the item to remove.
-     */
-    // removeItem(key, index) {
-    //   const array = this.getItem(key);
-    //   if (Array.isArray(array) && array.length > index) {
-    //     array.splice(index, 1); // Remove the item at the specified index
-    //     this.setItem(key, array); // Save the updated array back to localStorage
-    //   }
-    // },
+    }
   };
-  /**
-   * Retrieves and parses an item from localStorage.
-   *
-   * @param {string} item - The key of the localStorage item to retrieve.
-   * @returns {*} The parsed value of the localStorage item, or `null` if parsing fails or the item does not exist.
-   */
 
   const root = d.documentElement;
   const version = 7;
@@ -170,7 +108,7 @@
   const show = elem => elem.classList.remove('hide');
   //icon images encoded base64
   const icon = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAB9VBMVEUAAABIcoqFtMv////BztXD0Nc1UmY3VWgULD8WL0IBCxcCDBknRVpvi5uMo7CPpbF5k6I6WW20w8vR2+DS2+DV3uLc4+fm6+7q7/Hr7/Hn7O/d5ejS2+C1w8tPcYXU3eLW3+NUdYiDmqjM1tzP2d6EnKlviZnY4OXa4uZxjJudsLvt8fPt8fOfsr24xs719/j1+Pm7yNDCztX3+vr4+vvDz9XDz9b4+vvEz9a9ytH2+Pm+ytKjtcDu8vTu8vSltsAMOFLY4OTY4OQYQluqu8TS2+Dn7e+oucKwwMjj6ez7/P35+/zj6eyxwMmWqrXJ1Nrh5+re5enX4OTl6+7r7/Hg5+rJ1NqWqrZad4iTqLSitL6br7qMo69ad4nZ4ubV3+Tz9/j+///////y9ffV3uPa4+fW4OXV3uT09/jc5Ojq7/Hp7vHq7e/v8fHw8fLu8PHw9PXe5OZUWVtMT1DQ1dfT19lBQ0VlaWva4OP9///U2t0gJikJDA6hq7Cvt7wLDhAdIiTJ0NT1+PmhrrWPnKPf5eni5+rm6+6ToKedqbDj6u34+vvw8/XX3+PR2+HGzM+cpKiosbagp6vT2t2+zNTN2N3z9vf9/v7b4ubx9favtblJVFpPWV9SXWPU2dvb4ufe5ej5+/vv8/TO2d/P2uDR2+D5+vofzWmlAAAAXnRSTlMAAAAAAAAAAAAAAAAEEBscEwU2lZyPpsjX2M2rljcJs7UJEMjKEQ7Exg8n3+ApTfX2UmL7+2Rl/GZX+Fku4+QvBZyeBivT1Cw4xf39xjkYbbbX3d3Xt24ZCRsiIhsJ/hk8XwAAALBJREFUGNM9jrsOwjAMRX1rK6QNqAMMTAgJFj6AGRYmRhb+D7Exs4D4HKRuMNCqIBryaDmDZZ/cJAY5YOB5Nr7nHB1vq3HHBCs/hCBwQSKitYZ1EDFEnGCurQ/YRjiIuqKWsg7CX6a2RNHLjOv7g5xsFKlSQ4zc22NiTpgpdYRSRDF9uMO5F4v4bTYzHUsRyBq7//JH3KC+G2Dvp2sBnAWkP9t/4qQqv01WhgQO5kX0AyBgJBBTng0fAAAAAElFTkSuQmCC';
-  const emtyIcon = 'data:image/x-icon;base64,AAABAAEAEBACAAEAAQCwAAAAFgAAACgAAAAQAAAAIAAAAAEAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';
+  const emptyIcon = 'data:image/x-icon;base64,AAABAAEAEBACAAEAAQCwAAAAFgAAACgAAAAQAAAAIAAAAAEAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';
 
   // Generate a random integer between min (inclusive) and max (exclusive)
   const getRandomInRange = (min, max) => Math.floor(Math.random() * (max - min)) + min;
@@ -187,7 +125,7 @@
   // Use getRandomInRange to select a random item from an array
   const getRandomFromArray = arr => arr[getRandomInRange(0, arr.length)];
 
-  function isLockig() {
+  function isLocking() {
     // create a new HTML link element
     const link = d.createElement('link');
     link.rel = 'icon';
@@ -197,7 +135,7 @@
       setTimeout(() => {
         d.title = 'New Tab'; // change title (document)
         d.getElementById('loader').style.display = 'none'; // Hide the loader
-        link.href = emtyIcon;
+        link.href = emptyIcon;
         root.style.background = 'none';
       }, 7);
       hide(main);
@@ -209,12 +147,12 @@
     d.head.appendChild(link);
   }
 
-  isLockig();
+  isLocking();
   // create new sound for timers with base64 encoding
-  const SNDFIN = new w.Audio('data:audio/mpeg;base64,SUQzBAAAAAAAIlRTU0UAAAAOAAADTGF2ZjYxLjEuMTAwAAAAAAAAAAAAAAD/4zjAAAAAAAAAAAAASW5mbwAAAA8AAAADAAABsACqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqrV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dX///////////////////////////////////////////8AAAAATGF2YzYxLjMuAAAAAAAAAAAAAAAAJAKgAAAAAAAAAbBUn6+GAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/4xjEAA0BSphRQcAB0DAP/////+MYxj/gADPPPPPPPPPDCkhh2GcOJBJf8zGMwi4jBKrts7cuL2AAAABH/4ekAMMWP6BwAAP/4xjEBw7JnvR5gKAC0v6KqKTfGfAwoE386CAYFSgOL/OjlEkAkEQE1JlJ6KLAFFCct+INIibGiJoy7/6DRkMARKr/////////4xjEBgzBamABwcAA8Quf+8eayrUstqPs5U+pSBBmQa1l4oqqawLEnKd6XalT/S7uPMqYBA1UeEWWTEFNRTMuMTAwqqqqqqo=');
+  const soundCalculator = new w.Audio('data:audio/mpeg;base64,SUQzBAAAAAAAIlRTU0UAAAAOAAADTGF2ZjYxLjEuMTAwAAAAAAAAAAAAAAD/4zjAAAAAAAAAAAAASW5mbwAAAA8AAAADAAABsACqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqrV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dX///////////////////////////////////////////8AAAAATGF2YzYxLjMuAAAAAAAAAAAAAAAAJAKgAAAAAAAAAbBUn6+GAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/4xjEAA0BSphRQcAB0DAP/////+MYxj/gADPPPPPPPPPDCkhh2GcOJBJf8zGMwi4jBKrts7cuL2AAAABH/4ekAMMWP6BwAAP/4xjEBw7JnvR5gKAC0v6KqKTfGfAwoE386CAYFSgOL/OjlEkAkEQE1JlJ6KLAFFCct+INIibGiJoy7/6DRkMARKr/////////4xjEBgzBamABwcAA8Quf+8eayrUstqPs5U+pSBBmQa1l4oqqawLEnKd6XalT/S7uPMqYBA1UeEWWTEFNRTMuMTAwqqqqqqo=');
   const setCheckboxChecked = (checkboxId, isChecked) => (d.getElementById(checkboxId).checked = isChecked);
-  const pindiscard = d.getElementById('pindiscard');
-  const pinsave = d.getElementById('pinsave');
+  const pinElem = d.getElementById('pin-card');
+  const pinSaveElem = d.getElementById('pin-save');
   // const position = d.getElementById('position');
   const clicked = d.getElementById('clicked');
   const movable = Array.from(d.getElementsByClassName('movable'));
@@ -227,7 +165,7 @@
   const typed = [];
   const codeDiv = d.querySelector('.wrp-container');
   const defaultPin = d.querySelector('#code');
-  const shutup = d.querySelector('#shutup');
+  const done = d.querySelector('#done');
   const start = d.querySelector('#start');
   const codeDivElms = Array.from(codeDiv.children[0].children);
   const textArea = d.getElementsByTagName('TEXTAREA')[0];
@@ -239,7 +177,7 @@
     allMouseClicks: 0,
     clicks: 0,
   };
-  let saved = StorageNamespace.getItem('mustashed') || [5, 2, 0];
+  let saved = StorageNamespace.getItem('carbine') || [5, 2, 0];
   let minimized = [16, 6, 17, 15, 0, 19, 12, 1, 13];
   let mousedown = false;
   let scalingTarget = null;
@@ -298,15 +236,6 @@
   const aGetElms = Array.from(d.getElementsByTagName('a'));
   const aLength = aGetElms.length;
   for (let i = 0; i < aLength; i++) aGetElms[i].onclick = e => aClickHandler.buttonClicker(e);
-
-  //show how many links
-  // d.getElementById('total-links').textContent = aGetElms.length;
-
-  // create input timeout click handlers
-  // const inputClickHandler = new ClickHandler(200);
-  // const inputGetElms = Array.from(d.getElementsByTagName("input"));
-  // const inputLength = inputGetElms.length;
-  // for(let i = 0; i < inputLength; i++ ) inputGetElms[i].onclick = (e)=>inputClickHandler.buttonClicker(e)
 
   function getStyles() {
     let styleValues = [];
@@ -396,9 +325,9 @@
 
               // await delay(200);
               if (state.moving) {
-                state.target.classList.add('mousedown');
-                root.classList.add('hmove'); //higlight moving
-                main.classList.add('bg-lines'); //higlight moving
+                state.target.classList.add('down');
+                root.classList.add('move');
+                main.classList.add('bg-lines');
               }
 
               clickTimeout = null;
@@ -626,20 +555,11 @@
   };
 
   const themeName = d.getElementById('theme-name');
-  const longNames = ['inner peace', 'peace on earth', 'cool dudes', 'sunshine', 'someday', 'everything fine', 'night', 'green', 'happiness', 'jupiter', 'Karma', 'lightness', 'marigold', 'neutral', 'optimistic', 'paradise', 'colored kalcium', 'respect', 'silver'];
+  const longNames = ['inner peace', 'peace on earth', 'cool dudes', 'sunshine', 'someday', 'everything fine', 'night', 'green', 'happiness', 'jupiter', 'Karma', 'lightness', 'marigold', 'neutral', 'optimistic', 'paradise', 'colored calcium', 'respect', 'silver'];
   const classNameVariables = [0, 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y'];
   const nightThemes = ['b', 'd', 'f', 'g', 'o', 'p', 'q', 'r', 't', 'v', 'y'];
   const THEME_CHANGE = arrayHelper.call(classNameVariables);
 
-  // const moveElement = function(pixels, direction, elements) {
-  //   let pixel = (this.getAttribute('data-moved') === elements.join()) ? -pixels : pixels
-  //     this.style[direction] = parseInt(this.style[direction]) + pixel + 'px';
-  //     this.setAttribute('data-moved', elements);
-  // }
-
-  // const arrayForMoveElems = [20, 19, 4];
-  //   if(index === 13)
-  //   arrayForMoveElems.forEach(e => moveElement.call( movable[e], 320, 'left', arrayForMoveElems))
   // change main theme
   const changerClass = index => {
     themeName.textContent = longNames[index] || 'other';
@@ -687,11 +607,6 @@
       e.preventDefault();
     }
   }
-
-  // let handleMousemove = (event) => {
-  //   position.textContent = (`${event.x}:${event.y}`);
-  // };
-  // const lockerMouseMovments = debounce(handleMousemove, 200);
 
   const isDisplayed = elem => {
     const style = w.getComputedStyle(elem);
@@ -828,20 +743,20 @@
           callback();
         }.bind(this),
         time || 1000
-      ); // if no time defaul 1000ms (1s)
+      ); // if no time default 1000ms (1s)
       return this;
     };
     inner(); // load inner function
   }
 
   function playSound() {
-    SNDFIN.play();
+    soundCalculator.play();
   }
 
   function Counter() {
     let sec = 0,
       isCounting = false,
-      timeout = 0; // timoeut timer;
+      timeout = 0; // timeout timer;
 
     this.counterTime = d.getElementById('counter-time'); // get the output div
     this.seconds = d.getElementById('seconds');
@@ -853,16 +768,16 @@
     };
 
     this.start = function () {
-      // clear timeout everytime so it not dublicates (speed)
+      // clear timeout every time so it not duplicates (speed)
       w.clearTimeout(timeout);
       if (!isCounting) {
         isCounting = true;
         sec = this.totalSeconds(); // set seconds at start
         this.counterTime.textContent = '-' + this.counterTime.textContent;
       }
-      // start if more than zerro
+      // start if more than zero
       if (sec > 0) {
-        // change text content affter click
+        // change text content after click
         this.counterTime.textContent = '-' + addLeadingZero(sec);
         // only -1 second when seconds are more then 0
         --sec;
@@ -870,15 +785,15 @@
       // set timeout to variable for clearing later
       timeout = w.setTimeout(
         function () {
-          // changing (swaping) lines can show negative values, should stay as it is
+          // changing (swapping) lines can show negative values, should stay as it is
           if (sec === 0) {
             // this.stop();
 
             if (d.getElementById('sounds-ding').checked) {
               const rep1 = new Repeater(100, 50, playSound);
               const rep2 = new Repeater(1000, 100, playSound);
-              show(shutup.parentElement);
-              shutup.onclick = e => {
+              show(done.parentElement);
+              done.onclick = e => {
                 rep1.stop();
                 rep2.stop();
                 hide(e.target.parentElement);
@@ -903,7 +818,7 @@
     this.stop = function () {
       isCounting = false;
       w.clearTimeout(timeout);
-      timeout = 0; // timoeut timer
+      timeout = 0; // timeout timer
       this.counterTime.textContent = addLeadingZero(this.totalSeconds()); // set seconds at start
       d.getElementById('start').innerText = 'Start';
       // this.counterTime.textContent = '00';
@@ -998,8 +913,7 @@
             d.title = documentTitle;
             hide(codeDiv);
             show(main);
-            isLockig();
-            // d.removeEventListener('mousemove', lockerMouseMovments);
+            isLocking();
           }
         };
       })(i, d, isLocked, isEnterPass, saved);
@@ -1105,13 +1019,13 @@
     if (target === 'right') loops('left', 1);
     if (target === 'top') loops('top', -1);
     if (target === 'bottom') loops('top', 1);
-    // dont alow click button when popup not closed
-    if (target === 'start' && !shutup.parentElement.classList.contains('hide')) return;
+    // do not alow click button when popup not closed
+    if (target === 'start' && !done.parentElement.classList.contains('hide')) return;
 
     if (target === 'start' && !timers.isCounting) {
       timers.start();
       start.innerText = 'Stop';
-    } else if (target === 'shutup' || (target === 'start' && timers.isCounting)) {
+    } else if (target === 'done' || (target === 'start' && timers.isCounting)) {
       timers.stop();
     }
     if (target === 'reset') {
@@ -1140,7 +1054,7 @@
     if (target === 'rotate90') {
       main.classList.remove('r' + rotations.value);
       rotations.increment();
-      //remove class and return (defaul class)
+      //remove class and return (default class)
       if (rotations.value === 0) return;
       main.classList.add(classNamesForRotations[rotations.value]);
     }
@@ -1263,7 +1177,7 @@
       hide(main);
       d.title = 'New Tab';
       counts.clicks = 0;
-      isLockig();
+      isLocking();
     }
 
     if (target === 'code') {
@@ -1272,14 +1186,14 @@
       isEnterPass = true;
     }
 
-    if (target === 'pinsave' && typed.length) {
-      StorageNamespace.setItem('mustashed', typed);
+    if (target === 'pin-save' && typed.length) {
+      StorageNamespace.setItem('carbine', typed);
       isEnterPass = false;
-      saved = StorageNamespace.getItem('mustashed');
+      saved = StorageNamespace.getItem('carbine');
       defaultPin.title = saved;
       hide(codeDiv);
     }
-    if (target === 'pindiscard') {
+    if (target === 'pin-card') {
       hide(codeDiv);
     }
     const isLockedScreen = StorageNamespace.getItem('is-locked');
@@ -1287,7 +1201,6 @@
     counts.clicks++;
     if (e.target.className !== 'container' && counts.clicks > 2 && isLockedScreen) {
       counts.clicks = typed.length = 0; // RESET array length and count when not container clicked
-      // d.addEventListener('mousemove', lockerMouseMovments);
       show(codeDiv);
     }
 
@@ -1296,11 +1209,11 @@
     clicked.textContent = counts.allMouseClicks;
 
     if (isEnterPass) {
-      show(pindiscard);
-      show(pinsave);
+      show(pinElem);
+      show(pinSaveElem);
     } else {
-      hide(pinsave);
-      hide(pindiscard);
+      hide(pinSaveElem);
+      hide(pinElem);
     }
 
     // Check if the clicked element is one of the search inputs
@@ -1352,8 +1265,6 @@
 
   function mouseMoveEvents(event) {
     const { moving, target } = state;
-    const { x, y } = cursorPositions;
-
     // Exit early if not moving or target is invalid or not 'movable'
     if (!moving || !target || !target.classList.contains('movable')) return;
     // Calculate the cursor position with an offset
@@ -1380,8 +1291,8 @@
     const targetClass = peTarget ? peTarget.className : null;
 
     if (targetClass) {
-      state.target.classList.remove('mousedown');
-      root.classList.remove('hmove');
+      state.target.classList.remove('down');
+      root.classList.remove('move');
       if (!d.getElementById('bg-lines').checked) main.classList.remove('bg-lines');
       StorageNamespace.setItem('element-styles', getStyles());
     }
@@ -1418,20 +1329,6 @@
       parentElement.style.height = 'auto';
     }
   }
-
-  // function debounce(func, delay) {
-  //   let timeoutId;
-
-  //   return function () {
-  //     const context = this;
-  //     const args = arguments;
-
-  //     w.clearTimeout(timeoutId);
-  //     timeoutId = w.setTimeout(() => {
-  //       func.apply(context, args);
-  //     }, delay);
-  //   };
-  // }
 
   function centerElements() {
     const container = document.getElementById('main');
@@ -1494,7 +1391,7 @@
   let n1 = [];
   let n2 = 0;
   let op = null;
-  let lastop = null;
+  let last = null;
   let result = 0;
 
   const sound = () => {
@@ -1510,7 +1407,7 @@
   const mul = (n, o) => n * o;
   const res = n => n;
 
-  const cals = {
+  const calc = {
     '÷': div,
     '×': mul,
     '+': add,
@@ -1518,32 +1415,32 @@
     '=': res,
   };
 
-  const cal = (num1, num2, calback) => {
-    if (typeof calback === 'function') {
+  const cal = (num1, num2, callback) => {
+    if (typeof callback === 'function') {
       const n1 = num1.toString().split('.')[1];
       const n2 = num2.toString().split('.')[1];
       const len1 = (n1 && n1.length) || 0;
       const len2 = (n2 && n2.length) || 0;
-      if (lastop !== '÷') {
-        return parseFloat(calback(Number(num1), Number(num2)).toFixed(len1 + len2));
+      if (last !== '÷') {
+        return parseFloat(callback(Number(num1), Number(num2)).toFixed(len1 + len2));
       }
-      return calback(Number(num1), Number(num2));
+      return callback(Number(num1), Number(num2));
     }
   };
 
   const btn = e => {
     // e.preventDefault()
     // e.stopPropagation()
-    // if don't mach input or screen or esaund return
-    if (!e.target.matches('input') || e.target.id === 'esound' || e.target.id === 'src') {
+    // if don't mach input or screen or c-sound return
+    if (!e.target.matches('input') || e.target.id === 'c-sound' || e.target.id === 'src') {
       e.preventDefault();
       e.stopPropagation();
       return;
     }
     CALC_SCREEN.classList.add('blink');
 
-    // if checked sound play that creapy sound
-    if (d.getElementById('esound').checked) sound();
+    // if checked sound play sound
+    if (d.getElementById('c-sound').checked) sound();
 
     // set operator when target is fun
     if (e.target.dataset.fun) op = e.target.value;
@@ -1573,10 +1470,10 @@
 
     // operator is /*+-=
     if (op === '÷' || op === '×' || op === '+' || op === '-' || op === '=') {
-      if (n2 && lastop) {
-        result = cal(Number(n2), Number(result), cals[lastop]);
+      if (n2 && last) {
+        result = cal(Number(n2), Number(result), calc[last]);
       }
-      lastop = res(op);
+      last = res(op);
       if (n1[0] === '0' && n1.length === 1) return;
       n2 = result;
       n1.length = 0;
@@ -1584,11 +1481,11 @@
 
     // operator clear all
     if (op === 'C') {
-      op = lastop = null;
+      op = last = null;
       result = n2 = n1.length = 0;
     }
 
-    // convert to string and change lenth
+    // convert to string and change length
     if (result.toString().length > 10) result = result.toString(10).substring(0, 14);
 
     CALC_SCREEN.value = isFinite(result) ? result : 'ERROR';
@@ -1605,7 +1502,7 @@
 
   // ////////////////////////////
 
-  // make refresh after midnigth 00:00
+  // make refresh after midnight 00:00
 
   function timeUntilMidnight() {
     const now = new Date();
