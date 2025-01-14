@@ -489,7 +489,7 @@ html {
 .mode-cute a,
 .mode-cute button,
 .mode-cute input,
-input[type='file']::file-selector-button {
+.mode-cute input[type='file']::file-selector-button {
   cursor: url(cursor.cur?v=1), pointer !important;
 }
 
@@ -584,9 +584,9 @@ h3 {
 }
 
 .xxl {
-  font-size: 30px;
+  font-size: 2em;
   line-height: 1;
-  min-block-size: 30px;
+  min-block-size: 1em;
 }
 
 .pe {
@@ -636,6 +636,7 @@ a {
   text-decoration: none;
   font-size: 0.875em;
   line-height: 1.71428571;
+  min-height: 24px;
 }
 
 a:hover {
@@ -1129,7 +1130,7 @@ input[type='file'],
 input[type='reset'] {
   flex: 1 1 auto;
   margin: 0 4px;
-  min-block-size: 20px;
+  min-block-size: 24px;
 }
 
 button,
@@ -1157,12 +1158,12 @@ input[type='reset']:hover {
 }
 
 input[type='color'] {
-  max-height: 30px;
+  max-height: 36px;
   line-height: 0;
-  min-block-size: 30px;
-  max-block-size: 30px;
+  min-block-size: 36px;
+  max-block-size: 36px;
   background-color: var(--color2) !important;
-  padding: 4px;
+  padding: 2px;
   border-block: 0 !important;
   border-inline: 0 !important;
 }
@@ -1191,7 +1192,7 @@ input[type='file']::file-selector-button:active {
 }
 
 button {
-  min-inline-size: 43px;
+  min-inline-size: 24px;
 }
 
 button#top {
@@ -1225,18 +1226,19 @@ input[type='file'] {
 }
 
 input[type='file' i] {
-  width: 100%;
   padding: 0 0 0 4px;
   line-height: 24px;
   font-family: inherit;
+  min-width: 48px;
+  max-block-size: 48px;
 }
 
 fieldset {
-  border-width: 1px 0 0;
+  border-width: 0;
 }
 
 .forms label {
-  min-block-size: 20px;
+  min-block-size: 24px;
   padding: 0;
   margin: 0;
   flex: 1 1 auto;
