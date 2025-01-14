@@ -1192,7 +1192,7 @@ input[type='file']::file-selector-button:active {
 }
 
 button {
-  min-inline-size: 24px;
+  min-inline-size: 48px;
 }
 
 button#top {
