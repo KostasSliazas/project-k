@@ -96,7 +96,7 @@
       return Object.keys(w.localStorage) // Object.keys should return an array of strings
         .filter(key => key.startsWith(`${this.namespace}`))
         .map(key => key.replace(`${this.namespace}`, ''));
-    }
+    },
   };
 
   const root = d.documentElement;
@@ -943,7 +943,7 @@
     }
     // show the data to user
     stats(StorageNamespace.getItem('temperature'));
-    await delay(250);
+    await delay(340);
     resizeElementToFullSize();
   }
 
@@ -1302,6 +1302,7 @@
         const peScalingTarget = getPE(scalingTarget);
         scalingTarget.style.height = peScalingTarget.style.height = roundToTen(peScalingTarget.offsetHeight) + 'px';
         peScalingTarget.style.width = roundToTen(peScalingTarget.offsetWidth) + 'px';
+        resizeElementToFullSize();
         StorageNamespace.setItem('element-styles', getStyles());
       }
     } catch (error) {
@@ -1314,9 +1315,11 @@
   async function mouseDownEvents(e) {
     cursorPositions.x = e.clientX;
     cursorPositions.y = e.clientY;
+
     scalingTarget = e.target;
     if (scalingTarget.tagName === 'TEXTAREA') {
       mousedown = true;
+
       const computedStyles = w.getComputedStyle(scalingTarget);
       const height = await computedStyles.getPropertyValue('height');
       const width = await computedStyles.getPropertyValue('width');
@@ -1548,10 +1551,8 @@
   function resizeElementToFullSize() {
     // reset main style remove all styles
     main.style.height = 'auto';
-
     // Get the full size of the viewport and document
     const fullHeight = Math.max(w.innerHeight, root.scrollHeight);
-
     // Set the element's height
     main.style.height = `${fullHeight}px`;
   }
