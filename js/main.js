@@ -100,7 +100,7 @@
   };
 
   const root = d.documentElement;
-  const version = 7;
+  const version = 3.4;
   const negativeOrPositive = number => (number > 0 ? `+${number}` : `${number}`);
   const main = d.getElementById('main');
   const overlay = d.getElementById('overlay');
