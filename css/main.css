@@ -426,8 +426,7 @@ html {
 }
 
 .s,
-.v,
-.g {
+.v{
   font-family: Andale Mono, AndaleMono, monospace;
 }
 
@@ -617,6 +616,7 @@ a {
   counter-increment: section;
   content: counter(section, decimal-leading-zero) '. ';
   color: var(--color3);
+  display: inline-block;
 }
 
 .mode-numbering .links a {
