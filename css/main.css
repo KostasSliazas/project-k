@@ -455,7 +455,7 @@ html {
   visibility: hidden;
 }
 
-.e .movable:nth-child(6) {
+.e .movable:nth-child(23) {
   clip-path: none;
 }
 
