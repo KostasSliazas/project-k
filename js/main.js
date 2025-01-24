@@ -99,13 +99,32 @@
     },
   };
 
+  function debounce(func, delay) {
+    let timer;
+    return (...args) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => func(...args), delay);
+    };
+  }
+
+  function monitorOnlineStatus(callback) {
+    const debouncedCallback = debounce(callback, 340);
+    const updateStatus = () => debouncedCallback(online());
+    w.addEventListener('online', updateStatus);
+    w.addEventListener('offline', updateStatus);
+    // Perform an initial check
+    updateStatus();
+  }
+
   const root = d.documentElement;
   const version = 3.4;
   const negativeOrPositive = number => (number > 0 ? `+${number}` : `${number}`);
   const main = d.getElementById('main');
   const overlay = d.getElementById('overlay');
+  const onlineElement = d.getElementById('is-online');
   const hide = elem => elem.classList.add('hide');
   const show = elem => elem.classList.remove('hide');
+  const online = () => w.navigator.onLine;
   //icon images encoded base64
   const icon = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAB9VBMVEUAAABIcoqFtMv////BztXD0Nc1UmY3VWgULD8WL0IBCxcCDBknRVpvi5uMo7CPpbF5k6I6WW20w8vR2+DS2+DV3uLc4+fm6+7q7/Hr7/Hn7O/d5ejS2+C1w8tPcYXU3eLW3+NUdYiDmqjM1tzP2d6EnKlviZnY4OXa4uZxjJudsLvt8fPt8fOfsr24xs719/j1+Pm7yNDCztX3+vr4+vvDz9XDz9b4+vvEz9a9ytH2+Pm+ytKjtcDu8vTu8vSltsAMOFLY4OTY4OQYQluqu8TS2+Dn7e+oucKwwMjj6ez7/P35+/zj6eyxwMmWqrXJ1Nrh5+re5enX4OTl6+7r7/Hg5+rJ1NqWqrZad4iTqLSitL6br7qMo69ad4nZ4ubV3+Tz9/j+///////y9ffV3uPa4+fW4OXV3uT09/jc5Ojq7/Hp7vHq7e/v8fHw8fLu8PHw9PXe5OZUWVtMT1DQ1dfT19lBQ0VlaWva4OP9///U2t0gJikJDA6hq7Cvt7wLDhAdIiTJ0NT1+PmhrrWPnKPf5eni5+rm6+6ToKedqbDj6u34+vvw8/XX3+PR2+HGzM+cpKiosbagp6vT2t2+zNTN2N3z9vf9/v7b4ubx9favtblJVFpPWV9SXWPU2dvb4ufe5ej5+/vv8/TO2d/P2uDR2+D5+vofzWmlAAAAXnRSTlMAAAAAAAAAAAAAAAAEEBscEwU2lZyPpsjX2M2rljcJs7UJEMjKEQ7Exg8n3+ApTfX2UmL7+2Rl/GZX+Fku4+QvBZyeBivT1Cw4xf39xjkYbbbX3d3Xt24ZCRsiIhsJ/hk8XwAAALBJREFUGNM9jrsOwjAMRX1rK6QNqAMMTAgJFj6AGRYmRhb+D7Exs4D4HKRuMNCqIBryaDmDZZ/cJAY5YOB5Nr7nHB1vq3HHBCs/hCBwQSKitYZ1EDFEnGCurQ/YRjiIuqKWsg7CX6a2RNHLjOv7g5xsFKlSQ4zc22NiTpgpdYRSRDF9uMO5F4v4bTYzHUsRyBq7//JH3KC+G2Dvp2sBnAWkP9t/4qQqv01WhgQO5kX0AyBgJBBTng0fAAAAAElFTkSuQmCC';
   const emptyIcon = 'data:image/x-icon;base64,AAABAAEAEBACAAEAAQCwAAAAFgAAACgAAAAQAAAAIAAAAAEAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';
@@ -160,7 +179,6 @@
   const roundToTen = num => Math.ceil(num / 12) * 12;
   const delay = ms => new Promise(resolve => w.setTimeout(resolve, ms));
   const addLeadingZero = time => (time.toString().length < 2 ? '0' + time : time);
-  const online = w.navigator.onLine;
   const getPE = elem => elem.parentElement;
   const typed = [];
   const codeDiv = d.querySelector('.wrp-container');
@@ -858,6 +876,19 @@
     return isChecked; // Return the value of the storage key
   }
 
+  // Function to check if the document is focused
+  function isDocumentFocused() {
+    return d.hasFocus();
+  }
+  function updateOnlineStatusUI(isOnline) {
+    if (isOnline) {
+      onlineElement.classList.remove('small');
+      onlineElement.textContent = 'connected';
+    } else {
+      onlineElement.classList.add('small');
+      onlineElement.textContent = 'disconnected';
+    }
+  }
   async function init() {
     // lines background
     toggleClassFromStorage('bg-lines', main);
@@ -872,7 +903,7 @@
     timers.counterTime.textContent = addLeadingZero(timers.totalSeconds());
 
     defaultPin.title = saved;
-    d.getElementById('is-online').textContent = online ? 'connected' : 'disconnected';
+
     d.getElementById('day-of-week').textContent = showWeekDay();
     const documentTitle = d.title;
     textArea.value = StorageNamespace.getItem('textArea') || textAreaDefaults;
@@ -945,6 +976,14 @@
     stats(StorageNamespace.getItem('temperature'));
     await delay(340);
     resizeElementToFullSize();
+    // events listeners
+    bg.addEventListener('change', bgChange);
+    root.addEventListener('click', rootClick);
+    root.addEventListener('contextmenu', contextMenuFun);
+    d.addEventListener('dblclick', dblclickFun);
+    d.addEventListener('mousemove', throttle(mouseMoveEvents, 70));
+    d.addEventListener('mousedown', mouseDownEvents);
+    d.addEventListener('mouseup', mouseUpEvents);
   }
 
   // const concat = (...arrays) => [].concat(...arrays.filter(Array.isArray));
@@ -1284,7 +1323,15 @@
 
     const eventTarget = e.target;
     // Make opacity (highlight).5 for links with class "movable" till next refresh(like visited)
-    if (eventTarget.tagName === 'A') eventTarget.style.opacity = '.5';
+    if (eventTarget.tagName === 'A') {
+      if (d.hasFocus()) {
+        eventTarget.style.opacity = '.5';
+        // Default behavior: let the browser handle navigation
+      } else {
+        e.preventDefault(); // Block navigation
+        alert('Please activate the tab before clicking the link.');
+      }
+    }
     // GLOBAL target!!!
     if (!state.target) return;
     const peTarget = getPE(state.target);
@@ -1375,17 +1422,6 @@
       }
     };
   }
-
-  // events listeners
-  bg.addEventListener('change', bgChange);
-  w.addEventListener('keyup', classToggle);
-  d.addEventListener('dblclick', dblclickFun);
-  d.addEventListener('mousemove', throttle(mouseMoveEvents, 70));
-  d.addEventListener('mousedown', mouseDownEvents);
-  d.addEventListener('mouseup', mouseUpEvents);
-  d.addEventListener('DOMContentLoaded', init /*, { once: true }*/);
-  root.addEventListener('click', rootClick);
-  root.addEventListener('contextmenu', contextMenuFun);
 
   const BEEP_AUDIO = new w.Audio('data:audio/mp3;base64,//uQxAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAAFAAAGUACFhYWFhYWFhYWFhYWFhYWFhYWFvb29vb29vb29vb29vb29vb29vb3T09PT09PT09PT09PT09PT09PT0+np6enp6enp6enp6enp6enp6enp//////////////////////////8AAAAKTEFNRTMuMTAwBEgAAAAAAAAAABUgJAMGQQABmgAABlAiznawAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uwxAAABLQDe7QQAAI8mGz/NaAB0kSbaKVYOAAwuD4PwfB8Hw/g+D8H35QMcEOCfnOXD/P8oCAIHENuMju+K0IbGizcAgIAAAAK4VMEjUtBpa3AZfMmIR0mGUiMIgAmWcP4BVTLDKgwkbAod9goJAukMKBwAy4dIFA2yISQtJvqrpysRZSSAUsr8lZCk1uZg52mtN87MLyao5llvvhptc8GS6aIo0703I8n2ZbhSy74/B/XSXNbTtJh0tpIk4vIw2lm1NwflLnhxaaIJnAZKbuAAABVYLjjg+ymRd5mSSKuZ3WVX8W6s7lvNO8/zKm+Z6mW02zlTdx4zJHBHKeq2ef800B1u448/4BUC5////HlKaLHHGrDLkyZ5Acpp1/GrKX9osYetf+ONWljzBpdafwJoGVoFOerIAAz/dYdC17v69x2iVP00C+SIXp/TNB1DOl/GGNvqSHae+susU29FEYw3I4lurLGlUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVQCSzgAACrP+KA4i/0UP2beg5/+ryIAgQm/6CfSqTEFNRTMuMTAwqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqpMQU1FMy4xMDCqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqkxBTUUzLjEwMKqqqqqqqqqqqqqqqqr/+2DE1AANAL1X/YwAKNkS6fQmNJyqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqr/+xDE5IDCpD1DIB3nQBwFKGAAiMSqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqv/7EMTWA8AAAf4AAAAgAAA/wAAABKqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq//sQxNYDwAAB/gAAACAAAD/AAAAEqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqo=');
   const CALC = d.getElementById('calculator');
@@ -1578,4 +1614,8 @@
   }
 
   console.log('%c🐾Welcome to the Cuddle Zone of Coding!🐾\n%cKeep your coding paws steady and have fun!', 'font-size: 20px; background-color: #f7f7f7; color: #000000; padding: 0 4px; border-radius: 5px;', 'font-size: 16px; background-color: #e0e6ed; color: #000000; padding: 0 4px; border-radius: 5px;');
+
+  d.addEventListener('DOMContentLoaded', init /*, { once: true }*/);
+  w.addEventListener('keyup', classToggle);
+  w.addEventListener('focus', () => monitorOnlineStatus(updateOnlineStatusUI));
 })(window, document);
