@@ -426,7 +426,6 @@ html {
   font-family: Andale Mono, AndaleMono, monospace;
 }
 
-.o,
 .c,
 .d {
   font-family: system-ui, -apple-system, 'Segoe UI', 'Noto Sans', Roboto, 'Helvetica Neue', 'Liberation Sans', Arial, sans-serif;
@@ -597,12 +596,7 @@ form {
   margin: 0 1px 1px 0;
 }
 
-.movable::before,
-a {
-  color: var(--color4);
-}
-
-.mode-numbering .main {
+.mode-numbering {
   counter-reset: section;
 }
 
@@ -611,6 +605,12 @@ a {
   content: counter(section, decimal-leading-zero) '. ';
   color: var(--color3);
   display: inline-block;
+}
+
+.local.links a::before,
+.movable::before,
+a {
+  color: var(--color4);
 }
 
 .mode-numbering .links a {
