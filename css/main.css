@@ -1644,7 +1644,7 @@ input[type='text']:focus {
   #vr {
     display: none !important;
   }
-
+  .main,
   .movable.minimized div {
     display: block !important;
   }
