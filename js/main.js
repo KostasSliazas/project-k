@@ -275,7 +275,7 @@
   }
 
   let clickTimeout = null;
-  const clickDelay = 340; // Time in milliseconds
+  const clickDelay = 520; // Time in milliseconds
 
   const loopElem = () => {
     // console.time()
@@ -341,13 +341,11 @@
             clickTimeout = w.setTimeout(() => {
               // console.log('Single click action');
 
-              // await delay(200);
               if (state.moving) {
                 state.target.classList.add('down');
                 root.classList.add('move');
                 main.classList.add('bg-lines');
               }
-
               clickTimeout = null;
             }, clickDelay);
           }
@@ -970,8 +968,7 @@
     }
     // show the data to user
     stats(StorageNamespace.getItem('temperature'));
-    await delay(340);
-    resizeElementToFullSize();
+    await resizeElementToFullSize();
     // events listeners
     bg.addEventListener('change', bgChange);
     root.addEventListener('click', rootClick);
@@ -1314,8 +1311,6 @@
   }
 
   function mouseUpEvents(e) {
-    state.moving = false;
-
     const eventTarget = e.target;
     // Make opacity (highlight).5 for links with class "movable" till next refresh(like visited)
     if (eventTarget.tagName === 'A') {
@@ -1327,6 +1322,8 @@
         alert('Please activate the tab before clicking the link.');
       }
     }
+    state.moving = false;
+
     // GLOBAL target!!!
     if (!state.target) return;
     const peTarget = getPE(state.target);
@@ -1579,16 +1576,20 @@
   }
 
   // Function to resize the element to match the full document size (including scrolled size)
-  async function resizeElementToFullSize() {
+  function resizeElementToFullSize() {
     if (w.matchMedia('(min-width: 700px)').matches) {
       // reset main style remove all styles
       main.style.height = 'auto';
       // Get the full size of the viewport and document
       const fullHeight = Math.max(w.innerHeight, root.scrollHeight);
       // Set the element's height
-      await delay(250);
       main.style.height = `${fullHeight + 12}px`;
     } else {
+      movable.forEach(e => {
+        if (!e.classList.contains('minimized')) {
+          e.style.width = e.style.height = 'auto';
+        }
+      });
       main.style.height = 'auto';
     }
   }
