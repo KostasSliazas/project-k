@@ -263,7 +263,7 @@ html {
   --color2: #91897d;
   --color3: #665a47;
   --color4: #3c3020;
-  --blend: luminosity;
+  --blend: soft-light;
 }
 
 .k.bg-image {
@@ -602,7 +602,7 @@ form {
 
 .mode-numbering .links a::before {
   counter-increment: section;
-  content: counter(section, decimal-leading-zero) '. ';
+  content: counter(section, decimal-leading-zero) ')';
   color: var(--color3);
   display: inline-block;
 }
@@ -943,6 +943,7 @@ a {
   min-width: 100%;
 }
 .oxs {
+  width: 100%;
   max-width: 960px;
 }
 .oxs i:nth-child(even),
@@ -1307,8 +1308,12 @@ fieldset {
 .bottom {
   padding: 0;
   bottom: 8px;
-  right: 24px;
+  right: 0;
   font-size: 12px;
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+  text-align: center;
 }
 
 .in {
@@ -1623,12 +1628,10 @@ input[type='text']:focus {
 }
 
 @media screen and (max-width: 700px) {
-  .mw96,
-  .mw50 {
+  .mw50,
+  .mw96 {
     min-width: 0;
   }
-
-  .bottom,
   .movable {
     position: relative !important;
     top: 0 !important;
@@ -1636,11 +1639,9 @@ input[type='text']:focus {
     width: 100% !important;
     max-width: initial;
   }
-
   .tetris {
     clip-path: none;
   }
-
   #vr {
     display: none !important;
   }
@@ -1648,11 +1649,28 @@ input[type='text']:focus {
   .movable.minimized div {
     display: block !important;
   }
+  .minimized {
+    height: 47px !important;
+  }
+  .movable::before {
+    line-height: 48px;
+    width: 48px;
+    height: 48px;
+  }
+  .movable h1 {
+    min-height: 48px;
+  }
+  .movable h1,
+  .movable h1 a {
+    line-height: 48px;
+  }
+  .movable h1:first-child {
+    padding: 0 0 0 48px;
+  }
 }
 
 @media screen and (min-width: 768px) {
   .in {
     max-width: 300px;
-    height: auto;
   }
 }
