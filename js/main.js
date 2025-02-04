@@ -5,7 +5,7 @@
 /* eslint-disable no-undef */
 /*jshint esversion: 11 */
 (function (w, d) {
-  ('use strict');
+  'use strict';
   /**
    * Global error handler for uncaught runtime errors.
    *
@@ -876,10 +876,6 @@
     return isChecked; // Return the value of the storage key
   }
 
-  // Function to check if the document is focused
-  function isDocumentFocused() {
-    return d.hasFocus();
-  }
   function updateOnlineStatusUI(isOnline) {
     if (isOnline) {
       onlineElement.classList.remove('small');
@@ -1265,11 +1261,10 @@
     }
   }
 
-  async function dblclickFun(e) {
+  function dblclickFun(e) {
     if (e.target === copy) e.target.textContent = '';
     //if (e.target.tagName === "TEXTAREA") e.target.value = "";
     if (e.target.classList.contains('movable')) {
-      await delay(250);
       resizeElementToFullSize();
     }
   }
@@ -1584,13 +1579,18 @@
   }
 
   // Function to resize the element to match the full document size (including scrolled size)
-  function resizeElementToFullSize() {
-    // reset main style remove all styles
-    main.style.height = 'auto';
-    // Get the full size of the viewport and document
-    const fullHeight = Math.max(w.innerHeight, root.scrollHeight);
-    // Set the element's height
-    main.style.height = `${fullHeight}px`;
+  async function resizeElementToFullSize() {
+    if (w.matchMedia('(min-width: 700px)').matches) {
+      // reset main style remove all styles
+      main.style.height = 'auto';
+      // Get the full size of the viewport and document
+      const fullHeight = Math.max(w.innerHeight, root.scrollHeight);
+      // Set the element's height
+      await delay(250);
+      main.style.height = `${fullHeight + 12}px`;
+    } else {
+      main.style.height = 'auto';
+    }
   }
 
   if ('serviceWorker' in navigator) {
