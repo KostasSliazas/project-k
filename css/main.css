@@ -602,7 +602,7 @@ form {
 
 .mode-numbering .links a::before {
   counter-increment: section;
-  content: counter(section, decimal-leading-zero) ')';
+  content: counter(section, decimal-leading-zero) '.';
   color: var(--color3);
   display: inline-block;
 }
@@ -749,6 +749,7 @@ a {
 }
 
 .main {
+  padding: 0 0 24px;
   display: flex;
   place-items: baseline;
   flex-wrap: wrap;
@@ -1307,7 +1308,7 @@ fieldset {
 
 .bottom {
   padding: 0;
-  bottom: 8px;
+  top: 100%;
   right: 0;
   font-size: 12px;
   display: block;
@@ -1627,10 +1628,13 @@ input[type='text']:focus {
   box-shadow: 0 0 7px var(--color3) inset;
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 960px) {
   .mw50,
   .mw96 {
     min-width: 0;
+  }
+  .bottom {
+    position: relative;
   }
   .movable {
     position: relative !important;
@@ -1644,6 +1648,9 @@ input[type='text']:focus {
   }
   #vr {
     display: none !important;
+  }
+  .main {
+    overflow-x: hidden;
   }
   .main,
   .movable.minimized div {
@@ -1669,7 +1676,7 @@ input[type='text']:focus {
   }
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 960px) {
   .in {
     max-width: 300px;
   }

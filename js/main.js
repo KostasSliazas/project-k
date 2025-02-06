@@ -277,24 +277,26 @@
   let clickTimeout = null;
   const clickDelay = 520; // Time in milliseconds
 
-  const loopElem = () => {
+  const loopElem = widthMatch => {
     // console.time()
     // movable.forEach(async (e) => {
     // using for loops for performance
     for (let i = 0; i < movableLength; i++) {
-      (async function (w, i, clickTimeout, minimized, getOffset, getStyles) {
+      (function (w, i, widthMatch, clickTimeout, minimized, getOffset, getStyles) {
         const e = movable[i];
         // await delay(30);
-        const { left, top } = getOffset(e); // Pass e as an argument
-        e.style.left = roundToTen(left) + 'px';
-        e.style.top = roundToTen(top) + 'px';
-        e.style.position = 'absolute';
-        // await delay(30);
-        e.style.width = roundToTen(e.offsetWidth) + 'px';
-        e.style.height = roundToTen(e.offsetHeight) + 'px';
+        if (widthMatch) {
+          const { left, top } = getOffset(e); // Pass e as an argument
+          e.style.left = roundToTen(left) + 'px';
+          e.style.top = roundToTen(top) + 'px';
+          e.style.position = 'absolute';
+          // await delay(30);
+          e.style.width = roundToTen(e.offsetWidth) + 'px';
+          e.style.height = roundToTen(e.offsetHeight) + 'px';
+        }
         if (e.firstElementChild) e.firstElementChild.title = ' (block index' + movable.indexOf(e) + ')';
         if (e.id === 'text-area') textArea.style.height = e.style.height;
-        e.addEventListener('dblclick', async e => {
+        e.addEventListener('dblclick', e => {
           if (clickTimeout) {
             w.clearTimeout(clickTimeout);
             clickTimeout = null;
@@ -305,14 +307,12 @@
             let arrayOfMinimized = [...(StorageNamespace.getItem('element-class') || minimized)];
             if (e.target.classList.contains('minimized')) {
               arrayOfMinimized = arrayOfMinimized.filter(c => c !== index);
-              await e.target.classList.remove('minimized');
-              await delay(9);
+              e.target.classList.remove('minimized');
               e.target.style.width = 'auto';
               e.target.style.height = 'auto';
               let height = roundToTen(e.target.offsetHeight);
               let width = roundToTen(e.target.offsetWidth);
               if (e.target.id === 'text-area') height -= 24;
-              await delay(9);
               e.target.style.width = width + 'px';
               e.target.style.height = height + 'px';
               //add popup overlay
@@ -350,7 +350,7 @@
             }, clickDelay);
           }
         });
-      })(w, i, clickTimeout, minimized, getOffset, getStyles);
+      })(w, i, widthMatch, clickTimeout, minimized, getOffset, getStyles);
       // console.timeEnd()
     }
   };
@@ -507,16 +507,15 @@
     stats.innerText = output;
   }
 
-  function applyStyles(defaults) {
+  function applyStyles(defaults, widthMatch) {
     const styles = StorageNamespace.getItem('element-styles') || blockDefaults;
     const minimizedElements = StorageNamespace.getItem('element-class') || minimized;
-
     const getStyle = styles.split(',');
-
     for (let i = 0; i < movableLength; i++) {
-      movable[i].style = getStyle[i];
-      movable[i].style.position = 'absolute';
-
+      if (widthMatch) {
+        movable[i].style = getStyle[i];
+        movable[i].style.position = 'absolute';
+      }
       if (defaults) {
         if (minimized.includes(movable.indexOf(movable[i]))) {
           movable[i].classList.add('minimized');
@@ -673,7 +672,7 @@
     isSaving = true;
     element.classList.add('saved');
     await delay(500);
-    await saveAllInputs();
+    saveAllInputs();
     element.classList.remove('saved');
     isSaving = false;
   }
@@ -901,34 +900,33 @@
     d.getElementById('day-of-week').textContent = showWeekDay();
     const documentTitle = d.title;
     textArea.value = StorageNamespace.getItem('textArea') || textAreaDefaults;
-
+    const widthMatch = w.matchMedia('(min-width: 960px)').matches;
     const storageVersion = StorageNamespace.getItem('version');
     if (version !== storageVersion) {
-      await StorageNamespace.clear();
-      await StorageNamespace.setItem('version', version);
+      StorageNamespace.clear();
+      StorageNamespace.setItem('version', version);
 
-      await root.removeAttribute('class');
-      await root.removeAttribute('style');
-      await textArea.removeAttribute('style');
-      await setColors();
-      await changerClass(0);
-      await applyStyles(true);
-      await loopElem();
-      await centerElements();
+      root.removeAttribute('class');
+      root.removeAttribute('style');
+      textArea.removeAttribute('style');
+      setColors();
+      changerClass(0);
+      applyStyles(true, widthMatch);
+      loopElem(widthMatch);
+      centerElements();
       //reload versions
       // w.location.reload(); // This reloads the page after your actions
     } else {
-      await applyStyles(false);
-      await loopElem();
+      applyStyles(false, widthMatch);
+      loopElem(widthMatch);
     }
 
-    await hide(codeDiv);
+    hide(codeDiv);
 
-    const isLocked = StorageNamespace.getItem('is-locked');
-    // codeDivElms.forEach(e => {
+    // const isLocked = StorageNamespace.getItem('is-locked');
     const codeDivElmsLength = codeDivElms.length;
     for (let i = 0; i < codeDivElmsLength; i++) {
-      (function (i, d, isLocked, isEnterPass, saved) {
+      (function (i, d, isLocking, isEnterPass, saved) {
         codeDivElms[i].onclick = e => {
           e.stopPropagation(); //prevent from parent clicks
           typed.push(codeDivElms.indexOf(e.target));
@@ -941,17 +939,15 @@
             isLocking();
           }
         };
-      })(i, d, isLocked, isEnterPass, saved);
+      })(i, d, isLocking, isEnterPass, saved);
     }
-    // });
 
     const NUM = parseInt(StorageNamespace.getItem('theme')) || 0;
     THEME_CHANGE.value = NUM;
     changerClass(NUM);
     styleRoot();
     setColors();
-
-    d.getElementById('today').innerHTML = showDate();
+    resizeElementToFullSize();
 
     // renew clock if only displayed
     if (isDisplayed(d.getElementById('clock').parentElement)) {
@@ -959,16 +955,10 @@
       clock.startTime();
     }
 
+    d.getElementById('today').innerHTML = showDate();
     d.getElementById('loader').style.display = 'none'; // Hide the loader
     d.getElementById('content').style.visibility = 'visible'; // Show the content
 
-    //is time 43m passed and we are online?
-    if ((await setTimeStamp(77)) && online) {
-      await getAll(api_url);
-    }
-    // show the data to user
-    stats(StorageNamespace.getItem('temperature'));
-    await resizeElementToFullSize();
     // events listeners
     bg.addEventListener('change', bgChange);
     root.addEventListener('click', rootClick);
@@ -977,6 +967,12 @@
     d.addEventListener('mousemove', throttle(mouseMoveEvents, 70));
     d.addEventListener('mousedown', mouseDownEvents);
     d.addEventListener('mouseup', mouseUpEvents);
+    //is time 43m passed and we are online?
+    if (setTimeStamp(77) && online) {
+      await getAll(api_url);
+    }
+    // show the data to user
+    stats(StorageNamespace.getItem('temperature'));
   }
 
   // const concat = (...arrays) => [].concat(...arrays.filter(Array.isArray));
@@ -1105,7 +1101,7 @@
       textArea.removeAttribute('style');
       setColors();
       changerClass(0);
-      applyStyles(true);
+      applyStyles(true, false);
       // loopElem();
       // centerElements();
     }
@@ -1272,9 +1268,8 @@
 
     reader.addEventListener(
       'load',
-      async () => {
+      () => {
         const fileString = `--bg:url(${reader.result})`;
-        await delay(250);
         StorageNamespace.setItem('bg-image', fileString);
         styleRoot();
       },
@@ -1341,7 +1336,6 @@
         const peScalingTarget = getPE(scalingTarget);
         scalingTarget.style.height = peScalingTarget.style.height = roundToTen(peScalingTarget.offsetHeight) + 'px';
         peScalingTarget.style.width = roundToTen(peScalingTarget.offsetWidth) + 'px';
-        resizeElementToFullSize();
         StorageNamespace.setItem('element-styles', getStyles());
       }
     } catch (error) {
@@ -1351,7 +1345,7 @@
     }
   }
 
-  async function mouseDownEvents(e) {
+  function mouseDownEvents(e) {
     cursorPositions.x = e.clientX;
     cursorPositions.y = e.clientY;
 
@@ -1360,8 +1354,8 @@
       mousedown = true;
 
       const computedStyles = w.getComputedStyle(scalingTarget);
-      const height = await computedStyles.getPropertyValue('height');
-      const width = await computedStyles.getPropertyValue('width');
+      const height = computedStyles.getPropertyValue('height');
+      const width = computedStyles.getPropertyValue('width');
       const parentElement = getPE(scalingTarget);
 
       scalingTarget.style.width = roundToTen(parseInt(width)) + 'px';
@@ -1577,21 +1571,22 @@
 
   // Function to resize the element to match the full document size (including scrolled size)
   function resizeElementToFullSize() {
-    if (w.matchMedia('(min-width: 700px)').matches) {
-      // reset main style remove all styles
-      main.style.height = 'auto';
-      // Get the full size of the viewport and document
-      const fullHeight = Math.max(w.innerHeight, root.scrollHeight);
-      // Set the element's height
-      main.style.height = `${fullHeight + 12}px`;
-    } else {
-      movable.forEach(e => {
-        if (!e.classList.contains('minimized')) {
-          e.style.width = e.style.height = 'auto';
-        }
-      });
-      main.style.height = 'auto';
-    }
+    // reset main style remove all styles
+    main.style.height = 'auto';
+    if (w.matchMedia('(max-width: 960px)').matches) return;
+
+    // Get the full size of the viewport and document
+    const fullHeight = Math.max(w.innerHeight, root.scrollHeight);
+    // Set the element's height
+    main.style.height = `${fullHeight}px`;
+    // } else {
+    //   // movable.forEach(e => {
+    //   //   if (!e.classList.contains('minimized')) {
+    //   //     e.style.width = e.style.height = 'auto';
+    //   //   }
+    //   // });
+    //   main.style.height = 'auto';
+    // }
   }
 
   if ('serviceWorker' in navigator) {
