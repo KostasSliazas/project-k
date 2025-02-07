@@ -303,6 +303,7 @@
           }
 
           if (e.target.classList.contains('movable')) {
+            const widthMatch = w.matchMedia('(min-width: 960px)').matches;
             const index = movable.indexOf(e.target);
             let arrayOfMinimized = [...(StorageNamespace.getItem('element-class') || minimized)];
             if (e.target.classList.contains('minimized')) {
@@ -320,7 +321,9 @@
               e.target.classList.add('minimized');
               arrayOfMinimized.push(index);
             }
-            StorageNamespace.setItem('element-styles', getStyles());
+            if (widthMatch) {
+              StorageNamespace.setItem('element-styles', getStyles());
+            }
             StorageNamespace.setItem('element-class', arrayOfMinimized);
           }
         });
@@ -1323,8 +1326,9 @@
     if (!state.target) return;
     const peTarget = getPE(state.target);
     const targetClass = peTarget ? peTarget.className : null;
+    const widthMatch = w.matchMedia('(min-width: 960px)').matches;
 
-    if (targetClass) {
+    if (targetClass && widthMatch) {
       state.target.classList.remove('down');
       root.classList.remove('move');
       if (!d.getElementById('bg-lines').checked) main.classList.remove('bg-lines');
@@ -1569,24 +1573,15 @@
     }
   }
 
-  // Function to resize the element to match the full document size (including scrolled size)
+  // Function to resize the element
   function resizeElementToFullSize() {
     // reset main style remove all styles
-    main.style.height = 'auto';
+    main.removeAttribute('style');
     if (w.matchMedia('(max-width: 960px)').matches) return;
-
     // Get the full size of the viewport and document
     const fullHeight = Math.max(w.innerHeight, root.scrollHeight);
     // Set the element's height
     main.style.height = `${fullHeight}px`;
-    // } else {
-    //   // movable.forEach(e => {
-    //   //   if (!e.classList.contains('minimized')) {
-    //   //     e.style.width = e.style.height = 'auto';
-    //   //   }
-    //   // });
-    //   main.style.height = 'auto';
-    // }
   }
 
   if ('serviceWorker' in navigator) {
@@ -1614,4 +1609,25 @@
   d.addEventListener('DOMContentLoaded', init /*, { once: true }*/);
   w.addEventListener('keyup', classToggle);
   w.addEventListener('focus', () => monitorOnlineStatus(updateOnlineStatusUI));
+  let resizeTimeout;
+  w.addEventListener('resize', function () {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      const widthMatch = w.matchMedia('(min-width: 960px)').matches;
+
+      if (widthMatch) {
+        const styles = StorageNamespace.getItem('element-styles') || blockDefaults;
+        const getStyle = styles.split(',');
+        for (let i = 0; i < movableLength; i++) {
+          if (widthMatch) {
+            movable[i].style = getStyle[i];
+            movable[i].style.position = 'absolute';
+          }
+        }
+      } else {
+        movable.forEach(e => e.removeAttribute('style'));
+      }
+      main.removeAttribute('style');
+    }, 200);
+  });
 })(window, document);
