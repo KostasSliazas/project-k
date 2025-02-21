@@ -781,9 +781,10 @@
     this.minutes = d.getElementById('minutes');
     this.hours = d.getElementById('hours');
     // calculate to seconds all inputs
-    this.totalSeconds = function () {
-      return Number(this.seconds.value) + Number(this.minutes.value) * 60 + Number(this.hours.value) * 60 * 60;
-    };
+this.totalSeconds = function () {
+  return Number(this.seconds.value) + Number(this.minutes.value) * 60 + (this.hours ? Number(this.hours.value) * 3600 : 0);
+};
+
 
     this.start = function () {
       // clear timeout every time so it not duplicates (speed)
@@ -845,7 +846,8 @@
     this.reset = function () {
       // stop first timers
       this.stop();
-      this.counterTime.textContent = this.seconds.value = this.minutes.value = this.hours.value = '00';
+      this.counterTime.textContent = this.seconds.value = this.minutes.value = '00';
+      if (this.hours) this.hours.value = '00';
     };
 
     Object.defineProperties(this, {
