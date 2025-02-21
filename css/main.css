@@ -1274,7 +1274,10 @@ fieldset {
 .gap {
   gap: 4px;
 }
-
+.cnt {
+  text-align: center;
+  place-self: center;
+}
 #vr h1 {
   text-align: center;
   height: 100%;
