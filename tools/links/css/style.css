@@ -359,7 +359,7 @@ h1 {
   position: relative;
   margin: 0.75em auto;
   max-width: 90%;
-  width: 300px;
+  width: 200px;
   line-height: 1;
 }
 
@@ -373,7 +373,7 @@ h1 {
 #founded {
   color: var(--color-4);
   transform: translateX(100%);
-  right: calc(50% - 160px);
+  right: calc(50% - 120px);
 }
 
 #founded,
@@ -410,7 +410,7 @@ h1 {
 .toggle {
   isolation: isolate;
   height: 1.5em;
-  left: calc(50% - 160px);
+  left: calc(50% - 120px);
   transform: translateX(-100%);
   inline-size: 3em;
 }
