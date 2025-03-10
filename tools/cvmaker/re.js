@@ -1272,16 +1272,16 @@ function uploadProgress(e) {
     const name = containsOnlyLetters(nameElement.textContent) || defaultTextNode;
     const date = generateDate();
 
-    // Remove elements with the 'remove' class and draggable attribute
-    document.querySelectorAll('.remove').forEach(function (element) {
-      element.parentNode.removeChild(element);
-    });
-
-    document.querySelectorAll('[draggable="true"]').forEach(e => e.removeAttribute('draggable'));
-
     // Clone the HTML content
     const htmlElement = document.querySelector('html');
     const clonedHtml = htmlElement.cloneNode(true);
+
+    // Remove elements with the 'remove' class and draggable attribute
+    clonedHtml.querySelectorAll('.remove').forEach(function (element) {
+      element.parentNode.removeChild(element);
+    });
+
+    clonedHtml.querySelectorAll('[draggable="true"]').forEach(e => e.removeAttribute('draggable'));
 
     // Get the outer HTML of the cloned document
     let htmlString = clonedHtml.outerHTML;
