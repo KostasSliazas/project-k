@@ -135,17 +135,37 @@
   // Prepend 'close' button to the first block
   block.forEach(e => e.before(createHTMLElement('button', 'i', button)));
 
+  // create buton wraper div
+  const buttonsWrap = {
+    class: 'fixe remove r',
+    href: '#',
+  };
+  // Create 'Save CV' button and append to the body
+  const wraper = createHTMLElement('div', '', buttonsWrap);
+  body.appendChild(wraper);
+
   // Create and configure the 'Save CV' button
-  const saveCV = 'Save CV...';
+  const saveCV = 'Save HTML';
   const buttonSave = {
-    class: 'save fixe border-solid shd remove',
+    class: 'save border-solid shd',
+    href: '#',
+  };
+  // Create 'Save CV' button and append to the body
+  const elms = createHTMLElement('button', saveCV, buttonSave);
+  wraper.appendChild(elms);
+  elms.onclick = html; // Attach click event for saving
+
+    // Create and configure the 'Save JSON' button
+  const saveJSON = 'Save JSON';
+  const buttonJSON = {
+    class: 'save border-solid shd',
     href: '#',
   };
 
   // Create 'Save CV' button and append to the body
-  const elms = createHTMLElement('button', saveCV, buttonSave);
-  body.appendChild(elms);
-  elms.onclick = html; // Attach click event for saving
+  const jsonButton = createHTMLElement('button', saveJSON, buttonJSON);
+  wraper.appendChild(jsonButton);
+  jsonButton.onclick = json; // Attach click event for saving
 
   // Create 'info' div and its children for additional information display
   const infoDiv = createHTMLElement('div', '', {
@@ -1296,11 +1316,17 @@ function uploadProgress(e) {
 
     // Trigger the download of the HTML file
     download(`${name}-${date}`, htmlString);
+  }
 
+  function json(){
+    // Set default file name
+    const nameElement = document.querySelector('#name');
+    const defaultTextNode = 'cv-json-';
+    const name = containsOnlyLetters(nameElement.textContent) || defaultTextNode;
+    const date = generateDate();
     // Export the data as JSON
     exportToJson(jsonData, `${name}-${date}.json`);
   }
-
   /**
    * Triggers the download of an HTML file.
    *
