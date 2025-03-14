@@ -1336,7 +1336,7 @@ function uploadProgress(e) {
   function download(fileName, html) {
     const pom = document.createElement('a');
     document.body.appendChild(pom);
-    pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(html));
+    pom.setAttribute('href', 'data:text/html;charset=utf-8,' + encodeURIComponent(html));
     pom.setAttribute('download', `${fileName}.html`);
     pom.target = '_blank';
 
