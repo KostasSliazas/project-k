@@ -1649,7 +1649,7 @@ input[type='text']:focus {
   .tetris {
     clip-path: none;
   }
-  #vr {
+  #timer,#vr {
     display: none !important;
   }
   .main {
@@ -1676,6 +1676,11 @@ input[type='text']:focus {
   }
   .movable h1:first-child {
     padding: 0 0 0 48px;
+  }
+  #sunshine {
+    background: none;
+    max-width: initial;
+    height: 48px;
   }
 }
 

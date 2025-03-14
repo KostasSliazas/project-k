@@ -772,101 +772,101 @@
   }
 
   function Counter() {
-    let sec = 0,
-      isCounting = false,
-      timeout = 0; // timeout timer;
+    let startTime = null;
+    let lastUpdateTime = null;
+    let remainingSeconds = 0;
+    let isCounting = false;
+    let animationFrameId = null;
 
-    this.counterTime = d.getElementById('counter-time'); // get the output div
+    this.counterTime = d.getElementById('counter-time');
     this.seconds = d.getElementById('seconds');
     this.minutes = d.getElementById('minutes');
     this.hours = d.getElementById('hours');
-    // calculate to seconds all inputs
-this.totalSeconds = function () {
-  return Number(this.seconds.value) + Number(this.minutes.value) * 60 + (this.hours ? Number(this.hours.value) * 3600 : 0);
-};
 
+    this.totalSeconds = function () {
+        return (
+            Number(this.seconds.value) +
+            Number(this.minutes.value) * 60 +
+            (this.hours ? Number(this.hours.value) * 3600 : 0)
+        );
+    };
+
+    const updateCounter = (timestamp) => {
+        if (!startTime) {
+            startTime = timestamp;
+            lastUpdateTime = timestamp;
+        }
+
+        let elapsed = (timestamp - lastUpdateTime) / 1000; // Elapsed time in seconds
+        if (elapsed >= 1) {
+            remainingSeconds -= Math.floor(elapsed);
+            lastUpdateTime = timestamp;
+            this.counterTime.textContent = '-' + addLeadingZero(Math.max(remainingSeconds, 0));
+        }
+
+        if (remainingSeconds > 0) {
+            animationFrameId = requestAnimationFrame(updateCounter);
+        } else {
+            this.complete();
+        }
+    };
 
     this.start = function () {
-      // clear timeout every time so it not duplicates (speed)
-      w.clearTimeout(timeout);
-      if (!isCounting) {
-        isCounting = true;
-        sec = this.totalSeconds(); // set seconds at start
-        this.counterTime.textContent = '-' + this.counterTime.textContent;
-      }
-      // start if more than zero
-      if (sec > 0) {
-        // change text content after click
-        this.counterTime.textContent = '-' + addLeadingZero(sec);
-        // only -1 second when seconds are more then 0
-        --sec;
-      }
-      // set timeout to variable for clearing later
-      timeout = w.setTimeout(
-        function () {
-          // changing (swapping) lines can show negative values, should stay as it is
-          if (sec === 0) {
-            // this.stop();
-
-            if (d.getElementById('sounds-ding').checked) {
-              const rep1 = new Repeater(100, 50, playSound);
-              const rep2 = new Repeater(1000, 100, playSound);
-              show(done.parentElement);
-              done.onclick = e => {
-                rep1.stop();
-                rep2.stop();
-                hide(e.target.parentElement);
-                this.counterTime.textContent = addLeadingZero(this.totalSeconds()); // set seconds at start
-                return;
-              };
-            }
-
-            // stop and return text DONE
-            this.stop();
-            this.counterTime.textContent = 'DONE!'; // mission is done
-            return;
-          }
-
-          // ignition
-          this.start();
-        }.bind(this),
-        1000
-      );
+        if (!isCounting) {
+            isCounting = true;
+            startTime = performance.now();
+            lastUpdateTime = startTime;
+            remainingSeconds = this.totalSeconds();
+            this.counterTime.textContent = '-' + addLeadingZero(remainingSeconds);
+            animationFrameId = requestAnimationFrame(updateCounter);
+        }
     };
 
     this.stop = function () {
-      isCounting = false;
-      w.clearTimeout(timeout);
-      timeout = 0; // timeout timer
-      this.counterTime.textContent = addLeadingZero(this.totalSeconds()); // set seconds at start
-      d.getElementById('start').innerText = 'Start';
-      // this.counterTime.textContent = '00';
+        isCounting = false;
+        if (animationFrameId) cancelAnimationFrame(animationFrameId);
+        animationFrameId = null;
+        startTime = null;
+        this.counterTime.textContent = addLeadingZero(this.totalSeconds());
+        d.getElementById('start').innerText = 'Start';
     };
 
     this.reset = function () {
-      // stop first timers
-      this.stop();
-      this.counterTime.textContent = this.seconds.value = this.minutes.value = '00';
-      if (this.hours) this.hours.value = '00';
+        this.stop();
+        this.counterTime.textContent = this.seconds.value = this.minutes.value = '00';
+        if (this.hours) this.hours.value = '00';
+    };
+
+    this.complete = function () {
+        this.stop();
+        this.counterTime.textContent = 'DONE!';
+        if (d.getElementById('sounds-ding').checked) {
+            const rep1 = new Repeater(100, 50, playSound);
+            const rep2 = new Repeater(1000, 100, playSound);
+            show(done.parentElement);
+            done.onclick = (e) => {
+                rep1.stop();
+                rep2.stop();
+                hide(e.target.parentElement);
+                this.counterTime.textContent = addLeadingZero(this.totalSeconds());
+            };
+        }
     };
 
     Object.defineProperties(this, {
-      sec: {
-        get: function () {
-          return sec;
+        remainingSeconds: {
+            get: function () {
+                return remainingSeconds;
+            },
         },
-        set: function (value) {
-          sec = value;
+        isCounting: {
+            get: function () {
+                return isCounting;
+            },
         },
-      },
-
-      isCounting: {
-        get: function () {
-          return isCounting;
-        },
-      },
     });
-  }
+}
+
 
   // set Counter global variable
   const timers = new Counter();
