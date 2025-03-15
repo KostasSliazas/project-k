@@ -154,10 +154,8 @@ input[type=file] {
 }
 
 #close {
-    position: absolute;
     display: block;
     background: #6e91b4;
-    top: 0
 }
 
 #info::after {
@@ -211,6 +209,7 @@ input[type=file] {
 }
 
 .r {
+    direction: rtl;
     right: 12px
 }
 

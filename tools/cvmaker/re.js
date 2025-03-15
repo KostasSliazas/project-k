@@ -123,26 +123,23 @@
 
   // Initialize the body and select the first '.section' element
   const body = document.body;
-  const block = document.querySelectorAll('.section:first-child');
-
-  // Button configuration for 'close' button in blocks
-  const button = {
-    class: 'shd border-solid w24 remove',
-    href: '#',
-    id: 'close',
-  };
-
-  // Prepend 'close' button to the first block
-  block.forEach(e => e.before(createHTMLElement('button', 'i', button)));
 
   // create buton wraper div
   const buttonsWrap = {
     class: 'fixe remove r',
     href: '#',
   };
-  // Create 'Save CV' button and append to the body
+
+  // Create div for buttons place
   const wraper = createHTMLElement('div', '', buttonsWrap);
   body.appendChild(wraper);
+
+  // Button configuration for 'close' button in blocks
+  const button = {
+    class: 'shd border-solid w24 save',
+    href: '#',
+    id: 'close',
+  };
 
   // Create and configure the 'Save CV' button
   const saveCV = 'Save HTML';
@@ -184,11 +181,14 @@
   const infoTextDiv = createHTMLElement('div', infoTextContent, {
     id: 'info-text',
   });
-
   // Append the info content to the infoDiv and insert at the beginning of the body
   infoDiv.appendChild(infoContent);
   infoDiv.appendChild(infoTextDiv);
-  document.body.insertBefore(infoDiv, document.body.firstChild);
+  body.insertBefore(infoDiv, body.firstChild);
+
+  // Prepend 'close' button to the first block
+  const infoButton = createHTMLElement('button', 'i', button);
+  wraper.appendChild(infoButton);
 
   // Add 'minus' and 'plus' buttons to other blocks for manipulation
   const elem = document.querySelectorAll('.section');
@@ -242,8 +242,8 @@
   const fileJSONInput = createHTMLElement('input', '', fileInputConfig);
 
   // Append both the import button and file input to the body
-  document.body.appendChild(importButton);
-  document.body.appendChild(fileJSONInput);
+  wraper.appendChild(importButton);
+  body.appendChild(fileJSONInput);
 
   // HTML structure for the upload form with several hidden fields and progress info
   const uploadFormHtml = `
@@ -1348,6 +1348,7 @@ function uploadProgress(e) {
       pom.dispatchEvent(event);
     } else {
       pom.click();
+      pom.remove();
     }
   }
 
@@ -1365,6 +1366,7 @@ function uploadProgress(e) {
     link.download = fileName;
 
     link.click();
+    link.remove();
     URL.revokeObjectURL(link.href);
   }
 
